@@ -23,6 +23,14 @@ insert into img_esp(cod_img_esp,img) values
     ("esp001Img1",load_file("C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\pogettoTSW\\IMMAGINI_CATALOGO\\IMMAGINI_ESPANSIONI\\Barrage_5Th-Giocatore_scatola.png")),
 	("esp001Img2",load_file("C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\pogettoTSW\\IMMAGINI_CATALOGO\\IMMAGINI_ESPANSIONI\\Barrage_5gioc_esploso.png"));
 insert into imgToEsp(cod_espansione,cod_img_esp) values 
-    ("esp001","esp001Img1") ,
+    ("esp001","esp001Img1"),
     ("esp001","esp001Img2");
-    
+insert into imgToGame(cod_gioco,cod_img_gioco) values 
+    ("g001","g001Img1"),
+    ("g001","g001Img2"),
+    ("g002","g001Img1"),
+    ("g002","g001Img2");
+insert into imgToAcc(cod_acc,cod_img_acc) values
+	("acc01","acc01Img1"),
+    ("acc02","acc02Img1"),
+    ("acc03","acc03Img1");
