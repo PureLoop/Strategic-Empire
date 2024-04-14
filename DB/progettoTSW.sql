@@ -2,13 +2,50 @@ create schema progettoTSW;
 use progettoTSW;
 drop schema progettoTSW;
 create table espansione(
-	cod_Espansione varchar(10) primary key,
+	cod_espansione varchar(10) primary key,
     nome_espansione varchar(20) not null,
-    descrizione varchar(50) not null,
-    immagine_esp BLOB,
+    descrizione varchar(500) not null,
     cod_gioco varchar(10) references gioco_da_tavolo(cod_gioco)
 		on delete cascade
         on update cascade
+);
+
+create table utente(
+	username varchar(16) not null,
+    pw varchar(16) not null,
+    email varchar(25) primary key,
+    ruolo varchar(14) not null check(ruolo in("cliente","amministratore"))
+);
+
+create table img_acc(
+	cod_img_acc varchar(10) primary key,
+    img MEDIUMBLOB
+);
+
+create table img_gioco(
+	cod_img_gioco varchar(10) primary key,
+    img MEDIUMBLOB
+);
+
+create table img_esp(
+	cod_img_esp varchar(10) primary key,
+    img mediumblob
+);
+
+create table imgToEsp(
+	cod_espansione varchar(10),
+    cod_img_esp varchar(10),
+    primary key(cod_espansione,cod_img_esp),
+    foreign key(cod_espansione) references espansione(cod_espansione)
+		on delete cascade
+        on update cascade,
+	foreign key(cod_img_esp) references img_esp(cod_img_esp)
+		on delete cascade
+        on update cascade
+);
+
+create table componente(
+	nomeComponente varchar(20) primary key
 );
 
 create table accessorio(
@@ -16,18 +53,17 @@ create table accessorio(
     nome_accessorio varchar(30) not null,
     tipologia varchar(15) not null check(tipologia in('esclusivi','altri brand')),
     prezzo numeric(4,2) not null,
-    descrizione varchar(50) not null
+    descrizione varchar(100) not null
 );
 
 create table gioco(
 	cod_gioco varchar(10) primary key,
-    nome_gicoo varchar(20) not null,
+    nome_gioco varchar(20) not null,
     edizione varchar(20) default null,
     tipologia varchar(10) not null check(tipologia in('tavolo','carte')),
     prezzo numeric(4,2) not null,
-    descrizione varchar(50) not null,
-    n_giocatori int,
-    n_componenti int
+    descrizione varchar(1000) not null,
+    n_giocatori int
 );
 
 create table sconto(
@@ -81,23 +117,6 @@ cod_gioco varchar(10),
         on update cascade
 );
 
-create table utente(
-	username varchar(16) not null,
-    pw varchar(16) not null,
-    email varchar(25) primary key,
-    ruolo varchar(14) not null check(ruolo in("cliente","amministratore"))
-);
-
-create table img_acc(
-	cod_img_acc varchar(10) primary key,
-    img BLOB
-);
-
-create table img_gioco(
-	cod_img_gioco varchar(10) primary key,
-    img BLOB
-);
-
 create table imgToAcc(
 	cod_acc varchar(10),
     cod_img_acc varchar(10),
@@ -118,6 +137,19 @@ create table imgToGame(
 		on delete cascade
         on update cascade,
 	foreign key(cod_img_gioco) references img_gioco(cod_img_gioco)
+		on delete cascade
+        on update cascade
+);
+
+create table composizioneGioco(
+	nome_componente varchar(20),
+    cod_gioco varchar(10),
+    n_componente int,
+    primary key(nome_componente,cod_gioco),
+    foreign key(nome_componente) references componente(nomeComponente)
+		on delete cascade
+        on update cascade,
+	foreign key(cod_gioco) references gioco(cod_gioco)
 		on delete cascade
         on update cascade
 )
