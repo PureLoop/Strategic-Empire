@@ -45,7 +45,7 @@ create table imgToEsp(
 );
 
 create table componente(
-	nomeComponente varchar(20) primary key
+	nomeComponente varchar(50) primary key
 );
 
 create table accessorio(

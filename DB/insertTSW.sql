@@ -34,11 +34,11 @@ insert into imgToAcc(cod_acc,cod_img_acc) values
 	("acc01","acc01Img1"),
     ("acc02","acc02Img1"),
     ("acc03","acc03Img1");
-    /*
 insert into componente(nomeComponente) values 
-	("dadi rossi");
-insert into composizioneGioco(nome_componente,cod_gioco,n_componente) values
-	("dadi rossi","g001",1); */
+	("Mappa"),("Carte"),("Schede personaggio");
+    insert into composizioneGioco(nome_componente,cod_gioco,n_componente) values
+	("Mappa","g001",1),("Carte","g001",60),("Schede personaggio","g001",4)
+    ,("Mappa","g002",1),("Carte","g002",40),("Schede personaggio","g002",4); 
 insert into sconto(nome_sconto,cod_sconto,perc_sconto) values
-	("saldi primaverili","000001",25),
-    ("buono sconto di benvenuto!","000002",50);
+	("saldi primaverili","sco001",25),
+    ("buono sconto di benvenuto!","sco002",50);
