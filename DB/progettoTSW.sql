@@ -142,7 +142,7 @@ create table imgToGame(
 );
 
 create table composizioneGioco(
-	nome_componente varchar(20),
+	nome_componente varchar(50),
     cod_gioco varchar(10),
     n_componente int,
     primary key(nome_componente,cod_gioco),

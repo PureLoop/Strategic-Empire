@@ -35,10 +35,24 @@ insert into imgToAcc(cod_acc,cod_img_acc) values
     ("acc02","acc02Img1"),
     ("acc03","acc03Img1");
 insert into componente(nomeComponente) values 
-	("Mappa"),("Carte"),("Schede personaggio");
+	("Regolamento"),("Carte"),("Plance"),
+    ("Schede consegne"),("Impiegati"),("Camion in legno"),
+    ("Tabellone"),
+    ("Mappa"),("Tracciato Energia"),
+    ("Tessere"),("Basi Neutrali"),("Basi")
+    ,("Ingegneri"),("Elevazioni");
     insert into composizioneGioco(nome_componente,cod_gioco,n_componente) values
-	("Mappa","g001",1),("Carte","g001",60),("Schede personaggio","g001",4)
-    ,("Mappa","g002",1),("Carte","g002",40),("Schede personaggio","g002",4); 
+	("Regolamento","g002",1),("Carte","g002",69),("Plance","g002",6)
+    ,("Schede consegne","g002",6),("Impiegati","g002",100),("Camion in legno","g002",8),("Tabellone","g002",1),
+    ("Mappa","g001",1),("Tracciato Energia","g001",1),("Tessere","g001",100),
+    ("Basi Neutrali","g001",3),("Basi","g001",5),("Ingegneri","g001",100),("Elevazioni","g001",5); 
 insert into sconto(nome_sconto,cod_sconto,perc_sconto) values
 	("saldi primaverili","sco001",25),
     ("buono sconto di benvenuto!","sco002",50);
+/*
+insert into pagamento(cod_pagamento,status_pagamento,data_pagamento,cod_ordine) values
+	("buy001",")
+*/
+insert into utente(username,pw,email,ruolo) values
+	("Antoadmin","ant003","antonioceruso@gmail.com""amministratore"),("Scippoadmin","messi","luiginasta01@gmail.com","amministratore"),
+	("AnnaTagliamonte","aaa00","annatagliamonte@gmail.com","cliente"),("AldoDamiano","Aldo001","aldodamianogta@gmail.com","cliente");
