@@ -17,30 +17,91 @@ public class GiocoModelDM implements GiocoModel{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "INSERT INTO " + GiocoModelDM.TABLE_NAME
-				+ " (NAME, DESCRIPTION, PRICE, QUANTITY) VALUES (?, ?, ?, ?)";
+	String insertGioco = "INSERT INTO 	" +GiocoModelDM.TABLE_NAME 
+			+"(cod_gioco, nome_gioco,edizione,tipologia,prezzo,descrizione,n_giocatori) VALUES (?,?,?,?,?,?,?)";
+	try {
+		connection = DriverManagerConnectionPool.getConnection();
+		preparedStatement = connection.prepareStatement(insertGioco);
+		preparedStatement.setString(1, gioco.getCod_Gioco());
+		preparedStatement.setString(2, gioco.getNomegioco());
+		preparedStatement.setString(3, gioco.getEdizione());
+		preparedStatement.setString(4, gioco.getTipologia());
+		preparedStatement.setDouble(5, gioco.getPrezzo());
+		preparedStatement.setString(6, gioco.getDescrizione());
+		preparedStatement.setInt(7, gioco.getN_giocatori());
+
+		preparedStatement.executeUpdate();
+
+		connection.commit();
+	} finally {
+		try {
+			if (preparedStatement != null)
+				preparedStatement.close();
+		} finally {
+			DriverManagerConnectionPool.releaseConnection(connection);
+		}
+	}
 	}
 
 	@Override
-	public synchronized GiocoBean doRetrieveByKey(int code) throws SQLException {
+	public synchronized GiocoBean doRetrieveByKey(String code) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		GiocoBean bean = new GiocoBean();
 
-		String selectSQL = "SELECT * FROM " + GiocoModelDM.TABLE_NAME + " WHERE CODE = ?";
+		String selectGioco = "SELECT * FROM " + GiocoModelDM.TABLE_NAME + " WHERE cod_gioco = ?";
+		
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectGioco);
+			preparedStatement.setString(1, code);
+			
+			ResultSet rs = preparedStatement.executeQuery(selectGioco);
+			while(rs.next()) {
+				bean.setCod_gioco(rs.getString("cod_gioco"));
+				bean.setNomegioco(rs.getString("nome_gioco"));
+				bean.setEdizione(rs.getString("edizione"));
+				bean.setTipologia(rs.getString("tipologia"));
+				bean.setPrezzo(rs.getDouble("prezzo"));
+				bean.setDescrizione(rs.getString("descrizione"));
+				bean.setN_giocatori(rs.getInt("n_giocatori"));
+			}
+		}finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
 		return bean;
 	}
 
 	@Override
-	public synchronized boolean doDelete(int code) throws SQLException {
+	public synchronized boolean doDelete(String code) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		int result = 0;
 
-		String deleteSQL = "DELETE FROM " + GiocoModelDM.TABLE_NAME + " WHERE CODE = ?";
-		return true;
+		String deleteGioco = "DELETE FROM " + GiocoModelDM.TABLE_NAME + " WHERE cod_gioco = ?";
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(deleteGioco);
+			preparedStatement.setString(1, code);
+
+			result = preparedStatement.executeUpdate();
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return (result != 0);
 	}
 
 	@Override
@@ -48,10 +109,41 @@ public class GiocoModelDM implements GiocoModel{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Collection<GiocoBean> products = new LinkedList<GiocoBean>();
+		Collection<GiocoBean> gioco = new LinkedList<GiocoBean>();
 
 		String selectSQL = "SELECT * FROM " + GiocoModelDM.TABLE_NAME;
-		return products;
+		if (order != null && !order.equals("")) {
+			selectSQL += " ORDER BY " + order;
+		}
+
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				GiocoBean bean = new GiocoBean();
+
+				bean.setCod_gioco(rs.getString("cod_gioco"));
+				bean.setNomegioco(rs.getString("nome_gioco"));
+				bean.setEdizione(rs.getString("edizione"));
+				bean.setTipologia(rs.getString("tipologia"));
+				bean.setPrezzo(rs.getDouble("prezzo"));
+				bean.setDescrizione(rs.getString("descrizione"));
+				bean.setN_giocatori(rs.getInt("n_giocatori"));
+				gioco.add(bean);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return gioco;
 	}
 
 }

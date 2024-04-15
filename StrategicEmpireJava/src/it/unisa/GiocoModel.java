@@ -6,9 +6,9 @@ import java.util.Collection;
 public interface GiocoModel {
 	public void doSave(GiocoBean product) throws SQLException;
 
-	public boolean doDelete(int code) throws SQLException;
+	public boolean doDelete(String code) throws SQLException;
 
-	public GiocoBean doRetrieveByKey(int code) throws SQLException;
+	public GiocoBean doRetrieveByKey(String code) throws SQLException;
 	
 	public Collection<GiocoBean> doRetrieveAll(String order) throws SQLException;
 }
