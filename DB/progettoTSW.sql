@@ -5,6 +5,7 @@ create table espansione(
 	cod_espansione varchar(10) primary key,
     nome_espansione varchar(20) not null,
     descrizione varchar(500) not null,
+    prezzo numeric(4,2) not null,
     cod_gioco varchar(10) references gioco_da_tavolo(cod_gioco)
 		on delete cascade
         on update cascade

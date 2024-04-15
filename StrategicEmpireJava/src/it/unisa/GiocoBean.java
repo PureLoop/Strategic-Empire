@@ -8,18 +8,18 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 public class GiocoBean implements Serializable{
-    public String cod_gioco,nome,edizione,tipologia,descrizione;
+    public String cod_gioco,nome_gioco,edizione,tipologia,descrizione;
     public Double prezzo;
-    public int n_Giocatori;
+    public int n_giocatori;
 
     public GiocoBean(){
         cod_gioco = "";
-        nome = "";
+        nome_gioco = "";
         edizione = "";
         tipologia = "";
-        descrizione = "";
         prezzo = 0.0;
-        n_Giocatori = 0;
+        descrizione = "";
+        n_giocatori = 0;
     }
 
     public void setCod_gioco(String cod) {
@@ -29,12 +29,12 @@ public class GiocoBean implements Serializable{
         return this.cod_gioco;
     }
     
-    public void setNome(String nome){
-        this.nome = nome;
+    public void setNomegioco(String nome){
+        this.nome_gioco = nome;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomegioco() {
+        return nome_gioco;
     }
 
     public void setEdizione(String edizione) {
@@ -45,11 +45,11 @@ public class GiocoBean implements Serializable{
         return edizione;
     }
 
-    public void setN_Giocatori(int n){
-        this.n_Giocatori = n;
+    public void setN_giocatori(int n){
+        this.n_giocatori = n;
     }
-    public int getN_Giocatori() {
-        return n_Giocatori;
+    public int getN_giocatori() {
+        return n_giocatori;
     }
 
     public void setTipologia(String tipologia) {
@@ -80,12 +80,12 @@ public class GiocoBean implements Serializable{
     public String toString() {
         return "GiocoBean{" +
                 "cod_gioco='" + cod_gioco + '\'' +
-                ", nome='" + nome + '\'' +
+                ", nome='" + nome_gioco + '\'' +
                 ", edizione='" + edizione + '\'' +
                 ", tipologia='" + tipologia + '\'' +
                 ", descrizione='" + descrizione + '\'' +
                 ", prezzo=" + prezzo +
-                ", n_Giocatori=" + n_Giocatori +
+                ", n_Giocatori=" + n_giocatori +
                 '}';
     }
 }

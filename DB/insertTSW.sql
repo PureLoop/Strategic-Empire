@@ -8,8 +8,8 @@ insert into gioco(cod_gioco,nome_gioco,edizione,tipologia,prezzo,descrizione,n_g
     ("g002","AutoBahn","1 edizione","tavolo",50,"Sviluppate l’autostrada tedesca (Autobahn), costruendo e potenziando la rete autostradale federale per migliorare la vostra posizione nella società della BundesAutobahn.
 Espandete la rete, realizzate differenti progetti e competete con gli altri giocatori per esportare merci e costruire stazioni di servizio; promuovete i vostri impiegati per ottimizzare la vostra strategia e migliorate la vostra plancia giocatore per sbloccare nuovi dipartimenti e aprire nuove strade verso la vittoria.
 Riuscirete a sviluppare al meglio le storiche autostrade della Germania e a dare il maggior contributo all'Autobahn?",4);
-insert into espansione(cod_espansione,nome_espansione,descrizione,cod_gioco) values
-("esp001","Barrage 5 giocatore","Arricchisci la tua copia di Barrage con una nuova mappa progettata specificamente per 5 giocatori e scopri le nuove connessioni, studiate per consentire nuove strategie di piazzamento senza alterare il flusso di gioco.","g001");
+insert into espansione(cod_espansione,nome_espansione,descrizione,cod_gioco,prezzo) values
+("esp001","Barrage 5 giocatore","Arricchisci la tua copia di Barrage con una nuova mappa progettata specificamente per 5 giocatori e scopri le nuove connessioni, studiate per consentire nuove strategie di piazzamento senza alterare il flusso di gioco.","g001",25.5);
 insert into img_gioco(cod_img_gioco,img) values
     ("g001Img1",load_file("C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\pogettoTSW\\IMMAGINI_CATALOGO\\IMMAGINI_GIOCHI\\Barrage_BOX-3D.png")),
 	("g001Img2",load_file("C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\pogettoTSW\\IMMAGINI_CATALOGO\\IMMAGINI_GIOCHI\\Barrage_ESPLOSO.png")),
