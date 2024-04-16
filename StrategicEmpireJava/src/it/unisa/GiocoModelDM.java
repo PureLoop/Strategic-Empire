@@ -111,9 +111,6 @@ public class GiocoModelDM implements GiocoModel{
 		Collection<GiocoBean> gioco = new LinkedList<GiocoBean>();
 
 		String selectSQL = "SELECT cod_gioco,nome_gioco,prezzo FROM " + GiocoModelDM.TABLE_NAME;
-		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
-		}
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
@@ -140,5 +137,40 @@ public class GiocoModelDM implements GiocoModel{
 		}
 		return gioco;
 	}
+	
+	public synchronized Collection<GiocoBean> doRetrieveByFilter(String tipologia, double prezzo, int nGiocatori) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+
+	    Collection<GiocoBean> beans = new LinkedList<>();
+
+	    String selectSQL = "SELECT cod_gioco, nome_gioco, prezzo FROM " + GiocoModelDM.TABLE_NAME + " WHERE tipologia = ? AND prezzo = ? AND n_giocatori = ?";
+
+	    try {
+	        connection = DriverManagerConnectionPool.getConnection();
+	        preparedStatement = connection.prepareStatement(selectSQL);
+	        preparedStatement.setString(1, tipologia);
+	        preparedStatement.setDouble(2, prezzo);
+	        preparedStatement.setInt(3, nGiocatori);
+
+	        ResultSet rs = preparedStatement.executeQuery();
+	        while (rs.next()) {
+	            GiocoBean bean = new GiocoBean();
+	            bean.setCod_gioco(rs.getString("cod_gioco"));
+	            bean.setNomegioco(rs.getString("nome_gioco"));
+	            bean.setPrezzo(rs.getDouble("prezzo"));
+	            beans.add(bean);
+	        }
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            DriverManagerConnectionPool.releaseConnection(connection);
+	        }
+	    }
+	    return beans;
+	}
+
 
 }

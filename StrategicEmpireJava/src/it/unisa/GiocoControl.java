@@ -2,6 +2,7 @@ package it.unisa;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Collection;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -58,6 +59,17 @@ public class GiocoControl extends HttpServlet {
 					bean.setDescrizione(descrizione);
 					bean.setN_giocatori(n_giocatori);
 					model.doSave(bean);
+				}else if(action.equalsIgnoreCase("filter")) {
+					String tipologia = request.getParameter("tipologia");
+				    double prezzo = Double.parseDouble(request.getParameter("prezzo"));
+				    int nGiocatori = Integer.parseInt(request.getParameter("N_giocatori"));
+
+				    try {
+				        Collection<GiocoBean> giochiFiltrati = model.doRetrieveByFilter(tipologia, prezzo, nGiocatori);
+				        request.setAttribute("giochiFiltrati", giochiFiltrati); 
+				    } catch (SQLException e) {
+				    	e.printStackTrace();
+				    }
 				}
 			}
 		} catch (SQLException e) {

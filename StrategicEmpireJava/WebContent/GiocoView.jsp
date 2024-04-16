@@ -23,7 +23,31 @@
 <body>
 	<h2>Giochi</h2>
 	<a href="gioco">Catalogo</a>
-	<table border="1">
+<form id="game-form" action="gioco" method="post">
+		<input type="hidden" name="action" value="filter"> 
+  <div class="section">
+    <div class="form-group">
+      <label for="game-type">Tipologia:</label>
+      <select id="game-type" name="tipologia">
+        <option value="tavolo">Tavolo</option>
+        <option value="carte">Carte</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="num-players">Numero giocatori:</label>
+      <input type="number" name="N_giocatori" id="num-players" name="num-players" min="1" max="10" value="1">
+    </div>
+    <div class="form-group">
+      <label for="priceInput">Prezzo:</label>
+            <input type="number" name="prezzo" id="priceInput" name="num-players" min="1" max="1000" value="1">
+    </div>
+  </div>
+  <button type="submit">Filtra</button>
+</form>
+
+
+	
+	<table id="all-games-table" border="1" style="display: yes;">
 		<tr>
 			<th>Codice <a href="gioco?sort=cod_gioco">Sort</a></th>
 			<th>Nome <a href="gioco?sort=nome_gioco">Sort</a></th>
@@ -52,6 +76,7 @@
 			}
 		%>
 	</table>
+	<h2>Elementi filtrati</h2>
 	
 	<h2>Details</h2>
 	<%
@@ -80,6 +105,55 @@
 	<%
 		}
 	%>
+	<%
+    Collection<?> giochiFiltrati = (Collection<?>) request.getAttribute("giochiFiltrati");
+
+%>
+
+
+<%int count = 0;
+	if (giochiFiltrati != null && !giochiFiltrati.isEmpty()) {
+		count++;%>
+<table id="filtered-table" border="1">
+    <tr>
+        <th>Codice Gioco</th>
+        <th>Nome Gioco</th>
+        <th>Prezzo</th>
+        <th>Dettagli</th>
+    </tr>
+    <% Iterator<?> it = giochiFiltrati.iterator(); %>
+    <% while (it.hasNext()) { %>
+        <% GiocoBean bean = (GiocoBean) it.next(); %>
+        <tr>
+            <td><%= bean.getCod_Gioco() %></td>
+            <td><%= bean.getNomegioco() %></td>
+            <td><%= bean.getPrezzo() %></td>
+            <td><a href="gioco?action=read&cod_gioco=<%= bean.getCod_Gioco() %>">Dettagli</a></td>
+        </tr>
+    <% } %>
+</table>
+<% }else if(count!=0){ %>
+<p>Nessun elemento trovato</p>
+<% }%>
+
+<script>
+    // Recupera le tabelle
+    var filteredTable = document.getElementById("filtered-table");
+    var allGamesTable = document.getElementById("all-games-table");
+
+    // Verifica se ci sono elementi filtrati
+    if (filteredTable.rows.length > 1) {
+        // Mostra la tabella con gli elementi filtrati
+        filteredTable.style.display = "table"; // Utilizza "table" invece di "block" per mantenere la struttura della tabella
+        // Nascondi la tabella con tutti gli elementi
+        allGamesTable.style.display = "none";
+    } else {
+        // Mostra la tabella con tutti gli elementi se non ci sono elementi filtrati
+        filteredTable.style.display = "none";
+        allGamesTable.style.display = "table"; // Utilizza "table" invece di "block" per mantenere la struttura della tabella
+    }
+</script>
+	
 	<!--  
 	<h2>Insert</h2>
 	<form action="gioco" method="post">
