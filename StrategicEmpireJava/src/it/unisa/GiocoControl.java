@@ -38,6 +38,7 @@ public class GiocoControl extends HttpServlet {
 					request.setAttribute("gioco", model.doRetrieveByKey(id));
 				} else if (action.equalsIgnoreCase("delete")) {
 					String id = request.getParameter("cod_gioco");
+					System.out.println("Deleting game with code: " + id);
 					model.doDelete(id);
 				} else if (action.equalsIgnoreCase("insert")) {
 					String cod = request.getParameter("Codice");
@@ -66,7 +67,7 @@ public class GiocoControl extends HttpServlet {
 		String sort = request.getParameter("sort");
 
 		try {
-			request.removeAttribute("gsiochi");
+			request.removeAttribute("giochi");
 			request.setAttribute("giochi", model.doRetrieveAll(sort));
 		} catch (SQLException e) {
 			System.out.println("Error:" + e.getMessage());

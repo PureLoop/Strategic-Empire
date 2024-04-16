@@ -57,7 +57,7 @@ public class GiocoModelDM implements GiocoModel{
 			preparedStatement = connection.prepareStatement(selectGioco);
 			preparedStatement.setString(1, code);
 			
-			ResultSet rs = preparedStatement.executeQuery(selectGioco);
+			ResultSet rs = preparedStatement.executeQuery();
 			while(rs.next()) {
 				bean.setCod_gioco(rs.getString("cod_gioco"));
 				bean.setNomegioco(rs.getString("nome_gioco"));
@@ -82,7 +82,6 @@ public class GiocoModelDM implements GiocoModel{
 	public synchronized boolean doDelete(String code) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-
 		int result = 0;
 
 		String deleteGioco = "DELETE FROM " + GiocoModelDM.TABLE_NAME + " WHERE cod_gioco = ?";
@@ -111,7 +110,7 @@ public class GiocoModelDM implements GiocoModel{
 
 		Collection<GiocoBean> gioco = new LinkedList<GiocoBean>();
 
-		String selectSQL = "SELECT * FROM " + GiocoModelDM.TABLE_NAME;
+		String selectSQL = "SELECT cod_gioco,nome_gioco,prezzo FROM " + GiocoModelDM.TABLE_NAME;
 		if (order != null && !order.equals("")) {
 			selectSQL += " ORDER BY " + order;
 		}

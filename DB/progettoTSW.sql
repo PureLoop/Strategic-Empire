@@ -1,6 +1,6 @@
+drop schema progettoTSW;
 create schema progettoTSW;
 use progettoTSW;
-drop schema progettoTSW;
 create table espansione(
 	cod_espansione varchar(10) primary key,
     nome_espansione varchar(20) not null,
@@ -68,7 +68,7 @@ create table gioco(
 );
 
 create table sconto(
-	nome_sconto varchar(20) not null,
+	nome_sconto varchar(50) not null,
     cod_sconto varchar(10) primary key,
     perc_sconto numeric(3) not null
 );

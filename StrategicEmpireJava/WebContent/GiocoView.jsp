@@ -39,8 +39,7 @@
 			<td><%=bean.getCod_Gioco()%></td>
 			<td><%=bean.getNomegioco()%></td>
 			<td><%=bean.getPrezzo()%></td>
-			<td><a href="gioco?action=delete&cod_gioco=<%=bean.getCod_Gioco()%>">Delete</a><br>
-				<a href="gioco?action=read&cod_gioco=<%=bean.getCod_Gioco()%>">Details</a></td>
+			<td><a href="gioco?action=read&cod_gioco=<%=bean.getCod_Gioco()%>">Details</a></td>
 		</tr>
 		<%
 				}
@@ -81,6 +80,7 @@
 	<%
 		}
 	%>
+	<!--  
 	<h2>Insert</h2>
 	<form action="gioco" method="post">
 		<input type="hidden" name="action" value="insert"> 
@@ -108,6 +108,6 @@
 
 		<input type="submit" value="Add"><input type="reset" value="Reset">
 
-	</form>
+	</form>-->
 </body>
 </html>

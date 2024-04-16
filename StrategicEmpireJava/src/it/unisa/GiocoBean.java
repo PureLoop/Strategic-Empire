@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 public class GiocoBean implements Serializable{
+	private static final long serialVersionUID = 1L;
     public String cod_gioco,nome_gioco,edizione,tipologia,descrizione;
     public Double prezzo;
     public int n_giocatori;
