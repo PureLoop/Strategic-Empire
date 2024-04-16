@@ -27,11 +27,7 @@
 		<tr>
 			<th>Codice <a href="gioco?sort=cod_gioco">Sort</a></th>
 			<th>Nome <a href="gioco?sort=nome_gioco">Sort</a></th>
-			<th>Edizione <a href="gioco?sort=edizione">Sort</a></th>
-			<th>Tipologia <a href="gioco?sort=tipologia">Sort</a></th>
 			<th>Prezzo <a href="gioco?sort=prezzo">Sort</a></th>
-			<th>Descrizione <a href="gioco?sort=descrizione">Sort</a></th>
-			<th>N_giocatori <a href="gioco?sort=n_giocatori">Sort</a></th>
 		</tr>
 		<%
 			if (giochi != null && giochi.size() != 0) {
@@ -42,11 +38,7 @@
 		<tr>
 			<td><%=bean.getCod_Gioco()%></td>
 			<td><%=bean.getNomegioco()%></td>
-			<td><%=bean.getEdizione()%></td>
-			<td><%=bean.getTipologia()%></td>
 			<td><%=bean.getPrezzo()%></td>
-			<td><%=bean.getDescrizione()%></td>
-			<td><%=bean.getN_giocatori()%></td>
 			<td><a href="gioco?action=delete&cod_gioco=<%=bean.getCod_Gioco()%>">Delete</a><br>
 				<a href="gioco?action=read&cod_gioco=<%=bean.getCod_Gioco()%>">Details</a></td>
 		</tr>
