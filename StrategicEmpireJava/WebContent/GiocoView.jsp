@@ -23,27 +23,38 @@
 <body>
 	<h2>Giochi</h2>
 	<a href="gioco">Catalogo</a>
+	
 <form id="game-form" action="gioco" method="post">
-		<input type="hidden" name="action" value="filter"> 
+  <input type="hidden" name="action" value="filter"> 
   <div class="section">
     <div class="form-group">
       <label for="game-type">Tipologia:</label>
-      <select id="game-type" name="tipologia">
+      <select id="game-type" name="tipologia" required>
         <option value="tavolo">Tavolo</option>
         <option value="carte">Carte</option>
       </select>
     </div>
     <div class="form-group">
       <label for="num-players">Numero giocatori:</label>
+<<<<<<< HEAD
       <input type="number" name="N_giocatori" id="num-players" name="num-players" min="1" max="10" >
     </div>
     <div class="form-group">
       <label for="priceInput">Prezzo:</label>
             <input type="number" name="prezzo" id="priceInput" name="num-players" min="1" max="1000" >
+=======
+      <input type="number" name="N_giocatori" id="num-players" min="1" max="10">
+    </div>
+    <div class="form-group">
+      <label for="priceInput">Prezzo:</label>
+      <input type="number" name="prezzo" id="priceInput" min="1" max="1000">
+>>>>>>> cf443c15b20f60c5c0f04f5796b04a3b0d11a070
     </div>
   </div>
   <button type="submit">Filtra</button>
 </form>
+
+
 
 
 	
@@ -76,9 +87,10 @@
 			}
 		%>
 	</table>
+	<h2>Details</h2>
+	
 	<h2>Elementi filtrati</h2>
 	
-	<h2>Details</h2>
 	<%
 		if (gioco != null) {
 	%>

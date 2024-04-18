@@ -46,6 +46,7 @@ public class GiocoModelDM implements GiocoModel{
 	@Override
 	public synchronized GiocoBean doRetrieveByKey(String code) throws SQLException {
 		Connection connection = null;
+		
 		PreparedStatement preparedStatement = null;
 
 		GiocoBean bean = new GiocoBean();
@@ -105,7 +106,7 @@ public class GiocoModelDM implements GiocoModel{
 
 	@Override
 	public synchronized Collection<GiocoBean> doRetrieveAll(String order) throws SQLException {
-		Connection connection = null;
+	Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		Collection<GiocoBean> gioco = new LinkedList<GiocoBean>();
@@ -144,12 +145,28 @@ public class GiocoModelDM implements GiocoModel{
 
 	    Collection<GiocoBean> beans = new LinkedList<>();
 	    String selectSQL = "SELECT cod_gioco, nome_gioco, prezzo FROM " + GiocoModelDM.TABLE_NAME + " WHERE tipologia = ?";
+<<<<<<< HEAD
 
 	    if(prezzo > 0) {	   
 	    	selectSQL += "AND prezzo = ?";
 	    } 	
 	    if(nGiocatori > 0) {
 	    	selectSQL += "AND n_giocatori = ?";
+=======
+
+	    if(prezzo > 0) {	   
+	    	selectSQL += "AND prezzo = ?";
+	    } 	
+	    if(nGiocatori > 0) {
+	    	selectSQL += "AND n_giocatori = ?";
+
+	    
+	    }
+
+	    
+
+
+>>>>>>> cf443c15b20f60c5c0f04f5796b04a3b0d11a070
 
 	    
 	    }
