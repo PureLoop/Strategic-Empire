@@ -12,5 +12,7 @@ public interface GiocoModel {
 	
 	public Collection<GiocoBean> doRetrieveAll(String order) throws SQLException;
 	
-	public Collection<GiocoBean> doRetrieveByFilter(String tipologia,double prezzo, int nGiocatori) throws SQLException;
+	public Collection<GiocoBean> doRetrieveByFilter(String tipologia,double prezzo, int nGiocatori, boolean check_prezzo, boolean check_giocatori) throws SQLException;
+
+
 }

@@ -35,11 +35,11 @@
     </div>
     <div class="form-group">
       <label for="num-players">Numero giocatori:</label>
-      <input type="number" name="N_giocatori" id="num-players" name="num-players" min="1" max="10" value="1">
+      <input type="number" name="N_giocatori" id="num-players" name="num-players" min="1" max="10" >
     </div>
     <div class="form-group">
       <label for="priceInput">Prezzo:</label>
-            <input type="number" name="prezzo" id="priceInput" name="num-players" min="1" max="1000" value="1">
+            <input type="number" name="prezzo" id="priceInput" name="num-players" min="1" max="1000" >
     </div>
   </div>
   <button type="submit">Filtra</button>
