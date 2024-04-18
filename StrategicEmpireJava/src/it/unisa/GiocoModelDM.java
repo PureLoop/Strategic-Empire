@@ -145,14 +145,12 @@ public class GiocoModelDM implements GiocoModel{
 
 	    Collection<GiocoBean> beans = new LinkedList<>();
 	    String selectSQL = "SELECT cod_gioco, nome_gioco, prezzo FROM " + GiocoModelDM.TABLE_NAME + " WHERE tipologia = ?";
-<<<<<<< HEAD
 
 	    if(prezzo > 0) {	   
 	    	selectSQL += "AND prezzo = ?";
 	    } 	
 	    if(nGiocatori > 0) {
 	    	selectSQL += "AND n_giocatori = ?";
-=======
 
 	    if(prezzo > 0) {	   
 	    	selectSQL += "AND prezzo = ?";
@@ -162,12 +160,6 @@ public class GiocoModelDM implements GiocoModel{
 
 	    
 	    }
-
-	    
-
-
->>>>>>> cf443c15b20f60c5c0f04f5796b04a3b0d11a070
-
 	    
 	    }
 	    try {
