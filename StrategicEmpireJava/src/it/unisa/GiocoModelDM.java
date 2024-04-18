@@ -46,6 +46,7 @@ public class GiocoModelDM implements GiocoModel{
 	@Override
 	public synchronized GiocoBean doRetrieveByKey(String code) throws SQLException {
 		Connection connection = null;
+		
 		PreparedStatement preparedStatement = null;
 
 		GiocoBean bean = new GiocoBean();
@@ -105,7 +106,7 @@ public class GiocoModelDM implements GiocoModel{
 
 	@Override
 	public synchronized Collection<GiocoBean> doRetrieveAll(String order) throws SQLException {
-		Connection connection = null;
+	Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		Collection<GiocoBean> gioco = new LinkedList<GiocoBean>();
@@ -138,20 +139,46 @@ public class GiocoModelDM implements GiocoModel{
 		return gioco;
 	}
 	
-	public synchronized Collection<GiocoBean> doRetrieveByFilter(String tipologia, double prezzo, int nGiocatori) throws SQLException {
+	public synchronized Collection<GiocoBean> doRetrieveByFilter(String tipologia, double prezzo, int nGiocatori, boolean check_prezzo, boolean check_giocatori) throws SQLException {
 	    Connection connection = null;
 	    PreparedStatement preparedStatement = null;
 
 	    Collection<GiocoBean> beans = new LinkedList<>();
+	    String selectSQL = "SELECT cod_gioco, nome_gioco, prezzo FROM " + GiocoModelDM.TABLE_NAME + " WHERE tipologia = ?";
 
-	    String selectSQL = "SELECT cod_gioco, nome_gioco, prezzo FROM " + GiocoModelDM.TABLE_NAME + " WHERE tipologia = ? AND prezzo = ? AND n_giocatori = ?";
+	    if(prezzo > 0) {	   
+	    	selectSQL += "AND prezzo = ?";
+	    } 	
+	    if(nGiocatori > 0) {
+	    	selectSQL += "AND n_giocatori = ?";
+
+	    
+	    }
+
+	    
+
+
 
 	    try {
 	        connection = DriverManagerConnectionPool.getConnection();
 	        preparedStatement = connection.prepareStatement(selectSQL);
+	        
 	        preparedStatement.setString(1, tipologia);
-	        preparedStatement.setDouble(2, prezzo);
-	        preparedStatement.setInt(3, nGiocatori);
+	       
+	        if(check_prezzo == true && check_giocatori == false) {
+		        preparedStatement.setDouble(2, prezzo);
+
+	        }
+	        else if(check_prezzo == false && check_giocatori == true) {
+		        preparedStatement.setInt(2, nGiocatori);
+	        }
+	        
+	        else if(check_prezzo == true && check_giocatori == true) {
+		        preparedStatement.setDouble(2, prezzo);
+		        preparedStatement.setInt(3, nGiocatori);
+
+	        }
+	        
 
 	        ResultSet rs = preparedStatement.executeQuery();
 	        while (rs.next()) {
@@ -168,8 +195,11 @@ public class GiocoModelDM implements GiocoModel{
 	        } finally {
 	            DriverManagerConnectionPool.releaseConnection(connection);
 	        }
+	        
 	    }
-	    return beans;
+	   
+	        return  beans;
+	    
 	}
 
 

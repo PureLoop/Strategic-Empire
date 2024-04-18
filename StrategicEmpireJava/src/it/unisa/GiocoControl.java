@@ -61,11 +61,27 @@ public class GiocoControl extends HttpServlet {
 					model.doSave(bean);
 				}else if(action.equalsIgnoreCase("filter")) {
 					String tipologia = request.getParameter("tipologia");
-				    double prezzo = Double.parseDouble(request.getParameter("prezzo"));
-				    int nGiocatori = Integer.parseInt(request.getParameter("N_giocatori"));
-
+					double prezzo;
+					int nGiocatori;
+					boolean check_prezzo = false;
+					boolean check_giocatori = false;
+					if(request.getParameter("prezzo") == "") {
+						 prezzo = 0;
+					}
+					else {
+						prezzo = Double.parseDouble(request.getParameter("prezzo"));
+						check_prezzo = true;
+					}
+					if(request.getParameter("N_giocatori") == "") {
+						nGiocatori = 0;
+					}
+					else {
+						nGiocatori = Integer.parseInt(request.getParameter("N_giocatori"));
+						check_giocatori = true;
+					}
+					
 				    try {
-				        Collection<GiocoBean> giochiFiltrati = model.doRetrieveByFilter(tipologia, prezzo, nGiocatori);
+				        Collection<GiocoBean> giochiFiltrati = model.doRetrieveByFilter(tipologia, prezzo, nGiocatori,check_prezzo,check_giocatori);
 				        request.setAttribute("giochiFiltrati", giochiFiltrati); 
 				    } catch (SQLException e) {
 				    	e.printStackTrace();
