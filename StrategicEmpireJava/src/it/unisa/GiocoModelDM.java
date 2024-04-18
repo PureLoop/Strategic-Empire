@@ -1,12 +1,17 @@
 package it.unisa;
 
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
+
+import java.util.Base64;
 
 public class GiocoModelDM implements GiocoModel{
 	private static final String TABLE_NAME = "gioco";
@@ -110,8 +115,12 @@ public class GiocoModelDM implements GiocoModel{
 		PreparedStatement preparedStatement = null;
 
 		Collection<GiocoBean> gioco = new LinkedList<GiocoBean>();
+		
+		
 
-		String selectSQL = "SELECT cod_gioco,nome_gioco,prezzo FROM " + GiocoModelDM.TABLE_NAME;
+		String selectSQL = "SELECT g.cod_gioco,g.nome_gioco,g.prezzo,ig.img FROM " + GiocoModelDM.TABLE_NAME +" as g join imgToGame as itg on g.cod_gioco = itg.cod_gioco\r\n" + 
+				"join img_gioco as ig on ig.cod_img_gioco = itg.cod_img_gioco\r\n" + 
+				"where ig.copertina = true";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
@@ -120,11 +129,16 @@ public class GiocoModelDM implements GiocoModel{
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
+                InputStream inputStream = rs.getBinaryStream("img");
+                byte[] imageBytes = readBytes(inputStream);
+                String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+                String htmlImage = "<img src=\"data:image/png;base64," + base64Image + "\" />";
 				GiocoBean bean = new GiocoBean();
 
 				bean.setCod_gioco(rs.getString("cod_gioco"));
 				bean.setNomegioco(rs.getString("nome_gioco"));
 				bean.setPrezzo(rs.getDouble("prezzo"));
+				bean.setImmagineCop(htmlImage);
 				gioco.add(bean);
 			}
 
@@ -144,25 +158,18 @@ public class GiocoModelDM implements GiocoModel{
 	    PreparedStatement preparedStatement = null;
 
 	    Collection<GiocoBean> beans = new LinkedList<>();
-	    String selectSQL = "SELECT cod_gioco, nome_gioco, prezzo FROM " + GiocoModelDM.TABLE_NAME + " WHERE tipologia = ?";
+	    String selectSQL = "SELECT g.cod_gioco,g.nome_gioco,g.prezzo,ig.img FROM " + GiocoModelDM.TABLE_NAME +" as g join imgToGame as itg on g.cod_gioco = itg.cod_gioco\r\n" + 
+				"join img_gioco as ig on ig.cod_img_gioco = itg.cod_img_gioco\r\n" + 
+				"where ig.copertina = true AND g.tipologia = ?";
 
 	    if(prezzo > 0) {	   
-	    	selectSQL += "AND prezzo = ?";
+	    	selectSQL += "AND g.prezzo = ";
 	    } 	
 	    if(nGiocatori > 0) {
-	    	selectSQL += "AND n_giocatori = ?";
-
-	    if(prezzo > 0) {	   
-	    	selectSQL += "AND prezzo = ?";
-	    } 	
-	    if(nGiocatori > 0) {
-	    	selectSQL += "AND n_giocatori = ?";
-
-	    
-	    }
-	    
+	    	selectSQL += "AND g.n_giocatori = ?";
 	    }
 	    try {
+	    	
 	        connection = DriverManagerConnectionPool.getConnection();
 	        preparedStatement = connection.prepareStatement(selectSQL);
 	        
@@ -185,10 +192,15 @@ public class GiocoModelDM implements GiocoModel{
 
 	        ResultSet rs = preparedStatement.executeQuery();
 	        while (rs.next()) {
+	        	InputStream inputStream = rs.getBinaryStream("img");
+                byte[] imageBytes = readBytes(inputStream);
+                String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+                String htmlImage = "<img src=\"data:image/png;base64," + base64Image + "\" />";
 	            GiocoBean bean = new GiocoBean();
 	            bean.setCod_gioco(rs.getString("cod_gioco"));
 	            bean.setNomegioco(rs.getString("nome_gioco"));
 	            bean.setPrezzo(rs.getDouble("prezzo"));
+	            bean.setImmagineCop(htmlImage);
 	            beans.add(bean);
 	        }
 	    } finally {
@@ -204,6 +216,23 @@ public class GiocoModelDM implements GiocoModel{
 	        return  beans;
 	    
 	}
+	
+	private static byte[] readBytes(InputStream inputStream){
+        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+        int bufferSize = 1024;
+        byte[] buffer = new byte[bufferSize];
+        
+        int bytesRead;
+        try {
+			while ((bytesRead = inputStream.read(buffer)) != -1) {
+			    byteBuffer.write(buffer, 0, bytesRead);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        
+        return byteBuffer.toByteArray();
+    }
 
 
 }

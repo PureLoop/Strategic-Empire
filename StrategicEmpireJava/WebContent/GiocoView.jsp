@@ -15,8 +15,14 @@
 <%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.GiocoBean"%>
 
 <head>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link href="GiocoStyle.css" rel="stylesheet" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Cards with Small Buttons</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 	<title>Strategic-Empire</title>
 </head>
 
@@ -36,46 +42,31 @@
     </div>
     <div class="form-group">
       <label for="num-players">Numero giocatori:</label>
-<<<<<<< HEAD
+
       <input type="number" name="N_giocatori" id="num-players" name="num-players" min="1" max="10" >
     </div>
     <div class="form-group">
       <label for="priceInput">Prezzo:</label>
             <input type="number" name="prezzo" id="priceInput" name="num-players" min="1" max="1000" >
-=======
-      <input type="number" name="N_giocatori" id="num-players" min="1" max="10">
-    </div>
-    <div class="form-group">
-      <label for="priceInput">Prezzo:</label>
-      <input type="number" name="prezzo" id="priceInput" min="1" max="1000">
->>>>>>> cf443c15b20f60c5c0f04f5796b04a3b0d11a070
     </div>
   </div>
   <button type="submit">Filtra</button>
 </form>
 
-
-
-
-	
-	<table id="all-games-table" border="1" style="display: yes;">
-		<tr>
-			<th>Codice <a href="gioco?sort=cod_gioco">Sort</a></th>
-			<th>Nome <a href="gioco?sort=nome_gioco">Sort</a></th>
-			<th>Prezzo <a href="gioco?sort=prezzo">Sort</a></th>
-		</tr>
-		<%
+<%
 			if (giochi != null && giochi.size() != 0) {
 				Iterator<?> it = giochi.iterator();
 				while (it.hasNext()) {
 					GiocoBean bean = (GiocoBean) it.next();
 		%>
-		<tr>
-			<td><%=bean.getCod_Gioco()%></td>
-			<td><%=bean.getNomegioco()%></td>
-			<td><%=bean.getPrezzo()%></td>
-			<td><a href="gioco?action=read&cod_gioco=<%=bean.getCod_Gioco()%>">Details</a></td>
-		</tr>
+<div class="card" id="fullCatalogo" style="width: 18rem;">
+  <%=bean.getImmagineCop()%>
+  <div class="card-body">
+    <h5 class="card-title"><%=bean.getNomegioco()%></h5>
+    <p class="card-text">Prezzo: <%=bean.getPrezzo()%></p>
+    <a href="gioco?action=read&cod_gioco=<%=bean.getCod_Gioco()%>" class="btn btn-primary">Dettagli</a>
+  </div>
+</div>
 		<%
 				}
 			} else {
@@ -86,7 +77,6 @@
 		<%
 			}
 		%>
-	</table>
 	<h2>Details</h2>
 	
 	<h2>Elementi filtrati</h2>
@@ -126,74 +116,42 @@
 <%int count = 0;
 	if (giochiFiltrati != null && !giochiFiltrati.isEmpty()) {
 		count++;%>
-<table id="filtered-table" border="1">
-    <tr>
-        <th>Codice Gioco</th>
-        <th>Nome Gioco</th>
-        <th>Prezzo</th>
-        <th>Dettagli</th>
-    </tr>
-    <% Iterator<?> it = giochiFiltrati.iterator(); %>
-    <% while (it.hasNext()) { %>
-        <% GiocoBean bean = (GiocoBean) it.next(); %>
-        <tr>
-            <td><%= bean.getCod_Gioco() %></td>
-            <td><%= bean.getNomegioco() %></td>
-            <td><%= bean.getPrezzo() %></td>
-            <td><a href="gioco?action=read&cod_gioco=<%= bean.getCod_Gioco() %>">Dettagli</a></td>
-        </tr>
-    <% } %>
-</table>
-<% }else if(count!=0){ %>
-<p>Nessun elemento trovato</p>
-<% }%>
-
+<%
+			if (giochi != null && giochi.size() != 0) {
+				Iterator<?> it = giochi.iterator();
+				while (it.hasNext()) {
+					GiocoBean bean = (GiocoBean) it.next();
+		%>
+<div class="card" id="filteredCatalogo" style="width: 18rem;">
+  <%=bean.getImmagineCop()%>
+  <div class="card-body">
+    <h5 class="card-title"><%=bean.getNomegioco()%></h5>
+    <p class="card-text">Prezzo: <%=bean.getPrezzo()%></p>
+    <a href="gioco?action=read&cod_gioco=<%=bean.getCod_Gioco()%>" class="btn btn-primary">Dettagli</a>
+  </div>
+</div>
+		<%
+				}
+			} }
+		%>
 <script>
     // Recupera le tabelle
-    var filteredTable = document.getElementById("filtered-table");
-    var allGamesTable = document.getElementById("all-games-table");
+    var filteredElem = document.getElementById("filteredCatalogo");
+    var allGamesElem = document.getElementById("fullCatalogo");
 
     // Verifica se ci sono elementi filtrati
-    if (filteredTable.rows.length > 1) {
+    if (filteredElem.rows.length > 1) {
         // Mostra la tabella con gli elementi filtrati
-        filteredTable.style.display = "table"; // Utilizza "table" invece di "block" per mantenere la struttura della tabella
+        filteredElem.style.display = "block"; // Utilizza "table" invece di "block" per mantenere la struttura della tabella
         // Nascondi la tabella con tutti gli elementi
-        allGamesTable.style.display = "none";
+        allGamesElem.style.display = "none";
     } else {
         // Mostra la tabella con tutti gli elementi se non ci sono elementi filtrati
-        filteredTable.style.display = "none";
-        allGamesTable.style.display = "table"; // Utilizza "table" invece di "block" per mantenere la struttura della tabella
+        filteredElem.style.display = "none";
+        allGamesElem.style.display = "block"; // Utilizza "table" invece di "block" per mantenere la struttura della tabella
     }
-</script>
+ </script>
+
 	
-	<!--  
-	<h2>Insert</h2>
-	<form action="gioco" method="post">
-		<input type="hidden" name="action" value="insert"> 
-		
-		<label for="Codice">Codice gioco:</label><br> 
-		<input name="Codice" type="text" maxlength="20" required placeholder="Inserisci codice"><br> 
-		
-		<label for="Nome">Nome gioco:</label><br> 
-		<input name="Nome" type="text" maxlength="20" required placeholder="Inserisci nome"><br> 
-		
-		<label for="Edizione">Edizione:</label><br>
-		<input name="Edizione" type="text" maxlength="20" required placeholder="Inserisci Edizione"><br>
-		
-		<label for="Tipologia">Tipologia:</label><br>
-		<input name="Tipologia" type="text" maxlength="20" required placeholder="Inserisci Tipologia"><br>
-		
-		<label for="Prezzo">Prezzo:</label><br> 
-		<input name="Prezzo" type="number" min="0" value="0" required><br>
-		
-		<label for="Descrizione">Descrizione:</label><br>
-		<textarea name="Descrizione" maxlength="100" rows="3" required placeholder="Inserisci descrizione"></textarea><br>
-
-		<label for="N_giocatori">Numero giocatori:</label><br> 
-		<input name="N_giocatori" type="number" min="1" value="1" required><br>
-
-		<input type="submit" value="Add"><input type="reset" value="Reset">
-
-	</form>-->
 </body>
 </html>

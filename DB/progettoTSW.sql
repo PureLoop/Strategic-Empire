@@ -25,6 +25,7 @@ create table img_acc(
 
 create table img_gioco(
 	cod_img_gioco varchar(10) primary key,
+    copertina boolean,
     img MEDIUMBLOB
 );
 

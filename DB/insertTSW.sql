@@ -10,11 +10,11 @@ Espandete la rete, realizzate differenti progetti e competete con gli altri gioc
 Riuscirete a sviluppare al meglio le storiche autostrade della Germania e a dare il maggior contributo all'Autobahn?",4);
 insert into espansione(cod_espansione,nome_espansione,descrizione,cod_gioco,prezzo) values
 ("esp001","Barrage 5 giocatore","Arricchisci la tua copia di Barrage con una nuova mappa progettata specificamente per 5 giocatori e scopri le nuove connessioni, studiate per consentire nuove strategie di piazzamento senza alterare il flusso di gioco.","g001",25.5);
-insert into img_gioco(cod_img_gioco,img) values
-    ("g001Img1",load_file("C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\pogettoTSW\\IMMAGINI_CATALOGO\\IMMAGINI_GIOCHI\\Barrage_BOX-3D.png")),
-	("g001Img2",load_file("C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\pogettoTSW\\IMMAGINI_CATALOGO\\IMMAGINI_GIOCHI\\Barrage_ESPLOSO.png")),
-    ("g002Img1",load_file("C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\pogettoTSW\\IMMAGINI_CATALOGO\\IMMAGINI_GIOCHI\\Autobahn_3D.png")),
-    ("g002Img2",load_file("C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\pogettoTSW\\IMMAGINI_CATALOGO\\IMMAGINI_GIOCHI\\Autobahn_esploso.png"));
+insert into img_gioco(cod_img_gioco,copertina,img) values
+    ("g001Img1",true,load_file("C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\pogettoTSW\\IMMAGINI_CATALOGO\\IMMAGINI_GIOCHI\\Barrage_BOX-3D.png")),
+	("g001Img2",false,load_file("C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\pogettoTSW\\IMMAGINI_CATALOGO\\IMMAGINI_GIOCHI\\Barrage_ESPLOSO.png")),
+    ("g002Img1",true,load_file("C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\pogettoTSW\\IMMAGINI_CATALOGO\\IMMAGINI_GIOCHI\\Autobahn_3D.png")),
+    ("g002Img2",false,load_file("C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\pogettoTSW\\IMMAGINI_CATALOGO\\IMMAGINI_GIOCHI\\Autobahn_esploso.png"));
 insert into img_acc(cod_img_acc,img) values
      ("acc01Img1",load_file("C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\pogettoTSW\\IMMAGINI_CATALOGO\\IMMAGINI_ACCESSORI\DADI_ROSSI1.jpg"))
 	,("acc02Img1",load_file("C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\pogettoTSW\\IMMAGINI_CATALOGO\\IMMAGINI_ACCESSORI\\DADI_VERDI1.jpg")),
@@ -28,8 +28,8 @@ insert into imgToEsp(cod_espansione,cod_img_esp) values
 insert into imgToGame(cod_gioco,cod_img_gioco) values 
     ("g001","g001Img1"),
     ("g001","g001Img2"),
-    ("g002","g001Img1"),
-    ("g002","g001Img2");
+    ("g002","g002Img1"),
+    ("g002","g002Img2");
 insert into imgToAcc(cod_acc,cod_img_acc) values
 	("acc01","acc01Img1"),
     ("acc02","acc02Img1"),
@@ -49,10 +49,9 @@ insert into componente(nomeComponente) values
 insert into sconto(nome_sconto,cod_sconto,perc_sconto) values
 	("saldi primaverili","sco001",25),
     ("buono sconto di benvenuto!","sco002",50);
-/*
-insert into pagamento(cod_pagamento,status_pagamento,data_pagamento,cod_ordine) values
-	("buy001",")
-*/
-insert into utente(username,pw,email,ruolo) values
-	("Antoadmin","ant003","antonioceruso@gmail.com""amministratore"),("Scippoadmin","messi","luiginasta01@gmail.com","amministratore"),
-	("AnnaTagliamonte","aaa00","annatagliamonte@gmail.com","cliente"),("AldoDamiano","Aldo001","aldodamianogta@gmail.com","cliente");
+select g.cod_gioco,g.nome_gioco,g.prezzo,ig.img,ig.cod_img_gioco
+from gioco as g 
+join imgToGame as itg on g.cod_gioco = itg.cod_gioco
+join img_gioco as ig on ig.cod_img_gioco = itg.cod_img_gioco
+where ig.copertina = true;
+
