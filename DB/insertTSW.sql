@@ -53,5 +53,5 @@ select g.cod_gioco,g.nome_gioco,g.prezzo,ig.img,ig.cod_img_gioco
 from gioco as g 
 join imgToGame as itg on g.cod_gioco = itg.cod_gioco
 join img_gioco as ig on ig.cod_img_gioco = itg.cod_img_gioco
-where ig.copertina = true;
+where ig.copertina = true and g.tipologia = "tavolo" and g.prezzo = "50";
 

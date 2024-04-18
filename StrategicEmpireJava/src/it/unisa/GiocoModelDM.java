@@ -160,13 +160,13 @@ public class GiocoModelDM implements GiocoModel{
 	    Collection<GiocoBean> beans = new LinkedList<>();
 	    String selectSQL = "SELECT g.cod_gioco,g.nome_gioco,g.prezzo,ig.img FROM " + GiocoModelDM.TABLE_NAME +" as g join imgToGame as itg on g.cod_gioco = itg.cod_gioco\r\n" + 
 				"join img_gioco as ig on ig.cod_img_gioco = itg.cod_img_gioco\r\n" + 
-				"where ig.copertina = true AND g.tipologia = ?";
+				" where ig.copertina = true AND g.tipologia = ? ";
 
-	    if(prezzo > 0) {	   
-	    	selectSQL += "AND g.prezzo = ";
+	    if(prezzo > 0) {	
+	    	selectSQL += " AND g.prezzo = ?";
 	    } 	
 	    if(nGiocatori > 0) {
-	    	selectSQL += "AND g.n_giocatori = ?";
+	    	selectSQL += " AND g.n_giocatori = ?";
 	    }
 	    try {
 	    	
