@@ -116,13 +116,10 @@
 <%int count = 0;
 	if (giochiFiltrati != null && !giochiFiltrati.isEmpty()) {
 		count++;%>
-<%
-			if (giochi != null && giochi.size() != 0) {
-				Iterator<?> it = giochi.iterator();
-				while (it.hasNext()) {
-					GiocoBean bean = (GiocoBean) it.next();
-		%>
-<div class="card" id="filteredCatalogo" style="width: 18rem;">
+    <% Iterator<?> it = giochiFiltrati.iterator(); %>
+    <% while (it.hasNext()) { %>
+        <% GiocoBean bean = (GiocoBean) it.next(); %>
+        <div class="card" id="filteredCatalogo" style="width: 18rem;">
   <%=bean.getImmagineCop()%>
   <div class="card-body">
     <h5 class="card-title"><%=bean.getNomegioco()%></h5>
@@ -132,26 +129,33 @@
 </div>
 		<%
 				}
-			} }
+			} else {
 		%>
+		<tr>
+			<td colspan="6">Nessun gioco disponibile</td>
+		</tr>
+		<%
+			}
+		%>
+		
 <script>
     // Recupera le tabelle
-    var filteredElem = document.getElementById("filteredCatalogo");
-    var allGamesElem = document.getElementById("fullCatalogo");
+    var filteredTable = document.getElementById("filtered-table");
+    var allGamesTable = document.getElementById("all-games-table");
 
     // Verifica se ci sono elementi filtrati
-    if (filteredElem.rows.length > 1) {
+    if (filteredTable.rows.length > 1) {
         // Mostra la tabella con gli elementi filtrati
-        filteredElem.style.display = "block"; // Utilizza "table" invece di "block" per mantenere la struttura della tabella
+        filteredTable.style.display = "table"; // Utilizza "table" invece di "block" per mantenere la struttura della tabella
         // Nascondi la tabella con tutti gli elementi
-        allGamesElem.style.display = "none";
+        allGamesTable.style.display = "none";
     } else {
         // Mostra la tabella con tutti gli elementi se non ci sono elementi filtrati
-        filteredElem.style.display = "none";
-        allGamesElem.style.display = "block"; // Utilizza "table" invece di "block" per mantenere la struttura della tabella
+        filteredTable.style.display = "none";
+        allGamesTable.style.display = "table"; // Utilizza "table" invece di "block" per mantenere la struttura della tabella
     }
- </script>
+</script>
 
-	
+
 </body>
 </html>

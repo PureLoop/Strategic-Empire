@@ -62,56 +62,10 @@ textarea {
 	font-size: 1em;
 }
 
-<style>
-    /* Stile generale della tabella */
-    #all-games-table {
-        width: 100%;
-        border-collapse: collapse;
-    }
+.hidden {
+    display: none;
+}
 
-    /* Stile dell'header della tabella */
-    #all-games-table th {
-        background-color: #f2f2f2;
-        text-align: left;
-        padding: 8px;
-    }
-
-    /* Stile delle celle della tabella */
-    #all-games-table td {
-        border-bottom: 1px solid #ddd;
-        padding: 8px;
-    }
-
-    /* Stile delle righe pari della tabella */
-    #all-games-table tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-
-    /* Stile delle righe dispari della tabella */
-    #all-games-table tr:nth-child(odd) {
-        background-color: #ffffff;
-    }
-
-    /* Stile del link "Sort" */
-    #all-games-table th a {
-        color: blue;
-        text-decoration: none;
-    }
-
-    #all-games-table th a:hover {
-        text-decoration: underline;
-    }
-
-    /* Stile del link "Details" */
-    #all-games-table td a {
-        color: green;
-        text-decoration: none;
-    }
-
-    #all-games-table td a:hover {
-        text-decoration: underline;
-    }
-</style>
 
 
 
