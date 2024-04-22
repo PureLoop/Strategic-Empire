@@ -1,4 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*, it.unisa.GiocoBean" %>
+<%@ page import="java.util.*, it.unisa.GiocoBean" %>
+<%
+    String cod_gioco = request.getParameter("cod_gioco");
+    String nomegioco = request.getParameter("nomegioco");
+    String edizione = request.getParameter("edizione");
+    String tipologia = request.getParameter("tipologia");
+    String prezzo = request.getParameter("prezzo");
+    String descrizione = request.getParameter("descrizione");
+    String n_giocatori = request.getParameter("n_giocatori");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,36 +18,26 @@
 </head>
 <body>
     <h1>Dettagli Gioco</h1>
-    
-    <%-- Recupera il bean del gioco dalla richiesta --%>
-    <% GiocoBean gioco = (GiocoBean) request.getAttribute("gioco"); %>
-    
-   <p> <%=gioco %></p>
-    <%-- Controlla se il bean è presente --%>
-    <% if (gioco != null) { %>
-        <table border="1">
-            <tr>
-                <th>Codice</th>
-                <th>Nome</th>
-                <th>Edizione</th>
-                <th>Tipologia</th>
-                <th>Prezzo</th>
-                <th>Descrizione</th>
-                <th>Numero Giocatori</th>
-            </tr>
-            <tr>
-                <td><%= gioco.getCod_Gioco() %></td>
-                <td><%= gioco.getNomegioco() %></td>
-                <td><%= gioco.getEdizione() %></td>
-                <td><%= gioco.getTipologia() %></td>
-                <td><%= gioco.getPrezzo() %></td>
-                <td><%= gioco.getDescrizione() %></td>
-                <td><%= gioco.getN_giocatori() %></td>
-            </tr>
-        </table>
-    <% } else { %>
-        <p>Nessun gioco selezionato.</p>
-    <% } %>
-    
+
+    <table border="1">
+        <tr>
+            <th>Codice</th>
+            <th>Nome</th>
+            <th>Edizione</th>
+            <th>Tipologia</th>
+            <th>Prezzo</th>
+            <th>Descrizione</th>
+            <th>Numero Giocatori</th>
+        </tr>
+        <tr>
+            <td><%= cod_gioco %></td>
+            <td><%= nomegioco %></td>
+            <td><%= edizione %></td>
+            <td><%= tipologia %></td>
+            <td><%= prezzo %></td>
+            <td><%= descrizione %></td>
+            <td><%= n_giocatori %></td>
+        </tr>
+    </table>
 </body>
 </html>
