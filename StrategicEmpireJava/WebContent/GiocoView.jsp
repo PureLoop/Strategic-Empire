@@ -140,5 +140,6 @@
 			}
 		%>
 		</div>
+<%@ include file="/footer/footer.html" %>
 </body>
 </html>
