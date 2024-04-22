@@ -18,18 +18,15 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link href="GiocoStyle.css" rel="stylesheet" type="text/css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Cards with Small Buttons</title>
-    <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 	<title>Strategic-Empire</title>
 </head>
 
 <body>
+<%@ include file="/header/header.html" %>
 	<h2>Giochi</h2>
 	<a href="gioco">Catalogo</a>
-	
 <form id="game-form" action="gioco" method="post">
   <input type="hidden" name="action" value="filter"> 
   <div class="section">
@@ -52,22 +49,24 @@
   </div>
   <button type="submit">Filtra</button>
 </form>
-
+<div class="row" style="width: 50rem;">
 <%
 			if (giochi != null && giochi.size() != 0) {
 				Iterator<?> it = giochi.iterator();
 				while (it.hasNext()) {
 					GiocoBean bean = (GiocoBean) it.next();
-		%>
-<div class="card" id="fullCatalogo" style="width: 18rem;">
-  <%=bean.getImmagineCop()%>
-  <div class="card-body">
-    <h5 class="card-title"><%=bean.getNomegioco()%></h5>
-    <p class="card-text">Prezzo: <%=bean.getPrezzo()%></p>
-    <a href="gioco?action=read&cod_gioco=<%=bean.getCod_Gioco()%>" class="btn btn-primary">Dettagli</a>
+		%>	
+  <div class="col-sm-6 mb-3 mb-sm-0">
+    <div class="card">
+    <%=bean.getImmagineCop()%>
+      <div class="card-body">
+        <h5 class="card-title"><%=bean.getNomegioco()%></h5>
+    	<p class="card-text">Prezzo: <%=bean.getPrezzo()%></p>
+    	<a href="gioco?action=read&cod_gioco=<%=bean.getCod_Gioco()%>" class="btn btn-primary">Dettagli</a>
+      </div>
+    </div>
   </div>
-</div>
-		<%
+	<%
 				}
 			} else {
 		%>
@@ -77,6 +76,7 @@
 		<%
 			}
 		%>
+		</div>
 	<h2>Details</h2>
 	
 	<h2>Elementi filtrati</h2>
@@ -112,21 +112,23 @@
 
 %>
 
-
+<div class="row" style="width: 50rem;">
 <%int count = 0;
 	if (giochiFiltrati != null && !giochiFiltrati.isEmpty()) {
 		count++;%>
     <% Iterator<?> it = giochiFiltrati.iterator(); %>
     <% while (it.hasNext()) { %>
         <% GiocoBean bean = (GiocoBean) it.next(); %>
-        <div class="card" id="filteredCatalogo" style="width: 18rem;">
-  <%=bean.getImmagineCop()%>
-  <div class="card-body">
-    <h5 class="card-title"><%=bean.getNomegioco()%></h5>
-    <p class="card-text">Prezzo: <%=bean.getPrezzo()%></p>
-    <a href="gioco?action=read&cod_gioco=<%=bean.getCod_Gioco()%>" class="btn btn-primary">Dettagli</a>
+        <div class="col-sm-6 mb-3 mb-sm-0">
+    <div class="card">
+    <%=bean.getImmagineCop()%>
+      <div class="card-body">
+        <h5 class="card-title"><%=bean.getNomegioco()%></h5>
+    	<p class="card-text">Prezzo: <%=bean.getPrezzo()%></p>
+    	<a href="gioco?action=read&cod_gioco=<%=bean.getCod_Gioco()%>" class="btn btn-primary">Dettagli</a>
+      </div>
+    </div>
   </div>
-</div>
 		<%
 				}
 			} else {
@@ -137,25 +139,6 @@
 		<%
 			}
 		%>
-		
-<script>
-    // Recupera le tabelle
-    var filteredTable = document.getElementById("filtered-table");
-    var allGamesTable = document.getElementById("all-games-table");
-
-    // Verifica se ci sono elementi filtrati
-    if (filteredTable.rows.length > 1) {
-        // Mostra la tabella con gli elementi filtrati
-        filteredTable.style.display = "table"; // Utilizza "table" invece di "block" per mantenere la struttura della tabella
-        // Nascondi la tabella con tutti gli elementi
-        allGamesTable.style.display = "none";
-    } else {
-        // Mostra la tabella con tutti gli elementi se non ci sono elementi filtrati
-        filteredTable.style.display = "none";
-        allGamesTable.style.display = "table"; // Utilizza "table" invece di "block" per mantenere la struttura della tabella
-    }
-</script>
-
-
+		</div>
 </body>
 </html>
