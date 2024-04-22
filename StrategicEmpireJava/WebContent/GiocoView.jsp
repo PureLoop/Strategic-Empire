@@ -62,7 +62,8 @@
       <div class="card-body">
         <h5 class="card-title"><%=bean.getNomegioco()%></h5>
     	<p class="card-text">Prezzo: <%=bean.getPrezzo()%></p>
-    	<a href="gioco?action=read&cod_gioco=<%=bean.getCod_Gioco()%>" class="btn btn-primary">Dettagli</a>
+<a href="Dettagli.jsp?action=read&cod_gioco=<%=bean.getCod_Gioco()%>" class="btn btn-primary">Dettagli</a>
+
       </div>
     </div>
   </div>
