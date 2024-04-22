@@ -30,10 +30,11 @@ public class GiocoControl extends HttpServlet {
 			throws ServletException, IOException {
 
 		String action = request.getParameter("action");
-
+		int i = 0;
 		try {
 			if (action != null) {
 				if (action.equalsIgnoreCase("read")) {
+					 i = 2;
 					String id = request.getParameter("cod_gioco");
 					request.removeAttribute("gioco");
 					request.setAttribute("gioco", model.doRetrieveByKey(id));
@@ -100,8 +101,13 @@ public class GiocoControl extends HttpServlet {
 		} catch (SQLException e) {
 			System.out.println("Error:" + e.getMessage());
 		}
-
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/GiocoView.jsp");
+		
+		RequestDispatcher dispatcher;
+		if(i!= 2) {
+		 dispatcher = getServletContext().getRequestDispatcher("/GiocoView.jsp");
+		}else {
+		 dispatcher = getServletContext().getRequestDispatcher("/Dettagli.jsp");	
+		}
 		dispatcher.forward(request, response);
 	}
 
