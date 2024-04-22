@@ -66,10 +66,10 @@ public class GiocoModelDM implements GiocoModel{
 			ResultSet rs = preparedStatement.executeQuery();
 			while(rs.next()) {
 				bean.setCod_gioco(rs.getString("cod_gioco"));
-				bean.setNomegioco(rs.getString("nome_gioco"));
+				bean.setNomegioco(rs.getString("merdone"));
 				bean.setEdizione(rs.getString("edizione"));
 				bean.setTipologia(rs.getString("tipologia"));
-				bean.setPrezzo(rs.getDouble("prezzo"));
+				bean.setPrezzo(rs.getDouble("pr"));
 				bean.setDescrizione(rs.getString("descrizione"));
 				bean.setN_giocatori(rs.getInt("n_giocatori"));
 			}
@@ -118,7 +118,7 @@ public class GiocoModelDM implements GiocoModel{
 		
 		
 
-		String selectSQL = "SELECT g.cod_gioco,g.nome_gioco,g.prezzo,ig.img FROM " + GiocoModelDM.TABLE_NAME +" as g join imgToGame as itg on g.cod_gioco = itg.cod_gioco\r\n" + 
+		String selectSQL = "SELECT g.cod_gioco,g.nome_gioco,g.prezzo,g.descrizione,g.edizione,g.tipologia,g.n_giocatori,ig.img FROM " + GiocoModelDM.TABLE_NAME +" as g join imgToGame as itg on g.cod_gioco = itg.cod_gioco\r\n" + 
 				"join img_gioco as ig on ig.cod_img_gioco = itg.cod_img_gioco\r\n" + 
 				"where ig.copertina = true";
 
@@ -134,10 +134,13 @@ public class GiocoModelDM implements GiocoModel{
                 String base64Image = Base64.getEncoder().encodeToString(imageBytes);
                 String htmlImage = "<img src=\"data:image/png;base64," + base64Image + "\" />";
 				GiocoBean bean = new GiocoBean();
-
 				bean.setCod_gioco(rs.getString("cod_gioco"));
 				bean.setNomegioco(rs.getString("nome_gioco"));
+				bean.setEdizione(rs.getString("edizione"));
+				bean.setTipologia(rs.getString("tipologia"));
 				bean.setPrezzo(rs.getDouble("prezzo"));
+				bean.setDescrizione(rs.getString("descrizione"));
+				bean.setN_giocatori(rs.getInt("n_giocatori"));
 				bean.setImmagineCop(htmlImage);
 				gioco.add(bean);
 			}

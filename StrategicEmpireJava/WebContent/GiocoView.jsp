@@ -49,14 +49,15 @@
   </div>
   <button type="submit">Filtra</button>
 </form>
-<div class="row" style="width: 50rem;">
+<div class="row" >
 <%
 			if (giochi != null && giochi.size() != 0) {
 				Iterator<?> it = giochi.iterator();
 				while (it.hasNext()) {
-					GiocoBean bean = (GiocoBean) it.next();
+					GiocoBean bean = new GiocoBean();
+							bean =(GiocoBean) it.next();
 		%>	
-  <div class="col-sm-6 mb-3 mb-sm-0">
+  <div class="col-sm-3 mb-3" style="width: 50rem;">
     <div class="card">
     <%=bean.getImmagineCop()%>
       <div class="card-body">
@@ -112,14 +113,14 @@
 
 %>
 
-<div class="row" style="width: 50rem;">
+<div class="row">
 <%int count = 0;
 	if (giochiFiltrati != null && !giochiFiltrati.isEmpty()) {
 		count++;%>
     <% Iterator<?> it = giochiFiltrati.iterator(); %>
     <% while (it.hasNext()) { %>
         <% GiocoBean bean = (GiocoBean) it.next(); %>
-        <div class="col-sm-6 mb-3 mb-sm-0">
+        <div class="col-sm-3 mb-3" style="width: 50rem;">
     <div class="card">
     <%=bean.getImmagineCop()%>
       <div class="card-body">
