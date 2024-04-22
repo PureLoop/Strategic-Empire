@@ -129,16 +129,16 @@ public class GiocoModelDM implements GiocoModel{
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-                InputStream inputStream = rs.getBinaryStream("img");
+              /* inputStream = rs.getBinaryStream("img");
                 byte[] imageBytes = readBytes(inputStream);
                 String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-                String htmlImage = "<img src=\"data:image/png;base64," + base64Image + "\" />";
+                String htmlImage = "<img src=\"data:image/png;base64," + base64Image + "\" />";*/
 				GiocoBean bean = new GiocoBean();
 
 				bean.setCod_gioco(rs.getString("cod_gioco"));
 				bean.setNomegioco(rs.getString("nome_gioco"));
 				bean.setPrezzo(rs.getDouble("prezzo"));
-				bean.setImmagineCop(htmlImage);
+				//bean.setImmagineCop(htmlImage);
 				gioco.add(bean);
 			}
 
@@ -192,15 +192,15 @@ public class GiocoModelDM implements GiocoModel{
 
 	        ResultSet rs = preparedStatement.executeQuery();
 	        while (rs.next()) {
-	        	InputStream inputStream = rs.getBinaryStream("img");
+	        	/*InputStream inputStream = rs.getBinaryStream("img");
                 byte[] imageBytes = readBytes(inputStream);
                 String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-                String htmlImage = "<img src=\"data:image/png;base64," + base64Image + "\" />";
+                String htmlImage = "<img src=\"data:image/png;base64," + base64Image + "\" />";*/
 	            GiocoBean bean = new GiocoBean();
 	            bean.setCod_gioco(rs.getString("cod_gioco"));
 	            bean.setNomegioco(rs.getString("nome_gioco"));
 	            bean.setPrezzo(rs.getDouble("prezzo"));
-	            bean.setImmagineCop(htmlImage);
+	           //.setImmagineCop(htmlImage);
 	            beans.add(bean);
 	        }
 	    } finally {
