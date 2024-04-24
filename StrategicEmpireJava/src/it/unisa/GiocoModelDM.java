@@ -158,7 +158,7 @@ public class GiocoModelDM implements GiocoModel{
 	    PreparedStatement preparedStatement = null;
 
 	    Collection<GiocoBean> beans = new LinkedList<>();
-	    String selectSQL = "select g.cod_gioco,g.nome_gioco,g.prezzo,ig.img_name,ig.cod_img_gioco\r\n" + 
+	    String selectSQL = "select g.*,ig.img_name,ig.cod_img_gioco\r\n" + 
 				"from " +GiocoModelDM.TABLE_NAME +" as g \r\n" + 
 				"join img_gioco as ig on ig.cod_gioco = g.cod_gioco\r\n" + 
 				"where ig.copertina = true AND g.tipologia = ?;";
@@ -193,12 +193,16 @@ public class GiocoModelDM implements GiocoModel{
 
 	        ResultSet rs = preparedStatement.executeQuery();
 	        while (rs.next()) {
-	            GiocoBean bean = new GiocoBean();
-	            bean.setCod_gioco(rs.getString("cod_gioco"));
-	            bean.setNomegioco(rs.getString("nome_gioco"));
-	            bean.setPrezzo(rs.getDouble("prezzo"));
-	           bean.setImmagineCop(rs.getString("img_name"));
-	            beans.add(bean);
+	        	GiocoBean bean = new GiocoBean();
+				bean.setCod_gioco(rs.getString("cod_gioco"));
+				bean.setNomegioco(rs.getString("nome_gioco"));
+				bean.setEdizione(rs.getString("edizione"));
+				bean.setTipologia(rs.getString("tipologia"));
+				bean.setPrezzo(rs.getDouble("prezzo"));
+				bean.setDescrizione(rs.getString("descrizione"));
+				bean.setN_giocatori(rs.getInt("n_giocatori"));
+				bean.setImmagineCop(rs.getString("img_name"));
+				beans.add(bean);
 	        }
 	    } finally {
 	        try {
