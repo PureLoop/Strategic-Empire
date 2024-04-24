@@ -23,18 +23,39 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 	<title>Strategic-Empire</title>
 	<style>
-        .card-img-top {
-            transition: transform 0.3s ease;
+    .card-img-top {
+        transition: transform 0.3s ease;
+    }
+
+    .card-img-top:hover {
+        transform: scale(1.1);
+        filter: brightness(80%);
+    }
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: white;
         }
 
-        .card-img-top:hover {
-            transform: scale(1.1);
+        body {
+            margin-top: 50px; /* Altezza dell'header */
         }
-    </style>
+
+</style>
+
 </head>
 
 <body>
+<header>
+        <!-- Contenuto dell'header -->
 	<%@ include file="/header/header.html" %>
+        <nav>
+            <!-- Il tuo menu di navigazione -->
+        </nav>
+    </header>
+    <br><br><br>
 	<form id="game-form" action="gioco" method="post">
 		<input type="hidden" name="action" value="filter"> 
 		<div class="section">
