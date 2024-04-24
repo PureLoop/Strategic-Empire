@@ -193,11 +193,19 @@ public class GiocoModelDM implements GiocoModel{
 
 	        ResultSet rs = preparedStatement.executeQuery();
 	        while (rs.next()) {
-	            GiocoBean bean = new GiocoBean();
-	            bean.setCod_gioco(rs.getString("cod_gioco"));
-	            bean.setNomegioco(rs.getString("nome_gioco"));
-	            bean.setPrezzo(rs.getDouble("prezzo"));
-	           bean.setImmagineCop(rs.getString("img_name"));
+	            
+	           
+	    
+	           
+	           GiocoBean bean = new GiocoBean();
+				bean.setCod_gioco(rs.getString("cod_gioco"));
+				bean.setNomegioco(rs.getString("nome_gioco"));
+				bean.setEdizione(rs.getString("edizione"));
+				bean.setTipologia(rs.getString("tipologia"));
+				bean.setPrezzo(rs.getDouble("prezzo"));
+				bean.setDescrizione(rs.getString("descrizione"));
+				bean.setN_giocatori(rs.getInt("n_giocatori"));
+				bean.setImmagineCop(rs.getString("img_name"));
 	            beans.add(bean);
 	        }
 	    } finally {

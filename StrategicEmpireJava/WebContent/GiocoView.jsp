@@ -93,7 +93,7 @@
 		<%
 	    Collection<?> giochiFiltrati = (Collection<?>) request.getAttribute("giochiFiltrati");
 	
-	%>
+		%>
 	
 	<div class="row">
 	<%int count = 0;
@@ -132,5 +132,7 @@
 			%>
 			</div>
 	<%@ include file="/footer/footer.html" %>
+
+	
 </body>
 </html>
