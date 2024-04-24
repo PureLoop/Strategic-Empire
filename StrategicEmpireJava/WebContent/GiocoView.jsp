@@ -104,11 +104,19 @@
 	        <% GiocoBean bean = (GiocoBean) it.next(); %>
 	        <div class="col-sm-3 mb-3" style="width: 50rem;">
 	    <div class="card">
-	    <%=bean.getImmagineCop()%>
+	    <img src="<%=bean.getImmagineCop()%>">
 	      <div class="card-body">
 	        <h5 class="card-title"><%=bean.getNomegioco()%></h5>
 	    	<p class="card-text">Prezzo: <%=bean.getPrezzo()%></p>
-	    	<a href="gioco?action=read&cod_gioco=<%=bean.getCod_Gioco()%>" class="btn btn-primary">Dettagli</a>
+	    	<a href="Dettagli.jsp?action=read&cod_gioco=
+							<%=bean.getCod_Gioco()%>
+							&nomegioco=<%=bean.getNomegioco()%>
+							&edizione=<%=bean.getEdizione()%>
+							&tipologia=<%=bean.getTipologia()%>
+							&prezzo=<%=bean.getPrezzo()%>
+							&descrizione=<%=bean.getDescrizione()%>
+							&n_giocatori=<%=bean.getN_giocatori()%>" class="btn btn-primary">
+							Dettagli</a>
 	      </div>
 	    </div>
 	  </div>

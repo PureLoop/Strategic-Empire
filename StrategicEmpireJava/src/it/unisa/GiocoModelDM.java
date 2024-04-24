@@ -158,9 +158,10 @@ public class GiocoModelDM implements GiocoModel{
 	    PreparedStatement preparedStatement = null;
 
 	    Collection<GiocoBean> beans = new LinkedList<>();
-	    String selectSQL = "SELECT g.cod_gioco,g.nome_gioco,g.prezzo,ig.img FROM " + GiocoModelDM.TABLE_NAME +" as g join imgToGame as itg on g.cod_gioco = itg.cod_gioco\r\n" + 
-				"join img_gioco as ig on ig.cod_img_gioco = itg.cod_img_gioco\r\n" + 
-				" where ig.copertina = true AND g.tipologia = ? ";
+	    String selectSQL = "select g.cod_gioco,g.nome_gioco,g.prezzo,ig.img_name,ig.cod_img_gioco\r\n" + 
+				"from " +GiocoModelDM.TABLE_NAME +" as g \r\n" + 
+				"join img_gioco as ig on ig.cod_gioco = g.cod_gioco\r\n" + 
+				"where ig.copertina = true AND g.tipologia = ?;";
 
 	    if(prezzo > 0) {	
 	    	selectSQL += " AND g.prezzo = ?";
@@ -192,15 +193,11 @@ public class GiocoModelDM implements GiocoModel{
 
 	        ResultSet rs = preparedStatement.executeQuery();
 	        while (rs.next()) {
-	        	InputStream inputStream = rs.getBinaryStream("img");
-                byte[] imageBytes = readBytes(inputStream);
-                String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-                String htmlImage = "<img src=\"data:image/png;base64," + base64Image + "\" />";
 	            GiocoBean bean = new GiocoBean();
 	            bean.setCod_gioco(rs.getString("cod_gioco"));
 	            bean.setNomegioco(rs.getString("nome_gioco"));
 	            bean.setPrezzo(rs.getDouble("prezzo"));
-	           bean.setImmagineCop(htmlImage);
+	           bean.setImmagineCop(rs.getString("img_name"));
 	            beans.add(bean);
 	        }
 	    } finally {
