@@ -27,7 +27,7 @@
 <%@ include file="/header/header.html" %>
 	<h2>Giochi</h2>
 	<a href="gioco">Catalogo</a>
-<form id="game-form" action="gioco" method="post">
+<form id="game-form" action="gioco" method="post">0
   <input type="hidden" name="action" value="filter"> 
   <div class="section">
     <div class="form-group">
@@ -78,36 +78,8 @@
 			}
 		%>
 		</div>
-	<h2>Details</h2>
 	
 	<h2>Elementi filtrati</h2>
-	
-	<%
-		if (gioco != null) {
-	%>
-	<table border="1">
-		<tr>
-			<th>Codice</th>
-			<th>Nome</th>
-			<th>Edizione</th>
-			<th>Tipologia</th>
-			<th>Prezzo</th>
-			<th>Descrizione</th>
-			<th>N_Giocatori</th>
-		</tr>
-		<tr>
-			<td><%=gioco.getCod_Gioco()%></td>
-			<td><%=gioco.getNomegioco()%></td>
-			<td><%=gioco.getEdizione()%></td>
-			<td><%=gioco.getTipologia()%></td>
-			<td><%=gioco.getPrezzo()%></td>
-			<td><%=gioco.getDescrizione()%></td>
-			<td><%=gioco.getN_giocatori()%></td>
-		</tr>
-	</table>
-	<%
-		}
-	%>
 	<%
     Collection<?> giochiFiltrati = (Collection<?>) request.getAttribute("giochiFiltrati");
 

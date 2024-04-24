@@ -17,6 +17,7 @@
     <!-- Aggiungi qui eventuali link a fogli di stile CSS o script JavaScript -->
 </head>
 <body>
+	<%@ include file="/header/header.html" %>
     <h1>Dettagli Gioco</h1>
 
     <table border="1">
@@ -39,5 +40,6 @@
             <td><%= n_giocatori %></td>
         </tr>
     </table>
+  <%@ include file="/footer/footer.html" %> 
 </body>
 </html>

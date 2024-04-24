@@ -119,6 +119,18 @@ cod_gioco varchar(10),
         on update cascade
 );
 
+create table acq_espansione(
+cod_espansione varchar(10),
+    cod_ordine varchar(10),
+    primary key(cod_espansione,cod_ordine),
+    foreign key(cod_espansione) references espansione(cod_espansione) 
+		on delete cascade
+        on update cascade,
+    foreign key(cod_ordine) references ordine(cod_ordine)
+		on delete cascade
+        on update cascade
+);
+
 create table imgToAcc(
 	cod_acc varchar(10),
     cod_img_acc varchar(10),
