@@ -22,6 +22,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 	<title>Strategic-Empire</title>
+	<style>
+        .card-img-top {
+            transition: transform 0.3s ease;
+        }
+
+        .card-img-top:hover {
+            transform: scale(1.1);
+        }
+    </style>
 </head>
 
 <body>
@@ -57,24 +66,24 @@
 				GiocoBean bean = new GiocoBean();
 				bean =(GiocoBean) it.next();
 	%>	
-				  <div class="col-sm-3 mb-3" style="width: 50rem;">
-				    <div class="card">
-				    <img src="<%=bean.getImmagineCop()%>">
-				      	<div class="card-body">
-					        <h5 class="card-title"><%=bean.getNomegioco()%></h5>
-					    	<p class="card-text">Prezzo: <%=bean.getPrezzo()%></p>
-							<a href="Dettagli.jsp?action=read&cod_gioco=
-							<%=bean.getCod_Gioco()%>
-							&nomegioco=<%=bean.getNomegioco()%>
-							&edizione=<%=bean.getEdizione()%>
-							&tipologia=<%=bean.getTipologia()%>
-							&prezzo=<%=bean.getPrezzo()%>
-							&descrizione=<%=bean.getDescrizione()%>
-							&n_giocatori=<%=bean.getN_giocatori()%>" class="btn btn-primary">
-							Dettagli</a>
-				      	</div>
-				    </div>
-				  </div>
+				 <div class="col-sm-3 mb-3" style="width: 50rem;">
+    <div class="card">
+        <a href="Dettagli.jsp?cod_gioco=<%=bean.getCod_Gioco()%>
+            &img_name=<%=bean.getImmagineCop()%>
+            &nomegioco=<%=bean.getNomegioco()%>
+            &edizione=<%=bean.getEdizione()%>
+            &tipologia=<%=bean.getTipologia()%>
+            &prezzo=<%=bean.getPrezzo()%>
+            &descrizione=<%=bean.getDescrizione()%>
+            &n_giocatori=<%=bean.getN_giocatori()%>">
+            <div class="card-body">
+                <img src="<%=bean.getImmagineCop()%>" class="card-img-top">
+                <h5 class="card-title"><%=bean.getNomegioco()%></h5>
+                <p class="card-text">Prezzo: <%=bean.getPrezzo()%></p>
+            </div>
+        </a>
+    </div>
+</div>
 				<%
 			}
 			}else 
@@ -102,24 +111,24 @@
 	    <% Iterator<?> it = giochiFiltrati.iterator(); %>
 	    <% while (it.hasNext()) { %>
 	        <% GiocoBean bean = (GiocoBean) it.next(); %>
-	        <div class="col-sm-3 mb-3" style="width: 50rem;">
-	    <div class="card">
-	    <img src="<%=bean.getImmagineCop()%>">
-	      <div class="card-body">
-	        <h5 class="card-title"><%=bean.getNomegioco()%></h5>
-	    	<p class="card-text">Prezzo: <%=bean.getPrezzo()%></p>
-	    	<a href="Dettagli.jsp?action=read&cod_gioco=
-							<%=bean.getCod_Gioco()%>
-							&nomegioco=<%=bean.getNomegioco()%>
-							&edizione=<%=bean.getEdizione()%>
-							&tipologia=<%=bean.getTipologia()%>
-							&prezzo=<%=bean.getPrezzo()%>
-							&descrizione=<%=bean.getDescrizione()%>
-							&n_giocatori=<%=bean.getN_giocatori()%>" class="btn btn-primary">
-							Dettagli</a>
-	      </div>
-	    </div>
-	  </div>
+	       <div class="col-sm-3 mb-3" style="width: 50rem;">
+    <div class="card">
+        <a href="Dettagli.jsp?cod_gioco=<%=bean.getCod_Gioco()%>
+       		&img_name=<%=bean.getImmagineCop()%>
+            &nomegioco=<%=bean.getNomegioco()%>
+            &edizione=<%=bean.getEdizione()%>
+            &tipologia=<%=bean.getTipologia()%>
+            &prezzo=<%=bean.getPrezzo()%>
+            &descrizione=<%=bean.getDescrizione()%>
+            &n_giocatori=<%=bean.getN_giocatori()%>">
+            <div class="card-body">
+                <img src="<%=bean.getImmagineCop()%>" class="card-img-top">
+                <h5 class="card-title"><%=bean.getNomegioco()%></h5>
+                <p class="card-text">Prezzo: <%=bean.getPrezzo()%></p>
+            </div>
+        </a>
+    </div>
+</div>
 			<%
 					}
 				} else {

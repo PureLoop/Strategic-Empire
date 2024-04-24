@@ -7,6 +7,7 @@
     String prezzo = request.getParameter("prezzo");
     String descrizione = request.getParameter("descrizione");
     String n_giocatori = request.getParameter("n_giocatori");
+    String img_name = request.getParameter("img_name");
 %>
 
 <!DOCTYPE html>
@@ -22,6 +23,7 @@
 
     <table border="1">
         <tr>
+            <th>Immagine</th>
             <th>Codice</th>
             <th>Nome</th>
             <th>Edizione</th>
@@ -31,6 +33,7 @@
             <th>Numero Giocatori</th>
         </tr>
         <tr>
+            <td><img src="<%=img_name%>" class="card-img-top"></td>
             <td><%= cod_gioco %></td>
             <td><%= nomegioco %></td>
             <td><%= edizione %></td>
