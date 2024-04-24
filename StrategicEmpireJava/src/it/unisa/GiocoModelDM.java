@@ -193,7 +193,15 @@ public class GiocoModelDM implements GiocoModel{
 
 	        ResultSet rs = preparedStatement.executeQuery();
 	        while (rs.next()) {
+<<<<<<< HEAD
 	        	GiocoBean bean = new GiocoBean();
+=======
+	            
+	           
+	    
+	           
+	           GiocoBean bean = new GiocoBean();
+>>>>>>> f0f89cecb0046eb8387d305a0a39891b23f96b74
 				bean.setCod_gioco(rs.getString("cod_gioco"));
 				bean.setNomegioco(rs.getString("nome_gioco"));
 				bean.setEdizione(rs.getString("edizione"));
@@ -202,7 +210,11 @@ public class GiocoModelDM implements GiocoModel{
 				bean.setDescrizione(rs.getString("descrizione"));
 				bean.setN_giocatori(rs.getInt("n_giocatori"));
 				bean.setImmagineCop(rs.getString("img_name"));
+<<<<<<< HEAD
 				beans.add(bean);
+=======
+	            beans.add(bean);
+>>>>>>> f0f89cecb0046eb8387d305a0a39891b23f96b74
 	        }
 	    } finally {
 	        try {
