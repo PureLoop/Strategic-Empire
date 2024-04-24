@@ -59,7 +59,7 @@
 	%>	
 				  <div class="col-sm-3 mb-3" style="width: 50rem;">
 				    <div class="card">
-				    <%=bean.getImmagineCop()%>
+				    <img src="<%=bean.getImmagineCop()%>">
 				      	<div class="card-body">
 					        <h5 class="card-title"><%=bean.getNomegioco()%></h5>
 					    	<p class="card-text">Prezzo: <%=bean.getPrezzo()%></p>
