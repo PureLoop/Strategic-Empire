@@ -83,11 +83,11 @@
     <div class="container">
   <div class="row">
       <div class="col-lg-8">
-                                  <div class="description pt-7">
+           <div class="description pt-7">
                   <span class="mb-3">Descrizione</span>
                   <p><%= descrizione %></p>
-                                          </div>
-                                                      <div class="code mt-5">
+           </div>
+              <div class="code mt-5">
                   <p class="mb-0"><strong>COD:</strong> <%= cod_gioco %> </p>
               </div>
       </div>

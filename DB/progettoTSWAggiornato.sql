@@ -51,11 +51,11 @@ create table accessorio(
 
 create table gioco(
 	cod_gioco varchar(10) primary key,
-    nome_gioco varchar(20) not null,
+    nome_gioco varchar(50) not null,
     edizione varchar(20) default null,
     tipologia varchar(10) not null check(tipologia in('tavolo','carte')),
-    prezzo numeric(4,2) not null,
-    descrizione varchar(1000) not null,
+    prezzo numeric(10,2) not null,
+    descrizione varchar(1500) not null,
     n_giocatori int
 );
 
