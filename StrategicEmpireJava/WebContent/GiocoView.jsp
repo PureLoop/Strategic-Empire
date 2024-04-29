@@ -47,8 +47,7 @@
             <!-- Il tuo menu di navigazione -->
         </nav>
     </header>
-    <br><br><br>
-    <br><br><br>
+    <br>
 
 <table id="game-table">
     <tr>
