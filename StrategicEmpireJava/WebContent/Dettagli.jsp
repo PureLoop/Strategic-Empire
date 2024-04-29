@@ -1,4 +1,6 @@
 <%@ page import="java.util.*, it.unisa.GiocoBean" %>
+<%@ page import="java.net.URLEncoder" %>
+
 <%
     String cod_gioco = request.getParameter("cod_gioco");
     String nomegioco = request.getParameter("nomegioco");
