@@ -66,7 +66,7 @@ create table gioco(
     prezzo numeric(4,2) not null,
     descrizione varchar(1000) not null,
     n_giocatori_min int not null,
-    n_giocatori_max not null int
+    n_giocatori_max int not null
 );
 
 create table sconto(
