@@ -65,7 +65,8 @@ create table gioco(
     tipologia varchar(10) not null check(tipologia in('tavolo','carte')),
     prezzo numeric(4,2) not null,
     descrizione varchar(1000) not null,
-    n_giocatori int
+    n_giocatori_min int not null,
+    n_giocatori_max not null int
 );
 
 create table sconto(
