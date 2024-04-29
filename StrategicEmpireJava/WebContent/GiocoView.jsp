@@ -74,7 +74,8 @@
             &tipologia=<%=bean.getTipologia()%>
             &prezzo=<%=bean.getPrezzo()%>
             &descrizione=<%=bean.getDescrizione()%>
-            &n_giocatori=<%=bean.getN_giocatori()%>">
+            &n_giocatori_min=<%=bean.getN_giocatori_min()%>
+            &n_giocatori_max=<%=bean.getN_giocatori_max()%>">
                 <div class="card-body">
                     <img src="<%=bean.getImmagineCop()%>" class="card-img-top">
                     <h5 class="card-title"><%=bean.getNomegioco()%></h5>
@@ -121,7 +122,8 @@
             &tipologia=<%=bean.getTipologia()%>
             &prezzo=<%=bean.getPrezzo()%>
             &descrizione=<%=bean.getDescrizione()%>
-            &n_giocatori=<%=bean.getN_giocatori()%>">
+            &&n_giocatori_min=<%=bean.getN_giocatori_min()%>
+            &n_giocatori_max=<%=bean.getN_giocatori_max()%>">
             <div class="card-body">
                 <img src="<%=bean.getImmagineCop()%>" class="card-img-top">
                 <h5 class="card-title"><%=bean.getNomegioco()%></h5>

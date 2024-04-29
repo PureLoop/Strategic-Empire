@@ -49,7 +49,8 @@ public class GiocoControl extends HttpServlet {
 					String tipologia = request.getParameter("Tipologia");
 					String descrizione = request.getParameter("Descrizione");
 					Double prezzo = Double.parseDouble(request.getParameter("Prezzo"));
-					int n_giocatori = Integer.parseInt(request.getParameter("N_giocatori"));
+					int n_giocatori_min = Integer.parseInt(request.getParameter("N_giocatori_min"));
+					int n_giocatori_max = Integer.parseInt(request.getParameter("N_giocatori_max"));
 
 					GiocoBean bean = new GiocoBean();
 					bean.setCod_gioco(cod);
@@ -58,7 +59,8 @@ public class GiocoControl extends HttpServlet {
 					bean.setTipologia(tipologia);
 					bean.setPrezzo(prezzo);
 					bean.setDescrizione(descrizione);
-					bean.setN_giocatori(n_giocatori);
+					bean.setN_giocatori_min(n_giocatori_min);
+					bean.setN_giocatori_max(n_giocatori_max);
 					model.doSave(bean);
 				}else if(action.equalsIgnoreCase("filter")) {
 					String tipologia = request.getParameter("tipologia");

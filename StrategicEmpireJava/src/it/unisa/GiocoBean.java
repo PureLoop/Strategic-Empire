@@ -11,7 +11,7 @@ public class GiocoBean implements Serializable{
 	private static final long serialVersionUID = 1L;
     public String cod_gioco,nome_gioco,edizione,tipologia,descrizione;
     public Double prezzo;
-    public int n_giocatori;
+    public int n_giocatori_min,n_giocatori_max;
     public String immagineCopertina;
 
     public GiocoBean(){
@@ -21,7 +21,8 @@ public class GiocoBean implements Serializable{
         tipologia = "";
         prezzo = 0.0;
         descrizione = "";
-        n_giocatori = 0;
+        n_giocatori_min = 0;
+        n_giocatori_max = 0;
     }
 
     public void setImmagineCop(String img) {
@@ -55,11 +56,18 @@ public class GiocoBean implements Serializable{
         return edizione;
     }
 
-    public void setN_giocatori(int n){
-        this.n_giocatori = n;
+    public void setN_giocatori_min(int n){
+        this.n_giocatori_min = n;
     }
-    public int getN_giocatori() {
-        return n_giocatori;
+    public int getN_giocatori_min() {
+        return n_giocatori_min;
+    }
+    
+    public void setN_giocatori_max(int n){
+        this.n_giocatori_max = n;
+    }
+    public int getN_giocatori_max() {
+        return n_giocatori_max;
     }
 
     public void setTipologia(String tipologia) {
@@ -95,7 +103,8 @@ public class GiocoBean implements Serializable{
                 ", tipologia='" + tipologia + '\'' +
                 ", descrizione='" + descrizione + '\'' +
                 ", prezzo=" + prezzo +
-                ", n_Giocatori=" + n_giocatori +
+                ", n_Giocatori_min=" + n_giocatori_min +
+                ", n_Giocatori_max=" + n_giocatori_max +
                 '}';
     }
 }

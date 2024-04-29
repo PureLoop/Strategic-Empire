@@ -23,7 +23,7 @@ public class GiocoModelDM implements GiocoModel{
 		PreparedStatement preparedStatement = null;
 
 	String insertGioco = "INSERT INTO 	" +GiocoModelDM.TABLE_NAME 
-			+"(cod_gioco, nome_gioco,edizione,tipologia,prezzo,descrizione,n_giocatori) VALUES (?,?,?,?,?,?,?)";
+			+"(cod_gioco, nome_gioco,edizione,tipologia,prezzo,descrizione,n_giocatori_min,n_giocatori_max) VALUES (?,?,?,?,?,?,?,?)";
 	try {
 		connection = DriverManagerConnectionPool.getConnection();
 		preparedStatement = connection.prepareStatement(insertGioco);
@@ -33,7 +33,8 @@ public class GiocoModelDM implements GiocoModel{
 		preparedStatement.setString(4, gioco.getTipologia());
 		preparedStatement.setDouble(5, gioco.getPrezzo());
 		preparedStatement.setString(6, gioco.getDescrizione());
-		preparedStatement.setInt(7, gioco.getN_giocatori());
+		preparedStatement.setInt(7, gioco.getN_giocatori_min());
+		preparedStatement.setInt(8, gioco.getN_giocatori_max());
 
 		preparedStatement.executeUpdate();
 
@@ -71,7 +72,8 @@ public class GiocoModelDM implements GiocoModel{
 				bean.setTipologia(rs.getString("tipologia"));
 				bean.setPrezzo(rs.getDouble("pr"));
 				bean.setDescrizione(rs.getString("descrizione"));
-				bean.setN_giocatori(rs.getInt("n_giocatori"));
+				bean.setN_giocatori_min(rs.getInt("n_giocatori_min"));
+				bean.setN_giocatori_max(rs.getInt("n_giocatori_max"));
 			}
 		}finally {
 			try {
@@ -137,7 +139,8 @@ public class GiocoModelDM implements GiocoModel{
 				bean.setTipologia(rs.getString("tipologia"));
 				bean.setPrezzo(rs.getDouble("prezzo"));
 				bean.setDescrizione(rs.getString("descrizione"));
-				bean.setN_giocatori(rs.getInt("n_giocatori"));
+				bean.setN_giocatori_min(rs.getInt("n_giocatori_min"));
+				bean.setN_giocatori_max(rs.getInt("n_giocatori_max"));
 				bean.setImmagineCop(rs.getString("img_name"));
 				gioco.add(bean);
 			}
@@ -201,7 +204,8 @@ public class GiocoModelDM implements GiocoModel{
 				bean.setTipologia(rs.getString("tipologia"));
 				bean.setPrezzo(rs.getDouble("prezzo"));
 				bean.setDescrizione(rs.getString("descrizione"));
-				bean.setN_giocatori(rs.getInt("n_giocatori"));
+				bean.setN_giocatori_min(rs.getInt("n_giocatori_min"));
+				bean.setN_giocatori_max(rs.getInt("n_giocatori_max"));
 				bean.setImmagineCop(rs.getString("img_name"));
 				beans.add(bean);
 	        }
