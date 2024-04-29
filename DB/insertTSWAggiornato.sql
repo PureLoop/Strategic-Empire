@@ -9,12 +9,21 @@ insert into gioco(cod_gioco,nome_gioco,edizione,tipologia,prezzo,descrizione,n_g
 Espandete la rete, realizzate differenti progetti e competete con gli altri giocatori per esportare merci e costruire stazioni di servizio; promuovete i vostri impiegati per ottimizzare la vostra strategia e migliorate la vostra plancia giocatore per sbloccare nuovi dipartimenti e aprire nuove strade verso la vittoria.
 Riuscirete a sviluppare al meglio le storiche autostrade della Germania e a dare il maggior contributo all'Autobahn?",4),
 	("g003","7 Rosso","1 edizione","carte",15,"Vinci o sei fuori! 7 numeri, 7 colori e 7 regole, questo basta per creare un gioco di cui non vi stancherete mai!",4),
-    ("g004","Golem","1 edizione","tavolo",65,"La leggenda del Golem è una delle storie più affascinanti del mondo e trova le sue radici nella tradizione ebraica. In Golem, questa storia ispira un gioco strategico e complesso in cui i giocatori assumono il ruolo di studiosi impegnati a ricreare i famosi automi di argilla.",4),
+    ("g004","Endeavor abissi marini","1 edizione","tavolo",60,"Endeavor - Abissi Marini, seguito di Endeavor - Le Rotte dell'Impero, si lascia il passato alle spalle, immergendosi nella scoperta e nella meraviglia degli oceani.
+Il vostro obiettivo sarà quello di esplorare gli oceani del mondo, dalle brulicanti acque basse alle misteriose profondità.
+Mantenendo intatto il caratteristico sistema di gioco, gli autori hanno creato un nuovo spazio di gioco davvero meraviglioso per condurvi in luoghi che non avreste mai immaginato.
+Ogni missione, in questo gioco basato su scenari, può essere affrontata in modalità competitiva, cooperativa o in solitario, offrendo infinite opportunità per esplorare il mare e capire come vincere le nuove sfide.
+In ogni partita rivelerete nuove plance Oceano, formando tabelloni di gioco sempre diversi da esplorare. Dovrete reclutare un'efficace squadra di Specialisti da promuovere, espandere e migliorare la vostra flotta di navi e coordinare la vostra strategia per realizzare gli obiettivi delle missioni nel rispetto delle meraviglie sottomarine che incontrerete. Ma soprattutto, dovrete sviluppare le vostre qualità per avere massimo impatto positivo sull'oceano che ricopre il nostro fragile pianeta.",4),
    ("g005","Alchimisti","1 edizione","tavolo",50,"In Alchimisti dovrete mettere alla prova le vostre capacità di scoprire i segreti dell'arte mistica. Dopo averla creata, potrete decidere se bere la vostra pozione per capirne gli effetti oppure andarci cauti e testarla su un prezioso assistente!
 Lo scopo del gioco è accumulare più punti, i quali possono essere guadagnati in svariati modi, ad esempio pubblicando teorie che siano rigorosamente corrette.
 Il gioco si svolge nel corso di sei roundcod_giococod_gioconome_gioco e si conclude con un'esibizione finale. Il giocatore piazza dei cubetti sui vari spazi azione che sceglierà di svolgere. Sarà possibile guadagnare monete vendendo le pozioni, di dubbia qualità, agli avventurieri.
 La grande novità è che sarà uno smartphone a fare da master e garantire longevità al gioco!",4),
-	("g006","Alice in Wordland","1 edizione","tavolo",20,"La Regina di Cuori vi ha finalmente invitati a bere un tè in compagnia di folli personaggi. Ma per parteciparvi non basta prendere in mano una tazza! I giocatori, se vorranno stare seduti al suo tavolo, dovranno attenersi alle sue regole. Tra un sorso di tè e un biscottino, dovrete essere in grado di giocare con le parole.",8),
+	("g006","Anunnaki","1 edizione","tavolo",100,"Anunnaki - L'Alba degli Dèi è un gioco 4X, ambientato in un passato distopico dove mitologia e fantascienza si uniscono.
+Ogni giocatore rappresenta una Casata i cui rappresentanti sono visti come divinità dalla popolazione terrestre. Costruite insediamenti, reclutate seguaci, esplorate pianeti per ottenere risorse dai territori che controllate, sviluppate la vostra tecnologia, siglate contratti commerciali, sconfiggete le armate locali e gli eserciti degli avversari, e infine cercate di conquistare Atlantide e i suoi immensi tesori.
+Il gioco propone un innovativo sistema di selezione delle azioni: una plancia a forma di stella con una diversa azione ad ogni intersezione.
+Proverete a seguire il cammino sulla stella per mettere velocemente in gioco le vostre divinità oppure selezionerete le azioni nell’ordine più conveniente per meglio sviluppare la vostra civiltà?
+Ogni scelta è importante e può condurre a una vittoria memorabile... o ad una terribile disfatta!
+Con una grande varietà di elementi di gioco, come le fazioni con abilità uniche, il setup casuale delle azioni sulla stella e un bassissimo impatto della fortuna,  Anunnaki - L’Alba degli Dèi rappresenta un’esperienza incredibilmente immersiva e profonda.",4),
     ("g007","Amelia's Secret","1 edizione","carte",25,"La prima Escape Room con Realtà Aumentata: vivete un’esperienza immersiva unica! Siete intrappolati nella residenza abbandonata dei Vonleaken. Un mistero circonda questo maniero. Si dice che una bambina sia sparita molto tempo fa e il suo corpo non sia mai stato ritrovato. Sarete capaci di risolvere questo mistero prima che sia troppo tardi?",4),
     ("g008","Amygdala","1 edizione","tavolo",50,"La vita è piena di emozioni e la ragione del cervello deputata, in particolare, alla gestione di queste emozioni è l'amigdala.
 In questo gioco astratto e strategico dovrete raccogliere sul tabellone le risorse relative alle diverse emozioni da conservare nella vostra banca della memoria, che però è limitata. Queste risorse serviranno a sbloccare le tessere emozione della vostra plancia giocatore da piazzare nelle sette regioni colorate sul tabellone. Dovrete cercare di formare reti di emozioni e di avere la maggioranza nelle diverse regioni per ottenere punti vittoria durante la partita e alla fine del gioco!",4),
@@ -40,12 +49,12 @@ insert into img_gioco(cod_img_gioco,copertina,img_name,cod_gioco) values
     ("g002Img2",false,"IMMAGINI/IMMAGINI_GIOCHI/Autobahn_esploso.png","g002"),
 	("g003Img1",true,"IMMAGINI/IMMAGINI_GIOCHI/7-Rosso_BOX-3D.png","g003"),
     ("g003Img2",false,"IMMAGINI/IMMAGINI_GIOCHI/7-Rosso_ESPLOSO.png","g003"),
-    ("g004Img1",true,"IMMAGINI/IMMAGINI_GIOCHI/Golem_scatola3Dombra.png","g004"),
-    ("g004Img2",false,"IMMAGINI/IMMAGINI_GIOCHI/Golem_esploso.png","g004"),
+    ("g004Img1",true,"IMMAGINI/IMMAGINI_GIOCHI/Endeavor_abissi-marini.png","g004"),
+    ("g004Img2",false,"IMMAGINI/IMMAGINI_GIOCHI/Endeavor_abissi-marini.png","g004"),
     ("g005Img1",true,"IMMAGINI/IMMAGINI_GIOCHI/Alchimisti_BOX-3D.png","g005"),
     ("g005Img2",false,"IMMAGINI/IMMAGINI_GIOCHI/Alchimisti_ESPLOSO.png","g005"),
-    ("g006Img1",true,"IMMAGINI/IMMAGINI_GIOCHI/Alice-Wordland_scatola.png","g006"),
-    ("g006Img2",false,"IMMAGINI/IMMAGINI_GIOCHI/Alice-Wordland_esploso.png","g006"),
+    ("g006Img1",true,"IMMAGINI/IMMAGINI_GIOCHI/Anunnaki_box3D_ITA.png","g006"),
+    ("g006Img2",false,"IMMAGINI/IMMAGINI_GIOCHI/Anunnaki_box3D_ITA.png","g006"),
     ("g007Img1",true,"IMMAGINI/IMMAGINI_GIOCHI/amelia's-secret_sx_SITO.png","g007"),
     ("g007Img2",false,"IMMAGINI/IMMAGINI_GIOCHI/Amelia's-Secret-esploso.png","g007"),
     ("g008Img1",true,"IMMAGINI/IMMAGINI_GIOCHI/amygdala_sx_SITO.png","g008"),
@@ -58,6 +67,7 @@ insert into img_gioco(cod_img_gioco,copertina,img_name,cod_gioco) values
     ("g011Img2",false,"IMMAGINI/IMMAGINI_GIOCHI/Taboo_Esploso.jpg","g011"),
     ("g012Img1",true,"IMMAGINI/IMMAGINI_GIOCHI/ExplodingKittens.jpg","g012"),
     ("g012Img2",false,"IMMAGINI/IMMAGINI_GIOCHI/ExplodingKittens_Esploso.jpg","g012");
+
     
 insert into img_acc(cod_img_acc,copertina,img_name,cod_acc) values
      ("acc01Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/DADI_ROSSI1.jpg","acc01")
