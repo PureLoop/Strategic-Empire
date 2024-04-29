@@ -35,7 +35,7 @@
             <th>Numero Giocatori</th>
         </tr>
         <tr>
-            <td><img src="<%=img_name%>" class="card-img-top"></td>
+            <td><img src="<%=img_name %>" class="card-img-top"></td>
             <td><%= cod_gioco %></td>
             <td><%= nomegioco %></td>
             <td><%= edizione %></td>
