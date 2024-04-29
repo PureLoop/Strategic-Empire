@@ -17,46 +17,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Dettagli Gioco</title>
+    <link rel="stylesheet" href="DettagliStyle.css">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
-.title-box {
-    display: inline-block; /* Permette al rettangolo di adattarsi alla larghezza del contenuto */
-    background-color: #4CAF50; /* Sfondo verde */
-    padding: 10px 20px; /* Spaziatura interna */
-    border-radius: 5px; /* Bordo arrotondato */
-}
-
-.title-box h2 {
-    margin: 0; /* Rimuove il margine del titolo */
-    color: white; /* Colore del testo */
-    line-height: 1; /* Imposta l'altezza della linea per adattarsi al testo */
-}
-.container-img {
-    text-align: center; /* Centra l'immagine orizzontalmente */
-}
-
-.immagine {
-    width: 75%; /* Imposta la larghezza al 50% della larghezza del contenitore */
-    max-width: 600px; /* Imposta una larghezza massima per l'immagine */
-    display: block; /* Permette di centrare l'immagine orizzontalmente */
-    margin: 0 auto; /* Centra l'immagine orizzontalmente */
-}
 
 </style>
 </head>
 <body>
 	<%@ include file="/header/header.html" %>
-    <div class="title-box">
-    <span><%=nomegioco %></span>
-</div>
-<div class="container-img">
-    <img src="<%=img_name %>" class="immagine">
-</div>
 
+	<div class="banner">
+		<div class="section">
+		<br><br>
+		<div class="rect-bg">
+			<p id="rect"><%= nomegioco %></p>
+		</div>
+			<div class="container-img">
+    			<img src="<%=img_name %>" class="immagine">
+			</div>
+		</div>
+	</div>
+			
     <table border="1">
         <tr>
             <th>Immagine</th>

@@ -38,3 +38,29 @@
     background-color: #0056b3;
 }
 
+a.no-underline {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card-img-top {
+        transition: transform 0.3s ease;
+        max-size: 600px;
+    }
+
+    .card-img-top:hover {
+        transform: scale(1.1);
+    }  
+
+        body {
+            margin-top: 50px; /* Altezza dell'header */
+        }
+     .icon-carrello{
+     position: absolute;
+     	height: 40px;
+     	width: 40px;
+     	right:10%;
+     	top:85%;
+     }
+
+

@@ -1,0 +1,54 @@
+.title-box {
+    display: inline-block; /* Permette al rettangolo di adattarsi alla larghezza del contenuto */
+    background-color: #4CAF50; /* Sfondo verde */
+    padding: 10px 20px; /* Spaziatura interna */
+    border-radius: 5px; /* Bordo arrotondato */
+}
+
+.title-box h2 {
+    margin: 0; /* Rimuove il margine del titolo */
+    color: white; /* Colore del testo */
+    line-height: 1; /* Imposta l'altezza della linea per adattarsi al testo */
+}
+.container-img {
+    text-align: center; /* Centra l'immagine orizzontalmente */
+}
+
+.immagine {
+    width: 75%; /* Imposta la larghezza al 50% della larghezza del contenitore */
+    max-width: 600px; /* Imposta una larghezza massima per l'immagine */
+    display: block; /* Permette di centrare l'immagine orizzontalmente */
+    margin: 0 auto; /* Centra l'immagine orizzontalmente */
+}
+.rect-bg{
+	display: flex;
+	justify-content: left;
+	margin-left:8%;
+}
+#rect {
+        font-size: 50px;
+        display: inline-block; /* Tratta l'elemento come inline ma mantiene le proprietà di un blocco */
+        height: 100px;
+        background-color:#c47b6a; /* Colore di sfondo con opacità al 50% */
+        padding: 10px;
+    }
+
+html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+.section {
+        width: 100%; /* Larghezza del rettangolo */
+        height: 600px; /* Altezza del rettangolo */
+        background-image: url('IMMAGINI/green-roof.jpg'); /* Immagine di sfondo */
+        background-size: contain; /* Ridimensiona l'immagine per contenere la sezione */
+        background-repeat: repeat-x; /* Ripeti l'immagine solo orizzontalmente */
+    }
+
+    .banner {
+        width: 100%; /* Larghezza dell'immagine */
+        height: 100%; /* Altezza della sezione */
+        
+    }

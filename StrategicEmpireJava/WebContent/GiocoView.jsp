@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -21,34 +22,21 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
 	<title>Strategic-Empire</title>
 	<style>
-    .card-img-top {
-        transition: transform 0.3s ease;
-    }
-
-    .card-img-top:hover {
-        transform: scale(1.1);
-    }  
-
-        body {
-            margin-top: 50px; /* Altezza dell'header */
-        }
+    
+        
 </style>
 
 </head>
 
 <body>
 <header>
-        <!-- Contenuto dell'header -->
 	<%@ include file="/header/header.html" %>
-        <nav>
-            <!-- Il tuo menu di navigazione -->
-        </nav>
     </header>
-    <br>
-
+<form action="gioco" method="post">
+		<input type="hidden" name="action" value="filter">
 <table id="game-table">
     <tr>
         <td>
@@ -69,21 +57,17 @@
         </td>
     </tr>
 </table>
+</form>
 
-
-	<div class="row" >
-	<%
-		if (giochi != null && giochi.size() != 0) 
-		{
-			Iterator<?> it = giochi.iterator();
-			while (it.hasNext())
-			{
-				GiocoBean bean = new GiocoBean();
-				bean =(GiocoBean) it.next();
-	%>	
-				 <div class="col-sm-3 mb-3" style="width: 50rem;">
-    <div class="card">
-        <a href="Dettagli.jsp?cod_gioco=<%=bean.getCod_Gioco()%>
+	<div class="row">
+    <% if (giochi != null && giochi.size() != 0) {
+        Iterator<?> it = giochi.iterator();
+        while (it.hasNext()) {
+            GiocoBean bean = (GiocoBean) it.next();
+    %>
+    <div class="col-sm-3 mb-3" style="width: 50rem;">
+        <div class="card">
+            <a class="no-underline card-link" href="Dettagli.jsp?cod_gioco=<%=bean.getCod_Gioco()%>
             &img_name=<%=bean.getImmagineCop()%>
             &nomegioco=<%=bean.getNomegioco()%>
             &edizione=<%=bean.getEdizione()%>
@@ -91,14 +75,16 @@
             &prezzo=<%=bean.getPrezzo()%>
             &descrizione=<%=bean.getDescrizione()%>
             &n_giocatori=<%=bean.getN_giocatori()%>">
-            <div class="card-body">
-                <img src="<%=bean.getImmagineCop()%>" class="card-img-top">
-                <h5 class="card-title"><%=bean.getNomegioco()%></h5>
-                <p class="card-text">Prezzo: <%=bean.getPrezzo()%></p>
-            </div>
-        </a>
+                <div class="card-body">
+                    <img src="<%=bean.getImmagineCop()%>" class="card-img-top">
+                    <h5 class="card-title"><%=bean.getNomegioco()%></h5>
+                    <p class="card-text">Prezzo: <%=bean.getPrezzo()%></p>
+                    <a href="AggiungiAlCarrello.jsp?cod_gioco=<%=bean.getCod_Gioco()%>"><img src="IMMAGINI/carrelloICON.png" class="icon-carrello"></a>
+                </div>
+            </a>
+        </div>
     </div>
-</div>
+
 				<%
 			}
 			}else 
