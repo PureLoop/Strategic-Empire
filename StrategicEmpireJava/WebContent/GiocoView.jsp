@@ -15,7 +15,8 @@
 	<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.GiocoBean"%>
 
 <head>
-	<link href="GiocoStyle.css" rel="stylesheet">
+    <link rel="stylesheet" href="GiocoStyle.css">
+    
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -46,28 +47,30 @@
             <!-- Il tuo menu di navigazione -->
         </nav>
     </header>
-    <br><br><br>
-	<form id="game-form" action="gioco" method="post">
-		<input type="hidden" name="action" value="filter"> 
-		<div class="section">
-		   	<div class="form-group">
-		      <label for="game-type">Tipologia:</label>
-		      <select id="game-type" name="tipologia" required>
-		        <option value="tavolo">Tavolo</option>
-		        <option value="carte">Carte</option>
-		      </select>
-		    </div>
-			<div class="form-group">
-		      <label for="num-players">Numero giocatori:</label>
-		      <input type="number" name="N_giocatori" id="num-players" name="num-players" min="1" max="10" >
-		    </div>
-		    <div class="form-group">
-		      <label for="priceInput">Prezzo:</label>
-		      <input type="number" name="prezzo" id="priceInput" name="num-players" min="1" max="1000" >
-		      <button type="submit">Filtra</button>
-		    </div>
-		</div>
-	</form>
+    <br>
+
+<table id="game-table">
+    <tr>
+        <td>
+            <select id="game-type" name="tipologia" required>
+                <option value="" disabled selected>Tipo di gioco</option>
+                <option value="tavolo">Tavolo</option>
+                <option value="carte">Carte</option>
+            </select>
+        </td>
+        <td>
+            <input type="number" name="N_giocatori" id="num-players" name="num-players" min="1" max="10" placeholder="Numero giocatori">
+        </td>
+        <td>
+            <input type="number" name="prezzo" id="priceInput" name="num-players" min="1" max="1000" placeholder="Prezzo">
+        </td>
+        <td>
+            <button type="submit" class="submit-button">Filtra</button>
+        </td>
+    </tr>
+</table>
+
+
 	<div class="row" >
 	<%
 		if (giochi != null && giochi.size() != 0) 
