@@ -13,6 +13,7 @@
     font-weight: bold;
 }
 
+<<<<<<< HEAD
 #game-table select,
 #game-table input[type="number"] {
     width: 100%;
@@ -36,4 +37,6 @@
 #game-table button[type="submit"]:hover {
     background-color: #0056b3;
 }
+=======
+>>>>>>> e152f03229d57f4e859705797a2fda3fd3ea52b5
 

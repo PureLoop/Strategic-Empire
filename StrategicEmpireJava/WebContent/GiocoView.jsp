@@ -30,20 +30,11 @@
 
     .card-img-top:hover {
         transform: scale(1.1);
-        filter: brightness(80%);
-    }
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            background-color: white;
-        }
+    }  
 
         body {
             margin-top: 50px; /* Altezza dell'header */
         }
-
 </style>
 
 </head>
