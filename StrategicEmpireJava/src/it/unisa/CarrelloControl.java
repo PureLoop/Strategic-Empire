@@ -32,7 +32,6 @@ static GiocoModel model;
 	}
     public CarrelloControl() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -75,11 +74,9 @@ static GiocoModel model;
             System.out.println("Error:" + e.getMessage());
         }
 
-        if("delete".equals(action)) {
+        if(action=="delete") {
             response.sendRedirect(request.getContextPath() + "/Carrello.jsp");
-            return; // Esci dopo aver reindirizzato
         }
-
         
         // Reindirizza alla pagina "Carrello.jsp"
         response.sendRedirect(request.getContextPath() + "/GiocoView.jsp");
@@ -92,7 +89,6 @@ static GiocoModel model;
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
