@@ -59,7 +59,11 @@ create table gioco(
     n_giocatori_min int not null,
     n_giocatori_max int not null
     );
-
+create table carrello(
+	cod_carrello varchar(10) primary key,
+    cod_sconto varchar(10) references sconto(cod_sconto)
+   
+    );
 create table sconto(
 	nome_sconto varchar(50) not null,
     cod_sconto varchar(10) primary key,
@@ -79,9 +83,7 @@ create table ordine(
 	cod_ordine varchar(10) primary key,
     n_articoli int not null,
     totale numeric(5,2) not null,
-    cod_sconto varchar(10) default null references sconto(cod_sconto)
-		on delete cascade
-        on update cascade,
+    data date not null,
 	email_utente varchar(25) not null references utente(email)
 		on delete cascade
         on update cascade
@@ -89,36 +91,36 @@ create table ordine(
 
 create table acq_accessorio(
 	cod_accessorio varchar(10),
-    cod_ordine varchar(10),
-    primary key(cod_accessorio,cod_ordine),
+    cod_carrello varchar(10),
+    primary key(cod_accessorio,cod_carrello),
     foreign key(cod_accessorio) references accessorio(cod_accessorio) 
 		on delete cascade
         on update cascade,
-    foreign key(cod_ordine) references ordine(cod_ordine)
+    foreign key(cod_carrello) references carrello(cod_carrello)
 		on delete cascade
         on update cascade
 );
 
 create table acq_gioco(
 cod_gioco varchar(10),
-    cod_ordine varchar(10),
-    primary key(cod_gioco,cod_ordine),
+    cod_carrello varchar(10),
+    primary key(cod_gioco,cod_carrello),
     foreign key(cod_gioco) references gioco(cod_gioco) 
 		on delete cascade
         on update cascade,
-    foreign key(cod_ordine) references ordine(cod_ordine)
+    foreign key(cod_carrello) references carrello(cod_carrello)
 		on delete cascade
         on update cascade
 );
 
 create table acq_espansione(
 cod_espansione varchar(10),
-    cod_ordine varchar(10),
-    primary key(cod_espansione,cod_ordine),
+    cod_carrello varchar(10),
+    primary key(cod_espansione,cod_carrello),
     foreign key(cod_espansione) references espansione(cod_espansione) 
 		on delete cascade
         on update cascade,
-    foreign key(cod_ordine) references ordine(cod_ordine)
+    foreign key(cod_carrello) references carrello(cod_carrello)
 		on delete cascade
         on update cascade
 );
