@@ -8,6 +8,10 @@
     <servlet-name>GiocoControl</servlet-name>
     <servlet-class>it.unisa.GiocoControl</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>DettagliControl</servlet-name>
+    <servlet-class>it.unisa.DettagliControl</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>GiocoControl</servlet-name>
     <url-pattern>/gioco</url-pattern>

@@ -2,15 +2,9 @@
 <%@ page import="java.net.URLEncoder" %>
 
 <%
-    String cod_gioco = request.getParameter("cod_gioco");
-    String nomegioco = request.getParameter("nomegioco");
-    String edizione = request.getParameter("edizione");
-    String tipologia = request.getParameter("tipologia");
-    String prezzo = request.getParameter("prezzo");
-    String descrizione = request.getParameter("descrizione");
-    String n_giocatori = request.getParameter("n_giocatori");
-    String img_name = request.getParameter("img_name");
+	GiocoBean gioco = (GiocoBean) request.getAttribute("cod_gioco");
 %>
+
 
 <!DOCTYPE html>
 <html>
@@ -34,10 +28,10 @@
 		<div class="section">
 		<br><br>
 		<div class="rect-bg">
-			<p id="rect"><%= nomegioco %></p>
+			<p id="rect"><%=gioco.getNomegioco() %></p>
 		</div>
 			<div class="container-img">
-    			<img src="<%=img_name %>" class="immagine">
+    			<img src="<%=gioco.getImmagineCop() %>" class="immagine">
 			</div>
 		</div>
 	</div>
@@ -54,14 +48,13 @@
             <th>Numero Giocatori</th>
         </tr>
         <tr>
-            <td><img src="<%=img_name %>" class="card-img-top"></td>
-            <td><%= cod_gioco %></td>
-            <td><%= nomegioco %></td>
-            <td><%= edizione %></td>
-            <td><%= tipologia %></td>
-            <td><%= prezzo %></td>
-            <td><%= descrizione %></td>
-            <td><%= n_giocatori %></td>
+            <td><img src="<%=gioco.getImmagineCop() %>" class="card-img-top"></td>
+            <td><%= gioco.getCod_Gioco() %></td>
+            <td><%= gioco.getNomegioco() %></td>
+            <td><%= gioco.getEdizione() %></td>
+            <td><%= gioco.getTipologia() %></td>
+            <td><%= gioco.getPrezzo() %></td>
+            <td><%= gioco.getDescrizione() %></td>
         </tr>
     </table>
     <div class="b-example-divider"></div>
@@ -70,10 +63,10 @@
       <div class="col-lg-8">
            <div class="description pt-7">
                   <span class="mb-3">Descrizione</span>
-                  <p><%= descrizione %></p>
+                  <p><%= gioco.getDescrizione() %></p>
            </div>
               <div class="code mt-5">
-                  <p class="mb-0"><strong>COD:</strong> <%= cod_gioco %> </p>
+                  <p class="mb-0"><strong>COD:</strong> <%= gioco.getCod_Gioco() %></p>
               </div>
       </div>
   </div>
