@@ -28,7 +28,7 @@
 </style>
 </head>
 <body>
-	<%@ include file="/header/header.html" %>
+	<%@ include file="/header/header.jsp" %>
 
 	<div class="banner">
 		<div class="section">
@@ -78,6 +78,6 @@
       </div>
   </div>
 </div>
-  <%@ include file="/footer/footer.html" %> 
+  <%@ include file="/footer/footer.jsp" %> 
 </body>
 </html>
