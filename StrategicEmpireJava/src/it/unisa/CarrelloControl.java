@@ -60,26 +60,23 @@ static GiocoModel model;
                     GiocoBean gioco = iterator.next();
                     if (gioco.getCod_Gioco().equals(codiceGioco)) {
                         iterator.remove();
-                        break; // Esci dopo aver rimosso il gioco
+                        response.sendRedirect(request.getContextPath() + "/Carrello.jsp");
                     }
+
                 }
             } else {
                 // Altrimenti, aggiungi il gioco alla lista del carrello
                 GiocoBean gioco = model.doRetrieveByKey(codiceGioco);
                 listaGiochiCarrello.add(gioco);
+
+                // Aggiorna la lista dei giochi nel carrello nella sessione
+                session.setAttribute("listaGiochiCarrello", listaGiochiCarrello);
+                response.sendRedirect(request.getContextPath() + "/GiocoView.jsp");
             }
 
-            // Aggiorna la lista dei giochi nel carrello nella sessione
-            session.setAttribute("listaGiochiCarrello", listaGiochiCarrello);
         } catch (SQLException e) {
             System.out.println("Error:" + e.getMessage());
         }
-
-        if(action=="delete") {
-            response.sendRedirect(request.getContextPath() + "/Carrello.jsp");
-        }
-        // Reindirizza alla pagina "Carrello.jsp"
-        response.sendRedirect(request.getContextPath() + "/GiocoView.jsp");
     }
 
 
