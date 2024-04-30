@@ -62,5 +62,13 @@ a.no-underline {
      	right:10%;
      	top:85%;
      }
-
-
+    header {
+    position: fixed; /* Rende l'header fisso */
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: white;
+    }
+    #form-filtro{
+    margin-top: 5.5%
+    }

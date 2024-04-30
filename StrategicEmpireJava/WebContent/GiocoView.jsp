@@ -33,9 +33,9 @@
 
 <body>
 <header>
-	<%@ include file="/header/header.html" %>
+	<%@ include file="/header/header.jsp" %>
     </header>
-<form action="gioco" method="post">
+<form action="gioco" method="post" id="form-filtro">
 		<input type="hidden" name="action" value="filter">
 <table id="game-table">
     <tr>
@@ -143,7 +143,7 @@
 				}
 			%>
 			</div>
-	<%@ include file="/footer/footer.html" %>
+	<%@ include file="/footer/footer.jsp" %>
 
 	
 </body>
