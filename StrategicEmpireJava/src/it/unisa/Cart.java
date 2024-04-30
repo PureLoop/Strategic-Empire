@@ -21,8 +21,11 @@ public class Cart {
 				giochi.remove(g);
 				break;
 			}
+			
 		}
+		
  	}
+	
 	
 	public List<GiocoBean> getGiochi() {
 		return  giochi;
