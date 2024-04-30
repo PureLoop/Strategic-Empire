@@ -74,12 +74,14 @@ static GiocoModel model;
             System.out.println("Error:" + e.getMessage());
         }
 
-        if(action=="delete") {
+        if("delete".equals(action)) {
             response.sendRedirect(request.getContextPath() + "/Carrello.jsp");
+            return; // Esci dopo aver reindirizzato
+        } else {
+            // Reindirizza alla pagina "GiocoView.jsp"
+            response.sendRedirect(request.getContextPath() + "/GiocoView.jsp");
         }
-        
-        // Reindirizza alla pagina "Carrello.jsp"
-        response.sendRedirect(request.getContextPath() + "/GiocoView.jsp");
+
     }
 
 
