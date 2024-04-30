@@ -24,7 +24,7 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Accessori</a></li>
             <li><a class="dropdown-item" href="#">Espansioni</a></li>
-            <li><a class="dropdown-item" href="#">Giochi</a></li>
+            <li><a class="dropdown-item" href="GiocoView.jsp">Giochi</a></li>
           </ul>
         </li>
         <li class="nav-item">
@@ -39,11 +39,19 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Chi siamo</a>
         </li>
-      </ul>
-      <form class="d-flex" role="search">
+        
+      	<li><form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+        </form></li>
+       
+
+      
+      </ul>
+      
+            <a class="nav-link" href="Login.jsp">Login</a>
+            
+       
     </div>
   </div>
 </nav>
