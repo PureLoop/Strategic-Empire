@@ -3,6 +3,7 @@ package it.unisa;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 
 
 /**
@@ -30,7 +32,6 @@ public class GiocoControl extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession();
 		Cart cart = (Cart)request.getSession().getAttribute("cart");
 		if(cart == null) {
 			cart = new Cart();
@@ -44,6 +45,9 @@ public class GiocoControl extends HttpServlet {
 				if (action.equalsIgnoreCase("addC")) {
 					String id = request.getParameter("cod_gioco");
 					cart.addGioco(model.doRetrieveByKey(id));
+					List<GiocoBean> g = cart.getGiochi();
+					for(GiocoBean gio: g)
+					System.out.println(gio.getNomegioco());
 			}else if(action.equalsIgnoreCase("read")) {
 					 i = 2;
 					String id = request.getParameter("cod_gioco");

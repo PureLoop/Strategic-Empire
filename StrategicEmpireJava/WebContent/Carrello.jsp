@@ -1,39 +1,38 @@
-<%@ page import="it.unisa.Cart" %>
-<%@ page import="it.unisa.GiocoBean" %>
-<%@ page import="java.util.List" %>
-
-<%
-    HttpSession session1 = request.getSession();
-    Cart cart = (Cart) session.getAttribute("cart");
-    List<GiocoBean> giochiNelCarrello = cart.getGiochi();
-%>
-
+<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.GiocoBean"%>
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- Metatags, CSS e altri import -->
+    <title>Carrello</title>
 </head>
 <body>
-    <!-- Header e altri elementi della pagina -->
-    
-    <h2>Carrello</h2>
+    <h1>Carrello</h1>
     <table border="1">
-        <thead>
-            <tr>
-                <th>Nome Gioco</th>
-                <!-- Altre colonne della tabella -->
-            </tr>
-        </thead>
-        <tbody>
-            <% for (GiocoBean gioco : giochiNelCarrello) { %>
-                <tr>
-                    <td><%= gioco.getNomegioco() %></td>
-                    <!-- Altre colonne della tabella -->
-                </tr>
-            <% } %>
-        </tbody>
+        <tr>
+            <th>Codice</th>
+            <th>Nome</th>
+            <th>Prezzo</th>
+            <!-- Aggiungi altre colonne se necessario -->
+        </tr>
+        <% 
+        List<GiocoBean> listaGiochiCarrello = (List<GiocoBean>) request.getSession().getAttribute("listaGiochiCarrello");
+        if (listaGiochiCarrello != null && !listaGiochiCarrello.isEmpty()) {
+            for (GiocoBean gioco : listaGiochiCarrello) { 
+        %>
+        <tr>
+            <td><%= gioco.getCod_Gioco() %></td>
+            <td><%= gioco.getNomegioco() %></td>
+            <td><%= gioco.getPrezzo() %></td>
+            <!-- Aggiungi altre colonne se necessario -->
+        </tr>
+        <% 
+            }
+        } else {
+        %>
+        <tr>
+            <td colspan="3">Nessun gioco nel carrello</td>
+        </tr>
+        <% } %>
     </table>
-
-    <!-- Footer e altri elementi della pagina -->
 </body>
 </html>
+
