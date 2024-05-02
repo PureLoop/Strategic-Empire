@@ -16,68 +16,57 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Dettagli Gioco</title>
     <link rel="stylesheet" href="DettagliStyle.css">
+    <title>Dettagli Gioco</title>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style type="text/css">
-
-</style>
+    <style type="text/css"></style>
 </head>
 <body>
 	<%@ include file="/header/header.html" %>
 
-	<div class="banner">
-		<div class="section">
-		<br><br>
-		<div class="rect-bg">
-			<p id="rect"><%= nomegioco %></p>
-		</div>
-			<div class="container-img">
-    			<img src="<%=img_name %>" class="immagine">
-			</div>
-		</div>
-	</div>
-			
-    <table border="1">
-        <tr>
-            <th>Immagine</th>
-            <th>Codice</th>
-            <th>Nome</th>
-            <th>Edizione</th>
-            <th>Tipologia</th>
-            <th>Prezzo</th>
-            <th>Descrizione</th>
-            <th>Numero Giocatori</th>
-        </tr>
-        <tr>
-            <td><img src="<%=img_name %>" class="card-img-top"></td>
-            <td><%= cod_gioco %></td>
-            <td><%= nomegioco %></td>
-            <td><%= edizione %></td>
-            <td><%= tipologia %></td>
-            <td><%= prezzo %></td>
-            <td><%= descrizione %></td>
-            <td><%= n_giocatori %></td>
-        </tr>
-    </table>
-    <div class="b-example-divider"></div>
-    <div class="container">
-  <div class="row">
-      <div class="col-lg-8">
-           <div class="description pt-7">
-                  <span class="mb-3">Descrizione</span>
-                  <p><%= descrizione %></p>
-           </div>
-              <div class="code mt-5">
-                  <p class="mb-0"><strong>COD:</strong> <%= cod_gioco %> </p>
-              </div>
-      </div>
-  </div>
+	<body style="background-image: url(https://tse3.mm.bing.net/th/id/OIG4.UDvvmeUoZ7X.xOwpxtj3?pid=ImgGn); background-size: auto; background-position: center ;  background-repeat: no-repeat;">
+
+	
+	
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="title-box">
+               <h2 class="game-title" style="background-image: url(imdett2.jpeg);"><%= nomegioco %></h2>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="container-img">
+                <img src="<%=img_name %>" class="img-fluid">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="description">
+                <h3 class="pastel-green">Descrizione</h3>
+                <p><%= descrizione %></p>
+            </div>
+            <div class="details mt-4">
+                <p><strong>Codice:</strong> <%= cod_gioco %></p>
+                <p><strong>Edizione:</strong> <%= edizione %></p>
+                <p><strong>Tipologia:</strong> <%= tipologia %></p>
+                <p><strong>Prezzo:</strong> <%= prezzo %></p>
+                <p><strong>Numero Giocatori:</strong> <%= n_giocatori %></p>
+            </div>
+        </div>
+    </div>
 </div>
+
+</body>
+</html>
+
+</body>
+
   <%@ include file="/footer/footer.html" %> 
 </body>
 </html>
