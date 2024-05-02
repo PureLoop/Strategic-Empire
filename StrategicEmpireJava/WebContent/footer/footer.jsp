@@ -1,4 +1,4 @@
-<!doctype html>
+<!Doctype html>
 <html lang="en" class="h-100" data-bs-theme="auto">
   <head><script src="../assets/js/color-modes.js"></script>
 

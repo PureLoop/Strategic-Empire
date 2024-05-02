@@ -9,11 +9,13 @@
 		return;
 	}
 	GiocoBean gioco = (GiocoBean) request.getAttribute("gioco");
+	Cart cart = (Cart) request.getAttribute("cart");
 %>
 
 <!DOCTYPE html>
 <html>
 	<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.GiocoBean"%>
+	<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.Cart"%>
 
 <head>
     <link rel="stylesheet" href="GiocoStyle.css">
@@ -33,9 +35,9 @@
 
 <body>
 <header>
-	<%@ include file="/header/header.html" %>
+	<%@ include file="/header/header.jsp" %>
     </header>
-<form action="gioco" method="post">
+<form action="gioco" method="post" id="form-filtro">
 		<input type="hidden" name="action" value="filter">
 <table id="game-table">
     <tr>
@@ -60,27 +62,21 @@
 </form>
 
 	<div class="row">
-    <% if (giochi != null && giochi.size() != 0) {
-        Iterator<?> it = giochi.iterator();
-        while (it.hasNext()) {
-            GiocoBean bean = (GiocoBean) it.next();
-    %>
+    <% 
+    if (giochi != null && giochi.size() != 0) { 
+        Iterator<?> it = giochi.iterator(); 
+        while (it.hasNext()) { 
+            GiocoBean bean = (GiocoBean) it.next(); 
+%>
+
     <div class="col-sm-3 mb-3" style="width: 50rem;">
         <div class="card">
-            <a class="no-underline card-link" href="Dettagli.jsp?cod_gioco=<%=bean.getCod_Gioco()%>
-            &img_name=<%=bean.getImmagineCop()%>
-            &nomegioco=<%=bean.getNomegioco()%>
-            &edizione=<%=bean.getEdizione()%>
-            &tipologia=<%=bean.getTipologia()%>
-            &prezzo=<%=bean.getPrezzo()%>
-            &descrizione=<%=bean.getDescrizione()%>
-            &n_giocatori_min=<%=bean.getN_giocatori_min()%>
-            &n_giocatori_max=<%=bean.getN_giocatori_max()%>">
+            <a class="no-underline card-link" href="DettagliControl?cod_gioco=<%=bean.getCod_Gioco()%>">
                 <div class="card-body">
                     <img src="<%=bean.getImmagineCop()%>" class="card-img-top">
                     <h5 class="card-title"><%=bean.getNomegioco()%></h5>
                     <p class="card-text">Prezzo: <%=bean.getPrezzo()%></p>
-                    <a href="AggiungiAlCarrello.jsp?cod_gioco=<%=bean.getCod_Gioco()%>"><img src="IMMAGINI/carrelloICON.png" class="icon-carrello"></a>
+                    <a href="CarrelloControl?cod_gioco=<%=bean.getCod_Gioco()%>"><img src="IMMAGINI/carrelloICON.png" class="icon-carrello"></a>
                 </div>
             </a>
         </div>
@@ -122,7 +118,7 @@
             &tipologia=<%=bean.getTipologia()%>
             &prezzo=<%=bean.getPrezzo()%>
             &descrizione=<%=bean.getDescrizione()%>
-            &&n_giocatori_min=<%=bean.getN_giocatori_min()%>
+            &n_giocatori_min=<%=bean.getN_giocatori_min()%>
             &n_giocatori_max=<%=bean.getN_giocatori_max()%>">
             <div class="card-body">
                 <img src="<%=bean.getImmagineCop()%>" class="card-img-top">
@@ -137,14 +133,13 @@
 				} else {
 			%>
 			<tr>
-				<td colspan="6">Nessun gioco disponibile</td>
+				<td colspan="6"><a href="Carrello.jsp"><img src="IMMAGINI/carrelloICON.png">	</a></td>
 			</tr>
 			<%
 				}
 			%>
 			</div>
-	<%@ include file="/footer/footer.html" %>
-
-	
+			
+	<%@ include file="/footer/footer.jsp" %>
 </body>
 </html>

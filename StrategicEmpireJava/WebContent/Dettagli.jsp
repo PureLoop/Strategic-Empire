@@ -26,7 +26,7 @@
     <style type="text/css"></style>
 </head>
 <body>
-	<%@ include file="/header/header.html" %>
+	<%@ include file="/header/header.jsp" %>
 
 	<body style="background-image: url(https://tse3.mm.bing.net/th/id/OIG4.UDvvmeUoZ7X.xOwpxtj3?pid=ImgGn); background-size: auto; background-position: center ;  background-repeat: no-repeat;">
 
@@ -67,6 +67,6 @@
 
 </body>
 
-  <%@ include file="/footer/footer.html" %> 
+  <%@ include file="/footer/footer.jsp" %> 
 </body>
 </html>

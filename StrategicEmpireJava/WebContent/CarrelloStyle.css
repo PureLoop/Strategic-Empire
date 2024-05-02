@@ -1,0 +1,22 @@
+#carrelloTable {
+    width: 50%; /* Rimpicciolisci la larghezza della tabella */
+    margin: 0 auto; /* Centra la tabella orizzontalmente */
+}
+
+#titolo {
+    text-align: center; /* Centra il titolo */
+    margin-top: 50px; /* Aggiungi spazio sopra il titolo */
+}
+ .elimina-cell {
+    border: none; /* Rimuove i bordi dalla cella */
+}
+
+#x{
+	position: absolute;
+	margin-left: 1.2%;
+	margin-top: 0.4%
+}
+
+#col-del{
+	width: 10%;
+}

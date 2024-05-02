@@ -67,10 +67,10 @@ public class GiocoModelDM implements GiocoModel{
 			ResultSet rs = preparedStatement.executeQuery();
 			while(rs.next()) {
 				bean.setCod_gioco(rs.getString("cod_gioco"));
-				bean.setNomegioco(rs.getString("merdone"));
+				bean.setNomegioco(rs.getString("nome_gioco"));
 				bean.setEdizione(rs.getString("edizione"));
 				bean.setTipologia(rs.getString("tipologia"));
-				bean.setPrezzo(rs.getDouble("pr"));
+				bean.setPrezzo(rs.getDouble("prezzo"));
 				bean.setDescrizione(rs.getString("descrizione"));
 				bean.setN_giocatori_min(rs.getInt("n_giocatori_min"));
 				bean.setN_giocatori_max(rs.getInt("n_giocatori_max"));
