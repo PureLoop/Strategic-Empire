@@ -63,9 +63,9 @@ insert into img_gioco(cod_img_gioco,copertina,img_name,cod_gioco) values
     ("g009Img2",false,"IMMAGINI/IMMAGINI_GIOCHI/Bone-Wars_esploso_SD.png","g009"),
     ("g010Img1",true,"IMMAGINI/IMMAGINI_GIOCHI/Mercoledì_sx_SITO.png","g010"),
     ("g010Img2",false,"IMMAGINI/IMMAGINI_GIOCHI/Mercoledì_esploso_SD.png","g010"),
-    ("g011Img1",true,"IMMAGINI/IMMAGINI_GIOCHI/Taboo.jpg","g011"),
-    ("g011Img2",false,"IMMAGINI/IMMAGINI_GIOCHI/Taboo_Esploso.jpg","g011"),
-    ("g012Img1",true,"IMMAGINI/IMMAGINI_GIOCHI/ExplodingKittens.jpg","g012"),
+    ("g011Img1",true,"IMMAGINI/IMMAGINI_GIOCHI/Taboo.png","g011"),
+    ("g011Img2",false,"IMMAGINI/IMMAGINI_GIOCHI/Taboo_Esploso.png","g011"),
+    ("g012Img1",true,"IMMAGINI/IMMAGINI_GIOCHI/ExplodingKittens.png","g012"),
     ("g012Img2",false,"IMMAGINI/IMMAGINI_GIOCHI/ExplodingKittens_Esploso.jpg","g012");
 
     

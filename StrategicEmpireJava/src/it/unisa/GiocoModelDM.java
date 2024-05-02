@@ -51,40 +51,44 @@ public class GiocoModelDM implements GiocoModel{
 
 	@Override
 	public synchronized GiocoBean doRetrieveByKey(String code) throws SQLException {
-		Connection connection = null;
-		
-		PreparedStatement preparedStatement = null;
+        Connection connection = null;
 
-		GiocoBean bean = new GiocoBean();
+        PreparedStatement preparedStatement = null;
 
-		String selectGioco = "SELECT * FROM " + GiocoModelDM.TABLE_NAME + " WHERE cod_gioco = ?";
-		
-		try {
-			connection = DriverManagerConnectionPool.getConnection();
-			preparedStatement = connection.prepareStatement(selectGioco);
-			preparedStatement.setString(1, code);
-			
-			ResultSet rs = preparedStatement.executeQuery();
-			while(rs.next()) {
-				bean.setCod_gioco(rs.getString("cod_gioco"));
-				bean.setNomegioco(rs.getString("nome_gioco"));
-				bean.setEdizione(rs.getString("edizione"));
-				bean.setTipologia(rs.getString("tipologia"));
-				bean.setPrezzo(rs.getDouble("prezzo"));
-				bean.setDescrizione(rs.getString("descrizione"));
-				bean.setN_giocatori_min(rs.getInt("n_giocatori_min"));
-				bean.setN_giocatori_max(rs.getInt("n_giocatori_max"));
-			}
-		}finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
-			}
-		}
-		return bean;
-	}
+        GiocoBean bean = new GiocoBean();
+
+
+        String selectGioco = "select g.*,ig.img_name,ig.cod_img_gioco\r\n" + 
+                "from " +GiocoModelDM.TABLE_NAME +" as g \r\n" + 
+                "join img_gioco as ig on ig.cod_gioco = g.cod_gioco\r\n" + 
+                "where ig.copertina = true and g.cod_gioco = ? ;";
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(selectGioco);
+            preparedStatement.setString(1, code);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()) {
+                bean.setCod_gioco(rs.getString("cod_gioco"));
+                bean.setNomegioco(rs.getString("nome_gioco"));
+                bean.setEdizione(rs.getString("edizione"));
+                bean.setTipologia(rs.getString("tipologia"));
+                bean.setPrezzo(rs.getDouble("prezzo"));
+                bean.setDescrizione(rs.getString("descrizione"));
+                bean.setN_giocatori_min(rs.getInt("n_giocatori_min"));
+                bean.setN_giocatori_max(rs.getInt("n_giocatori_max"));
+                bean.setImmagineCop(rs.getString("img_name"));
+            }
+        }finally {
+            try {
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            } finally {
+                DriverManagerConnectionPool.releaseConnection(connection);
+            }
+        }
+        return bean;
+    }
 
 	@Override
 	public synchronized boolean doDelete(String code) throws SQLException {
