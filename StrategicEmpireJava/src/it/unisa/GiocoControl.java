@@ -63,28 +63,31 @@ public class GiocoControl extends HttpServlet {
 					bean.setN_giocatori_max(n_giocatori_max);
 					model.doSave(bean);
 				}else if(action.equalsIgnoreCase("filter")) {
-					String tipologia = request.getParameter("tipologia");
-					double prezzo;
-					int nGiocatori;
-					boolean check_prezzo = false;
-					boolean check_giocatori = false;
-					if(request.getParameter("prezzo") == "") {
-						 prezzo = 0;
-					}
-					else {
-						prezzo = Double.parseDouble(request.getParameter("prezzo"));
-						check_prezzo = true;
-					}
-					if(request.getParameter("N_giocatori") == "") {
-						nGiocatori = 0;
-					}
-					else {
-						nGiocatori = Integer.parseInt(request.getParameter("N_giocatori"));
-						check_giocatori = true;
-					}
-					
+				    String tipologia = request.getParameter("tipologia");
+				    double prezzo;
+				    int N_giocatori_min;
+				    boolean check_prezzo = false;
+				    boolean check_giocatori = false;
+
+				    // Controllo se i parametri prezzo e N_giocatori sono vuoti
+				    if (request.getParameter("prezzo") == null || request.getParameter("prezzo").isEmpty()) {
+
+				        prezzo = 0;
+				    } else {
+				        prezzo = Double.parseDouble(request.getParameter("prezzo"));
+				        check_prezzo = true;
+				    }
+				    
+				    if (request.getParameter("N_giocatori") == null || request.getParameter("N_giocatori").isEmpty()) {
+				        N_giocatori_min = 0;
+				    } else {
+				        N_giocatori_min = Integer.parseInt(request.getParameter("N_giocatori"));
+				        check_giocatori = true;
+				    }
+				
+				    
 				    try {
-				        Collection<GiocoBean> giochiFiltrati = model.doRetrieveByFilter(tipologia, prezzo, nGiocatori,check_prezzo,check_giocatori);
+				        Collection<GiocoBean> giochiFiltrati = model.doRetrieveByFilter(tipologia, prezzo, N_giocatori_min,check_prezzo,check_giocatori);
 				        request.setAttribute("giochiFiltrati", giochiFiltrati); 
 				    } catch (SQLException e) {
 				    	e.printStackTrace();
