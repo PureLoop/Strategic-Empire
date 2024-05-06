@@ -244,5 +244,12 @@ public class GiocoModelDM implements GiocoModel{
         return byteBuffer.toByteArray();
     }
 
+	@Override
+	public Collection<GiocoBean> doRetrieveByFilter(String tipologia, Double prezzo, Integer nGiocatori,
+			boolean check_prezzo, boolean check_giocatori) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

@@ -101,7 +101,11 @@ public class AccessorioModelDM implements AccessorioModel {
         PreparedStatement preparedStatement = null;
         Collection<AccessorioBean> accessories = new LinkedList<>();
 
-        String selectSQL = "SELECT * FROM " + TABLE_NAME;
+        
+        String selectSQL = "SELECT * FROM " + AccessorioModelDM.TABLE_NAME + " as g " + 
+                "join img_acc as ig on ig.cod_acc = g.cod_accessorio";
+
+
         try {
             connection = DriverManagerConnectionPool.getConnection();
             preparedStatement = connection.prepareStatement(selectSQL);
@@ -114,6 +118,8 @@ public class AccessorioModelDM implements AccessorioModel {
                 bean.setTipologia(rs.getString("tipologia"));
                 bean.setPrezzo(rs.getDouble("prezzo"));
                 bean.setDescrizione(rs.getString("descrizione"));
+				bean.setImmagineCop(rs.getString("img_name"));
+
                 accessories.add(bean);
             }
         } finally {

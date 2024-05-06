@@ -20,12 +20,26 @@
         <servlet-name>GiocoControl</servlet-name>
         <servlet-class>it.unisa.GiocoControl</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>GiocoControl</servlet-name>
+        <url-pattern>/gioco</url-pattern>
+    </servlet-mapping>
+    
     <servlet>
         <servlet-name>DettagliControl</servlet-name>
         <servlet-class>it.unisa.DettagliControl</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>GiocoControl</servlet-name>
-        <url-pattern>/gioco</url-pattern>
+        <servlet-name>DettagliControl</servlet-name>
+        <url-pattern>/dettaglio</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AccessorioControl</servlet-name>
+        <servlet-class>it.unisa.AccessorioControl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AccessorioControl</servlet-name>
+        <url-pattern>/accessorio</url-pattern>
     </servlet-mapping>
 </web-app>
