@@ -10,7 +10,7 @@ import java.util.LinkedList;
 public class espansioneBean implements Serializable{
     public String cod_gioco,cod_espansione,nome_espansione,descrizione;
     public Double prezzo;
-
+    public String immagineCopertina;
 
     public espansioneBean(){
     	cod_gioco = "";
@@ -20,6 +20,14 @@ public class espansioneBean implements Serializable{
         prezzo = 0.0;
     }
 
+    public void setImmagineCop(String img) {
+    	this.immagineCopertina = img;
+    }
+    
+    public String getImmagineCop() {
+    	return immagineCopertina;
+    }
+    
     public void setCod_espansione(String cod) {
         this.cod_espansione = cod;
     }

@@ -12,5 +12,5 @@ public interface EspansioneModel {
 
     Collection<espansioneBean> doRetrieveAll(String order) throws SQLException;
 
-    Collection<espansioneBean> doRetrieveByFilter(String tipologia, Double prezzo, boolean check_prezzo) throws SQLException;
+    Collection<espansioneBean> doRetrieveByFilter(Double prezzo, boolean check_prezzo) throws SQLException;
 }

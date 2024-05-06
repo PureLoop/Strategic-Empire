@@ -46,7 +46,7 @@
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="AccessorioView.jsp">Accessori</a></li>
-            <li><a class="dropdown-item" href="#">Espansioni</a></li>
+            <li><a class="dropdown-item" href="EspansioneView.jsp">Espansioni</a></li>
             <li><a class="dropdown-item" href="GiocoView.jsp">Giochi</a></li>
           </ul>
         </li>

@@ -27,11 +27,10 @@ public class EspansioneControl extends HttpServlet {
             throws ServletException, IOException {
 
         String action = request.getParameter("action");
-        int i = 0;
+ 
         try {
             if (action != null) {
                 if (action.equalsIgnoreCase("read")) {
-                    i = 2;
                     String id = request.getParameter("cod_espansione");
                     request.removeAttribute("espansione");
                     request.setAttribute("espansione", model.doRetrieveByKey(id));
@@ -54,7 +53,6 @@ public class EspansioneControl extends HttpServlet {
                     bean.setPrezzo(prezzo);
                     model.doSave(bean);
                 } else if (action.equalsIgnoreCase("filter")) {
-                    String tipologia = request.getParameter("tipologia");
                     Double prezzo;
                     boolean check_prezzo = false;
 
@@ -67,7 +65,7 @@ public class EspansioneControl extends HttpServlet {
                     }
 
                     try {
-                        Collection<espansioneBean> espansioniFiltrate = model.doRetrieveByFilter(tipologia, prezzo, check_prezzo);
+                        Collection<espansioneBean> espansioniFiltrate = model.doRetrieveByFilter( prezzo, check_prezzo);
                         request.setAttribute("espansioniFiltrate", espansioniFiltrate);
                     } catch (SQLException e) {
                         e.printStackTrace();
@@ -87,12 +85,7 @@ public class EspansioneControl extends HttpServlet {
             System.out.println("Error:" + e.getMessage());
         }
 
-        RequestDispatcher dispatcher;
-        if (i != 2) {
-            dispatcher = getServletContext().getRequestDispatcher("/EspansioneView.jsp");
-        } else {
-            dispatcher = getServletContext().getRequestDispatcher("/DettagliEspansione.jsp");
-        }
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/EspansioneView.jsp");
         dispatcher.forward(request, response);
     }
 

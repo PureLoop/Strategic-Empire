@@ -16,16 +16,16 @@ public class EspansioneModelDM implements EspansioneModel {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
-        String insertSQL = "INSERT INTO " + TABLE_NAME +
+        String insertespansione = "INSERT INTO " + TABLE_NAME +
                 "(cod_espansione, cod_gioco, nome_espansione, descrizione, prezzo) VALUES (?, ?, ?, ?, ?)";
         try {
             connection = DriverManagerConnectionPool.getConnection();
-            preparedStatement = connection.prepareStatement(insertSQL);
+            preparedStatement = connection.prepareStatement(insertespansione);
             preparedStatement.setString(1, espansione.getCod_espansione());
-            preparedStatement.setString(2, espansione.getCod_gioco());
-            preparedStatement.setString(3, espansione.getNomeespansione());
-            preparedStatement.setString(4, espansione.getDescrizione());
-            preparedStatement.setDouble(5, espansione.getPrezzo());
+            preparedStatement.setString(2, espansione.getNomeespansione());
+            preparedStatement.setString(3, espansione.getDescrizione());
+            preparedStatement.setDouble(4, espansione.getPrezzo());
+            preparedStatement.setString(5, espansione.getCod_gioco());
 
             preparedStatement.executeUpdate();
 
@@ -104,7 +104,10 @@ public class EspansioneModelDM implements EspansioneModel {
         PreparedStatement preparedStatement = null;
         Collection<espansioneBean> espansioni = new LinkedList<>();
 
-        String selectSQL = "SELECT * FROM " + TABLE_NAME;
+        String selectSQL = "SELECT * FROM " + EspansioneModelDM.TABLE_NAME + "as e" +
+        		"join img_esp as ie on ie.cod_esp = e.cod_espansione";
+        
+        
         try {
             connection = DriverManagerConnectionPool.getConnection();
             preparedStatement = connection.prepareStatement(selectSQL);
@@ -132,8 +135,37 @@ public class EspansioneModelDM implements EspansioneModel {
     }
 
     @Override
-    public synchronized Collection<espansioneBean> doRetrieveByFilter(String tipologia, Double prezzo, boolean check_prezzo) throws SQLException {
-        // Implementa il recupero delle espansioni in base a filtri specifici
-        return null;
+    public synchronized Collection<espansioneBean> doRetrieveByFilter(Double prezzo, boolean check_prezzo) throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        Collection<espansioneBean> beans = new LinkedList<>();
+        String selectSQL = "SELECT * FROM " + TABLE_NAME;
+        if (check_prezzo && prezzo != null) {
+            selectSQL += " AND prezzo = ?";
+        }
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(selectSQL);
+            if (check_prezzo && prezzo != null) {
+                preparedStatement.setDouble(4, prezzo);
+            }
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                espansioneBean bean = new espansioneBean();
+                bean.setCod_espansione(rs.getString("cod_espansione"));
+                bean.setNomeespansione(rs.getString("nome_espansione"));
+                bean.setDescrizione(rs.getString("descrizione"));
+                bean.setPrezzo(rs.getDouble("prezzo"));
+                beans.add(bean);
+            }
+        } finally {
+            try {
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            } finally {
+                DriverManagerConnectionPool.releaseConnection(connection);
+            }
+        }
+        return beans;
     }
 }
