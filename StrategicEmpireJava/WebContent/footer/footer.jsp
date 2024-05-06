@@ -31,6 +31,7 @@
           font-size: 3.5rem;
         }
       }
+      
 
       .b-example-divider {
         width: 100%;
