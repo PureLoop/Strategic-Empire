@@ -51,44 +51,44 @@ public class GiocoModelDM implements GiocoModel{
 
 	@Override
 	public synchronized GiocoBean doRetrieveByKey(String code) throws SQLException {
-        Connection connection = null;
+		Connection connection = null;
+		
+		PreparedStatement preparedStatement = null;
 
-        PreparedStatement preparedStatement = null;
-
-        GiocoBean bean = new GiocoBean();
+		GiocoBean bean = new GiocoBean();
 
 
-        String selectGioco = "select g.*,ig.img_name,ig.cod_img_gioco\r\n" + 
-                "from " +GiocoModelDM.TABLE_NAME +" as g \r\n" + 
-                "join img_gioco as ig on ig.cod_gioco = g.cod_gioco\r\n" + 
-                "where ig.copertina = true and g.cod_gioco = ? ;";
-        try {
-            connection = DriverManagerConnectionPool.getConnection();
-            preparedStatement = connection.prepareStatement(selectGioco);
-            preparedStatement.setString(1, code);
-
-            ResultSet rs = preparedStatement.executeQuery();
-            while(rs.next()) {
-                bean.setCod_gioco(rs.getString("cod_gioco"));
-                bean.setNomegioco(rs.getString("nome_gioco"));
-                bean.setEdizione(rs.getString("edizione"));
-                bean.setTipologia(rs.getString("tipologia"));
-                bean.setPrezzo(rs.getDouble("prezzo"));
-                bean.setDescrizione(rs.getString("descrizione"));
-                bean.setN_giocatori_min(rs.getInt("n_giocatori_min"));
-                bean.setN_giocatori_max(rs.getInt("n_giocatori_max"));
-                bean.setImmagineCop(rs.getString("img_name"));
-            }
-        }finally {
-            try {
-                if (preparedStatement != null)
-                    preparedStatement.close();
-            } finally {
-                DriverManagerConnectionPool.releaseConnection(connection);
-            }
-        }
-        return bean;
-    }
+		String selectGioco = "select g.*,ig.img_name,ig.cod_img_gioco\r\n" + 
+				"from " +GiocoModelDM.TABLE_NAME +" as g \r\n" + 
+				"join img_gioco as ig on ig.cod_gioco = g.cod_gioco\r\n" + 
+				"where ig.copertina = true and g.cod_gioco = ? ;";
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectGioco);
+			preparedStatement.setString(1, code);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				bean.setCod_gioco(rs.getString("cod_gioco"));
+				bean.setNomegioco(rs.getString("nome_gioco"));
+				bean.setEdizione(rs.getString("edizione"));
+				bean.setTipologia(rs.getString("tipologia"));
+				bean.setPrezzo(rs.getDouble("prezzo"));
+				bean.setDescrizione(rs.getString("descrizione"));
+				bean.setN_giocatori_min(rs.getInt("n_giocatori_min"));
+				bean.setN_giocatori_max(rs.getInt("n_giocatori_max"));
+				bean.setImmagineCop(rs.getString("img_name"));
+			}
+		}finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return bean;
+	}
 
 	@Override
 	public synchronized boolean doDelete(String code) throws SQLException {
@@ -160,60 +160,58 @@ public class GiocoModelDM implements GiocoModel{
 		return gioco;
 	}
 	
-	public synchronized Collection<GiocoBean> doRetrieveByFilter(String tipologia, Double prezzo, Integer nGiocatori, boolean check_prezzo, boolean check_giocatori) throws SQLException {
+	public synchronized Collection<GiocoBean> doRetrieveByFilter(String tipologia, double prezzo, int nGiocatori, boolean check_prezzo, boolean check_giocatori) throws SQLException {
 	    Connection connection = null;
 	    PreparedStatement preparedStatement = null;
-	    
+
 	    Collection<GiocoBean> beans = new LinkedList<>();
-	    
-	    String selectSQL = "SELECT g.*, ig.img_name, ig.cod_img_gioco " +
-	                       "FROM " + GiocoModelDM.TABLE_NAME + " AS g " +
-	                       "JOIN img_gioco AS ig ON ig.cod_gioco = g.cod_gioco " +
-	                       "WHERE ig.copertina = true";
+	    String selectSQL = "select g.*,ig.img_name,ig.cod_img_gioco\r\n" + 
+				"from " +GiocoModelDM.TABLE_NAME +" as g \r\n" + 
+				"join img_gioco as ig on ig.cod_gioco = g.cod_gioco\r\n" + 
+				"where ig.copertina = true AND g.tipologia = ?;";
 
-	    // Aggiungi la clausola WHERE solo se tipologia non è "Tutti"
-	    if (!"Tutti".equals(tipologia)) {
-	        selectSQL += " AND g.tipologia = ?";
+	    if(prezzo > 0) {	
+	    	selectSQL += " AND g.prezzo = ?";
+	    } 	
+	    if(nGiocatori > 0) {
+	    	selectSQL += " AND g.n_giocatori = ?";
 	    }
-
-	    // Aggiungi le condizioni per prezzo e numero di giocatori se presenti
-	    if (prezzo > 0) {    
-	        selectSQL += " AND g.prezzo = ?";
-	    }   
-	    if (nGiocatori > 0) {
-	        selectSQL += " AND g.n_giocatori_min = ?";
-	    }
-
 	    try {
+	    	
 	        connection = DriverManagerConnectionPool.getConnection();
 	        preparedStatement = connection.prepareStatement(selectSQL);
+	        
+	        preparedStatement.setString(1, tipologia);
+	       
+	        if(check_prezzo == true && check_giocatori == false) {
+		        preparedStatement.setDouble(2, prezzo);
 
-	        // Imposta i parametri della query
-	        int parameterIndex = 1;
-	        if (!"Tutti".equals(tipologia)) {
-	            preparedStatement.setString(parameterIndex++, tipologia);
 	        }
-	        if (check_prezzo) {
-	            preparedStatement.setDouble(parameterIndex++, prezzo);
+	        else if(check_prezzo == false && check_giocatori == true) {
+		        preparedStatement.setInt(2, nGiocatori);
 	        }
-	        if (check_giocatori) {
-	            preparedStatement.setInt(parameterIndex++, nGiocatori);
+	        
+	        else if(check_prezzo == true && check_giocatori == true) {
+		        preparedStatement.setDouble(2, prezzo);
+		        preparedStatement.setInt(3, nGiocatori);
+
 	        }
+	        
 
 	        ResultSet rs = preparedStatement.executeQuery();
 	        while (rs.next()) {
+
 	            GiocoBean bean = new GiocoBean();
-	            // Imposta i valori del bean con i dati ottenuti dalla query
-	            bean.setCod_gioco(rs.getString("cod_gioco"));
-	            bean.setNomegioco(rs.getString("nome_gioco"));
-	            bean.setEdizione(rs.getString("edizione"));
-	            bean.setTipologia(rs.getString("tipologia"));
-	            bean.setPrezzo(rs.getDouble("prezzo"));
-	            bean.setDescrizione(rs.getString("descrizione"));
-	            bean.setN_giocatori_min(rs.getInt("n_giocatori_min"));
-	            bean.setN_giocatori_max(rs.getInt("n_giocatori_max"));
-	            bean.setImmagineCop(rs.getString("img_name"));
-	            beans.add(bean);
+				bean.setCod_gioco(rs.getString("cod_gioco"));
+				bean.setNomegioco(rs.getString("nome_gioco"));
+				bean.setEdizione(rs.getString("edizione"));
+				bean.setTipologia(rs.getString("tipologia"));
+				bean.setPrezzo(rs.getDouble("prezzo"));
+				bean.setDescrizione(rs.getString("descrizione"));
+				bean.setN_giocatori_min(rs.getInt("n_giocatori_min"));
+				bean.setN_giocatori_max(rs.getInt("n_giocatori_max"));
+				bean.setImmagineCop(rs.getString("img_name"));
+				beans.add(bean);
 	        }
 	    } finally {
 	        try {
@@ -222,11 +220,12 @@ public class GiocoModelDM implements GiocoModel{
 	        } finally {
 	            DriverManagerConnectionPool.releaseConnection(connection);
 	        }
+	        
 	    }
-
-	    return beans;
+	   
+	        return  beans;
+	    
 	}
-
 	
 	private static byte[] readBytes(InputStream inputStream){
         ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
