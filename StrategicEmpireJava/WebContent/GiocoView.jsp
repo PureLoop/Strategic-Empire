@@ -78,7 +78,7 @@ boolean visualizza = true;
         while (it.hasNext()) { 
             GiocoBean bean = (GiocoBean) it.next(); 
     %>
-    <div class="col-sm-3 mb-3" style="width: 50rem;">
+    <div class="col-sm-3 mb-3" style="width: 25%;">
         <div class="card">
             <a class="no-underline card-link" href="DettagliControl?cod_gioco=<%=bean.getCod_Gioco()%>">
                 <div class="card-body">
@@ -109,7 +109,7 @@ boolean visualizza = true;
         while (it.hasNext()) { 
             GiocoBean bean = (GiocoBean) it.next(); 
     %>
-    <div class="col-sm-3 mb-3" style="width: 50rem;">
+    <div class="col-sm-3 mb-3" style="width: 25%;">
         <div class="card">
             <a class="no-underline card-link" href="DettagliControl?cod_gioco=<%=bean.getCod_Gioco()%>">
                 <div class="card-body">
