@@ -18,7 +18,8 @@
             <th>Codice</th>
             <th>Nome</th>
             <th>Prezzo</th>
-            <th id="col-del"></th> <!-- Nuova colonna per l'icona "x" -->
+       		<th>Quantità</th>
+            <th id="col-del">Rimuovi</th> <!-- Nuova colonna per l'icona "x" -->
         </tr>
         <% 
         List<GiocoBean> listaGiochiCarrello = (List<GiocoBean>) request.getSession().getAttribute("listaGiochiCarrello");
@@ -30,6 +31,7 @@
             <td><%= count %></td>
             <td><%= gioco.getNomegioco() %></td>
             <td><%= gioco.getPrezzo() %>€</td>
+            <td></td>
             <td class=".elimina-cell">
                 <a href="CarrelloControl?action=delete&cod_gioco=<%=gioco.getCod_Gioco()%>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" id="x">
                     <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>

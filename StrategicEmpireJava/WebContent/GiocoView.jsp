@@ -85,7 +85,7 @@ boolean visualizza = true;
                     <img src="<%=bean.getImmagineCop()%>" class="card-img-top">
                     <h5 class="card-title"><%=bean.getNomegioco()%></h5>
                     <p class="card-text">Prezzo: <%=bean.getPrezzo()%></p>
-                    <a href="CarrelloControl?cod_gioco=<%=bean.getCod_Gioco()%>"><img src="IMMAGINI/carrelloICON.png" class="icon-carrello"></a>
+                    <a href="CarrelloControl?cod_gioco=<%=bean.getCod_Gioco() %>" ><img src="IMMAGINI/carrelloICON.png" class="icon-carrello"></a>
                 </div>
             </a>
         </div>
@@ -116,7 +116,15 @@ boolean visualizza = true;
                     <img src="<%=bean.getImmagineCop()%>" class="card-img-top">
                     <h5 class="card-title"><%=bean.getNomegioco()%></h5>
                     <p class="card-text">Prezzo: <%=bean.getPrezzo()%></p>
-                    <a href="CarrelloControl?cod_gioco=<%=bean.getCod_Gioco()%>"><img src="IMMAGINI/carrelloICON.png" class="icon-carrello"></a>
+<!-- HTML -->
+<div class="carrello-container">
+    <a href="CarrelloControl?cod_gioco=<%=bean.getCod_Gioco()%>" class="carrello-link">
+        <img src="IMMAGINI/carrelloICON.png" class="icon-carrello">
+    </a>
+    <div class="popup">
+        <span class="popup-text">Ciao</span>
+    </div>
+</div>
                 </div>
             </a>
         </div>

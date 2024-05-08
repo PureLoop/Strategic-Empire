@@ -13,11 +13,36 @@
     <title>Dettagli Gioco - <%= gioco.getNomegioco() %></title>
     <link rel="stylesheet" href="DettagliStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css">
+    <style>
+.custom-button {
+  position: absolute;
+  right: 30%;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #00BFFF;
+  border: 2px solid #00BFFF;
+  border-radius: 20px; /* Arrotonda i bordi */
+  color: white;
+  text-decoration: none; /* Rimuove la sottolineatura */
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.custom-button:hover {
+  background-color: white;
+  color: #00BFFF;
+  text-decoration: none; /* Rimuove la sottolineatura anche quando ci passi sopra */
+}
+
+
+
+
+</style>
 </head>
 <body>
-    <header>
-        <%@ include file="/header/header.jsp" %>
-    </header>
+              <%@ include file="/header/header.jsp" %>
+
+
+        
 
 
 <div class="container mt-5">
@@ -44,28 +69,37 @@
                 <p><strong>Edizione:</strong> <%= gioco.getEdizione() %></p>
                 <p><strong>Tipologia:</strong> <%= gioco.getTipologia() %></p>
             </div>
-            <div class="buy-now mt-4">
-                <div class="panel d-flex align-items-center justify-content-between">
-                    <div class="product-info">
-                        <h5><%= gioco.getNomegioco() %></h5>
-                        <h5><%= gioco.getPrezzo() %> &euro;</h5>
-                    </div>
-                    <form action="AggiungiAlCarrello.jsp" method="post">
-                        <input type="hidden" name="cod_gioco" value="<%= gioco.getCod_Gioco() %>">
-                        <input type="hidden" name="nome_gioco" value="<%= gioco.getNomegioco() %>">
-                        <input type="hidden" name="prezzo" value="<%= gioco.getPrezzo() %>">
-                        <button type="submit" class="btn btn-primary">Aggiungi al Carrello</button>
-                    </form>
-							<div class="col-md-6 mt-4">
-						    <a href="https://www.paypal.com">
-						        <img src="IMMAGINI/paypal.png" alt="Immagine Cliccabile" class="img-fluid paypal-logo">
-						    </a>
-						</div>
-                </div>
-            </div>
+          <div class="buy-now mt-4">
+    <div class="panel d-flex align-items-center justify-content-between">
+        <!-- Informazioni sul prodotto -->
+        <div class="product-info">
+            <h5><%= gioco.getNomegioco() %></h5>
+            <h5><%= gioco.getPrezzo() %> &euro;</h5>
+        </div>
+        <!-- Bottone "Aggiungi al Carrello" con tutti i dati -->
+        <form action="AggiungiAlCarrello.jsp" method="post">
+            <input type="hidden" name="cod_gioco" value="<%= gioco.getCod_Gioco() %>">
+            <input type="hidden" name="nome_gioco" value="<%= gioco.getNomegioco() %>">
+            <input type="hidden" name="prezzo" value="<%= gioco.getPrezzo() %>">
+            
+            <a href="CarrelloControl?cod_gioco=<%=gioco.getCod_Gioco()%>" class="custom-button">
+   				 Aggiungi al Carrello
+			</a>
+ 
+			 </form>
+        <!-- Logo PayPal -->
+        <div class="col-md-6 mt-4">
+            <a href="https://www.paypal.com">
+                <img src="IMMAGINI/paypal.png" alt="Immagine Cliccabile" class="img-fluid paypal-logo">
+            </a>
         </div>
     </div>
 </div>
+
+
+            </div>
+        </div>
+    </div>
 
 
 
@@ -74,6 +108,5 @@
         <%@ include file="/footer/footer.jsp" %>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
