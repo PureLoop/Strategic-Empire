@@ -40,7 +40,7 @@ La semplicità delle regole di Taboo è uno dei suoi punti di forza. È facile d
 Lo scopo è rimanere l'ultimo vivo, dato che chi pesca un'Esplosione viene eliminato dalla partita, a meno di non usare un Defuse: nel qual caso reinserisce dove vuole l'Esplosione nel mazzo (in cima, in fondo, in mezzo... dove gli pare). ",2,5);
 insert into espansione(cod_espansione,nome_espansione,descrizione,prezzo,cod_gioco) values
 ("esp001","Barrage 5 giocatore","Arricchisci la tua copia di Barrage con una nuova mappa progettata specificamente per 5 giocatori e scopri le nuove connessioni, studiate per consentire nuove strategie di piazzamento senza alterare il flusso di gioco.",25.5,"g001"),
-("esp002","Imploding Kittens","Imploding Kittens è la prima espansione per il divertente gioco di gattini esplosivi più celebre di sempre. Grazie a queste nuove carte potrete aumentare il numero massimo di giocatori fino a 6, oltre ad includere una serie di spassosissime nuove azioni di gioco che cambieranno per sempre le vostre strategie, ma soprattutto il modo in cui farete detonare i vostri gattini!! Non che sia una bella cosa eh...",15,"g012");
+("esp012","Imploding Kittens","Imploding Kittens è la prima espansione per il divertente gioco di gattini esplosivi più celebre di sempre. Grazie a queste nuove carte potrete aumentare il numero massimo di giocatori fino a 6, oltre ad includere una serie di spassosissime nuove azioni di gioco che cambieranno per sempre le vostre strategie, ma soprattutto il modo in cui farete detonare i vostri gattini!! Non che sia una bella cosa eh...",15,"g012");
 
 insert into img_gioco(cod_img_gioco,copertina,img_name,cod_gioco) values
     ("g001Img1",true,"IMMAGINI/IMMAGINI_GIOCHI/Barrage_BOX-3D.png","g001"),
