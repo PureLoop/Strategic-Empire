@@ -1,15 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+<<<<<<< Updated upstream
+    <display-name>Catalogo</display-name>
+    <welcome-file-list>
+        <welcome-file>GiocoView.jsp</welcome-file>
+    </welcome-file-list>
+    
+    <!-- Servlet per la registrazione -->
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>it.unisa.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Altre servlet esistenti -->
+    <servlet>
+        <servlet-name>GiocoControl</servlet-name>
+        <servlet-class>it.unisa.GiocoControl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GiocoControl</servlet-name>
+        <url-pattern>/gioco</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>DettagliControl</servlet-name>
+        <servlet-class>it.unisa.DettagliControl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DettagliControl</servlet-name>
+        <url-pattern>/dettaglio</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AccessorioControl</servlet-name>
+        <servlet-class>it.unisa.AccessorioControl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AccessorioControl</servlet-name>
+        <url-pattern>/accessorio</url-pattern>
+    </servlet-mapping>
+</web-app>
+=======
   <display-name>Catalogo</display-name>
   <welcome-file-list>
-    <welcome-file>GiocoView.jsp</welcome-file>
+    <welcome-file>HomePage.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
     <servlet-name>GiocoControl</servlet-name>
     <servlet-class>it.unisa.GiocoControl</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>RecensioneControl</servlet-name>
+    <servlet-class>it.unisa.RecensioneControl</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>GiocoControl</servlet-name>
     <url-pattern>/gioco</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>RecensioneControl</servlet-name>
+    <url-pattern>/recensione</url-pattern>
+  </servlet-mapping>
 </web-app>
+>>>>>>> Stashed changes
