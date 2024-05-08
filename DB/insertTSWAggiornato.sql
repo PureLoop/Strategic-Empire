@@ -70,12 +70,12 @@ insert into img_gioco(cod_img_gioco,copertina,img_name,cod_gioco) values
 
     
 insert into img_acc(cod_img_acc,copertina,img_name,cod_acc) values
-     ("acc01Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/DADI_ROSSI1.jpg","acc01")
-	,("acc02Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/DADI_VERDI1.jpg","acc02"),
-    ("acc03Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/DADI_BLU_DRAGO.jpg","acc03");
+     ("acc01Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/DADI_ROSSI1.png","acc01")
+	,("acc02Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/DADI_VERDI1.png","acc02"),
+    ("acc03Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/DADI_BLU_DRAGO.png","acc03");
 insert into img_esp(cod_img_esp,copertina,img_name,cod_esp) values
-    ("esp001Img1",true,"IMMAGINI/IMMAGINI_ESPANSIONE/Barrage_5Th-Giocatore_scatola.png","esp001"),
-    ("esp012Img1",true,"IMMAGINI/IMMAGINI_ESPANSIONE/implodingkittens.jpg","esp012");
+    ("esp001Img1",true,"IMMAGINI/IMMAGINI_ESPANSIONI/Barrage_5Th-Giocatore_scatola.png","esp001"),
+    ("esp012Img1",true,"IMMAGINI/IMMAGINI_ESPANSIONI/implodingkittens.png","esp012");
 insert into componente(nomeComponente) values 
 	("Regolamento"),("Carte"),("Plance"),
     ("Schede consegne"),("Impiegati"),("Camion in legno"),
