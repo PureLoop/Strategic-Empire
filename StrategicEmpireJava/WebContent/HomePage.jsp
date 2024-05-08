@@ -4,12 +4,13 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.122.0">
-    <title>Strategic-Empire</title>
+    <title>Carousel Template Â· Bootstrap v5.3</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/carousel/">
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
@@ -17,7 +18,6 @@
 <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-    
       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
@@ -95,22 +95,22 @@
         display: block !important;
       }
       
-       .carousel-item:nth-child(1) {
-        background-image: url('IMMAGINI/IMMAGINI_HOME/Carousel1.jpg');
-        background-size: cover; /* Adatta l'immagine alla dimensione del contenitore */
-    }
+      .carousel-item:nth-child(1) {
+    background-image: url('IMMAGINI/IMMAGINI_HOME/Carousel1.jpg');
+    background-size: cover; /* Adatta l'immagine alla dimensione del contenitore */
+}
 
-    .carousel-item:nth-child(2) {
-        background-image: url('IMMAGINI/IMMAGINI_HOME/Carousel2.jpg');
-        background-size: cover;
-        background-position: center bottom;
-    }
+.carousel-item:nth-child(2) {
+    background-image: url('IMMAGINI/IMMAGINI_HOME/Carousel2.jpg');
+    background-size: cover;
+    background-position: center bottom;
+}
 
-    .carousel-item:nth-child(3) {
-        background-image: url('IMMAGINI/IMMAGINI_HOME/Carousel3.jpg');
-	    background-size: cover;
-	    background-position: center;
-    }
+.carousel-item:nth-child(3) {
+    background-image: url('IMMAGINI/IMMAGINI_HOME/Carousel3.jpg');
+    background-size: cover;
+    background-position: center;
+}
     </style>
 
     
@@ -118,10 +118,41 @@
     <link href="carousel.css" rel="stylesheet">
   </head>
   <body>
+    
+
+    
+<header data-bs-theme="dark">
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Carousel</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+          </li>
+        </ul>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+</header>
+
 <main>
 	<header>
-		<%@ include file="/header/header.jsp" %>
-	</header>
+	<%@ include file="/header/header.jsp" %>
+    </header>
   <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -133,9 +164,9 @@
         <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
         <div class="container">
           <div class="carousel-caption text-start">
-            <h1>Scopri nuovi mondi e storie fantastiche</h1>
-            <p class="opacity-75">Esplora il nostro catalogo di giochi di ruolo. Immergiti in mondi e storie fantasy che metteranno a dura prova le tue capacità da player.</p>
-            <p><a class="btn btn-lg btn-primary" href="#">Scopri</a></p>
+            <h1>Example headline.</h1>
+            <p class="opacity-75">Some representative placeholder content for the first slide of the carousel.</p>
+            <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p>
           </div>
         </div>
       </div>
@@ -143,9 +174,9 @@
         <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
         <div class="container">
           <div class="carousel-caption">
-            <h1>Riscopri la bellezza di giocare in compagnia</h1>
-            <p>Divertiti insieme ai tuo amici con i più variegati party games e giochi di carte.</p>
-            <p><a class="btn btn-lg btn-primary" href="#">Scopri</a></p>
+            <h1>Another example headline.</h1>
+            <p>Some representative placeholder content for the second slide of the carousel.</p>
+            <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
           </div>
         </div>
       </div>
@@ -153,9 +184,9 @@
         <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
         <div class="container">
           <div class="carousel-caption text-end">
-            <h1>Strategia e molto ingegno</h1>
-            <p>Consulta il nostro catalogo di giochi stategici e gestionali, gestisci le tue risorse, sviluppa le più variegate strategie per schiacciare i tuoi avversari</p>
-            <p><a class="btn btn-lg btn-primary" href="#">Scopri</a></p>
+            <h1>One more for good measure.</h1>
+            <p>Some representative placeholder content for the third slide of this carousel.</p>
+            <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
           </div>
         </div>
       </div>
@@ -169,14 +200,6 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
-
-
-  <!-- Marketing messaging and featurettes
-  ================================================== -->
-  <!-- Wrap the rest of the page in another container to center all the content. -->
-
-  <div class="container marketing">
-
 
     <!-- START THE FEATURETTES -->
 
@@ -221,12 +244,15 @@
     <!-- /END THE FEATURETTES -->
 
   </div><!-- /.container -->
-	
-	<%@ include file="Review.jsp" %>
 
+<%@ include file="Review.jsp" %>
   <!-- FOOTER -->
+    <footer>
+    <%@ include file="/header/header.jsp" %>
+  </footer>
 </main>
 <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 
     </body>
 </html>
+  
