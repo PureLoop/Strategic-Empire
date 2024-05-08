@@ -12,9 +12,10 @@ create table espansione(
 );
 
 create table utente(
+	cod_utente varchar(10) primary key,
 	username varchar(16) not null,
     pw varchar(16) not null,
-    email varchar(25) primary key,
+    email varchar(50) not null,
     ruolo varchar(14) not null check(ruolo in("cliente","amministratore"))
 );
 
@@ -83,8 +84,15 @@ create table ordine(
 	cod_ordine varchar(10) primary key,
     n_articoli int not null,
     totale numeric(5,2) not null,
+<<<<<<< Updated upstream
     data date not null,
 	email_utente varchar(25) not null references utente(email)
+=======
+    cod_sconto varchar(10) default null references sconto(cod_sconto)
+		on delete cascade
+        on update cascade,
+	cod_utente varchar(10) not null references utente(cod_utente)
+>>>>>>> Stashed changes
 		on delete cascade
         on update cascade
 );
