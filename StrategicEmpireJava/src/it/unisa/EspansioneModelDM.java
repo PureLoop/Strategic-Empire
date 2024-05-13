@@ -1,3 +1,4 @@
+
 package it.unisa;
 
 import java.sql.Connection;
@@ -39,33 +40,43 @@ public class EspansioneModelDM implements EspansioneModel {
     }
 
     @Override
-    public synchronized espansioneBean doRetrieveByKey(String code) throws SQLException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        espansioneBean espansione = new espansioneBean();
+	public espansioneBean doRetrieveByKey(String code) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    ResultSet rs = null;
+	    espansioneBean bean = new espansioneBean();
 
-        String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE cod_espansione = ?";
-        try {
-            connection = DriverManagerConnectionPool.getConnection();
-            preparedStatement = connection.prepareStatement(selectSQL);
-            preparedStatement.setString(1, code);
+	    String selectGioco = "SELECT e.*, ig.img_name, ig.cod_img_esp " + 
+	                         "FROM espansione AS e " + 
+	                         "JOIN img_esp AS ig ON ig.cod_esp = e.cod_espansione " + 
+	                         "AND e.cod_espansione = ?;";
 
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                espansione.setCod_espansione(rs.getString("cod_espansione"));
-                espansione.setCod_gioco(rs.getString("cod_gioco"));
-                espansione.setNomeespansione(rs.getString("nome_espansione"));
-                espansione.setDescrizione(rs.getString("descrizione"));
-                espansione.setPrezzo(rs.getDouble("prezzo"));
-            }
-        } finally {
-            if (preparedStatement != null)
-                preparedStatement.close();
-            if (connection != null)
-                connection.close();
-        }
-        return espansione;
-    }
+	    try {
+	        connection = DriverManagerConnectionPool.getConnection();
+	        preparedStatement = connection.prepareStatement(selectGioco);
+	        preparedStatement.setString(1, code);
+	        rs = preparedStatement.executeQuery();
+	        
+	        if (rs.next()) {
+	            bean.setCod_espansione(rs.getString("cod_espansione"));
+	            bean.setNomeespansione(rs.getString("nome_espansione"));
+	            bean.setDescrizione(rs.getString("descrizione"));
+	            bean.setPrezzo(rs.getDouble("prezzo"));
+	            bean.setImmagineCop(rs.getString("img_name"));
+	        }
+	    } finally {
+	        if (rs != null) {
+	            rs.close();
+	        }
+	        if (preparedStatement != null) {
+	            preparedStatement.close();
+	        }
+	        if (connection != null) {
+	            DriverManagerConnectionPool.releaseConnection(connection);
+	        }
+	    }
+	    return bean;
+	}
 
     @Override
     public synchronized boolean doDelete(String code) throws SQLException {
@@ -90,7 +101,7 @@ public class EspansioneModelDM implements EspansioneModel {
     }
 
     @Override
-    public synchronized Collection<espansioneBean> doRetrieveAll(String order) throws SQLException {
+	public synchronized Collection<espansioneBean> doRetrieveAll(String order) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         Collection<espansioneBean> espansioni = new LinkedList<>();
@@ -123,36 +134,36 @@ public class EspansioneModelDM implements EspansioneModel {
     }
 
     @Override
-    public synchronized Collection<espansioneBean> doRetrieveByFilter(Double prezzo, boolean check_prezzo) throws SQLException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        Collection<espansioneBean> beans = new LinkedList<>();
-        String selectSQL = "SELECT * FROM " + TABLE_NAME;
-        if (check_prezzo && prezzo != null) {
-            selectSQL += " WHERE prezzo = ?";
-        }
-        try {
-            connection = DriverManagerConnectionPool.getConnection();
-            preparedStatement = connection.prepareStatement(selectSQL);
-            if (check_prezzo && prezzo != null) {
-                preparedStatement.setDouble(1, prezzo);
-            }
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                espansioneBean bean = new espansioneBean();
-                bean.setCod_espansione(rs.getString("cod_espansione"));
-                bean.setCod_gioco(rs.getString("cod_gioco"));
-                bean.setNomeespansione(rs.getString("nome_espansione"));
-                bean.setDescrizione(rs.getString("descrizione"));
-                bean.setPrezzo(rs.getDouble("prezzo"));
-                beans.add(bean);
-            }
-        } finally {
-            if (preparedStatement != null)
-                preparedStatement.close();
-            if (connection != null)
-                DriverManagerConnectionPool.releaseConnection(connection);
-        }
-        return beans;
-    }
+	 public synchronized Collection<espansioneBean> doRetrieveByFilter(Double prezzo, boolean check_prezzo) throws SQLException {
+	        Connection connection = null;
+	        PreparedStatement preparedStatement = null;
+	        Collection<espansioneBean> beans = new LinkedList<>();
+	        String selectSQL = "SELECT * FROM " + TABLE_NAME;
+	        if (check_prezzo && prezzo != null) {
+	            selectSQL += " WHERE prezzo = ?";
+	        }
+	        try {
+	            connection = DriverManagerConnectionPool.getConnection();
+	            preparedStatement = connection.prepareStatement(selectSQL);
+	            if (check_prezzo && prezzo != null) {
+	                preparedStatement.setDouble(1, prezzo);
+	            }
+	            ResultSet rs = preparedStatement.executeQuery();
+	            while (rs.next()) {
+	                espansioneBean bean = new espansioneBean();
+	                bean.setCod_espansione(rs.getString("cod_espansione"));
+	                bean.setCod_gioco(rs.getString("cod_gioco"));
+	                bean.setNomeespansione(rs.getString("nome_espansione"));
+	                bean.setDescrizione(rs.getString("descrizione"));
+	                bean.setPrezzo(rs.getDouble("prezzo"));
+	                beans.add(bean);
+	            }
+	        } finally {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	            if (connection != null)
+	                DriverManagerConnectionPool.releaseConnection(connection);
+	        }
+	        return beans;
+	    }
 }

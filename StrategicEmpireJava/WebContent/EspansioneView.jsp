@@ -64,7 +64,7 @@ boolean visualizza = true;
     if (espansioni != null && espansioni.size() != 0) { 
         Iterator<?> it = espansioni.iterator(); 
         while (it.hasNext()) { 
-            espansioneBean bean = (espansioneBean) it.next(); 
+           espansioneBean bean = (espansioneBean) it.next(); 
     %>
     <div class="col-sm-3 mb-3" style="width: 25%;">
         <div class="card">
@@ -73,8 +73,8 @@ boolean visualizza = true;
                     <img src="<%=bean.getImmagineCop()%>" class="card-img-top">
                     <h5 class="card-title"><%=bean.getNomeespansione()%></h5>
                     <p class="card-text">Prezzo: <%=bean.getPrezzo()%></p>
-                    <a href="CarrelloControl?cod_espansione=<%=bean.getCod_espansione()%>"><img src="IMMAGINI/carrelloICON.png" class="icon-carrello"></a>
-                </div>
+					<a href="CarrelloControl?action=AddEspansione&cod_espansione=<%=bean.getCod_espansione()%>">
+					<img src="IMMAGINI/carrelloICON.png" class="icon-carrello">                </div>
             </a>
         </div>
     </div>
@@ -103,7 +103,9 @@ boolean visualizza = true;
                     <img src="<%=bean.getImmagineCop()%>" class="card-img-top">
                     <h5 class="card-title"><%=bean.getNomeespansione()%></h5>
                     <p class="card-text">Prezzo: <%=bean.getPrezzo()%></p>
-                    <a href="CarrelloControl?cod_espansione=<%=bean.getCod_espansione()%>"><img src="IMMAGINI/carrelloICON.png" class="icon-carrello"></a>
+					<a href="CarrelloControl?action=AddEspansione&cod_espansione=<%=bean.getCod_espansione()%>">
+    <img src="IMMAGINI/carrelloICON.png" class="icon-carrello">
+</a>
                 </div>
             </a>
         </div>

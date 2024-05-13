@@ -1,3 +1,4 @@
+
 package it.unisa;
 
 import java.sql.Connection;
@@ -40,36 +41,7 @@ public class AccessorioModelDM implements AccessorioModel {
         }
     }
 
-    @Override
-    public synchronized AccessorioBean doRetrieveByKey(String code) throws SQLException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        AccessorioBean bean = new AccessorioBean();
-
-        String selectAccessorio = "SELECT * FROM " + TABLE_NAME + " WHERE cod_accessorio = ?";
-        try {
-            connection = DriverManagerConnectionPool.getConnection();
-            preparedStatement = connection.prepareStatement(selectAccessorio);
-            preparedStatement.setString(1, code);
-
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                bean.setCod_accessorio(rs.getString("cod_accessorio"));
-                bean.setNomeaccessorio(rs.getString("nome_accessorio"));
-                bean.setTipologia(rs.getString("tipologia"));
-                bean.setPrezzo(rs.getDouble("prezzo"));
-                bean.setDescrizione(rs.getString("descrizione"));
-            }
-        } finally {
-            try {
-                if (preparedStatement != null)
-                    preparedStatement.close();
-            } finally {
-                DriverManagerConnectionPool.releaseConnection(connection);
-            }
-        }
-        return bean;
-    }
+   
 
     @Override
     public synchronized boolean doDelete(String code) throws SQLException {
@@ -96,13 +68,52 @@ public class AccessorioModelDM implements AccessorioModel {
     }
 
     @Override
-    public synchronized Collection<AccessorioBean> doRetrieveAll(String order) throws SQLException {
+	public AccessorioBean doRetrieveByKey(String code) throws SQLException {
+		 Connection connection = null;
+		    PreparedStatement preparedStatement = null;
+		    ResultSet rs = null;
+		    AccessorioBean bean = new AccessorioBean();
+
+		    String selectGioco = "SELECT a.*, ia.img_name, ia.cod_img_acc " +
+                    "FROM accessorio AS a " +
+                    "JOIN img_acc AS ia ON ia.cod_acc = a.cod_accessorio " +
+                    "WHERE a.cod_accessorio = ?;";
+
+		    try {
+		        connection = DriverManagerConnectionPool.getConnection();
+		        preparedStatement = connection.prepareStatement(selectGioco);
+		        preparedStatement.setString(1, code);
+		        rs = preparedStatement.executeQuery();
+		        
+		        if (rs.next()) {
+		            bean.setCod_accessorio(rs.getString("cod_accessorio"));
+		            bean.setNomeaccessorio(rs.getString("nome_accessorio"));
+		            bean.setDescrizione(rs.getString("descrizione"));
+		            bean.setPrezzo(rs.getDouble("prezzo"));
+		            bean.setImmagineCop(rs.getString("img_name"));
+		        }
+		    } finally {
+		        if (rs != null) {
+		            rs.close();
+		        }
+		        if (preparedStatement != null) {
+		            preparedStatement.close();
+		        }
+		        if (connection != null) {
+		            DriverManagerConnectionPool.releaseConnection(connection);
+		        }
+		    }
+		    return bean;
+	}
+
+	@Override
+	public synchronized Collection<AccessorioBean> doRetrieveAll(String order) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         Collection<AccessorioBean> accessories = new LinkedList<>();
 
         
-        String selectSQL = "SELECT * FROM " + AccessorioModelDM.TABLE_NAME + " as g " + 
+        String selectSQL = "SELECT * FROM " +TABLE_NAME + " as g " + 
                 "join img_acc as ig on ig.cod_acc = g.cod_accessorio";
 
 
@@ -134,39 +145,39 @@ public class AccessorioModelDM implements AccessorioModel {
     }
 
     @Override
-    public synchronized Collection<AccessorioBean> doRetrieveByFilter(String tipologia, Double prezzo, boolean check_prezzo) throws SQLException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        Collection<AccessorioBean> beans = new LinkedList<>();
-        String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE tipologia = ?";
-        if (check_prezzo && prezzo != null) {
-            selectSQL += " AND prezzo = ?";
-        }
-        try {
-            connection = DriverManagerConnectionPool.getConnection();
-            preparedStatement = connection.prepareStatement(selectSQL);
-            preparedStatement.setString(1, tipologia);
-            if (check_prezzo && prezzo != null) {
-                preparedStatement.setDouble(2, prezzo);
-            }
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                AccessorioBean bean = new AccessorioBean();
-                bean.setCod_accessorio(rs.getString("cod_accessorio"));
-                bean.setNomeaccessorio(rs.getString("nome_accessorio"));
-                bean.setTipologia(rs.getString("tipologia"));
-                bean.setPrezzo(rs.getDouble("prezzo"));
-                bean.setDescrizione(rs.getString("descrizione"));
-                beans.add(bean);
-            }
-        } finally {
-            try {
-                if (preparedStatement != null)
-                    preparedStatement.close();
-            } finally {
-                DriverManagerConnectionPool.releaseConnection(connection);
-            }
-        }
-        return beans;
-    }
+	 public synchronized Collection<AccessorioBean> doRetrieveByFilter(String tipologia, Double prezzo, boolean check_prezzo) throws SQLException {
+       Connection connection = null;
+       PreparedStatement preparedStatement = null;
+       Collection<AccessorioBean> beans = new LinkedList<>();
+       String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE tipologia = ?";
+       if (check_prezzo && prezzo != null) {
+           selectSQL += " AND prezzo = ?";
+       }
+       try {
+           connection = DriverManagerConnectionPool.getConnection();
+           preparedStatement = connection.prepareStatement(selectSQL);
+           preparedStatement.setString(1, tipologia);
+           if (check_prezzo && prezzo != null) {
+               preparedStatement.setDouble(2, prezzo);
+           }
+           ResultSet rs = preparedStatement.executeQuery();
+           while (rs.next()) {
+               AccessorioBean bean = new AccessorioBean();
+               bean.setCod_accessorio(rs.getString("cod_accessorio"));
+               bean.setNomeaccessorio(rs.getString("nome_accessorio"));
+               bean.setTipologia(rs.getString("tipologia"));
+               bean.setPrezzo(rs.getDouble("prezzo"));
+               bean.setDescrizione(rs.getString("descrizione"));
+               beans.add(bean);
+           }
+       } finally {
+           try {
+               if (preparedStatement != null)
+                   preparedStatement.close();
+           } finally {
+               DriverManagerConnectionPool.releaseConnection(connection);
+           }
+       }
+       return beans;
+   }
 }

@@ -85,7 +85,7 @@ boolean visualizza = true;
                     <img src="<%=bean.getImmagineCop()%>" class="card-img-top">
                     <h5 class="card-title"><%=bean.getNomegioco()%></h5>
                     <p class="card-text">Prezzo: <%=bean.getPrezzo()%></p>
-                    <a href="CarrelloControl?cod_gioco=<%=bean.getCod_Gioco() %>" ><img src="IMMAGINI/carrelloICON.png" class="icon-carrello"></a>
+                    <a href="CarrelloControl?action=AddGioco&cod_gioco=<%=bean.getCod_Gioco() %>" ><img src="IMMAGINI/carrelloICON.png" class="icon-carrello"></a>
                 </div>
             </a>
         </div>

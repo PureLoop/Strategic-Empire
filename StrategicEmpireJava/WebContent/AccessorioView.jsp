@@ -80,8 +80,8 @@ boolean visualizza = true;
                     <img src="<%=bean.getImmagineCop()%>" class="card-img-top">
                     <h5 class="card-title"><%=bean.getNomeaccessorio()%></h5>
                     <p class="card-text">Prezzo: <%=bean.getPrezzo()%></p>
-                    <a href="CarrelloControl?cod_accessorio=<%=bean.getCod_Accessorio()%>"><img src="IMMAGINI/carrelloICON.png" class="icon-carrello"></a>
-                </div>
+					<a href="CarrelloControl?action=AddAccessorio&cod_accessorio=<%=bean.getCod_Accessorio()%>">
+					<img src="IMMAGINI/carrelloICON.png" class="icon-carrello">                   </div>
             </a>
         </div>
     </div>
