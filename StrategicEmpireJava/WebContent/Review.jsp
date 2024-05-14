@@ -9,7 +9,7 @@ if(recensioni == null || recensioni.isEmpty()) {
     return;
 }
 
-	RecensioneBean gioco = (RecensioneBean) request.getAttribute("recensione");
+	RecensioneBean recensione = (RecensioneBean) request.getAttribute("recensione");
 %>
 
 
@@ -20,6 +20,8 @@ if(recensioni == null || recensioni.isEmpty()) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.RecensioneBean"%>
     <title>Recensioni dei Clienti</title>
+    <%@ page import="java.text.SimpleDateFormat" %>
+    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -87,43 +89,36 @@ if(recensioni == null || recensioni.isEmpty()) {
 </head>
 <body>
     <div class="container-review">
+    <% 
+    if (recensioni != null && recensioni.size() != 0) { 
+        Iterator<?> it = recensioni.iterator(); 
+        while (it.hasNext()) { 
+            RecensioneBean r = (RecensioneBean) it.next(); 
+    %>
         <div class="review">
             <div class="rating">
                 <img src="IMMAGINI/IMMAGINI_HOME/Carousel2.jpg" alt="User">
+                <% int countStar = r.getValutazione();
+                while(countStar!=0){ %>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
  					 <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z"/>
 				</svg>
+				<% countStar--;
+				} %>
             </div>
             <div class="text">
-                <p>"Fantastico Servizio Clienti!"</p><br>
-                <p>Ho avuto un'esperienza eccezionale con questo servizio! Il team di assistenza clienti è stato incredibilmente disponibile e rapido nel risolvere il mio problema. Consiglio vivamente a chiunque cerchi un servizio affidabile e di qualità.</p>
-            </div>
-            <div class="date">07/05/2024</div>
+                <p><%=r.getTitolo() %></p>
+                <p><%=r.getDescrizione() %></p>
+             </div>
+            <div class="date"><% 
+            java.util.Date data = r.getData();
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+            String dataFormattata = sdf.format(data);
+            out.print(dataFormattata);
+        	%>	
         </div>
-
-        <div class="review">
-            <div class="rating">
-                <img src="user2.jpg" alt="User">
-                	⭐️⭐️⭐️⭐️⭐️
-            </div>
-            <div class="text">
-                <p>"Prodotti di Alta Qualità!"<br>
-                Sono rimasto estremamente soddisfatto della qualità dei prodotti offerti da questa azienda. La precisione dei dettagli e la durabilità dei materiali utilizzati sono semplicemente sorprendenti. Non vedo l'ora di fare nuovi acquisti!</p>
-            </div>
-            <div class="date">06/05/2024</div>
         </div>
-
-        <div class="review">
-            <div class="rating">
-                <img src="user3.jpg" alt="User">
-              	  ⭐️⭐️⭐️⭐️⭐️
-            </div>
-            <div class="text">
-                <p>"Consegna Veloce e Affidabile"<br>
-                La consegna è stata incredibilmente veloce e puntuale. Ho ordinato un articolo urgente per un regalo e sono rimasto sbalordito dalla rapidità con cui è arrivato. Grazie mille per il servizio affidabile!</p>
-            </div>
-            <div class="date">05/05/2024</div>
-        </div>
+       <%}} %>
     </div>
 </body>
 </html>

@@ -1,15 +1,16 @@
 package it.unisa;
 
+import java.sql.Date;
+
 public class RecensioneBean {
 	public int valutazione;
-	public String titolo,descrizione,cod_review,data, cod_utente;
-	
+	public String titolo,descrizione,cod_review, cod_utente;
+	public Date data;
 	public RecensioneBean() {
 		valutazione = 0;
 		titolo = "";
 		descrizione = "";
 		cod_review = "";
-		data = "";
 		cod_utente= "";
 	}
 	
@@ -45,11 +46,11 @@ public class RecensioneBean {
 		return titolo;
 	}
 	
-	public void setData(String data) {
+	public void setData(Date data) {
 		this.data = data;
 	}
 	
-	public String getData() {
+	public Date getData() {
 		return data;
 	}
 	
