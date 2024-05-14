@@ -245,7 +245,6 @@
 
   </div><!-- /.container -->
 
-<%@ include file="Review.jsp" %>
   <!-- FOOTER -->
     <footer>
     <%@ include file="/header/header.jsp" %>

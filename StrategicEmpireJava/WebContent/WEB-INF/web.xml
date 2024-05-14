@@ -39,6 +39,14 @@
         <servlet-name>AccessorioControl</servlet-name>
         <url-pattern>/accessorio</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>EspansioneControl</servlet-name>
+        <servlet-class>it.unisa.EspansioneControl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EspansioneControl</servlet-name>
+        <url-pattern>/espansione</url-pattern>
+    </servlet-mapping>
   <welcome-file-list>
     <welcome-file>HomePage.jsp</welcome-file>
   </welcome-file-list>

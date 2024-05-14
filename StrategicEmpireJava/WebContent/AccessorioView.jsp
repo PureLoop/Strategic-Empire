@@ -37,25 +37,29 @@ boolean visualizza = true;
 <header>
 	<%@ include file="/header/header.jsp" %>
     </header>
-<form action="gioco" method="post" id="form-filtro">
-		<input type="hidden" name="action" value="filter">
-<table id="game-table">
-    <tr>
-        <td>
-           <select id="game-type" name="tipologia" required>
-			    <option value="" selected>Tipo di gioco</option>
-			    <option value="brand">altri brand</option>
-			    <option value="esclusivo">esclusivo</option>
-		  </select>
-        </td>
-        <td>
-            <input type="number" name="prezzo" id="priceInput" name="num-players" min="1" max="1000" placeholder="Prezzo">
-        </td>
-        <td>
-            <button type="submit" class="submit-button">Filtra</button>
-        </td>
-    </tr>
-</table>
+<form action="gioco" method="post" id="form-filtro" style="margin-top: 0%;">
+    <input type="hidden" name="action" value="filter">
+    <table id="game-table" style="width: 100%;">
+        <tr>
+            <td style="width: 25%;">
+                <select id="game-type" name="tipologia" required style="width: 100%;">
+                    <option value="" selected>Tipo di gioco</option>
+                    <option value="Tutti">Tutti</option>
+                    <option value="tavolo">Tavolo</option>
+                    <option value="carte">Carte</option>
+                </select>
+            </td>
+            <td style="width: 25%;">
+                <input type="number" name="N_giocatori" id="num-players" name="num-players" min="1" max="10" placeholder="Numero giocatori" style="width: 100%;">
+            </td>
+            <td style="width: 25%;">
+                <input type="number" name="prezzo" id="priceInput" name="num-players" min="1" max="1000" placeholder="Prezzo" style="width: 100%;">
+            </td>
+            <td style="width: 25%;">
+                <button type="submit" class="submit-button" style="width: 100%;">Filtra</button>
+            </td>
+        </tr>
+    </table>
 </form>
 
 <%
@@ -73,15 +77,15 @@ boolean visualizza = true;
         while (it.hasNext()) { 
             AccessorioBean bean = (AccessorioBean) it.next(); 
     %>
-    <div class="col-sm-3 mb-3" style="width: 50rem;">
+    <div class="col-sm-3 mb-3" style="width: 25%;">
         <div class="card">
             <a class="no-underline card-link" href="DettagliControl?cod_accessorio=<%=bean.getCod_Accessorio()%>">
                 <div class="card-body">
                     <img src="<%=bean.getImmagineCop()%>" class="card-img-top">
                     <h5 class="card-title"><%=bean.getNomeaccessorio()%></h5>
                     <p class="card-text">Prezzo: <%=bean.getPrezzo()%></p>
-                    <a href="CarrelloControl?cod_accessorio=<%=bean.getCod_Accessorio()%>"><img src="IMMAGINI/carrelloICON.png" class="icon-carrello"></a>
-                </div>
+					<a href="CarrelloControl?action=AddAccessorio&cod_accessorio=<%=bean.getCod_Accessorio()%>">
+					<img src="IMMAGINI/carrelloICON.png" class="icon-carrello">                   </div>
             </a>
         </div>
     </div>
@@ -103,7 +107,7 @@ boolean visualizza = true;
         while (it.hasNext()) { 
             AccessorioBean bean = (AccessorioBean) it.next(); 
     %>
-    <div class="col-sm-3 mb-3" style="width: 50rem;">
+    <div class="col-sm-3 mb-3" style="width: 25%;">
         <div class="card">
             <a class="no-underline card-link" href="DettagliControl?cod_accessorio=<%=bean.getCod_Accessorio()%>">
                 <div class="card-body">
