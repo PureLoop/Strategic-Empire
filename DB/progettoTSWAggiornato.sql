@@ -84,15 +84,12 @@ create table ordine(
 	cod_ordine varchar(10) primary key,
     n_articoli int not null,
     totale numeric(5,2) not null,
-<<<<<<< Updated upstream
     data date not null,
-	email_utente varchar(25) not null references utente(email)
-=======
+	email_utente varchar(25) not null references utente(email),
     cod_sconto varchar(10) default null references sconto(cod_sconto)
 		on delete cascade
         on update cascade,
 	cod_utente varchar(10) not null references utente(cod_utente)
->>>>>>> Stashed changes
 		on delete cascade
         on update cascade
 );

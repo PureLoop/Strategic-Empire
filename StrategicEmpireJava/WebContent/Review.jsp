@@ -110,12 +110,7 @@ if(recensioni == null || recensioni.isEmpty()) {
                 <p><%=r.getTitolo() %></p>
                 <p><%=r.getDescrizione() %></p>
              </div>
-            <div class="date"><% 
-            java.util.Date data = r.getData();
-            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
-            String dataFormattata = sdf.format(data);
-            out.print(dataFormattata);
-        	%>	
+            <div class="date">
         </div>
         </div>
        <%}} %>
