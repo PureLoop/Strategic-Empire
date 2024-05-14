@@ -111,6 +111,12 @@
     background-size: cover;
     background-position: center;
 }
+
+.with-background {
+    background-image: url('IMMAGINI/IMMAGINI_HOME/spedizione.jpeg');
+    background-size: cover;
+}
+
     </style>
 
     
@@ -207,23 +213,28 @@
 
     <div class="row featurette">
       <div class="col-md-7">
-        <h2 class="featurette-heading fw-normal lh-1">First featurette heading. <span class="text-body-secondary">It’ll blow your mind.</span></h2>
-        <p class="lead">Some great placeholder content for the first featurette here. Imagine some exciting prose here.</p>
+        <h2 class="featurette-heading fw-normal lh-1">Spedizioni in tutta italia. <span class="text-body-secondary">Pi&ugrave veloce della luce</span></h2>
+        <p class="lead">Copertura in tutta italia grazie alle nostre spedizioni express. Spedizioni a domicilio o negli appositi centri di ritiro. Spedizioni low cost o completamente gratuite per ordini superiori a 75&euro;</p>
       </div>
       <div class="col-md-5">
-        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-bg)"/><text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">500x500</text></svg>
-      </div>
+    <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false">
+        <image href="IMMAGINI/IMMAGINI_HOME/spedizione.jpeg" width="100%" height="100%">
+    </svg>
+</div>
+
     </div>
 
     <hr class="featurette-divider">
 
     <div class="row featurette">
       <div class="col-md-7 order-md-2">
-        <h2 class="featurette-heading fw-normal lh-1">Oh yeah, it’s that good. <span class="text-body-secondary">See for yourself.</span></h2>
-        <p class="lead">Another featurette? Of course. More placeholder content here to give you an idea of how this layout would work with some actual real-world content in place.</p>
+        <h2 class="featurette-heading fw-normal lh-1">Dove trovarci fisicamente? <span class="text-body-secondary">IN FIERA!!!</span></h2>
+        <p class="lead">Oltre al nostro store online, hai la possibilit&agrave di trovarci in moltissime fiere del fumetto e non solo in giro per l'Italia. Vieni a trovarci per chiedere consigli sull'acquisto, avere scontistiche da fiera oppure semplicemente per provare alcuni dei titoli nel nostro cataloco</p>
       </div>
       <div class="col-md-5 order-md-1">
-        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-bg)"/><text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">500x500</text></svg>
+        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false">
+        <image href="IMMAGINI/IMMAGINI_HOME/standBG.jpeg" width="100%" height="100%">
+        </svg>
       </div>
     </div>
 
@@ -231,11 +242,14 @@
 
     <div class="row featurette">
       <div class="col-md-7">
-        <h2 class="featurette-heading fw-normal lh-1">And lastly, this one. <span class="text-body-secondary">Checkmate.</span></h2>
-        <p class="lead">And yes, this is the last block of representative placeholder content. Again, not really intended to be actually read, simply here to give you a better view of what this would look like with some actual content. Your content.</p>
+        <h2 class="featurette-heading fw-normal lh-1">Assistenza 7 giorni su 7 <span class="text-body-secondary">Per ogni tua domanda ci siamo noi!</span></h2>
+        <p class="lead">Per qualsiasi dubbio ci siamo Noi!!!
+        Se hai domande, dubbi o neccessiti di supporto, sei nel posto giusto! Il nostro team dedicato &egrave qui per aiutarti in ogni modo possibile. Il nostro team &egrave qui per fornirti tutte le informazioni di cui potresti avere bisogno per utilizzare al meglio i nostri prodotti o servizi.</p>
       </div>
       <div class="col-md-5">
-        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-bg)"/><text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">500x500</text></svg>
+        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false">
+        	<image href="IMMAGINI/IMMAGINI_HOME/callCenter.jpg" width="100%" height="100%">
+        </svg>
       </div>
     </div>
 
@@ -249,7 +263,7 @@
 
   <!-- FOOTER -->
     <footer>
-    <%@ include file="/header/header.jsp" %>
+    <%@ include file="/footer/footer.jsp" %>
   </footer>
 </main>
 <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
