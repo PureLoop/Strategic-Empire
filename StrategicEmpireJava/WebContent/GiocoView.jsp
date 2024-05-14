@@ -71,7 +71,7 @@ boolean visualizza = true;
     }
 %>
 
-<div class="row" id="allGames" <% if (!showAllGames) { %>style="display: none;"<% } %>>
+<div class="row" id="allGames" <% if (!showAllGames) { %>style="display: none;"<% } else { %>style="margin-left: 3%; margin-right:3%;margin-top:2%;"<% } %>">
     <!-- Questo è l'elenco di tutti i giochi -->
     <% 
     if (giochi != null && giochi.size() != 0) { 
@@ -101,7 +101,7 @@ boolean visualizza = true;
     <% } %>
 </div>
 
-<div class="row" id="filteredGames" <% if (showAllGames) { %>style="display: none;"<% } %>>
+<div class="row" id="allGames" <% if (showAllGames) { %>style="display: none;"<% } else { %>style="margin-left: 3%; margin-right:3%;margin-top:2%;"<% } %>">
     <!-- Questo è l'elenco dei giochi filtrati -->
     <% 
     Collection<?> giochiFiltrati = (Collection<?>) request.getAttribute("giochiFiltrati");
