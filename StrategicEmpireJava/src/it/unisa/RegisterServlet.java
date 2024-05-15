@@ -11,7 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import org.mindrot.jbcrypt.BCrypt;
 @WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
 
@@ -25,15 +25,19 @@ public class RegisterServlet extends HttpServlet {
         // JDBC connection
         String url = "jdbc:mysql://localhost:3306/progettoTSWAggiornato?serverTimezone=UTC";
         String user = "root";
-        String dbPassword = "aldodamiano2003";
+        String dbPassword = "1212";
        
         try (Connection conn = DriverManager.getConnection(url, user, dbPassword)) {
-            String sql = "INSERT INTO utente (username, pw, email, ruolo) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO utente (username, pw,saltPW, email, ruolo) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, username);
-            statement.setString(2, pw);
-            statement.setString(3, email);
-            statement.setString(4, ruolo);
+            String encPass = null;
+            String salt = BCrypt.gensalt();
+            String hashedPW = BCrypt.hashpw(pw, salt);
+            statement.setString(2, hashedPW);
+            statement.setString(3, salt);
+            statement.setString(4, email);
+            statement.setString(5, ruolo);
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
                 response.sendRedirect("GiocoView.jsp");

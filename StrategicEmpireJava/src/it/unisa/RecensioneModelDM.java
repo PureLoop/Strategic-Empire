@@ -29,7 +29,6 @@ public class RecensioneModelDM implements RecensioneModel{
 				recensione.setTitolo(rs.getString("titolo"));
 				recensione.setDescrizione(rs.getString("descrizione"));
 				recensione.setValutazione(rs.getInt("valutazione"));
-				recensione.setCod_Utente(rs.getString("cod_utente"));
 				review.add(recensione);
 			}
 

@@ -12,9 +12,9 @@ create table espansione(
 );
 
 create table utente(
-	cod_utente varchar(10) primary key,
-	username varchar(16) not null,
-    pw varchar(16) not null,
+	username varchar(16) primary key,
+    pw varchar(128) not null,
+    saltPW varchar(128) not null,
     email varchar(50) not null,
     ruolo varchar(14) not null check(ruolo in("cliente","amministratore"))
 );
