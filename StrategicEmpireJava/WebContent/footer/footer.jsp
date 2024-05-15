@@ -124,8 +124,8 @@
 <footer class="footer mt-auto py-3 bg-body-tertiary">
   <div class="container">
     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
-      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Catalogo</a></li>
+      <li class="nav-item"><a href="HomePage.jsp" class="nav-link px-2 text-body-secondary">Home</a></li>
+      <li class="nav-item"><a href="GiocoView.jsp" class="nav-link px-2 text-body-secondary">Catalogo</a></li>
       <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">News</a></li>
       <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Chi siamo</a></li>
       <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Area personale</a></li>

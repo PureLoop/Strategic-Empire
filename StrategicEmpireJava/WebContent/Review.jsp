@@ -92,7 +92,9 @@ if(recensioni == null || recensioni.isEmpty()) {
     <% 
     if (recensioni != null && recensioni.size() != 0) { 
         Iterator<?> it = recensioni.iterator(); 
-        while (it.hasNext()) { 
+        int countReview = 0;
+        while (it.hasNext()&&countReview<3) { 
+        	countReview++;
             RecensioneBean r = (RecensioneBean) it.next(); 
     %>
         <div class="review">
