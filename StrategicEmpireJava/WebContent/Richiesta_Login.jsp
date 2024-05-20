@@ -4,13 +4,13 @@
 
 <%
     // Recupera le credenziali dall'input dell'utente
-    String username = request.getParameter("username");
+    String email = request.getParameter("email");
     String password = request.getParameter("password");
     
     // Connessione al database (assumendo che tu abbia già configurato la connessione)
     String jdbcURL = "jdbc:mysql://localhost:3306/progettoTSWAggiornato?serverTimezone=UTC";
     String dbUser = "root";
-    String dbPassword = "1212";
+    String dbPassword = "aldodamiano2003";
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
@@ -20,9 +20,9 @@
         connection = DriverManager.getConnection(jdbcURL, dbUser, dbPassword);
         
         // Query per cercare le credenziali nel database
-        String query = "SELECT * FROM utente WHERE username = ?";
+        String query = "SELECT * FROM utente WHERE email = ?";
         preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, username);
+        preparedStatement.setString(1, email);
         
         resultSet = preparedStatement.executeQuery();
         

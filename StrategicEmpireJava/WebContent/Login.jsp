@@ -69,8 +69,8 @@
     <h2>Login</h2>
     <form action="Richiesta_Login.jsp" method="post">
         <div class="form-group">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" required>
         </div>
         <div class="form-group">
             <label for="password">Password:</label>
