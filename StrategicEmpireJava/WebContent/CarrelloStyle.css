@@ -1,3 +1,10 @@
+body {
+    background-image: url('logo.png'); /* Sostituisci 'percorso/del/tuo/logo.png' con il percorso effettivo del tuo logo */
+    background-size: contain; /* Adatta l'immagine alle dimensioni dello schermo */
+    background-repeat: no-repeat; /* Evita che l'immagine si ripeta */
+    background-position: center; /* Centra l'immagine nello schermo */
+}
+
 #carrelloTable {
     width: 50%; /* Rimpicciolisci la larghezza della tabella */
     margin: 0 auto; /* Centra la tabella orizzontalmente */
@@ -7,16 +14,17 @@
     text-align: center; /* Centra il titolo */
     margin-top: 50px; /* Aggiungi spazio sopra il titolo */
 }
- .elimina-cell {
+
+.elimina-cell {
     border: none; /* Rimuove i bordi dalla cella */
 }
 
-#x{
-	position: absolute;
-	margin-left: 1.2%;
-	margin-top: 0.4%
+#x {
+    position: absolute;
+    margin-left: 1.2%;
+    margin-top: 0.4%;
 }
 
-#col-del{
-	width: 10%;
+#col-del {
+    width: 10%;
 }
