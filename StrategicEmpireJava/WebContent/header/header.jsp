@@ -59,7 +59,7 @@
           <a class="nav-link" href="#">Contatti</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Chi siamo</a>
+          <a class="nav-link" href="ChiSiamo.jsp">Chi siamo</a>
         </li>
         
       	<li><form class="d-flex" role="search">

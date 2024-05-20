@@ -35,6 +35,17 @@
         <servlet-name>AccessorioControl</servlet-name>
         <servlet-class>it.unisa.AccessorioControl</servlet-class>
     </servlet>
+    <!-- Aggiunta della servlet ChiSiamoControl -->
+        <servlet>
+        <servlet-name>ChiSiamoControl</servlet-name>
+        <servlet-class>it.unisa.ChiSiamoControl</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>ChiSiamoControl</servlet-name>
+        <url-pattern>/ChiSiamo</url-pattern>
+    </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>AccessorioControl</servlet-name>
         <url-pattern>/accessorio</url-pattern>
