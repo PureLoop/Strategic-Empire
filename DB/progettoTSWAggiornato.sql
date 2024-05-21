@@ -1,4 +1,5 @@
 drop schema progettoTSWAggiornato;
+ALTER USER 'root'@'localhost' IDENTIFIED BY '1212';
 create schema progettoTSWAggiornato;
 use progettoTSWAggiornato;
 create table espansione(
@@ -12,11 +13,12 @@ create table espansione(
 );
 
 create table utente(
+	Username varchar(20) primary key,
 	nome varchar(16) not null,
     cognome varchar(16) not null,
     pw varchar(128) not null,
     saltPW varchar(128) not null,
-    email varchar(50) primary key,
+    email varchar(50)not null,
     ruolo varchar(14) not null check(ruolo in("cliente","amministratore"))
 );
 
@@ -90,7 +92,7 @@ create table ordine(
     cod_sconto varchar(10) default null references sconto(cod_sconto)
 		on delete cascade
         on update cascade,
-	cod_utente varchar(10) not null references utente(cod_utente)
+	cod_utente varchar(20) not null references utente(Username)
 		on delete cascade
         on update cascade
 );

@@ -1,22 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*" import="org.mindrot.jbcrypt.BCrypt" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*, org.mindrot.jbcrypt.BCrypt, it.unisa.User" %>
 
 <%
     // Recupera le credenziali dall'input dell'utente
     String email = request.getParameter("email");
     String password = request.getParameter("password");
     
-    // Connessione al database (assumendo che tu abbia già configurato la connessione)
+    // Connessione al database
     String jdbcURL = "jdbc:mysql://localhost:3306/progettoTSWAggiornato?serverTimezone=UTC";
     String dbUser = "root";
-    String dbPassword = "aldodamiano2003";
+    String dbPassword = "1212";
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
     
     try {
-        Class.forName("com.mysql.jdbc.Driver");
+        Class.forName("com.mysql.cj.jdbc.Driver");
         connection = DriverManager.getConnection(jdbcURL, dbUser, dbPassword);
         
         // Query per cercare le credenziali nel database
@@ -27,14 +26,31 @@
         resultSet = preparedStatement.executeQuery();
         
         // Se trova una corrispondenza nel database
-        if (resultSet.next()) {	
-        	String storedPW = resultSet.getString("pw");
-        	if(BCrypt.checkpw(password,storedPW)){
-            out.println("Login effettuato!");
+        if (resultSet.next()) {    
+            String storedPW = resultSet.getString("pw");
+            if(BCrypt.checkpw(password, storedPW)) {
+                // Recupera le informazioni dell'utente dal risultato della query
+                String username = resultSet.getString("username");
+                String userEmail = resultSet.getString("email");
+                String role = resultSet.getString("ruolo");
+
+                // Crea un nuovo oggetto User con le informazioni recuperate
+                User user = new User();
+                user.setUsername(username);
+                user.setEmail(userEmail);
+                user.setRole(role);
+
+                // Memorizza l'oggetto User nella sessione
+                session.setAttribute("user", user);
+
+                // Redirige alla HomePage.jsp
+                response.sendRedirect("HomePage.jsp");
+            } else {
+                out.println("Login fallito! Password errata.");
+            }
         } else {
-            out.println("Login fallito!");
+            out.println("Login fallito! Utente non trovato.");
         }
-       }
     } catch (SQLException e) {
         out.println("Errore SQL: " + e.getMessage());
     } catch (ClassNotFoundException e) {
@@ -50,13 +66,3 @@
         }
     }
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-</html>

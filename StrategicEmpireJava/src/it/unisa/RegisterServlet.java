@@ -18,8 +18,12 @@ import org.mindrot.jbcrypt.BCrypt;
 @WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
 
-    @Override
+
+	private static final long serialVersionUID = 1L;
+
+	@Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	String Username = request.getParameter("username");
         String nome = request.getParameter("nome");
         String cognome = request.getParameter("cognome");
         String password = request.getParameter("password");
@@ -29,7 +33,7 @@ public class RegisterServlet extends HttpServlet {
 
         String url = "jdbc:mysql://localhost:3306/progettoTSWAggiornato?serverTimezone=UTC";
         String user = "root";
-        String dbPassword = "aldodamiano2003";
+        String dbPassword = "1212";
 
         if (!isPasswordValid(password)) {
             request.setAttribute("errorMessage", "Errore nel campo password!");
@@ -50,16 +54,17 @@ public class RegisterServlet extends HttpServlet {
         }
 
         try (Connection conn = DriverManager.getConnection(url, user, dbPassword)) {
-            String sql = "INSERT INTO utente (nome, cognome, pw, saltPW, email, ruolo) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO utente (Username,nome, cognome, pw, saltPW, email, ruolo) VALUES (?,?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = conn.prepareStatement(sql);
             String salt = BCrypt.gensalt();
             String hashedPW = BCrypt.hashpw(password, salt);
-            statement.setString(1, nome);
-            statement.setString(2, cognome);
-            statement.setString(3, hashedPW); // Utilizza la password cifrata
-            statement.setString(4, salt);
-            statement.setString(5, email);
-            statement.setString(6, ruolo);
+            statement.setString(1,Username);
+            statement.setString(2, nome);
+            statement.setString(3, cognome);
+            statement.setString(4, hashedPW); // Utilizza la password cifrata
+            statement.setString(5, salt);
+            statement.setString(6, email);
+            statement.setString(7, ruolo);
 
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
@@ -99,7 +104,7 @@ public class RegisterServlet extends HttpServlet {
         boolean isRegistered = false;
         String url = "jdbc:mysql://localhost:3306/progettoTSWAggiornato?serverTimezone=UTC";
         String user = "root";
-        String dbPassword = "aldodamiano2003";
+        String dbPassword = "1212";
 
         try (Connection conn = DriverManager.getConnection(url, user, dbPassword)) {
             String sql = "SELECT * FROM utente WHERE email = ?";

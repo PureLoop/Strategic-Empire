@@ -1,3 +1,4 @@
+ALTER USER 'root'@'localhost' IDENTIFIED BY '1212';
 use progettoTSWAggiornato;
 insert into accessorio(cod_accessorio,nome_accessorio,tipologia,prezzo,descrizione) values 
 	("acc01","Dadi Rossi","altri brand",15,"Set di dadi rossi"),
@@ -91,7 +92,7 @@ insert into componente(nomeComponente) values
 insert into sconto(nome_sconto,cod_sconto,perc_sconto) values
 	("saldi primaverili","sco001",25),
     ("buono sconto di benvenuto!","sco002",50);
-insert into utente(nome,cognome, pw,saltPW, email, ruolo) values ("Antonio","Ceruso","1212",23,"antonio.ceruso9988@gmail.com","amministratore");
+insert into utente(Username,nome,cognome, pw,saltPW, email, ruolo) values ("Cherry","Antonio","Ceruso","1212",23,"antonio.ceruso9988@gmail.com","amministratore");
 select g.cod_gioco,g.nome_gioco,g.prezzo,ig.img_name,ig.cod_img_gioco
 from gioco as g 
 join img_gioco as ig on ig.cod_gioco = g.cod_gioco

@@ -1,3 +1,4 @@
+ALTER USER 'root'@'localhost' IDENTIFIED BY '1212';
 use progettoTSWAggiornato;
 drop table recensione;
 create table recensione(
