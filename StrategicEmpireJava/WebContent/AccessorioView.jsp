@@ -21,10 +21,11 @@ boolean visualizza = true;
 <head>
     <link rel="stylesheet" href="GiocoStyle.css">
     
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<title>Strategic-Empire</title>
 	<style>
     
@@ -84,7 +85,7 @@ boolean visualizza = true;
                     <img src="<%=bean.getImmagineCop()%>" class="card-img-top">
                     <h5 class="card-title"><%=bean.getNomeaccessorio()%></h5>
                     <p class="card-text">Prezzo: <%=bean.getPrezzo()%></p>
-					<a href="CarrelloControl?action=AddAccessorio&cod_accessorio=<%=bean.getCod_Accessorio()%>">
+					<a href="javascript:void(0);" data-cod-accessorio="<%=bean.getCod_Accessorio()%>" class="add-to-cart">
 					<img src="IMMAGINI/carrelloICON.png" class="icon-carrello">                   </div>
             </a>
         </div>
@@ -98,6 +99,27 @@ boolean visualizza = true;
     </div>
     <% } %>
 </div>
+<script>
+$(document).ready(function() {
+            $('.add-to-cart').off('click').on('click', function(event) {
+                event.preventDefault(); // Prevenire la navigazione
+                var codAcc = $(this).data('cod-accessorio');
+
+                $.ajax({
+                    url: 'CarrelloControl',
+                    method: 'POST',
+                    data: {
+                        action: 'AddAccessorio',
+                        cod_accessorio: codAcc
+                    },
+                    success: function(response) {
+                    },
+                    error: function(xhr, status, error) {
+                    }
+                });
+            });
+        });
+    </script>
 <div class="row" id="filteredGames" <% if (showAllGames) { %>style="display: none;"<% } %>>
     <!-- Questo è l'elenco degli accessori filtrati -->
     <% 

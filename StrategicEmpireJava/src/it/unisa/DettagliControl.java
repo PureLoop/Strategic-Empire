@@ -36,7 +36,6 @@ public class DettagliControl extends HttpServlet {
 		try {
 			GiocoBean gioco = model.doRetrieveByKey(codiceGioco);
 			request.setAttribute("cod_gioco",gioco);
-			System.out.println(gioco.getNomegioco());
 		} catch (SQLException e) {
 			System.out.println("Error:" + e.getMessage());
 		}

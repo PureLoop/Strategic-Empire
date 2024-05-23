@@ -119,7 +119,9 @@ public class CarrelloControl extends HttpServlet {
                     oggettiCarrello.add(oggettoCarrello);
                 }
             }
-            
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write("{\"success\": true}");
             session.setAttribute("oggettiCarrello", oggettiCarrello);
         } catch (SQLException e) {
             System.out.println("Error:" + e.getMessage());

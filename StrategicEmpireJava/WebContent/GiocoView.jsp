@@ -23,15 +23,28 @@ boolean visualizza = true;
     
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
 	<title>Strategic-Empire</title>
-	<style>
-    
-        
-</style>
+<style>
+        #liveAlertPlaceholder {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: auto;
+            max-width: 300px; /* Adatta la larghezza massima a tuo piacere */
+            padding: 10px;
+            visibility: hidden;
+            background-color: #d4edda; /* Verde chiaro */
+            border: 1px solid #c3e6cb; /* Verde più scuro per il bordo */
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1050;
+        }
+    </style>
 
 </head>
 
@@ -64,8 +77,7 @@ boolean visualizza = true;
     </table>
 </form>
 
-
-
+<div id="liveAlertPlaceholder"></div>
 <%
     boolean showAllGames = true; // Imposta a true se vuoi mostrare tutti i giochi inizialmente
     if (request.getAttribute("giochiFiltrati") != null) {
@@ -82,17 +94,21 @@ boolean visualizza = true;
             GiocoBean bean = (GiocoBean) it.next(); 
     %>
     <div class="col-sm-3 mb-3" style="width: 25%;">
-        <div class="card">
-            <a class="no-underline card-link" href="DettagliControl?cod_gioco=<%=bean.getCod_Gioco()%>">
-                <div class="card-body">
-                    <img src="<%=bean.getImmagineCop()%>" class="card-img-top">
-                    <h5 class="card-title"><%=bean.getNomegioco()%></h5>
-                    <p class="card-text">Prezzo: <%=bean.getPrezzo()%></p>
-                    <a href="CarrelloControl?action=AddGioco&cod_gioco=<%=bean.getCod_Gioco() %>" ><img src="IMMAGINI/carrelloICON.png" class="icon-carrello"></a>
-                </div>
-            </a>
-        </div>
+    <div class="card">
+        <a class="no-underline card-link" href="DettagliControl?cod_gioco=<%=bean.getCod_Gioco()%>">
+            <div class="card-body">
+                <img src="<%=bean.getImmagineCop()%>" class="card-img-top">
+                <h5 class="card-title"><%=bean.getNomegioco()%></h5>
+                <p class="card-text">Prezzo: <%=bean.getPrezzo()%></p>
+                <a href="javascript:void(0);" class="add-to-cart" data-cod-gioco="<%=bean.getCod_Gioco()%>" data-nomegioco="<%=bean.getNomegioco()%>" data-prezzo="<%=bean.getPrezzo()%>">
+                    <img src="IMMAGINI/carrelloICON.png" class="icon-carrello">
+                </a>
+            </div>
+        </a>
     </div>
+</div>
+
+    
     <% 
         }
     } else { 
@@ -102,6 +118,45 @@ boolean visualizza = true;
     </div>
     <% } %>
 </div>
+
+<script>
+        const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+
+        const appendAlert = (message, type) => {
+            const wrapper = document.createElement('div');
+            wrapper.innerHTML = [
+                `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+                `   <div>${message}</div>`,
+                '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+                '</div>'
+            ].join('');
+            alertPlaceholder.append(wrapper);
+        };
+
+        $(document).ready(function() {
+            $('.add-to-cart').off('click').on('click', function(event) {
+                event.preventDefault(); // Prevenire la navigazione
+                var codGioco = $(this).data('cod-gioco');
+                var nomeGioco = $(this).data('nomegioco');
+                var prezzo = $(this).data('prezzo');
+
+                $.ajax({
+                    url: 'CarrelloControl',
+                    method: 'POST',
+                    data: {
+                        action: 'AddGioco',
+                        cod_gioco: codGioco
+                    },
+                    success: function(response) {
+                        appendAlert(`Gioco aggiunto al carrello!<br>Nome: ${nomeGioco}<br>Prezzo: ${prezzo}`, 'success');
+                    },
+                    error: function(xhr, status, error) {
+                        appendAlert('Errore durante l\'aggiunta del gioco al carrello.', 'danger');
+                    }
+                });
+            });
+        });
+    </script>
 
 <div class="row" id="allGames" <% if (showAllGames) { %>style="display: none;"<% } else { %>style="margin-left: 3%; margin-right:3%;margin-top:2%;"<% } %>">
     <!-- Questo è l'elenco dei giochi filtrati -->

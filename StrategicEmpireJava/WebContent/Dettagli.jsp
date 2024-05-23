@@ -13,6 +13,7 @@
     <title>Dettagli Gioco - <%= gioco.getNomegioco() %></title>
     <link rel="stylesheet" href="DettagliStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css">
+    	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
 .custom-button {
   position: absolute;
@@ -82,7 +83,7 @@
             <input type="hidden" name="nome_gioco" value="<%= gioco.getNomegioco() %>">
             <input type="hidden" name="prezzo" value="<%= gioco.getPrezzo() %>">
             
-            <a href="CarrelloControl?cod_gioco=<%=gioco.getCod_Gioco()%>" class="custom-button">
+            <a href="javascript:void(0);" class="custom-button" data-cod-gioco="<%= gioco.getCod_Gioco() %>">
    				 Aggiungi al Carrello
 			</a>
  
@@ -95,7 +96,29 @@
         </div>
     </div>
 </div>
+<script>
+        $(document).ready(function() {
+            $('.custom-button').off('click').on('click', function(event) {
+                event.preventDefault(); // Prevenire la navigazione
+                var codGioco = $(this).data('cod-gioco');
 
+                $.ajax({
+                    url: 'CarrelloControl',
+                    method: 'POST',
+                    data: {
+                        action: 'AddGioco',
+                        cod_gioco: codGioco
+                    },
+                    success: function(response) {
+                        
+                    },
+                    error: function(xhr, status, error) {
+                        console.log("nigger");
+                    }
+                });
+            });
+        });
+    </script>
 
             </div>
         </div>

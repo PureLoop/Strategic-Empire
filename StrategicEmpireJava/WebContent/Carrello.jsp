@@ -8,6 +8,7 @@
     <link href="CarrelloStyle.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 	  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -54,12 +55,12 @@
                         </div>
 <div class="d-flex flex-row align-items-center">
     <!-- Pulsante "-" per diminuire la quantità -->
-    <button class="btn btn-outline-primary btn-sm me-2" onclick="decreaseQuantity(<%= oggetto.getCod_articolo() %>)">-</button>
+    <button class="btn btn-outline-primary btn-sm me-2" onclick="decreaseQuantity('<%= oggetto.getCod_articolo() %>')">-</button>
     <div style="width: 50px;">
         <h5 class="fw-normal mb-0" id="quantity_<%= oggetto.getCod_articolo() %>">&nbsp;&nbsp;&nbsp;<%= oggetto.getQuantita() %></h5>
     </div>
     <!-- Pulsante "+" per aumentare la quantità -->
-    <button class="btn btn-outline-primary btn-sm me-2" onclick="increaseQuantity(<%= oggetto.getCod_articolo() %>)">+</button>
+    <button class="btn btn-outline-primary btn-sm me-2" onclick="increaseQuantity('<%= oggetto.getCod_articolo()%>')">+</button>
     <div style="width: 80px;">
         <h5 class="mb-0">&nbsp;&nbsp;<%= oggetto.getPrezzo() %>€</h5>
     </div>
@@ -88,7 +89,6 @@
                 <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp"
                     class="img-fluid rounded-3" style="width: 45px;" alt="Avatar">
             </div>
-
 
 		 <p class="small mb-2">Tipo di carte</p>
                     <a href="#!" type="submit" class="text-white"><i
@@ -124,13 +124,12 @@
                           <div data-mdb-input-init class="form-outline form-white">
                             <input type="password" id="typeText" class="form-control form-control-lg"
                               placeholder="&#9679;&#9679;&#9679;" size="1" minlength="3" maxlength="3" />
-                            <label class="form-label" for="typeText">Cvv</label>
+                            <label class="form-label" for="typeText">CVV</label>
                           </div>
                         </div>
                       </div>
 
                     </form>
-
 
             <!-- Calcolo del Subtotale -->
             <% double subtotal = 0.0;
@@ -170,86 +169,52 @@
             </button>
         </div>
     </div>
-</div>
-
-
-                    <!-- Qui puoi mantenere il riepilogo del carrello fornito -->
-     
+</div>     
             </div>
         </div>
     </section>
     <% 
         }
     %>
-    
-    <!--  codice JavaScript per le quantità -->
-    
-    <script type="text/javascript">
-    function increaseQuantity(codiceArticolo) {
-        // Cicla attraverso gli elementi nel carrello
-        <%
-            if (carrellobean != null && !carrellobean.isEmpty()) {
-                for (OggettiCarrelloBean oggetto : carrellobean) {
-        %>
-        if (<%= oggetto.getCod_articolo() %> === codiceArticolo) {
-          ogetto.setQuantita(oggetto.getQuantita + 1);
-          System.out.println("ciao");
-        }
-        <%
-                }
-            }
-        %>
-    }
-
-    // Funzione per diminuire la quantità di un articolo nel carrello
+    <script>
     function decreaseQuantity(codiceArticolo) {
-        // Cicla attraverso gli elementi nel carrello
-        <%
-            if (carrellobean != null && !carrellobean.isEmpty()) {
-                for (OggettiCarrelloBean oggetto : carrellobean) {
-                	
-        %>
-        if (<%= oggetto.getCod_articolo() %> === codiceArticolo) {
-            // Assicurati che la quantità non diventi negativa
-            if (<%= oggetto.getQuantita() %> > 0) {
-                // Aggiorna la quantità e il totale
-                var quantityElement = document.getElementById('quantity_<%= oggetto.getCod_articolo() %>');
-                var currentQuantity = parseInt(quantityElement.innerText);
-                quantityElement.innerText = currentQuantity - 1;
-                updateTotals();
+        $.ajax({
+            type: "POST",
+            url: "update_quantity.jsp",
+            data: {
+                codiceArticolo: codiceArticolo,
+                operation: "decrease"
+            },
+            success: function(response) {
+                // Aggiorna il valore della quantità lato client
+                var quantityElement = document.getElementById("quantity_" + codiceArticolo);
+                quantityElement.innerText = "   " + response.newQuantity;
+            },
+            error: function(xhr, status, error) {
+                console.error("Errore durante l'aggiornamento della quantità:", error);
             }
-        }
-        <%
-                }
-            }
-        %>
-    }
-
-    function updateTotals() {
-        // Codice per calcolare il nuovo subtotal e il nuovo totale
-        var subtotal = calculateSubtotal();
-        var shippingCost = 10.0; // Aggiungi la logica per il calcolo del costo di spedizione
-        var total = subtotal + shippingCost;
-
-        // Aggiorna i valori visualizzati nel DOM
-        document.getElementById('subtotal').innerText = subtotal.toFixed(2) + '€';
-        document.getElementById('total').innerText = total.toFixed(2) + '€';
-    }
-
-    function calculateSubtotal() {
-        // Codice per calcolare il subtotal in base alle quantità degli articoli nel carrello
-        var subtotal = 0.0;
-        var articoli = document.querySelectorAll('[id^="quantity_"]');
-        articoli.forEach(function (element) {
-            var quantity = parseInt(element.innerText);
-            var prezzoArticolo = parseFloat(element.nextElementSibling.nextElementSibling.innerText);
-            subtotal += quantity * prezzoArticolo;
         });
-        return subtotal;
     }
-</script>
-    
-    
+
+    function increaseQuantity(codiceArticolo) {
+        $.ajax({
+            type: "POST",
+            url: "update_quantity.jsp",
+            data: {
+                codiceArticolo: codiceArticolo,
+                operation: "increase"
+            },
+            success: function(response) {
+                // Aggiorna il valore della quantità lato client
+                var quantityElement = document.getElementById("quantity_" + codiceArticolo);
+                quantityElement.innerText = "   " + response.newQuantity;
+            },
+            error: function(xhr, status, error) {
+                console.error("Errore durante l'aggiornamento della quantità:", error);
+            }
+        });
+    }
+    </script>
     <!-- Script Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-THvoJBkDy/OYL21xGvYCgGvGKHpufsfLGsqO/A4i4fqMICT6B6Cd82jgF6T5uik6" crossorigin="anonymous"></script>
 </body>
