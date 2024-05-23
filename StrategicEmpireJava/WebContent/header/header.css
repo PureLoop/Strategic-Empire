@@ -1,0 +1,111 @@
+/* Stile per l'header */
+nav.navbar {
+    position: fixed; /* Posizionamento fisso */
+    top: 0; /* Posizionamento in alto rispetto al viewport */
+    width: 100%; /* Larghezza al 100% */
+    z-index: 1000; /* Assicura che l'header rimanga sopra gli altri elementi */
+    background-color: #f8f9fa; /* Colore di sfondo */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombreggiatura */
+}
+
+/* Stile per il corpo della pagina */
+body {
+    padding-top: 85px; /* Aggiunge un margine superiore uguale all'altezza dell'header per evitare sovrapposizioni */
+    background-color: #f5f5f5; /* Colore di sfondo del corpo */
+    font-family: Arial, sans-serif; /* Font del corpo */
+}
+
+/* Stile per il logo */
+nav.navbar a img {
+    margin-right: 15px; /* Spaziatura a destra dell'immagine */
+}
+
+/* Stile per i link della navbar */
+nav.navbar .navbar-nav .nav-link {
+    color: #333; /* Colore dei link */
+    padding: 10px 15px; /* Padding dei link */
+}
+
+nav.navbar .navbar-nav .nav-link:hover,
+nav.navbar .navbar-nav .nav-link.active {
+    color: #007bff; /* Colore dei link al passaggio del mouse */
+}
+
+/* Stile per il dropdown */
+nav.navbar .dropdown-menu {
+    background-color: #ffffff; /* Colore di sfondo del menu a tendina */
+    border: 1px solid #ddd; /* Bordo del menu a tendina */
+}
+
+nav.navbar .dropdown-item {
+    color: #333; /* Colore delle voci del menu a tendina */
+}
+
+nav.navbar .dropdown-item:hover {
+    background-color: #f8f9fa; /* Colore di sfondo al passaggio del mouse */
+}
+
+/* Stile per il pulsante di ricerca */
+nav.navbar .form-control {
+    margin-right: 10px; /* Margine destro del campo di ricerca */
+}
+
+nav.navbar .btn-outline-success {
+    color: #007bff; /* Colore del testo del pulsante di ricerca */
+    border-color: #007bff; /* Colore del bordo del pulsante di ricerca */
+}
+
+nav.navbar .btn-outline-success:hover {
+    background-color: #007bff; /* Colore di sfondo al passaggio del mouse */
+    color: #ffffff; /* Colore del testo al passaggio del mouse */
+}
+
+/* Stile per le informazioni utente */
+nav.navbar .user-info {
+    display: flex;
+    align-items: center;
+}
+
+nav.navbar .user-info .user-icon {
+    margin-right: 10px;
+    font-size: 1.2rem; /* Dimensione dell'icona */
+}
+
+nav.navbar .user-info .user-greeting {
+    font-weight: bold;
+    color: #333; /* Colore del testo di saluto */
+}
+
+/* Stile per il dropdown utente */
+nav.navbar .nav-item.dropdown .dropdown-menu {
+    right: 0;
+    left: auto;
+    text-align: right;
+}
+
+/* Stile responsive */
+@media (max-width: 992px) {
+    nav.navbar .navbar-collapse {
+        background-color: #f8f9fa; /* Colore di sfondo per il menu mobile */
+        padding: 10px;
+    }
+    
+    nav.navbar .navbar-nav .nav-link {
+        color: #007bff; /* Colore dei link nel menu mobile */
+        padding: 10px 0; /* Padding dei link nel menu mobile */
+    }
+    
+    nav.navbar .form-control {
+        margin: 10px 0; /* Margine del campo di ricerca nel menu mobile */
+    }
+    
+    nav.navbar .btn-outline-success {
+        width: 100%; /* Larghezza del pulsante di ricerca nel menu mobile */
+    }
+}
+
+.scroll-icon {
+    width: 20px; /* Imposta la larghezza dell'icona */
+    height: auto; /* Altezza automatica in base alla larghezza */
+    margin-left: 10px; /* Aggiunge un margine sinistro per separare l'icona dal testo */
+}

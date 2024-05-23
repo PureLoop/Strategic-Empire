@@ -253,6 +253,21 @@
       </div>
     </div>
 
+
+    <div class="container">
+        <% 
+            String logoutMessage = request.getParameter("logout");
+            if ("true".equals(logoutMessage)) {
+        %>
+        <div class="alert alert-success mt-3" role="alert">
+            Logout effettuato con successo.
+        </div>
+        <% } %>
+
+        <!-- Resto del contenuto della homepage -->
+    </div>
+
+
     <hr class="featurette-divider">
 
     <!-- /END THE FEATURETTES -->
