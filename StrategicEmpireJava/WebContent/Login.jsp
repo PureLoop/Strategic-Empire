@@ -12,14 +12,10 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap"
 	rel="stylesheet">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
 <!-- Custom CSS -->
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
 <style>
 .login-container {
 	max-width: 400px;
@@ -107,8 +103,21 @@
 </style>
 
 </head>
-<body class="img js-fullheight"
-	style="background-image: url('IMMAGINI/bg.jpg');">
+<body class="img js-fullheight" style="background-image: url('IMMAGINI/bg.jpg');">
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+	var specialChars = /[\/<>]/g;
+    var inputFields = document.querySelectorAll('input[type="text"], input[type="password"]');
+    
+    inputFields.forEach(function(input) {
+        input.addEventListener("input", function() {
+            if (input.value.match(specialChars)) {
+                input.value = input.value.replace(specialChars, '');
+            }
+        });
+    });
+});
+</script>
 	<%@ include file="/header/header.jsp"%>
 	<section class="ftco-section">
 		<div class="container">
@@ -119,7 +128,7 @@
 			</div>
 			<div class="row justify-content-center">
 				<div class="col-md-6 col-lg-4">
-					<div class="login-container">
+					<div class="login-container" id="insert">
 						<h2>Login</h2>
 						<form action="Richiesta_Login.jsp" method="post"
 							class="signin-form">

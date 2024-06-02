@@ -17,13 +17,9 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="styles.css">
-    
     <title>Strategic-Empire</title>
     <style>
         /* Stile per l'header */
@@ -56,6 +52,27 @@
     </style>
 </head>
 <body>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var input = document.getElementById("insert");
+    
+	input.addEventListener("input", function(event) {
+        var inputValue = event.target.value;
+        var sanitizedValue = sanitizeInput(inputValue);
+        event.target.value = sanitizedValue;
+    });
+
+    function sanitizeInput(inputValue) {
+        // Lista dei simboli da bloccare
+        var forbiddenSymbols = /[<>!@#\$%^&*()_+={}\[\]:;"'|\\\/?]/g;
+
+        // Rimuovi i simboli indesiderati dall'input
+        var sanitizedValue = inputValue.replace(forbiddenSymbols, "");
+
+        return sanitizedValue;
+    }
+});
+</script>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
       <a href="HomePage.jsp"><img src="logo.png" width="70" height="70" class="d-inline-block align-text-top"></a>
@@ -88,12 +105,15 @@
         </li>
         <li>
           <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="insert">
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
         </li>
       </ul>
-      
+      <tr>
+            <td colspan="6"><a href="Carrello.jsp"><img src="IMMAGINI/carrelloICON.png" width="50" height="50">
+    </a></td>
+        </tr>
       <% if (loggedIn) { %>
       <!-- Se l'utente è loggato, mostra l'icona e il nome utente -->
       <div class="user-info ms-auto">
@@ -103,7 +123,7 @@
                   <img src="./IMMAGINI/cartoon-boy.png" alt="Profile Image" width="60" height="60">
               </a>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                  <li><a class="dropdown-item" href="#">Area Utente</a></li>
+                  <li><a class="dropdown-item" href="AreaPersonale.jsp">Area Utente</a></li>
                   <li><a class="dropdown-item" href="logout.jsp">Esci</a></li>
               </ul>
           </div>

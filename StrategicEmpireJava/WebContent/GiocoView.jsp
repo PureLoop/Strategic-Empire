@@ -21,7 +21,6 @@ Cart cart = (Cart) request.getAttribute("cart");
 	import="java.util.*,it.unisa.Cart"%>
 
 <head>
-<<<<<<< HEAD
     <link rel="stylesheet" href="GiocoStyle.css">
     
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -48,7 +47,7 @@ Cart cart = (Cart) request.getAttribute("cart");
             z-index: 1050;
         }
     </style>
-=======
+
 <link rel="stylesheet" href="GiocoStyle.css">
 
 <script
@@ -67,7 +66,6 @@ Cart cart = (Cart) request.getAttribute("cart");
 <title>Strategic-Empire</title>
 <style>
 </style>
->>>>>>> 44a4c87e62255159cd0736564ab1c1e73d46c3ad
 
 </head>
 
@@ -100,7 +98,6 @@ Cart cart = (Cart) request.getAttribute("cart");
 		</table>
 	</form>
 
-<<<<<<< HEAD
 <div id="liveAlertPlaceholder"></div>
 <%
     boolean showAllGames = true; // Imposta a true se vuoi mostrare tutti i giochi inizialmente
@@ -181,78 +178,6 @@ Cart cart = (Cart) request.getAttribute("cart");
             });
         });
     </script>
-
-<div class="row" id="allGames" <% if (showAllGames) { %>style="display: none;"<% } else { %>style="margin-left: 3%; margin-right:3%;margin-top:2%;"<% } %>">
-    <!-- Questo è l'elenco dei giochi filtrati -->
-    <% 
-    Collection<?> giochiFiltrati = (Collection<?>) request.getAttribute("giochiFiltrati");
-    if (giochiFiltrati != null && !giochiFiltrati.isEmpty()) { 
-        Iterator<?> it = giochiFiltrati.iterator(); 
-        while (it.hasNext()) { 
-            GiocoBean bean = (GiocoBean) it.next(); 
-    %>
-    <div class="col-sm-3 mb-3" style="width: 25%;">
-        <div class="card">
-            <a class="no-underline card-link" href="DettagliControl?cod_gioco=<%=bean.getCod_Gioco()%>">
-                <div class="card-body">
-                    <img src="<%=bean.getImmagineCop()%>" class="card-img-top">
-                    <h5 class="card-title"><%=bean.getNomegioco()%></h5>
-                    <p class="card-text">Prezzo: <%=bean.getPrezzo()%></p>
-			<!-- HTML -->
-			<div class="carrello-container">
-			    <a href="CarrelloControl?cod_gioco=<%=bean.getCod_Gioco()%>" class="carrello-link">
-			        <img src="IMMAGINI/carrelloICON.png" class="icon-carrello">
-			    </a>
-			    <div class="popup">
-			        <span class="popup-text">Ciao</span>
-			    </div>
-
-
-	<%
-	boolean showAllGames = true; // Imposta a true se vuoi mostrare tutti i giochi inizialmente
-	if (request.getAttribute("giochiFiltrati") != null) {
-		showAllGames = false; // Se ci sono giochi filtrati, non mostrare tutti i giochi
-	}
-	%>
-
-	<div class="row" id="allGames" <%if (!showAllGames) {%>
-		style="display: none;" <%} else {%>
-		style="margin-left: 3%; margin-right:3%;margin-top:2%;"<%}%>">
-		<!-- Questo è l'elenco di tutti i giochi -->
-		<%
-		if (giochi != null && giochi.size() != 0) {
-			Iterator<?> it = giochi.iterator();
-			while (it.hasNext()) {
-				GiocoBean bean = (GiocoBean) it.next();
-		%>
-		<div class="col-sm-3 mb-3" style="width: 25%;">
-			<div class="card">
-				<a class="no-underline card-link"
-					href="DettagliControl?cod_gioco=<%=bean.getCod_Gioco()%>">
-					<div class="card-body">
-						<img src="<%=bean.getImmagineCop()%>" class="card-img-top">
-						<h5 class="card-title"><%=bean.getNomegioco()%></h5>
-						<p class="card-text">
-							Prezzo:
-							<%=bean.getPrezzo()%></p>
-						<a
-							href="CarrelloControl?action=AddGioco&cod_gioco=<%=bean.getCod_Gioco()%>"><img
-							src="IMMAGINI/carrelloICON.png" class="icon-carrello"></a>
-					</div>
-				</a>
-			</div>
-		</div>
-		<%
-		}
-		} else {
-		%>
-		<div class="col-sm-12 mb-3">
-			<p>Nessun gioco disponibile</p>
-		</div>
-		<%
-		}
-		%>
-	</div>
 
 	<div class="row" id="allGames" <%if (showAllGames) {%>
 		style="display: none;" <%} else {%>

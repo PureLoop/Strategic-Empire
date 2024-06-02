@@ -12,9 +12,8 @@
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    
     <!-- Custom CSS -->
-    <style>
+        <style>
     
         .login-container {
             max-width: 400px;
@@ -90,6 +89,20 @@
     </style>
 </head>
 <body class="img js-fullheight" style="background-image: url('IMMAGINI/bg.jpg');">
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+	var specialChars = /[\/<>]/g;
+    var inputFields = document.querySelectorAll('input[type="text"], input[type="password"]');
+    
+    inputFields.forEach(function(input) {
+        input.addEventListener("input", function() {
+            if (input.value.match(specialChars)) {
+                input.value = input.value.replace(specialChars, '');
+            }
+        });
+    });
+});
+</script>
     <%@ include file="/header/header.jsp" %>
     <section class="ftco-section">
         <div class="container">
@@ -107,7 +120,7 @@
                                 <div class="error-message">${errorMessage}</div>
                             </c:if>
                             <div class="form-group">
-                                <input type="text" id="username" name="username" class="form-control with-icon" placeholder="Username" required>
+                                <input type="text" id="username" name="username" class="form-control with-icon insert" placeholder="Username" required>
                             </div>
                             <div class="form-group">
                                 <input type="text" id="nome" name="nome" class="form-control with-icon" placeholder="Nome" required>
