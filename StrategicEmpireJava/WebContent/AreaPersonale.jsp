@@ -50,6 +50,10 @@
           <span class="rectangle-item"><a href="#">Ordini</a></span>
           <span class="rectangle-item"><a href="#">Rubrica Indirizzi</a></span>
           <span class="rectangle-item"><a href="#">Metodi di pagamento</a></span>
+          <% if(user.getRole().equals("Amministratore")){%>
+          <span class="rectangle-item"><a href="#">Modifica catalogo</a></span>
+          <span class="rectangle-item"><a href="#">Lista utenti</a></span>
+          <%} %>
         </div>
       </div>
     </div>
