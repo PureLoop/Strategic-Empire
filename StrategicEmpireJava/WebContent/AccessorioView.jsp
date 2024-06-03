@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%
+int DES_GIO= 2;
 boolean visualizza = true;
 	Collection<?> accessori = (Collection<?>) request.getAttribute("accessori");
 	if(accessori == null) {
@@ -80,7 +81,7 @@ boolean visualizza = true;
     %>
     <div class="col-sm-3 mb-3" style="width: 25%;">
         <div class="card">
-            <a class="no-underline card-link" href="DettagliControl?cod_accessorio=<%=bean.getCod_Accessorio()%>">
+<a class="no-underline card-link" href="DettagliControl?cod_accessorio=<%=bean.getCod_Accessorio()%>&DES=<%=DES_GIO%>">
                 <div class="card-body">
                     <img src="<%=bean.getImmagineCop()%>" class="card-img-top">
                     <h5 class="card-title"><%=bean.getNomeaccessorio()%></h5>
@@ -131,7 +132,7 @@ $(document).ready(function() {
     %>
     <div class="col-sm-3 mb-3" style="width: 25%;">
         <div class="card">
-            <a class="no-underline card-link" href="DettagliControl?cod_accessorio=<%=bean.getCod_Accessorio()%>">
+<a class="no-underline card-link" href="DettagliControl?cod_accessorio=<%=bean.getCod_Accessorio()%>&DES=<%=DES_GIO%>">
                 <div class="card-body">
                     <img src="<%=bean.getImmagineCop()%>" class="card-img-top">
                     <h5 class="card-title"><%=bean.getNomeaccessorio()%></h5>

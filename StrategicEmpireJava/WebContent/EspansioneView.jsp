@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%
+int DES_GIO= 3;
 boolean visualizza = true;
 	Collection<?> espansioni = (Collection<?>) request.getAttribute("espansioni");
 	if(espansioni == null) {
@@ -80,7 +81,7 @@ boolean visualizza = true;
     %>
     <div class="col-sm-3 mb-3" style="width: 25%;">
         <div class="card">
-            <a class="no-underline card-link" href="DettagliControl?cod_espansione=<%=bean.getCod_espansione()%>">
+<a class="no-underline card-link" href="DettagliControl?cod_espansione=<%=bean.getCod_espansione()%>&DES=<%=DES_GIO%>">
                 <div class="card-body">
                     <img src="<%=bean.getImmagineCop()%>" class="card-img-top">
                     <h5 class="card-title"><%=bean.getNomeespansione()%></h5>
@@ -110,7 +111,7 @@ boolean visualizza = true;
     %>
     <div class="col-sm-3 mb-3" style="width: 25%;">
         <div class="card">
-            <a class="no-underline card-link" href="DettagliControl?cod_espansione=<%=bean.getCod_espansione()%>">
+<a class="no-underline card-link" href="DettagliControl?cod_espansione=<%=bean.getCod_espansione()%>&DES=<%=DES_GIO%>">
                 <div class="card-body">
                     <img src="<%=bean.getImmagineCop()%>" class="card-img-top">
                     <h5 class="card-title"><%=bean.getNomeespansione()%></h5>
