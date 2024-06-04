@@ -22,6 +22,15 @@
         <url-pattern>/gioco</url-pattern>
     </servlet-mapping>
     
+     <servlet>
+        <servlet-name>CartaControl</servlet-name>
+        <servlet-class>it.unisa.CartaControl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CartaControl</servlet-name>
+        <url-pattern>/carta</url-pattern>
+    </servlet-mapping>
+    
     <servlet>
         <servlet-name>DettagliControl</servlet-name>
         <servlet-class>it.unisa.DettagliControl</servlet-class>
