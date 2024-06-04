@@ -8,11 +8,14 @@ public class User {
     private String saltPW;
     private String email;
     private String role;
+    private String Indirizzo;
+    private int ncivico;
 	public User() {
 		Username= "";
 		password = "";
 		email = "";
 		role= "";
+		Indirizzo="";
 	}
     
     public String getUsername() {
@@ -69,5 +72,20 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+    
+    public String getIndirizzo() {
+    	return Indirizzo;
+    }
+    
+    public void setIndirizzo(String Indirizzo) {
+    	this.Indirizzo = Indirizzo;
+    }
+    
+    public int getncivico() {
+    	return ncivico;
+    }
+    public void setncivico(int ncivico) {
+    	this.ncivico=ncivico;
     }
 }

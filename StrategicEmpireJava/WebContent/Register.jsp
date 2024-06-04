@@ -1,31 +1,36 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Registrazione</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <!-- Fonts and Icons -->
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <!-- Custom CSS -->
-        <style>
-    
-        .login-container {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 40px;
-            border-radius: 2%;
-            box-shadow: 0 10px 34px rgba(0, 0, 0, 0.1);
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-        }
+<meta charset="UTF-8">
+<title>Registrazione</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
- .login-container h2 {
+<!-- Fonts and Icons -->
+<link
+	href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<!-- Custom CSS -->
+<style>
+.login-container {
+	max-width: 400px;
+	margin: 0 auto;
+	padding: 40px;
+	border-radius: 2%;
+	box-shadow: 0 10px 34px rgba(0, 0, 0, 0.1);
+	background: rgba(255, 255, 255, 0.2);
+	backdrop-filter: blur(10px);
+}
+
+.login-container h2 {
 	margin-bottom: 20px;
 	text-align: center;
 	font-weight: 700;
@@ -85,11 +90,11 @@
 	background-size: cover;
 	background-position: center;
 }
-
-    </style>
+</style>
 </head>
-<body class="img js-fullheight" style="background-image: url('IMMAGINI/bg.jpg');">
-<script>
+<body class="img js-fullheight"
+	style="background-image: url('IMMAGINI/bg.jpg');">
+	<script>
 document.addEventListener("DOMContentLoaded", function() {
 	var specialChars = /[\/<>]/g;
     var inputFields = document.querySelectorAll('input[type="text"], input[type="password"]');
@@ -103,77 +108,101 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 </script>
-    <%@ include file="/header/header.jsp" %>
-    <section class="ftco-section">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-6 text-center mb-5">
-                    <h2 class="heading-section"></h2>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-md-6 col-lg-4">
-                    <div class="login-container">
-                        <h2>Register</h2>
-                        <form action="RegisterServlet" method="post">
-                            <c:if test="${not empty errorMessage}">
-                                <div class="error-message">${errorMessage}</div>
-                            </c:if>
-                            <div class="form-group">
-                                <input type="text" id="username" name="username" class="form-control with-icon insert" placeholder="Username" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="nome" name="nome" class="form-control with-icon" placeholder="Nome" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="cognome" name="cognome" class="form-control with-icon" placeholder="Cognome" required>
-                            </div>
-                            <div class="form-group position-relative">
-                                <input type="text" id="email" name="email" class="form-control with-icon" placeholder="E-mail" required>
-                                <i class="fa fa-envelope-open-o toggle-icon"></i>
-                                <div id="emailError" class="error-message"></div>
-                            </div>
-                            <div class="form-group">
-						    <div class="password-container">
-						        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-						        <span class="fa fa-fw fa-eye field-icon toggle-password" onclick="togglePasswordVisibility()"></span>
-						    </div>
+	<%@ include file="/header/header.jsp"%>
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section"></h2>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-6 col-lg-4">
+					<div class="login-container">
+						<h2>Register</h2>
+						<form action="RegisterServlet" method="post">
+							<c:if test="${not empty errorMessage}">
+								<div class="error-message">${errorMessage}</div>
+							</c:if>
+							<div class="form-group">
+								<input type="text" id="username" name="username"
+									class="form-control with-icon insert" placeholder="Username"
+									required>
 							</div>
 							<div class="form-group">
-                                <div id="passwordRequirements" class="password-requirements">
-                                    <span id="reqLength" class="invalid">8-16 caratteri</span>
-                                    <span id="reqUpperCase" class="invalid">Almeno una lettera maiuscola</span>
-                                    <span id="reqNumber" class="invalid">Almeno un numero</span>
-                                    <span id="reqSpecialChar" class="invalid">Almeno un carattere speciale</span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <input type="password" id="cpassword" name="cpassword" class="form-control with-icon" placeholder="Conferma Password" required>
-                                <div id="passwordError" class="error-message"></div>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="ruolo" name="ruolo" class="form-control with-icon" placeholder="Ruolo" required>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="form-control btn btn-primary submit px-3">Register</button>
-                            </div>
-                        </form>
-                        <div class="register-link">
-                            <p>Sei già registrato? <a href="Login.jsp">Accedi</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <%@ include file="/footer/footer.jsp" %>
+								<input type="text" id="nome" name="nome"
+									class="form-control with-icon" placeholder="Nome" required>
+							</div>
+							<div class="form-group">
+								<input type="text" id="cognome" name="cognome"
+									class="form-control with-icon" placeholder="Cognome" required>
+							</div>
+							<div class="form-group position-relative">
+								<input type="text" id="email" name="email"
+									class="form-control with-icon" placeholder="E-mail" required>
+								<i class="fa fa-envelope-open-o toggle-icon"></i>
+								<div id="emailError" class="error-message"></div>
+							</div>
+							<div class="form-group">
+								<div class="password-container">
+									<input type="password" id="password" name="password"
+										class="form-control" placeholder="Password" required>
+									<span class="fa fa-fw fa-eye field-icon toggle-password"
+										onclick="togglePasswordVisibility()"></span>
+								</div>
+							</div>
+							<div class="form-group">
+								<div id="passwordRequirements" class="password-requirements">
+									<span id="reqLength" class="invalid">8-16 caratteri</span> <span
+										id="reqUpperCase" class="invalid">Almeno una lettera
+										maiuscola</span> <span id="reqNumber" class="invalid">Almeno
+										un numero</span> <span id="reqSpecialChar" class="invalid">Almeno
+										un carattere speciale</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<input type="password" id="cpassword" name="cpassword"
+									class="form-control with-icon" placeholder="Conferma Password"
+									required>
+								<div id="passwordError" class="error-message"></div>
+							</div>
+							<div class="form-group">
+								<input type="text" id="ruolo" name="ruolo"
+									class="form-control with-icon" placeholder="Ruolo" required>
+							</div>
+							<div class="form-group">
+								<input type="text" id="Indirizzo" name="Indirizzo"
+									class="form-control with-icon" placeholder="Indirizzo" required>
+							</div>
+							<div class="form-group">
+								<input type="text" id="ncivico" name="ncivico"
+									class="form-control with-icon" placeholder="ncivico" required>
+							</div>
+							<div class="form-group">
+								<button type="submit"
+									class="form-control btn btn-primary submit px-3">Register</button>
+							</div>
+						</form>
+						<div class="register-link">
+							<p>
+								Sei già registrato? <a href="Login.jsp">Accedi</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<%@ include file="/footer/footer.jsp"%>
 
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <!-- Custom JS -->
-    <script>
+	<!-- Bootstrap JS and dependencies -->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<!-- Custom JS -->
+	<script>
         document.addEventListener('DOMContentLoaded', function() {
             const passwordInput = document.getElementById('password');
             const requirements = document.getElementById('passwordRequirements');

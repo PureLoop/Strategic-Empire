@@ -33,12 +33,14 @@
                 String username = resultSet.getString("username");
                 String userEmail = resultSet.getString("email");
                 String role = resultSet.getString("ruolo");
+                String Indirizzo= resultSet.getString("indirizzo");
 
                 // Crea un nuovo oggetto User con le informazioni recuperate
                 User user = new User();
                 user.setUsername(username);
                 user.setEmail(userEmail);
                 user.setRole(role);
+                user.setIndirizzo(Indirizzo);
 
                 // Memorizza l'oggetto User nella sessione
                 session.setAttribute("user", user);

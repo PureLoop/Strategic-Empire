@@ -30,7 +30,9 @@ public class RegisterServlet extends HttpServlet {
         String cpassword = request.getParameter("cpassword");
         String email = request.getParameter("email");
         String ruolo = request.getParameter("ruolo");
-
+        String indirizzo = request.getParameter("Indirizzo");
+        Integer ncivico = Integer.parseInt(request.getParameter("ncivico"));
+        
         String url = "jdbc:mysql://localhost:3306/progettoTSWAggiornato?serverTimezone=UTC";
         String user = "root";
         String dbPassword = "1212";
@@ -54,7 +56,7 @@ public class RegisterServlet extends HttpServlet {
         }
 
         try (Connection conn = DriverManager.getConnection(url, user, dbPassword)) {
-            String sql = "INSERT INTO utente (Username,nome, cognome, pw, saltPW, email, ruolo) VALUES (?,?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO utente (Username,nome, cognome, pw, saltPW, email, ruolo,indirizzo,ncivico) VALUES (?,?, ?, ?, ?, ?, ?,?,?)";
             PreparedStatement statement = conn.prepareStatement(sql);
             String salt = BCrypt.gensalt();
             String hashedPW = BCrypt.hashpw(password, salt);
@@ -65,7 +67,8 @@ public class RegisterServlet extends HttpServlet {
             statement.setString(5, salt);
             statement.setString(6, email);
             statement.setString(7, ruolo);
-
+            statement.setString(8, indirizzo);
+            statement.setInt(9, ncivico);
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
                 response.sendRedirect("GiocoView.jsp");

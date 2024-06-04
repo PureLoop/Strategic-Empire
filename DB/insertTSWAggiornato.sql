@@ -92,7 +92,11 @@ insert into componente(nomeComponente) values
 insert into sconto(nome_sconto,cod_sconto,perc_sconto) values
 	("saldi primaverili","sco001",25),
     ("buono sconto di benvenuto!","sco002",50);
-insert into utente(Username,nome,cognome, pw,saltPW, email, ruolo) values ("Cherry","Antonio","Ceruso","1212",23,"antonio.ceruso9988@gmail.comutente","amministratore");
+insert into utente(Username,nome,cognome, pw,saltPW, email, ruolo,indirizzo,ncivico) values
+ ("Cherry","Antonio","Ceruso","1212",23,"antonio.ceruso9988@gmail.comutente","amministratore","Via facaldo",121),
+ ("Scippo","Luigi","Nasta","1212",23,"luigi@gmail.com","amministratore","Via canneto est",3);
+ insert into carta(numero,scadenza,cvv,Username,nome) values
+ ("0000111122223333",1024,999,"Scippo","Luigi");
 select g.cod_gioco,g.nome_gioco,g.prezzo,ig.img_name,ig.cod_img_gioco
 from gioco as g 
 join img_gioco as ig on ig.cod_gioco = g.cod_gioco

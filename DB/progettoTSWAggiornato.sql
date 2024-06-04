@@ -19,7 +19,16 @@ create table utente(
     pw varchar(128) not null,
     saltPW varchar(128) not null,
     email varchar(50)not null,
-    ruolo varchar(14) not null check(ruolo in("cliente","amministratore"))
+    ruolo varchar(14) not null check(ruolo in("cliente","amministratore")),
+    indirizzo varchar(50) default null,
+    ncivico int(3) default null
+);
+create table carta(
+	numero varchar(16) primary key not null,
+    scadenza int(4) not null,
+    cvv int (3) not null,
+    Username varchar(20) references utente(Username),
+    nome varchar(32) not null
 );
 
 create table img_gioco(

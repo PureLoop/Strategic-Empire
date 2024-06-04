@@ -13,7 +13,7 @@ public class UserDAO {
     }
 
     public boolean registerUser(User user) {
-        String sql = "INSERT INTO users (username,nome,cognome, password,saltPW, email, role) VALUES (?, ?,?,?,?, ?, ?, ?)";
+        String sql = "INSERT INTO users (username,nome,cognome, password,saltPW, email, role,Indirizzo,ncivico) VALUES (?, ?,?,?,?, ?, ?, ?,?,?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
         	statement.setString(1, user.getUsername());
         	statement.setString(2, user.getNome());
@@ -22,6 +22,8 @@ public class UserDAO {
             statement.setString(5, user.getsaltPassword());
             statement.setString(6, user.getEmail());
             statement.setString(7, user.getRole());
+            statement.setString(8, user.getIndirizzo());
+            statement.setInt(9, user.getncivico());
             int rowsInserted = statement.executeUpdate();
             return rowsInserted > 0;
         } catch (SQLException e) {
