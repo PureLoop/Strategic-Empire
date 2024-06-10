@@ -37,7 +37,7 @@ public class GiocoControl extends HttpServlet {
 			cart = new Cart();
 			request.getSession().setAttribute("cart", cart);
 		}
-
+		String sort = request.getParameter("sort");
 		String action = request.getParameter("action");
 		int i = 0;
 		try {
@@ -53,6 +53,8 @@ public class GiocoControl extends HttpServlet {
 					String id = request.getParameter("cod_gioco");
 					request.removeAttribute("gioco");
 					request.setAttribute("gioco", model.doRetrieveByKey(id));
+					RequestDispatcher dispatcher;
+					dispatcher = getServletContext().getRequestDispatcher("/Dettagli.jsp");	
 				} else if (action.equalsIgnoreCase("delete")) {
 					String id = request.getParameter("cod_gioco");
 					System.out.println("Deleting game with code: " + id);
@@ -113,21 +115,14 @@ public class GiocoControl extends HttpServlet {
 			System.out.println("Error:" + e.getMessage());
 		}
 
-		String sort = request.getParameter("sort");
-
 		try {
 			request.removeAttribute("giochi");
 			request.setAttribute("giochi", model.doRetrieveAll(sort));
 		} catch (SQLException e) {
 			System.out.println("Error:" + e.getMessage());
 		}
-		
 		RequestDispatcher dispatcher;
-		if(i!= 2) {
-		 dispatcher = getServletContext().getRequestDispatcher("/GiocoView.jsp");
-		}else {
-		 dispatcher = getServletContext().getRequestDispatcher("/Dettagli.jsp");	
-		}
+			dispatcher = getServletContext().getRequestDispatcher("/GiocoView.jsp");
 		dispatcher.forward(request, response);
 	}
 

@@ -31,6 +31,16 @@
         <url-pattern>/carta</url-pattern>
     </servlet-mapping>
     
+    
+    <servlet>
+        <servlet-name>AreaPersonaleControl</servlet-name>
+        <servlet-class>it.unisa.AreaPersonaleControl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AreaPersonaleControl</servlet-name>
+        <url-pattern>/prodottiAP</url-pattern>
+    </servlet-mapping>
+   
     <servlet>
         <servlet-name>DettagliControl</servlet-name>
         <servlet-class>it.unisa.DettagliControl</servlet-class>
