@@ -89,6 +89,7 @@ public class AccessorioModelDM implements AccessorioModel {
 		            bean.setCod_accessorio(rs.getString("cod_accessorio"));
 		            bean.setNomeaccessorio(rs.getString("nome_accessorio"));
 		            bean.setDescrizione(rs.getString("descrizione"));
+		            bean.setTipologia(rs.getString("tipologia"));
 		            bean.setPrezzo(rs.getDouble("prezzo"));
 		            bean.setImmagineCop(rs.getString("img_name"));
 		        }
