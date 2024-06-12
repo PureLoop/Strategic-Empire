@@ -34,6 +34,18 @@ body {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Effetto ombra */
     transition: transform 0.3s ease; /* Animazione al passaggio del mouse */
 }
+.group-image-container {
+    text-align: center;  /* Centra l'immagine nel contenitore */
+    margin: 20px 0;  /* Aggiunge spazio sopra e sotto l'immagine del gruppo */
+}
+
+.group-image {
+    width: 80%;  /* Imposta la larghezza dell'immagine al 80% del contenitore */
+    max-width: 800px;  /* Imposta una larghezza massima */
+    height: auto;  /* Mantiene il rapporto d'aspetto originale */
+    border-radius: 10px;  /* Aggiunge un angolo arrotondato */
+}
+
 
 /* Effetto hover per il marchio */
 .brand:hover {
@@ -71,12 +83,14 @@ body {
 }
 
 /* Stili per l'avatar */
+
 .avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-bottom: 20px;
+    width: 150px;  /* Cambia la larghezza come preferisci */
+    height: auto;  /* Mantiene il rapporto d'aspetto originale */
+    border-radius: 50%;  /* Se vuoi fare le immagini rotonde */
+   
 }
+
 
 /* Colori pastello per i membri del team */
 #anna.member-content {
