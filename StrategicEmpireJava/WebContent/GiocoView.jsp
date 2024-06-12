@@ -19,11 +19,9 @@ Cart cart = (Cart) request.getAttribute("cart");
 <%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.Cart"%>
 
 <head>
-    
-  <!--  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
+    <link rel="stylesheet" href="GiocoStyle.css">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -106,10 +104,6 @@ Cart cart = (Cart) request.getAttribute("cart");
         </div>
         <% } %>
     </div>
-
-    <!-- Toast Notification -->
-    <!-- Toast Notification -->
-<!-- Toast Notification -->
 <div class="toast-container position-fixed top-0 end-0 p-3">
     <div id="cartToast" class="toast align-items-center border border-success" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="d-flex bg-white rounded p-2">
@@ -174,7 +168,7 @@ Cart cart = (Cart) request.getAttribute("cart");
         %>
         <div class="col-sm-3 mb-3" style="width: 25%;">
             <div class="card">
-<a class="no-underline card-link" href="DettagliControl?cod_gioco=<%=bean.getCod_Gioco()%>&DES=<%=DES_GIO%>">
+				<a class="no-underline card-link" href="DettagliControl?cod_gioco=<%=bean.getCod_Gioco()%>&DES=<%=DES_GIO%>">
                     <div class="card-body">
                         <img src="<%=bean.getImmagineCop()%>" class="card-img-top">
                         <h5 class="card-title"><%=bean.getNomegioco()%></h5>
