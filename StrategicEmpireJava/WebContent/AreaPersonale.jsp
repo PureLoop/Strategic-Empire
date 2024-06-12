@@ -29,9 +29,7 @@
   <title>Barra orizzontale centrata con Bootstrap</title>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <style>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<style>
     .rectangle {
       display: flex;
@@ -130,7 +128,8 @@
 </head>
 <body>
 <header>
-</header>
+	<%@ include file="/header/header.jsp" %>
+    </header>
 
 <div class="container">
   <div class="row">
@@ -141,14 +140,13 @@
         <span class="rectangle-item"><a href="#" class="nav-link" data-target="none">Rubrica Indirizzi</a></span>
         <span class="rectangle-item"><a href="#" class="nav-link" data-target="paymentSection">Metodi di pagamento</a></span>
         <% if(user.getRole().equals("Amministratore")){%>
-        <span class="rectangle-item"><a href="#" class="nav-link" data-target="none">Modifica catalogo</a></span>
+        <span class="rectangle-item"><a href="#" class="nav-link" data-target="none" id="addUpdateCatalog">Modifica catalogo</a></span>
         <span class="rectangle-item"><a href="#" class="nav-link" data-target="none">Lista utenti</a></span>
         <%} %>
       </div>
     </div>
   </div>
 </div>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 <!-- Sezione per la gestione dei metodi di pagamento -->
 <div id="rectangleContainer"></div>
@@ -189,9 +187,6 @@
     </div>
   </div>
 </div>
-
-    <br><br><br><br>
-    <br><br><br><br>
 <div class="container mt-3" id="Account" style="display: none;">
     <h3 id="managerTitle">Area Utente - Gestione Account</h3>
     <div class="user-info">
@@ -340,27 +335,6 @@ document.querySelectorAll('.nav-link').forEach(link => {
 
   displaySavedCards();
 </script>
-
-
-</body>
-</html>
-
-
-    <div class="row">
-      <div class="col-md-12">
-        <div class="rectangle">
-          <span class="rectangle-item"><a href="#">Gestione Account</a></span>
-          <span class="rectangle-item"><a href="#">Ordini</a></span>
-          <span class="rectangle-item"><a href="#">Rubrica Indirizzi</a></span>
-          <span class="rectangle-item"><a href="#">Metodi di pagamento</a></span>
-          <% if(user.getRole().equalsIgnoreCase("Amministratore")){%>
-          <span class="rectangle-item"><a href="#" id="addUpdateCatalog">Modifica catalogo</a></span>
-          <span class="rectangle-item"><a href="#">Lista utenti</a></span>
-          <%} %>
-        </div>
-      </div>
-    </div>
-  </div>
   
 <div class="container search-bar">
     <form class="d-flex" role="search">

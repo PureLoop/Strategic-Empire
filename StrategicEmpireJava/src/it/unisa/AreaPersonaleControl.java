@@ -54,7 +54,6 @@ public class AreaPersonaleControl extends HttpServlet {
 
             try {
                 Collection<GiocoBean> giochi = modelGioco.doRetrieveAll(sort);
-                System.out.println("giochi esptratti: " +giochi.size());
                 request.setAttribute("prodottiAP", giochi);
 
                 if (isAjaxRequest) {

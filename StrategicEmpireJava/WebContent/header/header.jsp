@@ -2,13 +2,13 @@
 <%@ page import="it.unisa.User" %>
 <%
     // Assumiamo che l'oggetto utente sia già stato impostato nella sessione
-    User user = (User) session.getAttribute("user");
+    User u = (User) session.getAttribute("user");
     boolean loggedIn = false;
-    String username = null;
+    String name = null;
 
-    if (user != null) {
+    if (u != null) {
         loggedIn = true;
-        username = user.getUsername(); // Supponendo che User abbia un metodo getUsername()
+        name = u.getUsername(); // Supponendo che User abbia un metodo getUsername()
     }
 %>
 <!DOCTYPE html>
@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function() {
       <% if (loggedIn) { %>
       <!-- Se l'utente è loggato, mostra l'icona e il nome utente -->
       <div class="user-info ms-auto">
-          <span class="me-2">Ciao, <%= user.getUsername() %>!</span>
+          <span class="me-2">Ciao, <%= u.getUsername() %>!</span>
           <div class="dropdown">
               <a href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                   <img src="./IMMAGINI/cartoon-boy.png" alt="Profile Image" width="60" height="60">
