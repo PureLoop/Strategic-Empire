@@ -106,10 +106,13 @@ document.addEventListener("DOMContentLoaded", function() {
           </form>
         </li>
       </ul>
+      <% if (loggedIn == false) { %>
       <tr>
             <td colspan="6"><a href="Carrello.jsp"><img src="IMMAGINI/carrelloICON.png" width="50" height="50">
     </a></td>
         </tr>
+        <% } %>
+        
       <% if (loggedIn) { %>
       <!-- Se l'utente è loggato, mostra l'icona e il nome utente -->
       <div class="user-info ms-auto">
@@ -120,6 +123,7 @@ document.addEventListener("DOMContentLoaded", function() {
               </a>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                   <li><a class="dropdown-item" href="AreaPersonale.jsp">Area Utente</a></li>
+                  <li><a class="dropdown-item" href="Carrello.jsp">Carrello</a></li>
                   <li><a class="dropdown-item" href="logout.jsp">Esci</a></li>
               </ul>
           </div>
