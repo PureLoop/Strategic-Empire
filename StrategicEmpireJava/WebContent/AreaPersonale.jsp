@@ -31,6 +31,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<style>
+	
     .rectangle {
       display: flex;
       justify-content: center;
@@ -138,8 +139,11 @@
         <span class="rectangle-item"><a href="#" class="nav-link" data-target="Account">Gestione Account</a></span>
         <span class="rectangle-item"><a href="#" class="nav-link" data-target="none">Ordini</a></span>
         <span class="rectangle-item"><a href="#" class="nav-link" data-target="none">Rubrica Indirizzi</a></span>
-        <span class="rectangle-item"><a href="#" class="nav-link" data-target="paymentSection">Metodi di pagamento</a></span>
-        <% if(user.getRole().equals("Amministratore")){%>
+<span class="rectangle-item">
+    <a href="#" class="nav-link" data-target="paymentSection">Metodi di pagamento</a>
+</span>
+
+        <% if(user.getRole().equals("amministratore")){%>
         <span class="rectangle-item"><a href="#" class="nav-link" data-target="none" id="addUpdateCatalog">Modifica catalogo</a></span>
         <span class="rectangle-item"><a href="#" class="nav-link" data-target="none">Lista utenti</a></span>
         <%} %>
@@ -161,32 +165,35 @@
       <button id="addCardButton" class="btn btn-primary ">Aggiungi una carta di credito o di debito</button>
 
       <!-- Form per l'aggiunta di metodi di pagamento -->
-      <div id="paymentForm" class="mt-4">
-        <h3>Aggiungi Metodo di Pagamento</h3>
-        <form>
-          <div class="mb-3">
+<div id="paymentFormContainer" class="mt-4">
+    <h3>Aggiungi Metodo di Pagamento</h3>
+<form id="paymentForm" method="post" onsubmit="addPaymentMethod(); return false;">
+        <div class="mb-3">
             <label for="fullName" class="form-label">Nome e Cognome</label>
-            <input type="text" class="form-control" id="fullName" placeholder="Inserisci il tuo nome e cognome" required>
-          </div>
-          <div class="mb-3">
+            <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Inserisci il tuo nome e cognome" required>
+        </div>
+        <div class="mb-3">
             <label for="cardNumber" class="form-label">Numero di Carta</label>
-            <input type="text" class="form-control" id="cardNumber" placeholder="Inserisci il numero della carta" required>
-          </div>
-          <div class="mb-3">
+            <input type="text" class="form-control" id="cardNumber" name="cardNumber" placeholder="Inserisci il numero della carta" required>
+        </div>
+        <div class="mb-3">
             <label for="expiryDate" class="form-label">Data di Scadenza</label>
-            <input type="text" class="form-control" id="expiryDate" placeholder="MM/AA" required>
-          </div>
-          <div class="mb-3">
+            <input type="text" class="form-control" id="expiryDate" name="expiryDate" placeholder="MM/AA" required>
+        </div>
+        <div class="mb-3">
             <label for="cvv" class="form-label">CVV</label>
-            <input type="text" class="form-control" id="cvv" placeholder="Inserisci il CVV" required>
-          </div>
-          <button type="submit" class="btn btn-primary">Aggiungi Metodo di Pagamento</button>
-        </form>
+            <input type="text" class="form-control" id="cvv" name="cvv" placeholder="Inserisci il CVV" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Aggiungi Metodo di Pagamento</button>
+    </form>
+</div>
+
+
         <button id="backToCardsButton" class="btn btn-secondary mt-3">Torna alle carte</button>
       </div>
     </div>
   </div>
-</div>
+
 <div class="container mt-3" id="Account" style="display: none;">
     <h3 id="managerTitle">Area Utente - Gestione Account</h3>
     <div class="user-info">
@@ -227,6 +234,16 @@
 
 <script>
 
+$(document).on('click', '.nav-link', function(event) {
+    var username = "<%= username %>"; // Recupera il nome utente dal markup HTML
+    // Ora puoi utilizzare il nome utente come necessario, ad esempio passandolo alla funzione showCard()
+    
+    event.preventDefault(); // Impedisce il comportamento predefinito del link
+    showCard(username); // Chiama la funzione showCard e passa il nome utente come argomento
+});
+
+
+
 
 document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', function(event) {
@@ -245,36 +262,34 @@ document.querySelectorAll('.nav-link').forEach(link => {
     });
 });
 
-  const savedCards = [
-    { fullName: "Mario Rossi", cardNumber: "**** **** **** 1234", expiryDate: "12/24" },
-    { fullName: "Giulia Bianchi", cardNumber: "**** **** **** 5678", expiryDate: "11/25" }
-  ];
-
   function displaySavedCards() {
-    const savedCardsContainer = document.getElementById('savedCards');
-    const noCardsMessage = document.getElementById('noCardsMessage');
-    
-    if (savedCards.length === 0) {
-      noCardsMessage.style.display = 'block';
-      savedCardsContainer.style.display = 'none';
-    } else {
-      noCardsMessage.style.display = 'none';
-      savedCardsContainer.style.display = 'block';
-      savedCardsContainer.innerHTML = '';
-      savedCards.forEach((card, index) => {
-        const cardItem = document.createElement('li');
-        cardItem.innerHTML = `
-          <div>
-            <span><strong>Nome:</strong> ${card.fullName}</span>
-            <span><strong>Numero di Carta:</strong> ${card.cardNumber}</span>
-            <span><strong>Data di Scadenza:</strong> ${card.expiryDate}</span>
-          </div>
-          <button class="btn btn-secondary btn-sm editCardButton" data-index="${index}">Modifica</button>
-        `;
-        savedCardsContainer.appendChild(cardItem);
-      });
-    }
-  }
+	    const savedCardsContainer = document.getElementById('savedCards');
+	    const noCardsMessage = document.getElementById('noCardsMessage');
+	    
+	    if (savedCards.length === 0) {
+	        noCardsMessage.style.display = 'block';
+	        savedCardsContainer.style.display = 'none';
+	    } else {
+	        noCardsMessage.style.display = 'none';
+	        savedCardsContainer.style.display = 'block';
+	        savedCardsContainer.innerHTML = '';
+
+	        savedCards.forEach((card, index) => {
+	            const cardItem = document.createElement('li');
+	            cardItem.className = 'card-item'; // Aggiungi classe per lo stile CSS
+	            cardItem.innerHTML = `
+	                <div class="card-info">
+	                    <span><strong>Nome:</strong> ${card.fullName}</span>
+	                    <span><strong>Numero di Carta:</strong> ${card.cardNumber}</span>
+	                    <span><strong>Data di Scadenza:</strong> ${card.expiryDate}</span>
+	                </div>
+	              //  <button class="btn btn-secondary btn-sm editCardButton" data-index="${index}">Modifica</button>
+	            `;
+	            savedCardsContainer.appendChild(cardItem);
+	        });
+	    }
+	}
+
 
   document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', function(event) {
@@ -295,14 +310,13 @@ document.querySelectorAll('.nav-link').forEach(link => {
 
 
   document.getElementById('addCardButton').addEventListener('click', function() {
-    document.getElementById('paymentTitle').style.display = 'none';
-    document.getElementById('savedCards').style.display = 'none';
-    document.getElementById('noCardsMessage').style.display = 'none';
-    document.getElementById('paymentForm').style.display = 'block';
-    document.getElementById('addCardButton').style.display = 'none';
-
-
-  });
+	    console.log('Bottone cliccato');
+	    document.getElementById('paymentTitle').style.display = 'none';
+	    document.getElementById('savedCards').style.display = 'none';
+	    document.getElementById('noCardsMessage').style.display = 'none';
+	    document.getElementById('paymentForm').style.display = 'block';
+	    document.getElementById('addCardButton').style.display = 'none';
+	});
 
 
 
@@ -487,7 +501,56 @@ document.querySelectorAll('.nav-link').forEach(link => {
             });
         });
     });
+    function addPaymentMethod() {
+        var fullName = document.getElementById('fullName').value;
+        var cardNumber = document.getElementById('cardNumber').value;
+        var expiryDate = document.getElementById('expiryDate').value;
+        var cvv = document.getElementById('cvv').value;
+        var username = '<%= username %>'; // Assicurati che la variabile 'username' sia disponibile nella tua pagina JSP
+
+        $.ajax({
+            url: 'AreaPersonaleControl', // Assicurati di specificare il percorso corretto per la tua servlet
+            method: 'GET',
+            data: {
+                action: 'insertCards', // Azione per inserire una nuova carta
+                fullName: fullName,
+                cardNumber: cardNumber,
+                expiryDate: expiryDate,
+                cvv: cvv,
+                username: username
+            },
+            success: function(response) {
+                // Gestisci la risposta dal server se necessario
+                console.log('Carta aggiunta con successo');
+            },
+            error: function(xhr, status, error) {
+                // Gestisci gli errori se necessario
+                console.error('Errore durante l\'aggiunta della carta');
+            }
+        });
+    }
+
+
+    function showCard(username) {
+        // Effettua una chiamata AJAX per ottenere il form di modifica per il gioco specifico
+        $.ajax({
+            url: 'AreaPersonaleControl',
+            method: 'GET',
+            data: {
+                action: 'ShowCards',
+                username: username  // Passa il nome utente come parametro
+            },
+            success: function(response) {
+                // Mostra il form di modifica nel contenitore appropriato
+                $('#updateCatContainer').html(response);
+            },
+            error: function(xhr, status, error) {
+                console.error('Errore: ' + error);
+            }
+        });
+    }
     
+
     function showModifyGameForm(gameId) {
         // Effettua una chiamata AJAX per ottenere il form di modifica per il gioco specifico
         $.ajax({
