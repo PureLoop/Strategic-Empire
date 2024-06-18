@@ -139,10 +139,10 @@
         <span class="rectangle-item"><a href="#" class="nav-link" data-target="none">Ordini</a></span>
         <span class="rectangle-item"><a href="#" class="nav-link" data-target="none">Rubrica Indirizzi</a></span>
 <span class="rectangle-item">
-    <a href="#" class="nav-link" data-target="paymentSection">Metodi di pagamento</a>
+    <a href="#" class="nav-link" data-target="paymentSection" id="payment">Metodi di pagamento</a>
 </span>
 
-        <% if(user.getRole().equals("amministratore")){%>
+        <% if(user.getRole().equalsIgnoreCase("Amministratore")){%>
         <span class="rectangle-item"><a href="#" class="nav-link" data-target="none" id="addUpdateCatalog">Modifica catalogo</a></span>
         <span class="rectangle-item"><a href="#" class="nav-link" data-target="none">Lista utenti</a></span>
         <%} %>
@@ -229,17 +229,20 @@
         <input type="submit" value="Salva Modifiche" class="btn btn-primary mt-3">
     </form>
 </div>
-</body>
-
+	<div id="showSavedPayment"></div>
 <script>
 
 $(document).on('click', '.nav-link', function(event) {
     var username = "<%= username %>"; // Recupera il nome utente dal markup HTML
-    // Ora puoi utilizzare il nome utente come necessario, ad esempio passandolo alla funzione showCard()
-    
     event.preventDefault(); // Impedisce il comportamento predefinito del link
-    showCard(username); // Chiama la funzione showCard e passa il nome utente come argomento
+    
+    if ($(this).attr('id') === 'payment') { // Verifica se l'elemento cliccato ha l'ID 'payment'
+        showCard(username); // Chiama la funzione showCard e passa il nome utente come argomento
+    }else{
+    	$('#showSavedPayment').hide();
+    }
 });
+
 
 
 
@@ -346,6 +349,54 @@ document.querySelectorAll('.nav-link').forEach(link => {
     }
   });
 
+  function addPaymentMethod() {
+      var fullName = document.getElementById('fullName').value;
+      var cardNumber = document.getElementById('cardNumber').value;
+      var expiryDate = document.getElementById('expiryDate').value;
+      var cvv = document.getElementById('cvv').value;
+      var username = '<%= username %>'; // Assicurati che la variabile 'username' sia disponibile nella tua pagina JSP
+
+      $.ajax({
+          url: 'AreaPersonaleControl', // Assicurati di specificare il percorso corretto per la tua servlet
+          method: 'GET',
+          data: {
+              action: 'insertCards', // Azione per inserire una nuova carta
+              fullName: fullName,
+              cardNumber: cardNumber,
+              expiryDate: expiryDate,
+              cvv: cvv,
+              username: username
+          },
+          success: function(response) {
+              // Gestisci la risposta dal server se necessario
+              console.log('Carta aggiunta con successo');
+          },
+          error: function(xhr, status, error) {
+              // Gestisci gli errori se necessario
+              console.error('Errore durante l\'aggiunta della carta');
+          }
+      });
+  }
+
+
+  function showCard(username) {
+      // Effettua una chiamata AJAX per ottenere il form di modifica per il gioco specifico
+      $.ajax({
+          url: 'AreaPersonaleControl',
+          method: 'GET',
+          data: {
+              action: 'ShowCards',
+              username: username  // Passa il nome utente come parametro
+          },
+          success: function(response) {
+              // Mostra il form di modifica nel contenitore appropriato
+              $('#showSavedPayment').html(response);
+          },
+          error: function(xhr, status, error) {
+              console.error('Errore: ' + error);
+          }
+      });
+  }
   displaySavedCards();
 </script>
   
@@ -376,321 +427,6 @@ document.querySelectorAll('.nav-link').forEach(link => {
     <div id="insertCatContainer" class="mt-3 d-flex justify-content-center">
     </div>
     </div>
-    <script>
-    document.getElementById("Modifica").addEventListener('click', function(){
-    	document.getElementById("choiceProdottiUp").style.display = 'flex';
-    });
-    
-    document.getElementById("Inserisci").addEventListener('click', function(){
-    	document.getElementById("choiceProdotti").style.display = 'flex';
-    });
-    
-    document.getElementById("addUpdateCatalog").addEventListener('click', function(){
-    	document.getElementById("btnChoice").style.display = 'flex';
-    });
-        
-    
-    $(document).ready(function() {
-    	
-    	$('#giochiIns').off('click').on('click',function(event){
-    		event.preventDefault(); // Prevenire la navigazione
-    		$.ajax({
-    			url: 'AreaPersonaleControl',
-    			method: "GET",
-    			data:{
-    				action: 'showInsForm',
-    				type: 'gioco'
-    			},
-    			success: function(response){
-    				$('#insertCatContainer').html(response);
-    			},
-    			error: function(xhr, status, error) {
-                    console.error('Errore: ' + error);
-                }
-    		});
-    	});
-    	
-    	$('#accessoriIns').off('click').on('click',function(event){
-    		event.preventDefault(); // Prevenire la navigazione
-    		$.ajax({
-    			url: 'AreaPersonaleControl',
-    			method: "GET",
-    			data:{
-    				action: 'showInsForm',
-    				type: 'accessorio'
-    			},
-    			success: function(response){
-    				$('#insertCatContainer').html(response);
-    			},
-    			error: function(xhr, status, error) {
-                    console.error('Errore: ' + error);
-                }
-    		});
-    	});
-    	
-    	$('#espansioniIns').off('click').on('click',function(event){
-    		event.preventDefault(); // Prevenire la navigazione
-    		$.ajax({
-    			url: 'AreaPersonaleControl',
-    			method: "GET",
-    			data:{
-    				action: 'showInsForm',
-    				type: 'espansione'
-    			},
-    			success: function(response){
-    				$('#insertCatContainer').html(response);
-    			},
-    			error: function(xhr, status, error) {
-                    console.error('Errore: ' + error);
-                }
-    		});
-    	});
-    	
-        $('#giochi').off('click').on('click', function(event) {
-            event.preventDefault(); // Prevenire la navigazione
-
-            $.ajax({
-                url: 'AreaPersonaleControl',
-                method: 'GET',
-                data: {
-                    action: 'ShowGioco',
-                },
-                success: function(response) {
-                    $('#updateCatContainer').html(response);
-                },
-                error: function(xhr, status, error) {
-                    console.error('Errore: ' + error);
-                }
-            });
-        });
-        
-        $('#accessori').off('click').on('click', function(event) {
-            event.preventDefault(); // Prevenire la navigazione
-
-            $.ajax({
-                url: 'AreaPersonaleControl',
-                method: 'GET',
-                data: {
-                    action: 'ShowAccessorio',
-                },
-                success: function(response) {
-                    $('#updateCatContainer').html(response);
-                },
-                error: function(xhr, status, error) {
-                    console.error('Errore: ' + error);
-                }
-            });
-        });
-        
-        $('#espansioni').off('click').on('click', function(event) {
-            event.preventDefault(); // Prevenire la navigazione
-
-            $.ajax({
-                url: 'AreaPersonaleControl',
-                method: 'GET',
-                data: {
-                    action: 'ShowEspansione',
-                },
-                success: function(response) {
-                    $('#updateCatContainer').html(response);
-                },
-                error: function(xhr, status, error) {
-                    console.error('Errore: ' + error);
-                }
-            });
-        });
-    });
-    function addPaymentMethod() {
-        var fullName = document.getElementById('fullName').value;
-        var cardNumber = document.getElementById('cardNumber').value;
-        var expiryDate = document.getElementById('expiryDate').value;
-        var cvv = document.getElementById('cvv').value;
-        var username = '<%= username %>'; // Assicurati che la variabile 'username' sia disponibile nella tua pagina JSP
-
-        $.ajax({
-            url: 'AreaPersonaleControl', // Assicurati di specificare il percorso corretto per la tua servlet
-            method: 'GET',
-            data: {
-                action: 'insertCards', // Azione per inserire una nuova carta
-                fullName: fullName,
-                cardNumber: cardNumber,
-                expiryDate: expiryDate,
-                cvv: cvv,
-                username: username
-            },
-            success: function(response) {
-                // Gestisci la risposta dal server se necessario
-                console.log('Carta aggiunta con successo');
-            },
-            error: function(xhr, status, error) {
-                // Gestisci gli errori se necessario
-                console.error('Errore durante l\'aggiunta della carta');
-            }
-        });
-    }
-
-
-    function showCard(username) {
-        // Effettua una chiamata AJAX per ottenere il form di modifica per il gioco specifico
-        $.ajax({
-            url: 'AreaPersonaleControl',
-            method: 'GET',
-            data: {
-                action: 'ShowCards',
-                username: username  // Passa il nome utente come parametro
-            },
-            success: function(response) {
-                // Mostra il form di modifica nel contenitore appropriato
-                $('#updateCatContainer').html(response);
-            },
-            error: function(xhr, status, error) {
-                console.error('Errore: ' + error);
-            }
-        });
-    }
-    
-
-    function showModifyGameForm(gameId) {
-        // Effettua una chiamata AJAX per ottenere il form di modifica per il gioco specifico
-        $.ajax({
-            url: 'AreaPersonaleControl',
-            method: 'GET',
-            data: {
-                action: 'GameModifyForm',
-                gameId: gameId
-            },
-            success: function(response) {
-                // Mostra il form di modifica nel contenitore appropriato
-                $('#updateCatContainer').html(response);
-            },
-            error: function(xhr, status, error) {
-                console.error('Errore: ' + error);
-            }
-        });
-    }
-
-    function showModifyAccForm(accId) {
-        // Effettua una chiamata AJAX per ottenere il form di modifica per il gioco specifico
-        $.ajax({
-            url: 'AreaPersonaleControl',
-            method: 'GET',
-            data: {
-                action: 'AccModifyForm',
-                accId: accId
-            },
-            success: function(response) {
-                // Mostra il form di modifica nel contenitore appropriato
-                $('#updateCatContainer').html(response);
-            },
-            error: function(xhr, status, error) {
-                console.error('Errore: ' + error);
-            }
-        });
-    }
-    
-    function showModifyEspForm(espId) {
-        // Effettua una chiamata AJAX per ottenere il form di modifica per il gioco specifico
-        $.ajax({
-            url: 'AreaPersonaleControl',
-            method: 'GET',
-            data: {
-                action: 'EspModifyForm',
-                espId: espId
-            },
-            success: function(response) {
-                // Mostra il form di modifica nel contenitore appropriato
-                $('#updateCatContainer').html(response);
-            },
-            error: function(xhr, status, error) {
-                console.error('Errore: ' + error);
-            }
-        });
-    }
-    
-    function submitInsForm(){
-    	var formData = $('#insertForm').serializeArray();
-    	formData.push({
-    		name: 'action',
-    		value: 'insertDB'
-    	});
-    	$.ajax({
-    		type: 'POST',
-    		url: 'AreaPersonaleControl',
-    		data: formData,
-    		success: function(response) {
-                alert('Prodotto inserito con successo');
-            },
-            error: function(xhr, status, error) {
-                alert('Errore durante l\'inserimento del prodotto');
-            } 
-    	});
-    }
-    
-    function submitGameForm() {
-        var formData = $('#ModifyGameForm').serializeArray();
-        formData.push({ name: 'action', value: 'updateGame' });
-
-        $.ajax({
-            type: 'POST',
-            url: 'AreaPersonaleControl',
-            data: formData,
-            success: function(response) {
-                alert('Gioco aggiornato con successo');
-            },
-            error: function(xhr, status, error) {
-                alert('Errore durante l\'aggiornamento del gioco');
-            }
-        });
-    }
-    
-    function submitAccForm() {
-        var formData = $('#ModifyAccForm').serializeArray();
-        formData.push({ name: 'action', value: 'updateAccessorio' });
-
-        $.ajax({
-            type: 'POST',
-            url: 'AreaPersonaleControl',
-            data: formData,
-            success: function(response) {
-                alert('Accessorio aggiornato con successo');
-            },
-            error: function(xhr, status, error) {
-                alert('Errore durante l\'aggiornamento del gioco');
-            }
-        });
-    }
-    
-    function submitEspForm() {
-        var formData = $('#ModifyEspForm').serializeArray();
-        formData.push({ name: 'action', value: 'updateEspansione' });
-
-        $.ajax({
-            type: 'POST',
-            url: 'AreaPersonaleControl',
-            data: formData,
-            success: function(response) {
-                alert('Espansione aggiornata con successo');
-            },
-            error: function(xhr, status, error) {
-                alert('Errore durante l\'aggiornamento del gioco');
-            }
-        });
-    }
-    // Gestisci il click sui pulsanti "Modifica"
-    $(document).on('click', '.edit-Game-button', function() {
-        var gameId = $(this).data('game-id');
-        showModifyGameForm(gameId);
-    });
-    
-    $(document).on('click', '.edit-Acc-button', function() {
-        var accId = $(this).data('acc-id');
-        showModifyAccForm(accId);
-    });
-    
-    $(document).on('click', '.edit-Esp-button', function() {
-        var espId = $(this).data('esp-id');
-        showModifyEspForm(espId);
-    });
-    </script>
+    <script src="js/gestioneCatAmministratore.js"></script>
 </body>
 </html>

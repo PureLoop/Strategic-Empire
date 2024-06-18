@@ -19,6 +19,7 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <!-- Custom CSS -->
+<script src="js/checkerInputFields.js"></script>
 <style>
 .login-container {
 	max-width: 400px;

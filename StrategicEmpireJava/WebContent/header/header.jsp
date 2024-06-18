@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function() {
           <span class="me-2">Ciao, <%= u.getUsername() %>!</span>
           <div class="dropdown">
               <a href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src="./IMMAGINI/cartoon-boy.png" alt="Profile Image" width="60" height="60">
+                  <img src="./IMMAGINI/profilePic.png" alt="Profile Image" width="60" height="60">
               </a>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                   <li><a class="dropdown-item" href="AreaPersonale.jsp">Area Utente</a></li>
