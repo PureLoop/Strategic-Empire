@@ -46,24 +46,39 @@ public class EspansioneModelDM implements EspansioneModel {
 	    ResultSet rs = null;
 	    espansioneBean bean = new espansioneBean();
 
-	    String selectGioco = "SELECT e.*, ig.img_name, ig.cod_img_esp " + 
+	    String selectEspansione = "SELECT e.*, ig.img_name, ig.cod_img_esp " + 
 	                         "FROM espansione AS e " + 
 	                         "JOIN img_esp AS ig ON ig.cod_esp = e.cod_espansione " + 
 	                         "AND e.cod_espansione = ?;";
 
 	    try {
 	        connection = DriverManagerConnectionPool.getConnection();
-	        preparedStatement = connection.prepareStatement(selectGioco);
+	        preparedStatement = connection.prepareStatement(selectEspansione);
 	        preparedStatement.setString(1, code);
 	        rs = preparedStatement.executeQuery();
+	        String immagine1 = null;
+            String immagine2 = null;
+            boolean firstRow = true;
 	        
-	        if (rs.next()) {
+	        while (rs.next()) {
+	        	if(firstRow){
 	            bean.setCod_espansione(rs.getString("cod_espansione"));
 	            bean.setNomeespansione(rs.getString("nome_espansione"));
 	            bean.setDescrizione(rs.getString("descrizione"));
 	            bean.setPrezzo(rs.getDouble("prezzo"));
-	            bean.setImmagineCop(rs.getString("img_name"));
+	            immagine1 = rs.getString("img_name");
+                firstRow = false;
+            } else {
+                immagine2 = rs.getString("img_name");
+            }
 	        }
+	        if (immagine1 != null) {
+                bean.setImmagineCop(immagine1);
+            }
+            if (immagine2 != null) {
+                bean.setImmagine2(immagine2);
+            }
+            System.out.println(bean.getImmagine2());
 	    } finally {
 	        if (rs != null) {
 	            rs.close();

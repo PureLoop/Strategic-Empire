@@ -68,44 +68,62 @@ public class AccessorioModelDM implements AccessorioModel {
     }
 
     @Override
-	public AccessorioBean doRetrieveByKey(String code) throws SQLException {
-		 Connection connection = null;
-		    PreparedStatement preparedStatement = null;
-		    ResultSet rs = null;
-		    AccessorioBean bean = new AccessorioBean();
+    public AccessorioBean doRetrieveByKey(String code) throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        AccessorioBean bean = new AccessorioBean();
 
-		    String selectGioco = "SELECT a.*, ia.img_name, ia.cod_img_acc " +
-                    "FROM accessorio AS a " +
-                    "JOIN img_acc AS ia ON ia.cod_acc = a.cod_accessorio " +
-                    "WHERE a.cod_accessorio = ?;";
+        String selectAccessorio = "SELECT a.*, ia.img_name, ia.cod_img_acc " +
+                             "FROM accessorio AS a " +
+                             "JOIN img_acc AS ia ON ia.cod_acc = a.cod_accessorio " +
+                             "WHERE a.cod_accessorio = ?;";
 
-		    try {
-		        connection = DriverManagerConnectionPool.getConnection();
-		        preparedStatement = connection.prepareStatement(selectGioco);
-		        preparedStatement.setString(1, code);
-		        rs = preparedStatement.executeQuery();
-		        
-		        if (rs.next()) {
-		            bean.setCod_accessorio(rs.getString("cod_accessorio"));
-		            bean.setNomeaccessorio(rs.getString("nome_accessorio"));
-		            bean.setDescrizione(rs.getString("descrizione"));
-		            bean.setTipologia(rs.getString("tipologia"));
-		            bean.setPrezzo(rs.getDouble("prezzo"));
-		            bean.setImmagineCop(rs.getString("img_name"));
-		        }
-		    } finally {
-		        if (rs != null) {
-		            rs.close();
-		        }
-		        if (preparedStatement != null) {
-		            preparedStatement.close();
-		        }
-		        if (connection != null) {
-		            DriverManagerConnectionPool.releaseConnection(connection);
-		        }
-		    }
-		    return bean;
-	}
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(selectAccessorio);
+            preparedStatement.setString(1, code);
+            rs = preparedStatement.executeQuery();
+
+            String immagine1 = null;
+            String immagine2 = null;
+            boolean firstRow = true;
+
+            while (rs.next()) {
+                if (firstRow) {
+                    bean.setCod_accessorio(rs.getString("cod_accessorio"));
+                    bean.setNomeaccessorio(rs.getString("nome_accessorio"));
+                    bean.setDescrizione(rs.getString("descrizione"));
+                    bean.setTipologia(rs.getString("tipologia"));
+                    bean.setPrezzo(rs.getDouble("prezzo"));
+                    immagine1 = rs.getString("img_name");
+                    firstRow = false;
+                } else {
+                    immagine2 = rs.getString("img_name");
+                }
+            }
+
+            if (immagine1 != null) {
+                bean.setImmagineCop(immagine1);
+            }
+            if (immagine2 != null) {
+                bean.setImmagine2(immagine2);
+            }
+
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+            if (connection != null) {
+                DriverManagerConnectionPool.releaseConnection(connection);
+            }
+        }
+        return bean;
+    }
+
 
 	@Override
 	public synchronized Collection<AccessorioBean> doRetrieveAll(String order) throws SQLException {

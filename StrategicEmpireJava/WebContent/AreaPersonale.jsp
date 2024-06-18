@@ -243,10 +243,6 @@ $(document).on('click', '.nav-link', function(event) {
     }
 });
 
-
-
-
-
 document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', function(event) {
         event.preventDefault();

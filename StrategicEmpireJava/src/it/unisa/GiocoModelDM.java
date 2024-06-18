@@ -88,14 +88,18 @@ public class GiocoModelDM implements GiocoModel{
 		String selectGioco = "select g.*,ig.img_name,ig.cod_img_gioco\r\n" + 
 				"from " +GiocoModelDM.TABLE_NAME +" as g \r\n" + 
 				"join img_gioco as ig on ig.cod_gioco = g.cod_gioco\r\n" + 
-				"where ig.copertina = true and g.cod_gioco = ? ;";
+				"where  g.cod_gioco = ? ;";
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(selectGioco);
 			preparedStatement.setString(1, code);
-			
+			String immagine1 = null;
+            String immagine2 = null;
+            boolean firstRow = true;
+            
 			ResultSet rs = preparedStatement.executeQuery();
 			while(rs.next()) {
+			if(firstRow){
 				bean.setCod_gioco(rs.getString("cod_gioco"));
 				bean.setNomegioco(rs.getString("nome_gioco"));
 				bean.setEdizione(rs.getString("edizione"));
@@ -104,8 +108,18 @@ public class GiocoModelDM implements GiocoModel{
 				bean.setDescrizione(rs.getString("descrizione"));
 				bean.setN_giocatori_min(rs.getInt("n_giocatori_min"));
 				bean.setN_giocatori_max(rs.getInt("n_giocatori_max"));
-				bean.setImmagineCop(rs.getString("img_name"));
+				immagine1 = rs.getString("img_name");
+                    firstRow = false;
+                } else {
+                    immagine2 = rs.getString("img_name");
+                }
 			}
+			if (immagine1 != null) {
+                bean.setImmagineCop(immagine1);
+            }
+            if (immagine2 != null) {
+                bean.setImmagine2(immagine2);
+            }
 		}finally {
 			try {
 				if (preparedStatement != null)
