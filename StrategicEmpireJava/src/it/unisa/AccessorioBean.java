@@ -10,7 +10,7 @@ import java.util.LinkedList;
 public class AccessorioBean implements Serializable{
     public String cod_accessorio,nome_accessorio,tipologia,descrizione;
     public Double prezzo;
-    public String immagineCopertina;
+    public String immagineCopertina,immagine2;
 
     public AccessorioBean(){
         cod_accessorio = "";
@@ -27,6 +27,14 @@ public class AccessorioBean implements Serializable{
     
     public String getImmagineCop() {
     	return immagineCopertina;
+    }
+    
+    public void setImmagine2(String img) {
+    	this.immagine2 = img;
+    }
+    
+    public String getImmagine2() {
+    	return immagine2;
     }
     
     public void setCod_accessorio(String cod) {

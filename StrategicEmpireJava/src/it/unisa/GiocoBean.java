@@ -12,7 +12,7 @@ public class GiocoBean implements Serializable{
     public String cod_gioco,nome_gioco,edizione,tipologia,descrizione;
     public Double prezzo;
     public int n_giocatori_min,n_giocatori_max;
-    public String immagineCopertina;
+    public String immagineCopertina, img2;
 
     public GiocoBean(){
         cod_gioco = "";
@@ -33,6 +33,13 @@ public class GiocoBean implements Serializable{
     	return immagineCopertina;
     }
     
+    public void setImmagine2(String img) {
+    	this.img2 = img;
+    }
+    
+    public String getImmagine2() {
+    	return img2;
+    }
     public void setCod_gioco(String cod) {
         this.cod_gioco = cod;
     }

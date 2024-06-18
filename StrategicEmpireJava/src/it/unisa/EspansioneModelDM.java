@@ -107,7 +107,7 @@ public class EspansioneModelDM implements EspansioneModel {
         Collection<espansioneBean> espansioni = new LinkedList<>();
 
         String selectSQL = "SELECT * FROM " + TABLE_NAME + " AS e " +
-                "JOIN img_esp AS ie ON ie.cod_esp = e.cod_espansione";
+                "JOIN img_esp AS ie ON ie.cod_esp = e.cod_espansione where ie.copertina = 1";
 
         try {
             connection = DriverManagerConnectionPool.getConnection();

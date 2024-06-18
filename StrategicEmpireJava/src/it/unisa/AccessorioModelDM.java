@@ -115,7 +115,7 @@ public class AccessorioModelDM implements AccessorioModel {
 
         
         String selectSQL = "SELECT * FROM " +TABLE_NAME + " as g " + 
-                "join img_acc as ig on ig.cod_acc = g.cod_accessorio";
+                "join img_acc as ig on ig.cod_acc = g.cod_accessorio where ig.copertina = 1";
 
 
         try {

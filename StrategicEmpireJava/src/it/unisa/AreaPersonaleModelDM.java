@@ -188,5 +188,206 @@ public class AreaPersonaleModelDM implements AreaPersonaleModel{
 	        }
 	    }
 	}
+	
+	@Override
+	public void insertImgAcc(AccessorioBean accessorio) throws SQLException {
+	    String query1 = "INSERT INTO img_acc(cod_img_acc, copertina, img_name, cod_acc) VALUES (?, ?, ?, ?)";
+	    String query2 = "INSERT INTO img_acc(cod_img_acc, copertina, img_name, cod_acc) VALUES (?, ?, ?, ?)";
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    
+	    try {
+	        String cod_img_acc = accessorio.getCod_Accessorio() + "Img1";
+	        String cod_img_acc1 = accessorio.getCod_Accessorio() + "Img2";
+	        connection = DriverManagerConnectionPool.getConnection();
+	        preparedStatement = connection.prepareStatement(query1);
 
+	        preparedStatement.setString(1, cod_img_acc);
+	        preparedStatement.setBoolean(2, true);
+	        preparedStatement.setString(3, accessorio.getImmagineCop());
+	        preparedStatement.setString(4, accessorio.getCod_Accessorio());
+	        preparedStatement.executeUpdate();
+
+	        preparedStatement = connection.prepareStatement(query2);
+
+	        preparedStatement.setString(1, cod_img_acc1);
+	        preparedStatement.setBoolean(2, false);
+	        preparedStatement.setString(3, accessorio.getImmagine2());
+	        preparedStatement.setString(4, accessorio.getCod_Accessorio());
+	        preparedStatement.executeUpdate();
+	        // Commit della transazione
+	        connection.commit();
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            DriverManagerConnectionPool.releaseConnection(connection);
+	        }
+	    }
+	}
+
+	@Override
+	public void insertImgGioco(GiocoBean gioco) throws SQLException {
+	    String query1 = "INSERT INTO img_gioco(cod_img_gioco, copertina, img_name, cod_gioco) VALUES (?, ?, ?, ?)";
+	    String query2 = "INSERT INTO img_gioco(cod_img_gioco, copertina, img_name, cod_gioco) VALUES (?, ?, ?, ?)";
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    
+	    try {
+	        String cod_img_gioco = gioco.getCod_Gioco() + "Img1";
+	        String cod_img_gioco2 = gioco.getCod_Gioco() + "Img2";
+	        connection = DriverManagerConnectionPool.getConnection();
+	        preparedStatement = connection.prepareStatement(query1);
+
+	        preparedStatement.setString(1, cod_img_gioco);
+	        preparedStatement.setBoolean(2, true);
+	        preparedStatement.setString(3, gioco.getImmagineCop());
+	        preparedStatement.setString(4, gioco.getCod_Gioco());
+	        preparedStatement.executeUpdate();
+
+	        
+	        preparedStatement = connection.prepareStatement(query2);
+
+	        preparedStatement.setString(1, cod_img_gioco2);
+	        preparedStatement.setBoolean(2, false);
+	        preparedStatement.setString(3, gioco.getImmagineCop());
+	        preparedStatement.setString(4, gioco.getCod_Gioco());
+	        preparedStatement.executeUpdate();
+	        // Commit della transazione
+	        connection.commit();
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            DriverManagerConnectionPool.releaseConnection(connection);
+	        }
+	    }
+	}
+	
+	@Override
+	public void insertImgEsp(espansioneBean espansione) throws SQLException {
+	    String query1 = "INSERT INTO img_esp(cod_img_esp, copertina, img_name, cod_esp) VALUES (?, ?, ?, ?)";
+	    String query2 = "INSERT INTO img_esp(cod_img_esp, copertina, img_name, cod_esp) VALUES (?, ?, ?, ?)";
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    
+	    try {
+	    	String cod_img_esp = espansione.getCod_espansione() + "Img1";
+	    	String cod_img_esp2 = espansione.getCod_espansione() + "Img2";
+	        connection = DriverManagerConnectionPool.getConnection();
+	        preparedStatement = connection.prepareStatement(query1);
+	        preparedStatement.setString(1, cod_img_esp);
+	        preparedStatement.setBoolean(2, true);
+	        preparedStatement.setString(3, espansione.getImmagineCop());
+	        preparedStatement.setString(4, espansione.getCod_espansione());
+	        preparedStatement.executeUpdate();
+	        
+	        preparedStatement = connection.prepareStatement(query2);
+	        preparedStatement.setString(1, cod_img_esp2);
+	        preparedStatement.setBoolean(2, false);
+	        preparedStatement.setString(3, espansione.getImmagineCop());
+	        preparedStatement.setString(4, espansione.getCod_espansione());
+	        preparedStatement.executeUpdate();
+
+	        // Commit della transazione
+	        connection.commit();
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            DriverManagerConnectionPool.releaseConnection(connection);
+	        }
+	    }
+	}
+	
+	@Override
+	public void deleteAcc(String codAcc) throws SQLException {
+	    String query1 = "DELETE FROM accessorio where (cod_accessorio = ?)";
+	    String query2 = "DELETE FROM img_acc where (cod_acc = ?)";
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    
+	    try {
+	        connection = DriverManagerConnectionPool.getConnection();
+	        preparedStatement = connection.prepareStatement(query1);
+	        preparedStatement.setString(1, codAcc);
+	        preparedStatement.executeUpdate();
+	        
+	        preparedStatement = connection.prepareStatement(query2);
+	        preparedStatement.setString(1, codAcc);
+	        preparedStatement.executeUpdate();
+
+	        // Commit della transazione
+	        connection.commit();
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            DriverManagerConnectionPool.releaseConnection(connection);
+	        }
+	    }
+	}
+	
+	@Override
+	public void deleteEsp(String codEsp) throws SQLException {
+	    String query1 = "DELETE FROM espansione where (cod_espansione = ?)";
+	    String query2 = "DELETE FROM img_esp where (cod_esp = ?)";
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    
+	    try {
+	        connection = DriverManagerConnectionPool.getConnection();
+	        preparedStatement = connection.prepareStatement(query1);
+	        preparedStatement.setString(1, codEsp);
+	        preparedStatement.executeUpdate();
+	        
+	        preparedStatement = connection.prepareStatement(query2);
+	        preparedStatement.setString(1, codEsp);
+	        preparedStatement.executeUpdate();
+
+	        // Commit della transazione
+	        connection.commit();
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            DriverManagerConnectionPool.releaseConnection(connection);
+	        }
+	    }
+	}
+	
+	@Override
+	public void deleteGioco(String codGioco) throws SQLException {
+	    String query1 = "DELETE FROM gioco where (cod_gioco = ?)";
+	    String query2 = "DELETE FROM img_gioco where (cod_gioco = ?)";
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    
+	    try {
+	        connection = DriverManagerConnectionPool.getConnection();
+	        preparedStatement = connection.prepareStatement(query1);
+	        preparedStatement.setString(1, codGioco);
+	        preparedStatement.executeUpdate();
+	        
+	        preparedStatement = connection.prepareStatement(query2);
+	        preparedStatement.setString(1, codGioco);
+	        preparedStatement.executeUpdate();
+
+	        // Commit della transazione
+	        connection.commit();
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            DriverManagerConnectionPool.releaseConnection(connection);
+	        }
+	    }
+	}
+	
 }
