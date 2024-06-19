@@ -124,6 +124,17 @@
     #choiceProdottiUp{
     	display: none;
     }
+        .user-info {
+        margin-top: 20px;
+        
+    }
+    .info-item {
+        margin-bottom: 10px;
+    }
+    .info-item label {
+        font-weight: bold;
+        margin-right: 5px;
+    }
   </style>
 </head>
 <body>
@@ -197,7 +208,9 @@
     <h3 id="managerTitle">Area Utente - Gestione Account</h3>
     <div class="user-info">
         <h2>Informazioni Utente</h2>
+        </div>
         <div class="row">
+        <hr>
             <div class="col-md-4">
                 <label>Nome:</label>
                 <p><%= username %></p>
@@ -211,7 +224,7 @@
                 <p><%= user!=null ? Indirizzo : "N/A"%></p>
             </div>
         </div>
-    </div>
+    
     <form action="updateAccount.jsp" method="post">
         <h2>Modifica Informazioni</h2>
         <div class="form-group">
