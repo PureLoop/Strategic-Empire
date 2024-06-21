@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
-  <head><script src="../assets/js/color-modes.js"></script>
+  <head>
+    <script src="../assets/js/color-modes.js"></script>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,7 +11,7 @@
  
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/carousel/">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-	<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -89,165 +90,136 @@
       .bd-mode-toggle .dropdown-menu .active .bi {
         display: block !important;
       }
-      
-      .carousel-item:nth-child(1) {
-    background-image: url('IMMAGINI/IMMAGINI_HOME/Carousel1.jpg');
-    background-size: cover; /* Adatta l'immagine alla dimensione del contenitore */
-}
 
-.carousel-item:nth-child(2) {
-    background-image: url('IMMAGINI/IMMAGINI_HOME/Carousel2.jpg');
-    background-size: cover;
-    background-position: center bottom;
-}
+      .carousel-item {
+        height: 65vh;
+        min-height: 300px;
+        background: no-repeat center center scroll;
+        background-size: cover;
+      }
 
-.carousel-item:nth-child(3) {
-    background-image: url('IMMAGINI/IMMAGINI_HOME/Carousel3.jpg');
-    background-size: cover;
-    background-position: center;
-}
-
-.with-background {
-    background-image: url('IMMAGINI/IMMAGINI_HOME/spedizione.jpeg');
-    background-size: cover;
-}
-
+      .featurette-image {
+        width: 100%;
+        height: auto;
+      }
     </style>
 
-    
     <!-- Custom styles for this template -->
     <link href="carousel.css" rel="stylesheet">
   </head>
   <body>
-
-<main>
-	<header>
-	<%@ include file="/header/header.jsp" %>
-    </header>
-  <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    </div>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
-        <div class="container">
-          <div class="carousel-caption text-start">
-            <h1>Scopri nuovi mondi e storie fantastiche</h1>
-            <p class="opacity-75">Esplora il nostro catalogo di giochi di ruolo. Immergiti in mondi e storie fantasy che metteranno a dura prova le tue capacit&agrave da player.</p>
-            <p><a class="btn btn-lg btn-primary" href="GiocoView.jsp"">Scopri</a></p>
+    <main>
+      <header>
+        <%@ include file="/header/header.jsp" %>
+      </header>
+      <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active" style="background-image: url('IMMAGINI/IMMAGINI_HOME/Carousel1.jpg');">
+            <div class="container">
+              <div class="carousel-caption text-start">
+                <h1>Scopri nuovi mondi e storie fantastiche</h1>
+                <p class="opacity-75">Esplora il nostro catalogo di giochi di ruolo. Immergiti in mondi e storie fantasy che metteranno a dura prova le tue capacit&agrave da player.</p>
+                <p><a class="btn btn-lg btn-primary" href="GiocoView.jsp">Scopri</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item" style="background-image: url('IMMAGINI/IMMAGINI_HOME/Carousel2.jpg');">
+            <div class="container">
+              <div class="carousel-caption">
+                <h1>Riscopri la bellezza di giocare in compagnia</h1>
+                <p>Divertiti insieme ai tuoi amici con i pi&ugrave variegati party games e giochi di carte.</p>
+                <p><a class="btn btn-lg btn-primary" href="GiocoView.jsp">Scopri</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item" style="background-image: url('IMMAGINI/IMMAGINI_HOME/Carousel3.jpg');">
+            <div class="container">
+              <div class="carousel-caption text-end">
+                <h1>Strategia e molto ingegno</h1>
+                <p>Consulta il nostro catalogo di giochi strategici e gestionali, gestisci le tue risorse, sviluppa le pi&ugrave ingegnose strategie per schiacciare i tuoi avversari.</p>
+                <p><a class="btn btn-lg btn-primary" href="GiocoView.jsp">Scopri</a></p>
+              </div>
+            </div>
           </div>
         </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
-      <div class="carousel-item">
-        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
-        <div class="container">
-          <div class="carousel-caption">
-            <h1>Riscopri la bellezza di giocare in compagnia</h1>
-            <p>Divertiti insieme ai tuo amici con i pi&ugrave variegati party games e giochi di carte.</p>
-            <p><a class="btn btn-lg btn-primary" href="GiocoView.jsp">Scopri</a></p>
-          </div>
+
+      <!-- START THE FEATURETTES -->
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading fw-normal lh-1">Spedizioni in tutta italia. <span class="text-body-secondary">Pi&ugrave veloce della luce</span></h2>
+          <p class="lead">Copertura in tutta Italia grazie alle nostre spedizioni express. Spedizioni a domicilio o negli appositi centri di ritiro. Spedizioni low cost o completamente gratuite per ordini superiori a 75&euro;.</p>
+        </div>
+        <div class="col-md-5">
+          <img src="IMMAGINI/IMMAGINI_HOME/spedizione.jpeg" class="featurette-image img-fluid mx-auto" alt="Spedizione">
         </div>
       </div>
-      <div class="carousel-item">
-        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
-        <div class="container">
-          <div class="carousel-caption text-end">
-            <h1>Strategia e molto ingegno</h1>
-            <p>Consulta il nostro catalogo di giochi stategici e gestionali, gestisci le tue risorse, sviluppa le pi&ugrave ingegnose strategie per schiacciare i tuoi avversari</p>
-            <p><a class="btn btn-lg btn-primary" href="GiocoView.jsp"">Scopri</a></p>
-          </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7 order-md-2">
+          <h2 class="featurette-heading fw-normal lh-1">Dove trovarci fisicamente? <span class="text-body-secondary">IN FIERA!!!</span></h2>
+          <p class="lead">Oltre al nostro store online, hai la possibilit&agrave di trovarci in moltissime fiere del fumetto e non solo in giro per l'Italia. Vieni a trovarci per chiedere consigli sull'acquisto, avere scontistiche da fiera oppure semplicemente per provare alcuni dei titoli nel nostro catalogo.</p>
+        </div>
+        <div class="col-md-5 order-md-1">
+          <img src="IMMAGINI/IMMAGINI_HOME/standBG.jpeg" class="featurette-image img-fluid mx-auto" alt="Stand">
         </div>
       </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
 
-    <!-- START THE FEATURETTES -->
+      <hr class="featurette-divider">
 
-    <hr class="featurette-divider">
-
-    <div class="row featurette">
-      <div class="col-md-7">
-        <h2 class="featurette-heading fw-normal lh-1">Spedizioni in tutta italia. <span class="text-body-secondary">Pi&ugrave veloce della luce</span></h2>
-        <p class="lead">Copertura in tutta italia grazie alle nostre spedizioni express. Spedizioni a domicilio o negli appositi centri di ritiro. Spedizioni low cost o completamente gratuite per ordini superiori a 75&euro;</p>
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading fw-normal lh-1">Assistenza 7 giorni su 7 <span class="text-body-secondary">Per ogni tua domanda ci siamo noi!</span></h2>
+          <p class="lead">Per qualsiasi dubbio ci siamo Noi!!! Se hai domande, dubbi o neccessiti di supporto, sei nel posto giusto! Il nostro team dedicato &egrave qui per aiutarti in ogni modo possibile. Il nostro team &egrave qui per fornirti tutte le informazioni di cui potresti avere bisogno per utilizzare al meglio i nostri prodotti o servizi.</p>
+        </div>
+        <div class="col-md-5">
+          <img src="IMMAGINI/IMMAGINI_HOME/callCenter.jpg" class="featurette-image img-fluid mx-auto" alt="Assistenza">
+        </div>
       </div>
-      <div class="col-md-5">
-    <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false">
-        <image href="IMMAGINI/IMMAGINI_HOME/spedizione.jpeg" width="100%" height="100%">
-    </svg>
-</div>
 
-    </div>
-
-    <hr class="featurette-divider">
-
-    <div class="row featurette">
-      <div class="col-md-7 order-md-2">
-        <h2 class="featurette-heading fw-normal lh-1">Dove trovarci fisicamente? <span class="text-body-secondary">IN FIERA!!!</span></h2>
-        <p class="lead">Oltre al nostro store online, hai la possibilit&agrave di trovarci in moltissime fiere del fumetto e non solo in giro per l'Italia. Vieni a trovarci per chiedere consigli sull'acquisto, avere scontistiche da fiera oppure semplicemente per provare alcuni dei titoli nel nostro cataloco</p>
-      </div>
-      <div class="col-md-5 order-md-1">
-        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false">
-        <image href="IMMAGINI/IMMAGINI_HOME/standBG.jpeg" width="100%" height="100%">
-        </svg>
-      </div>
-    </div>
-
-    <hr class="featurette-divider">
-
-    <div class="row featurette">
-      <div class="col-md-7">
-        <h2 class="featurette-heading fw-normal lh-1">Assistenza 7 giorni su 7 <span class="text-body-secondary">Per ogni tua domanda ci siamo noi!</span></h2>
-        <p class="lead">Per qualsiasi dubbio ci siamo Noi!!!
-        Se hai domande, dubbi o neccessiti di supporto, sei nel posto giusto! Il nostro team dedicato &egrave qui per aiutarti in ogni modo possibile. Il nostro team &egrave qui per fornirti tutte le informazioni di cui potresti avere bisogno per utilizzare al meglio i nostri prodotti o servizi.</p>
-      </div>
-      <div class="col-md-5">
-        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false">
-        	<image href="IMMAGINI/IMMAGINI_HOME/callCenter.jpg" width="100%" height="100%">
-        </svg>
-      </div>
-    </div>
-
-
-    <div class="container">
+      <div class="container">
         <% 
-            String logoutMessage = request.getParameter("logout");
-            if ("true".equals(logoutMessage)) {
+          String logoutMessage = request.getParameter("logout");
+          if ("true".equals(logoutMessage)) {
         %>
         <div class="alert alert-success mt-3" role="alert">
-            Logout effettuato con successo.
+          Logout effettuato con successo.
         </div>
         <% } %>
 
         <!-- Resto del contenuto della homepage -->
-    </div>
+      </div>
 
+      <hr class="featurette-divider">
 
-    <hr class="featurette-divider">
+      <!-- /END THE FEATURETTES -->
+    </main>
 
-    <!-- /END THE FEATURETTES -->
+    <%@ include file="Review.jsp" %>  
 
-  </div><!-- /.container -->
-
-<%@ include file="Review.jsp" %>	
-
-  <!-- FOOTER -->
+    <!-- FOOTER -->
     <footer>
-    <%@ include file="/footer/footer.jsp" %>
-  </footer>
-</main>
-<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+      <%@ include file="/footer/footer.jsp" %>
+    </footer>
 
-    </body>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gyb2MI6jVQDAgg6B0x3YRPH7rOhFnk9pNNRTtV5z6NR1xfWlC2" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-Q6E3U3t8ST3x0C1WZOm8W9lpQ7JoAxYoBrrcBz7+HFiZ9jrHjJJ0quv+KXlF5kVx" crossorigin="anonymous"></script>
+  </body>
 </html>
-  
