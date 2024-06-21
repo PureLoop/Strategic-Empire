@@ -393,16 +393,16 @@ document.querySelectorAll('.nav-link').forEach(link => {
           }
       });
   }
+  
+  function showCopertinaInputs(){
+  	document.getElementById('copertinaInputs').style.display = 'block';
+  }
+  
+  function showImg2Inputs(){
+	  	document.getElementById('img2Inputs').style.display = 'block';
+	  }
   displaySavedCards();
-</script>
-  
-<div class="container search-bar">
-    <form class="d-flex" role="search">
-      <input class="form-control me-2" type="search" placeholder="Cerca" aria-label="Cerca">
-      <button class="btn btn-outline-success" type="submit">Cerca</button>
-    </form>
-  </div>
-  
+</script>  
   <div id="btnChoice" class="button-group  justify-content-around">
       <button type="button" id="Modifica" class="btn btn-outline-success">Modifica Prodotto</button>
       <button type="button" id="Inserisci" class="btn btn-outline-success">Inserisci Prodotto</button>
@@ -423,6 +423,7 @@ document.querySelectorAll('.nav-link').forEach(link => {
     <div id="insertCatContainer" class="mt-3 d-flex justify-content-center">
     </div>
     </div>
+    <script src="js/checkerInputFields.js"></script>
     <script src="js/gestioneCatAmministratore.js"></script>
 </body>
 </html>

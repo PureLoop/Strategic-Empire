@@ -16,7 +16,6 @@ document.getElementById("Modifica").addEventListener('click', function(){
     		document.getElementById("btnChoice").style.display = 'flex';
     	}
     });
-
     
     $(document).ready(function() { 	
     	
@@ -198,17 +197,16 @@ document.getElementById("Modifica").addEventListener('click', function(){
         });
     }
     
+    function isValidImage(file) {
+        var validTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+        return file && validTypes.includes(file.type);
+    }
+    
     function submitInsForm() {
         var form = document.getElementById('insertForm');
         var formData = new FormData(form); // Crea un oggetto FormData con i dati del form
         var imgCopertina = $('#imgCopertina')[0].files[0];
         var img2 = $('#img2')[0].files[0];
-        
-        // Funzione per verificare il tipo di file
-        function isValidImage(file) {
-            var validTypes = ['image/jpeg', 'image/jpg', 'image/png'];
-            return file && validTypes.includes(file.type);
-        }
 
         // Verifica i file selezionati
         if (!isValidImage(imgCopertina)) {
@@ -241,13 +239,41 @@ document.getElementById("Modifica").addEventListener('click', function(){
 
     
     function submitGameForm() {
-        var formData = $('#ModifyGameForm').serializeArray();
-        formData.push({ name: 'action', value: 'updateGame' });
+    	var form = document.getElementById('ModifyGameForm');
+        var formData = new FormData(form);
 
+        // Aggiungi un campo nascosto 'action' per l'azione della servlet
+        formData.append('action', 'updateGame');
+
+        var imgCopertina = $('#imgCopertina')[0].files[0];
+        var img2 = $('#img2')[0].files[0];
+
+     // Verifica i file selezionati
+        if (!isValidImage(imgCopertina)) {
+            alert('Il file della COPERTINA deve essere un\'immagine JPEG, JPG o PNG.');
+            event.preventDefault(); 
+            return;
+        }
+
+        if (!isValidImage(img2)) {
+            alert('Il file della SECONDA IMG deve essere un\'immagine JPEG, JPG o PNG.');
+            event.preventDefault();
+            return;
+        }
+        
+        if (imgCopertina) {
+            formData.append('imgCopertina', imgCopertina);
+        }
+
+        if (img2) {
+            formData.append('img2', img2);
+        }
         $.ajax({
             type: 'POST',
             url: 'AreaPersonaleControl',
             data: formData,
+            processData: false, // Evita che jQuery trasformi i dati in una stringa di query
+            contentType: false, // Usa il boundary del multipart/form-data impostato automaticamente
             success: function(response) {
                 alert('Gioco aggiornato con successo');
             },
@@ -258,13 +284,42 @@ document.getElementById("Modifica").addEventListener('click', function(){
     }
     
     function submitAccForm() {
-        var formData = $('#ModifyAccForm').serializeArray();
-        formData.push({ name: 'action', value: 'updateAccessorio' });
+        var form = document.getElementById('ModifyAccForm');
+        var formData = new FormData(form);
+
+        // Aggiungi un campo nascosto 'action' per l'azione della servlet
+        formData.append('action', 'updateAccessorio');
+
+        var imgCopertina = $('#imgCopertina')[0].files[0];
+        var img2 = $('#img2')[0].files[0];
+
+     // Verifica i file selezionati
+        if (!isValidImage(imgCopertina)) {
+            alert('Il file della COPERTINA deve essere un\'immagine JPEG, JPG o PNG.');
+            event.preventDefault(); 
+            return;
+        }
+
+        if (!isValidImage(img2)) {
+            alert('Il file della SECONDA IMG deve essere un\'immagine JPEG, JPG o PNG.');
+            event.preventDefault();
+            return;
+        }
+        
+        if (imgCopertina) {
+            formData.append('imgCopertina', imgCopertina);
+        }
+
+        if (img2) {
+            formData.append('img2', img2);
+        }
 
         $.ajax({
             type: 'POST',
             url: 'AreaPersonaleControl',
             data: formData,
+            processData: false, // Evita che jQuery trasformi i dati in una stringa di query
+            contentType: false, // Usa il boundary del multipart/form-data impostato automaticamente
             success: function(response) {
                 alert('Accessorio aggiornato con successo');
             },
@@ -275,15 +330,44 @@ document.getElementById("Modifica").addEventListener('click', function(){
     }
     
     function submitEspForm() {
-        var formData = $('#ModifyEspForm').serializeArray();
-        formData.push({ name: 'action', value: 'updateEspansione' });
+    	var form = document.getElementById('ModifyEspForm');
+        var formData = new FormData(form);
+
+        // Aggiungi un campo nascosto 'action' per l'azione della servlet
+        formData.append('action', 'updateEspansione');
+
+        var imgCopertina = $('#imgCopertina')[0].files[0];
+        var img2 = $('#img2')[0].files[0];
+
+     // Verifica i file selezionati
+        if (!isValidImage(imgCopertina)) {
+            alert('Il file della COPERTINA deve essere un\'immagine JPEG, JPG o PNG.');
+            event.preventDefault(); 
+            return;
+        }
+
+        if (!isValidImage(img2)) {
+            alert('Il file della SECONDA IMG deve essere un\'immagine JPEG, JPG o PNG.');
+            event.preventDefault();
+            return;
+        }
+        
+        if (imgCopertina) {
+            formData.append('imgCopertina', imgCopertina);
+        }
+
+        if (img2) {
+            formData.append('img2', img2);
+        }
 
         $.ajax({
             type: 'POST',
             url: 'AreaPersonaleControl',
             data: formData,
+            processData: false, // Evita che jQuery trasformi i dati in una stringa di query
+            contentType: false, // Usa il boundary del multipart/form-data impostato automaticamente
             success: function(response) {
-                alert('Espansione aggiornata con successo');
+                alert('Espansione aggiornato con successo');
             },
             error: function(xhr, status, error) {
                 alert('Errore durante l\'aggiornamento del gioco');

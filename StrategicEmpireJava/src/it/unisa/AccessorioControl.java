@@ -37,7 +37,7 @@ public class AccessorioControl extends HttpServlet {
                 } else if (action.equalsIgnoreCase("delete")) {
                     String id = request.getParameter("cod_accessorio");
                     System.out.println("Deleting accessory with code: " + id);
-                    model.doDelete(id);
+                    model.deleteAcc(id);
                 } else if (action.equalsIgnoreCase("insert")) {
                     String cod = request.getParameter("Codice");
                     String nome = request.getParameter("Nome");
@@ -51,7 +51,7 @@ public class AccessorioControl extends HttpServlet {
                     bean.setTipologia(tipologia);
                     bean.setPrezzo(prezzo);
                     bean.setDescrizione(descrizione);
-                    model.doSave(bean);
+                    model.insertProd(bean);
                 } else if (action.equalsIgnoreCase("filter")) {
                     String tipologia = request.getParameter("tipologia");
                     double prezzo;

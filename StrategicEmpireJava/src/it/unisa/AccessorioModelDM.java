@@ -13,61 +13,6 @@ public class AccessorioModelDM implements AccessorioModel {
     private static final String TABLE_NAME = "accessorio";
 
     @Override
-    public synchronized void doSave(AccessorioBean accessory) throws SQLException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-
-        String insertAccessorio = "INSERT INTO " + TABLE_NAME +
-                "(cod_accessorio, nome_accessorio, tipologia, prezzo, descrizione) VALUES (?, ?, ?, ?, ?)";
-        try {
-            connection = DriverManagerConnectionPool.getConnection();
-            preparedStatement = connection.prepareStatement(insertAccessorio);
-            preparedStatement.setString(1, accessory.getCod_Accessorio());
-            preparedStatement.setString(2, accessory.getNomeaccessorio());
-            preparedStatement.setString(3, accessory.getTipologia());
-            preparedStatement.setDouble(4, accessory.getPrezzo());
-            preparedStatement.setString(5, accessory.getDescrizione());
-
-            preparedStatement.executeUpdate();
-
-            connection.commit();
-        } finally {
-            try {
-                if (preparedStatement != null)
-                    preparedStatement.close();
-            } finally {
-                DriverManagerConnectionPool.releaseConnection(connection);
-            }
-        }
-    }
-
-   
-
-    @Override
-    public synchronized boolean doDelete(String code) throws SQLException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        int result = 0;
-
-        String deleteAccessorio = "DELETE FROM " + TABLE_NAME + " WHERE cod_accessorio = ?";
-        try {
-            connection = DriverManagerConnectionPool.getConnection();
-            preparedStatement = connection.prepareStatement(deleteAccessorio);
-            preparedStatement.setString(1, code);
-
-            result = preparedStatement.executeUpdate();
-        } finally {
-            try {
-                if (preparedStatement != null)
-                    preparedStatement.close();
-            } finally {
-                DriverManagerConnectionPool.releaseConnection(connection);
-            }
-        }
-        return (result != 0);
-    }
-
-    @Override
     public AccessorioBean doRetrieveByKey(String code) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -199,4 +144,146 @@ public class AccessorioModelDM implements AccessorioModel {
        }
        return beans;
    }
+    
+    @Override
+	public void insertProd(AccessorioBean accessorio) throws SQLException {
+	    String query = "INSERT INTO accessorio(cod_accessorio, nome_accessorio, tipologia, prezzo, descrizione) VALUES (?, ?, ?, ?, ?)";
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    
+	    try {
+	        connection = DriverManagerConnectionPool.getConnection();
+	        preparedStatement = connection.prepareStatement(query);
+
+	        // Imposta i parametri della query
+	        preparedStatement.setString(1, accessorio.getCod_Accessorio());
+	        preparedStatement.setString(2, accessorio.getNomeaccessorio());
+	        preparedStatement.setString(3, accessorio.getTipologia());
+	        preparedStatement.setDouble(4, accessorio.getPrezzo());
+	        preparedStatement.setString(5, accessorio.getDescrizione());
+
+	        // Esegui la query
+	        preparedStatement.executeUpdate();
+
+	        // Commit della transazione
+	        connection.commit();
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            DriverManagerConnectionPool.releaseConnection(connection);
+	        }
+	    }
+	}
+    @Override
+	public void insertImgAcc(AccessorioBean accessorio) throws SQLException {
+	    String query1 = "INSERT INTO img_acc(cod_img_acc, copertina, img_name, cod_acc) VALUES (?, ?, ?, ?)";
+	    String query2 = "INSERT INTO img_acc(cod_img_acc, copertina, img_name, cod_acc) VALUES (?, ?, ?, ?)";
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    
+	    try {
+	        String cod_img_acc = accessorio.getCod_Accessorio() + "Img1";
+	        String cod_img_acc1 = accessorio.getCod_Accessorio() + "Img2";
+	        connection = DriverManagerConnectionPool.getConnection();
+	        preparedStatement = connection.prepareStatement(query1);
+
+	        preparedStatement.setString(1, cod_img_acc);
+	        preparedStatement.setBoolean(2, true);
+	        preparedStatement.setString(3, accessorio.getImmagineCop());
+	        preparedStatement.setString(4, accessorio.getCod_Accessorio());
+	        preparedStatement.executeUpdate();
+
+	        preparedStatement = connection.prepareStatement(query2);
+
+	        preparedStatement.setString(1, cod_img_acc1);
+	        preparedStatement.setBoolean(2, false);
+	        preparedStatement.setString(3, accessorio.getImmagine2());
+	        preparedStatement.setString(4, accessorio.getCod_Accessorio());
+	        preparedStatement.executeUpdate();
+	        // Commit della transazione
+	        connection.commit();
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            DriverManagerConnectionPool.releaseConnection(connection);
+	        }
+	    }
+	}
+    
+    @Override
+	public void deleteAcc(String codAcc) throws SQLException {
+	    String query1 = "DELETE FROM accessorio where (cod_accessorio = ?)";
+	    String query2 = "DELETE FROM img_acc where (cod_acc = ?)";
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    
+	    try {
+	        connection = DriverManagerConnectionPool.getConnection();
+	        preparedStatement = connection.prepareStatement(query1);
+	        preparedStatement.setString(1, codAcc);
+	        preparedStatement.executeUpdate();
+	        
+	        preparedStatement = connection.prepareStatement(query2);
+	        preparedStatement.setString(1, codAcc);
+	        preparedStatement.executeUpdate();
+
+	        // Commit della transazione
+	        connection.commit();
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            DriverManagerConnectionPool.releaseConnection(connection);
+	        }
+	    }
+	}
+
+
+	@Override
+	public void updateAccessorio(AccessorioBean accessorio, boolean img1, boolean img2) throws SQLException {
+		String updateGame = "UPDATE `accessorio` SET `nome_accessorio` = ?,`tipologia` = ?, `prezzo` = ?,`descrizione` = ?  WHERE (`cod_accessorio` = ?)";
+		String updateImg = "UPDATE img_acc set img_name = ?, copertina = ? where (cod_img_acc = ?)";
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(updateGame);
+			preparedStatement.setString(1, accessorio.getNomeaccessorio());
+			preparedStatement.setString(2, accessorio.getTipologia());
+			preparedStatement.setDouble(3, accessorio.getPrezzo());
+			preparedStatement.setString(4, accessorio.getDescrizione());
+			preparedStatement.setString(5, accessorio.getCod_Accessorio());
+			preparedStatement.executeUpdate();
+
+			if(img1 == true) {
+				preparedStatement = connection.prepareStatement(updateImg);
+				preparedStatement.setString(1, accessorio.getImmagineCop());
+				preparedStatement.setInt(2, 1);
+				preparedStatement.setString(3, accessorio.getCod_Accessorio()+"Img1");
+				preparedStatement.executeUpdate();
+			}
+			
+			if(img2 == true) {
+				preparedStatement = connection.prepareStatement(updateImg);
+				preparedStatement.setString(1, accessorio.getImmagine2());
+				preparedStatement.setInt(2, 0);
+				preparedStatement.setString(3, accessorio.getCod_Accessorio()+"Img2");
+				preparedStatement.executeUpdate();
+			}
+			connection.commit();
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+	}
 }

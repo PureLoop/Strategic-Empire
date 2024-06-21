@@ -208,7 +208,7 @@ public class AreaPersonaleControl extends HttpServlet {
             boolean isAjaxRequest = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
         	String accId = request.getParameter("accId");
         	try {
-        		modelAp.deleteAcc(accId);
+        		modelAcc.deleteAcc(accId);
         	}catch(SQLException e) {
         		e.printStackTrace();
         	}
@@ -218,7 +218,7 @@ public class AreaPersonaleControl extends HttpServlet {
             boolean isAjaxRequest = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
         	String giocoId = request.getParameter("giocoId");
         	try {
-        		modelAp.deleteGioco(giocoId);
+        		modelGioco.deleteGioco(giocoId);
         	}catch(SQLException e) {
         		e.printStackTrace();
         	}
@@ -228,7 +228,7 @@ public class AreaPersonaleControl extends HttpServlet {
             boolean isAjaxRequest = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
         	String espId = request.getParameter("espId");
         	try {
-        		modelAp.deleteEsp(espId);
+        		modelEsp.deleteEsp(espId);
         	}catch(SQLException e) {
         		e.printStackTrace();
         	}
@@ -274,7 +274,6 @@ public class AreaPersonaleControl extends HttpServlet {
         }
     
         if (action != null && action.equalsIgnoreCase("InsertCards")) {
-        	System.out.println("aa");
         	String fullName = request.getParameter("fullName");
 	        String cardNumber = request.getParameter("cardNumber");
 	        int expiryDate = Integer.parseInt(request.getParameter("expiryDate"));
@@ -316,6 +315,14 @@ public class AreaPersonaleControl extends HttpServlet {
             	                        "<input type='number' name='min_gio' value='"+bean.getN_giocatori_min()+"'><br>" +
             	                        "<input type='number' name='max_gio' value='"+bean.getN_giocatori_max()+"'><br>" +
             	                        "<textarea rows='7' cols='100' name='descrizione'>"+bean.getDescrizione()+"</textarea><br>" +
+            	                        "<button type='button' onclick='showCopertinaInputs()'>Modifica Copertina</button>" +
+            	                        "<button type='button' onclick='showImg2Inputs()'>Modifica Immagine 2</button><br>" +
+            	                        "<div id='copertinaInputs' style='display:none;'>" +
+            	                        "<input type='file' id='imgCopertina' name='imgCopertina' accept='.jpeg, .jpg, .png'><label for='imgCopertina'>COPERTINA</label><br>" +
+            	                        "</div>"+
+            	                        "<div id='img2Inputs' style='display:none;'>"+
+            	                        "<input type='file' id='img2' name='img2' accept='.jpeg, .jpg, .png'><label for='img2'>SECONDA IMG</label><br>" +
+            	                        "</div>" +
             	                        "<input type='button' onclick='submitGameForm()' value='Invia'>" +
             	                        "</form>";
             	    response.setContentType("text/html");
@@ -332,15 +339,23 @@ public class AreaPersonaleControl extends HttpServlet {
     	    try {
 				AccessorioBean bean = modelAcc.doRetrieveByKey(accId);
     	    // Creare il form di modifica per il gioco specifico
-    	    String modifyForm = "<form id='ModifyAccForm' action='updateAccessorio' method='POST' enctype=\"multipart/form-data\">" +
-    	                        "<input type='hidden' name='accId' value='" + accId + "'><br>" +
-    	                        "<input type='text' name='codice' value='"+bean.getCod_Accessorio()+"'><br>" +
-    	                        "<input type='text' name='nome' value='"+bean.getNomeaccessorio()+"'><br>" +
-    	                        "<input type='number' step='0.01' name='prezzo' value='"+bean.getPrezzo()+"'><br>" +
-    	                        "<input type='text' name='tipologia' value='"+bean.getTipologia()+"'><br>" +
-    	                        "<textarea rows='7' cols='100' name='descrizione'>"+bean.getDescrizione()+"</textarea><br>" +
-    	                        "<input type='button' onclick='submitAccForm()' value='Invia'>" +
-    	                        "</form>";
+				String modifyForm = "<form id='ModifyAccForm' action='updateAccessorio' method='POST' enctype='multipart/form-data'>" +
+                        "<input type='hidden' name='accId' value='" + accId + "'><br>" +
+                        "<input type='text' name='codice' value='" + bean.getCod_Accessorio() + "'><br>" +
+                        "<input type='text' name='nome' value='" + bean.getNomeaccessorio() + "'><br>" +
+                        "<input type='number' step='0.01' name='prezzo' value='" + bean.getPrezzo() + "'><br>" +
+                        "<input type='text' name='tipologia' value='" + bean.getTipologia() + "'><br>" +
+                        "<textarea rows='7' cols='100' name='descrizione'>" + bean.getDescrizione() + "</textarea><br>" +
+                        "<button type='button' onclick='showCopertinaInputs()'>Modifica Copertina</button>" +
+                        "<button type='button' onclick='showImg2Inputs()'>Modifica Immagine 2</button><br>" +
+                        "<div id='copertinaInputs' style='display:none;'>" +
+                        "<input type='file' id='imgCopertina' name='imgCopertina' accept='.jpeg, .jpg, .png'><label for='imgCopertina'>COPERTINA</label><br>" +
+                        "</div>"+
+                        "<div id='img2Inputs' style='display:none;'>"+
+                        "<input type='file' id='img2' name='img2' accept='.jpeg, .jpg, .png'><label for='img2'>SECONDA IMG</label><br>" +
+                        "</div>" +
+                        "<input type='button' onclick='submitAccForm()' value='Invia'>" +
+                        "</form>";
     	    response.setContentType("text/html");
     	    response.getWriter().write(modifyForm);
 			    	}
@@ -355,12 +370,20 @@ public class AreaPersonaleControl extends HttpServlet {
     	    try {
 				espansioneBean bean = modelEsp.doRetrieveByKey(espId);
     	    // Creare il form di modifica per il gioco specifico
-    	    String modifyForm = "<form id='ModifyEspForm' action='updateEspansione' method='POST' enctype=\"multipart/form-data\">" +
+    	    String modifyForm = "<form id='ModifyEspForm' action='updateEspansione' method='POST' enctype='multipart/form-data'>" +
     	                        "<input type='hidden' name='espId' value='" + espId + "'><br>" +
     	                        "<input type='text' name='codice' value='"+bean.getCod_espansione()+"'><br>" +
     	                        "<input type='text' name='nome' value='"+bean.getNomeespansione()+"'><br>" +
     	                        "<input type='number' step='0.01' name='prezzo' value='"+bean.getPrezzo()+"'><br>" +
     	                        "<textarea rows='7' cols='100' name='descrizione'>"+bean.getDescrizione()+"</textarea><br>" +
+    	                        "<button type='button' onclick='showCopertinaInputs()'>Modifica Copertina</button>" +
+    	                        "<button type='button' onclick='showImg2Inputs()'>Modifica Immagine 2</button><br>" +
+    	                        "<div id='copertinaInputs' style='display:none;'>" +
+    	                        "<input type='file' id='imgCopertina' name='imgCopertina' accept='.jpeg, .jpg, .png'><label for='imgCopertina'>COPERTINA</label><br>" +
+    	                        "</div>"+
+    	                        "<div id='img2Inputs' style='display:none;'>"+
+    	                        "<input type='file' id='img2' name='img2' accept='.jpeg, .jpg, .png'><label for='img2'>SECONDA IMG</label><br>" +
+    	                        "</div>" +
     	                        "<input type='button' onclick='submitEspForm()' value='Invia'>" +
     	                        "</form>";
     	    response.setContentType("text/html");
@@ -370,7 +393,9 @@ public class AreaPersonaleControl extends HttpServlet {
 	// TODO Auto-generated catch block
 	e.printStackTrace();
  }}
-
+        
+        boolean img1Status = false;
+        boolean img2Status = false;
         if (action != null && action.equalsIgnoreCase("updateGame")) {
     	    String gameId = request.getParameter("gameId");
             String nome = request.getParameter("nome");
@@ -392,15 +417,25 @@ public class AreaPersonaleControl extends HttpServlet {
             bean.setDescrizione(descrizione);
 
             try {
-                modelAp.updateGame(bean);
+            	Part imgCopertina = request.getPart("imgCopertina");
+                if (imgCopertina != null && imgCopertina.getSize() > 0) {
+                	bean.setImmagineCop(saveImmagine(request,response,"accessori",1));
+                	img1Status  = true;
+                }
+
+                Part img2 = request.getPart("img2");
+                if (img2 != null && img2.getSize() > 0) {
+                	bean.setImmagine2(saveImmagine(request,response,"accessori",2));
+                	img2Status  = true;
+                }
+            	
+                modelGioco.updateGame(bean,img1Status,img2Status);
                 response.setStatus(HttpServletResponse.SC_OK);
             } catch (SQLException e) {
                 e.printStackTrace();
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             }
 		}
-    
-    
     if (action != null && action.equalsIgnoreCase("updateAccessorio")) {
 	    String accId = request.getParameter("accId");
         String nome = request.getParameter("nome");
@@ -414,9 +449,19 @@ public class AreaPersonaleControl extends HttpServlet {
         bean.setPrezzo(prezzo);
         bean.setTipologia(tipologia);
         bean.setDescrizione(descrizione);
-
         try {
-            modelAp.updateAccessorio(bean);
+        	Part imgCopertina = request.getPart("imgCopertina");
+            if (imgCopertina != null && imgCopertina.getSize() > 0) {
+            	bean.setImmagineCop(saveImmagine(request,response,"accessori",1));
+            	img1Status  = true;
+            }
+
+            Part img2 = request.getPart("img2");
+            if (img2 != null && img2.getSize() > 0) {
+            	bean.setImmagine2(saveImmagine(request,response,"accessori",2));
+            	img2Status  = true;
+            }
+            modelAcc.updateAccessorio(bean,img1Status,img2Status);
             response.setStatus(HttpServletResponse.SC_OK);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -438,7 +483,19 @@ public class AreaPersonaleControl extends HttpServlet {
         bean.setDescrizione(descrizione);
 
         try {
-            modelAp.updateEspansione(bean);
+        	Part imgCopertina = request.getPart("imgCopertina");
+            if (imgCopertina != null && imgCopertina.getSize() > 0) {
+            	bean.setImmagineCop(saveImmagine(request,response,"espansioni",1));
+            	img1Status  = true;
+            }
+
+            Part img2 = request.getPart("img2");
+            if (img2 != null && img2.getSize() > 0) {
+            	bean.setImmagine2(saveImmagine(request,response,"espansioni",2));
+            	img2Status  = true;
+            }
+        	       	
+            modelEsp.updateEspansione(bean,img1Status,img2Status);
             response.setStatus(HttpServletResponse.SC_OK);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -471,8 +528,8 @@ public class AreaPersonaleControl extends HttpServlet {
                 bean.setDescrizione(descrizione);
                 
                 try {
-                    modelAp.insertProd(bean);
-                    modelAp.insertImgGioco(bean);
+                    modelGioco.insertProd(bean);
+                    modelGioco.insertImgGioco(bean);
                     response.setStatus(HttpServletResponse.SC_OK);
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -490,8 +547,8 @@ public class AreaPersonaleControl extends HttpServlet {
     	        bean.setTipologia(tipologia);
     	        bean.setDescrizione(descrizione);
     	        try {
-    	            modelAp.insertProd(bean);
-    	            modelAp.insertImgAcc(bean);
+    	            modelAcc.insertProd(bean);
+    	            modelAcc.insertImgAcc(bean);
     	            response.setStatus(HttpServletResponse.SC_OK);
     	        } catch (SQLException e) {
     	            e.printStackTrace();
@@ -510,8 +567,8 @@ public class AreaPersonaleControl extends HttpServlet {
     	        bean.setCod_gioco(idGame);
     	        
     	        try {
-    	            modelAp.insertProd(bean);
-    	            modelAp.insertImgEsp(bean);
+    	            modelEsp.insertProd(bean);
+    	            modelEsp.insertImgEsp(bean);
     	            response.setStatus(HttpServletResponse.SC_OK);
     	        } catch (SQLException e) {
     	            e.printStackTrace();
@@ -546,8 +603,6 @@ public class AreaPersonaleControl extends HttpServlet {
 	        if (fileNameCop != null && !fileNameCop.isEmpty()) {
 	            // Costruisci il percorso completo per salvare l'immagine
 	            String imageSavePath = savePath + File.separator + fileNameCop;
-	            
-	            System.out.println("Percorso dell'immagine da salvare: " + imageSavePath);
 
 	            // Salva l'immagine nel file system
 	            saveImageToFileSystem(imgCopertinaPart, imageSavePath);
@@ -562,13 +617,10 @@ public class AreaPersonaleControl extends HttpServlet {
 	    }
 	    
 	    if (img2 != null && ch == 2) {
-	    	System.out.println("cd");
 	        String fileNameCop = img2.getSubmittedFileName();
 	        if (fileNameCop != null && !fileNameCop.isEmpty()) {
 	            // Costruisci il percorso completo per salvare l'immagine
 	            String imageSavePath = savePath + File.separator + fileNameCop;
-	            
-	            System.out.println("Percorso dell'immagine da salvare: " + imageSavePath);
 
 	            // Salva l'immagine nel file system
 	            saveImageToFileSystem(img2, imageSavePath);
@@ -593,7 +645,6 @@ public class AreaPersonaleControl extends HttpServlet {
 	        }
 	    }
 	    part.write(imageSavePath);
-	    System.out.println("File salvato: " + imageSavePath);
 	}
 
 
