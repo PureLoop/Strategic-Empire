@@ -13,9 +13,12 @@
 %>
 <!DOCTYPE html>
 <html>
-<head>    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>    
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ 
     <title>Strategic-Empire</title>
     <style>
         /* Stile per l'header */
@@ -99,27 +102,73 @@ document.addEventListener("DOMContentLoaded", function() {
         <li class="nav-item">
           <a class="nav-link" href="ChiSiamo.jsp">Chi siamo</a>
         </li>
-        <li>
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="insert">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
-        </li>
-      </ul>
+                <li>
+                    <form class="d-flex" id="searchForm">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchbar">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </li>
+            </ul>
+            
+            <script>
+    $(document).ready(function(){
+        $("#searchForm").submit(function(event){
+            event.preventDefault(); // Impedisce il comportamento predefinito del form (evita il refresh della pagina)
+            var query = $("#searchbar").val().trim(); // Ottiene il testo dalla barra di ricerca
+
+            if(query !== ""){
+                $.get("./RicercaProdotto", {"query": query}, function(data){
+                    $(".risultati").empty(); // Svuota i risultati precedenti
+                    if(data.length > 0){
+                        $(".risultati").css({"display": "block"}); // Mostra i risultati
+                        $.each(data, function(i, item){
+                            // Aggiungi ogni risultato alla lista dei risultati
+                            var resultItem = "<div class='item' id='item-" + item.idProdotto + "'>" +
+                                             "<img src='" + item.immagine + "' width='65' height='65' />" +
+                                             "<p>" + item.nome + "</p>" +
+                                             "</div>";
+                            $(".risultati").append(resultItem);
+
+                            // Aggiungi l'evento click per visualizzare i dettagli del prodotto
+                            $("#item-" + item.idProdotto).click(function(){
+                                $.get("./dettagli", {"id": item.idProdotto}, function(){
+                                    window.location = "./Dettagli.jsp";
+                                });
+                            });
+                        });
+                    } else {
+                        $(".risultati").css({"display": "none"}); // Nascondi i risultati se non ce ne sono
+                    }
+                });
+            } else {
+                $(".risultati").empty().css({"display": "none"}); // Svuota e nascondi i risultati se la barra di ricerca è vuota
+            }
+        });
+    });
+</script>
+            
+            
+            
+            <!-- Sezione per il carrello e l'utente -->
+ 
+      <% if (loggedIn == false) { %>
       <tr>
             <td colspan="6"><a href="Carrello.jsp"><img src="IMMAGINI/carrelloICON.png" width="50" height="50">
     </a></td>
         </tr>
+        <% } %>
+        
       <% if (loggedIn) { %>
       <!-- Se l'utente è loggato, mostra l'icona e il nome utente -->
       <div class="user-info ms-auto">
           <span class="me-2">Ciao, <%= u.getUsername() %>!</span>
           <div class="dropdown">
               <a href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src="./IMMAGINI/cartoon-boy.png" alt="Profile Image" width="60" height="60">
+                  <img src="./IMMAGINI/profilePic.png" alt="Profile Image" width="60" height="60">
               </a>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                   <li><a class="dropdown-item" href="AreaPersonale.jsp">Area Utente</a></li>
+                  <li><a class="dropdown-item" href="Carrello.jsp">Carrello</a></li>
                   <li><a class="dropdown-item" href="logout.jsp">Esci</a></li>
               </ul>
           </div>

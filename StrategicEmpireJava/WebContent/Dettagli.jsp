@@ -56,9 +56,29 @@
         </div>
         <div class="row mt-4">
             <div class="col-md-6">
-                <div class="container-img">
-                    <img src="<%= gioco.getImmagineCop() %>" class="img-fluid" alt="<%= gioco.getNomegioco() %>">
+    <div class="container-img">
+        <div id="carouselExampleIndicators" class="carousel slide">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="<%= gioco.getImmagineCop() %>" class="d-block w-100 img-fluid" alt="<%= gioco.getNomegioco() %>">
                 </div>
+                <div class="carousel-item">
+                    <img src="<%= gioco.getImmagine2() %>" class="d-block w-100 img-fluid" alt="<%= gioco.getNomegioco() %>">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
             </div>
             <div class="col-md-6">
                 <div class="description">
@@ -129,10 +149,33 @@
     </div>
     <div class="row mt-4">
         <div class="col-md-6">
-            <div class="container-img">
-                <img src="<%= accessorio.getImmagineCop() %>" class="img-fluid" alt="<%= accessorio.getNomeaccessorio() %>">
+    <div class="container-img">
+        <div id="carouselExampleIndicators" class="carousel slide">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
             </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="<%= accessorio.getImmagineCop() %>" class="d-block w-100 img-fluid" alt="<%= accessorio.getNomeaccessorio() %>">
+                </div>
+                <div class="carousel-item">
+                    <img src="<%= accessorio.getImmagine2() %>" class="d-block w-100 img-fluid" alt="<%= accessorio.getNomeaccessorio() %>">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
+    </div>
+</div>
+
+
         <div class="col-md-6">
             <div class="description">
                 <h3 class="pastel-green">Descrizione</h3>
@@ -202,9 +245,29 @@
     </div>
     <div class="row mt-4">
         <div class="col-md-6">
-            <div class="container-img">
-                <img src="<%= espansione.getImmagineCop() %>" class="img-fluid" alt="<%= espansione.getNomeespansione() %>">
+    <div class="container-img">
+        <div id="carouselExampleIndicators" class="carousel slide">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
             </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="<%= espansione.getImmagineCop() %>" class="d-block w-100 img-fluid" alt="<%= espansione.getNomeespansione() %>">
+                </div>
+                <div class="carousel-item">
+                    <img src="<%= espansione.getImmagine2() %>" class="d-block w-100 img-fluid" alt="<%= espansione.getNomeespansione() %>">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
         </div>
         <div class="col-md-6">
             <div class="description">
@@ -261,4 +324,11 @@
 <% 
     } // Fine del blocco if DES_VER == 2
 %>
+<!-- Bootstrap JS e dipendenze -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
+
+</body>
+</html>

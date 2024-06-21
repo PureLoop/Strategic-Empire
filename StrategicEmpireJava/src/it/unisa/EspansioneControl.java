@@ -37,7 +37,7 @@ public class EspansioneControl extends HttpServlet {
                 } else if (action.equalsIgnoreCase("delete")) {
                     String id = request.getParameter("cod_espansione");
                     System.out.println("Deleting expansion with code: " + id);
-                    model.doDelete(id);
+                    model.deleteEsp(id);
                 } else if (action.equalsIgnoreCase("insert")) {
                     String cod_gioco = request.getParameter("cod_gioco");
                     String cod_espansione = request.getParameter("cod_espansione");
@@ -51,7 +51,7 @@ public class EspansioneControl extends HttpServlet {
                     bean.setNomeespansione(nome_espansione);
                     bean.setDescrizione(descrizione);
                     bean.setPrezzo(prezzo);
-                    model.doSave(bean);
+                    model.insertProd(bean);
                 } else if (action.equalsIgnoreCase("filter")) {
                     Double prezzo;
                     boolean check_prezzo = false;

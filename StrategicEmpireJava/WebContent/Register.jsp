@@ -19,6 +19,7 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <!-- Custom CSS -->
+<script src="js/checkerInputFields.js"></script>
 <style>
 .login-container {
 	max-width: 400px;
@@ -165,10 +166,6 @@ document.addEventListener("DOMContentLoaded", function() {
 									class="form-control with-icon" placeholder="Conferma Password"
 									required>
 								<div id="passwordError" class="error-message"></div>
-							</div>
-							<div class="form-group">
-								<input type="text" id="ruolo" name="ruolo"
-									class="form-control with-icon" placeholder="Ruolo" required>
 							</div>
 							<div class="form-group">
 								<input type="text" id="Indirizzo" name="Indirizzo"

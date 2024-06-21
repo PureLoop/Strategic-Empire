@@ -4,12 +4,6 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 public interface GiocoModel {
-	
-	//Gioco
-	
-	public void doSave(GiocoBean product) throws SQLException;
-
-	public boolean doDelete(String code) throws SQLException;
 
 	public GiocoBean doRetrieveByKey(String code) throws SQLException;
 	
@@ -17,6 +11,10 @@ public interface GiocoModel {
 	
 	public Collection<GiocoBean> doRetrieveByFilter(String tipologia,Double prezzo, Integer nGiocatori, boolean check_prezzo, boolean check_giocatori) throws SQLException;
 
-
+	void deleteGioco(String codGioco) throws SQLException;
+	void insertProd(GiocoBean gioco) throws SQLException;
+	void updateGame(GiocoBean gioco, boolean img1, boolean img2) throws SQLException;
+	void insertImgGioco(GiocoBean gioco) throws SQLException;
+	
 
 }

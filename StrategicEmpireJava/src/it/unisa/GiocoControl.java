@@ -58,7 +58,7 @@ public class GiocoControl extends HttpServlet {
 				} else if (action.equalsIgnoreCase("delete")) {
 					String id = request.getParameter("cod_gioco");
 					System.out.println("Deleting game with code: " + id);
-					model.doDelete(id);
+					model.deleteGioco(id);
 				} else if (action.equalsIgnoreCase("insert")) {
 					String cod = request.getParameter("Codice");
 					String nome = request.getParameter("Nome");
@@ -78,7 +78,7 @@ public class GiocoControl extends HttpServlet {
 					bean.setDescrizione(descrizione);
 					bean.setN_giocatori_min(n_giocatori_min);
 					bean.setN_giocatori_max(n_giocatori_max);
-					model.doSave(bean);
+					model.insertProd(bean);
 				}else if(action.equalsIgnoreCase("filter")) {
 				    String tipologia = request.getParameter("tipologia");
 				    double prezzo;
