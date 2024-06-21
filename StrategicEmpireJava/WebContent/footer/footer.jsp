@@ -131,7 +131,9 @@
       <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Area personale</a></li>
       <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Assistenza</a></li>
     </ul>
-    <p class="text-center text-body-secondary">&copy; 2024 Company, Inc</p>
+    <p class="text-center text-body-secondary">&copy;2024 Strategic Empire. Tutti i diritti riservati.</p>
+   
+    
 </footer>
 <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 
