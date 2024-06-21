@@ -168,10 +168,6 @@ document.addEventListener("DOMContentLoaded", function() {
 								<div id="passwordError" class="error-message"></div>
 							</div>
 							<div class="form-group">
-								<input type="text" id="ruolo" name="ruolo"
-									class="form-control with-icon" placeholder="Ruolo" required>
-							</div>
-							<div class="form-group">
 								<input type="text" id="Indirizzo" name="Indirizzo"
 									class="form-control with-icon" placeholder="Indirizzo" required>
 							</div>
