@@ -51,27 +51,6 @@
     </style>
 </head>
 <body>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    var input = document.getElementById("insert");
-    
-	input.addEventListener("input", function(event) {
-        var inputValue = event.target.value;
-        var sanitizedValue = sanitizeInput(inputValue);
-        event.target.value = sanitizedValue;
-    });
-
-    function sanitizeInput(inputValue) {
-        // Lista dei simboli da bloccare
-        var forbiddenSymbols = /[<>!@#\$%^&*()_+={}\[\]:;"'|\\\/?]/g;
-
-        // Rimuovi i simboli indesiderati dall'input
-        var sanitizedValue = inputValue.replace(forbiddenSymbols, "");
-
-        return sanitizedValue;
-    }
-});
-</script>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
       <a href="HomePage.jsp"><img src="logo.png" width="70" height="70" class="d-inline-block align-text-top"></a>

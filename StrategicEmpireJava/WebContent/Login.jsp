@@ -11,7 +11,6 @@
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 <!-- Custom CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<script src="js/checkerInputFields.js"></script>
 <style>
 html, body {
     height: 100%;
@@ -113,7 +112,7 @@ body {
         <h2>Login</h2>
         <form action="Richiesta_Login.jsp" method="post" class="signin-form">
             <div class="form-group position-relative">
-                <input type="text" id="email" name="email" class="form-control with-icon" placeholder="Email" required>
+                <input type="email" id="email" name="email" class="form-control with-icon" placeholder="Email" required>
                 <i class="fa fa-envelope-open-o toggle-icon"></i>
             </div>
             
