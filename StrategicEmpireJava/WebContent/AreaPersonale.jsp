@@ -25,11 +25,15 @@
 <link rel="stylesheet" href="GiocoStyle.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Barra orizzontale centrata con Bootstrap</title>
+  <title>Area Personale</title>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<style>
+	
+	.user-table {
+            margin-top: 2%; /* Aggiungi un margine superiore alla tabella */
+        }
 	
     .rectangle {
       display: flex;
@@ -155,7 +159,7 @@
 
         <% if(user.getRole().equalsIgnoreCase("Amministratore")){%>
         <span class="rectangle-item"><a href="#" class="nav-link" data-target="none" id="addUpdateCatalog">Modifica catalogo</a></span>
-        <span class="rectangle-item"><a href="#" class="nav-link" data-target="none">Lista utenti</a></span>
+        <span class="rectangle-item"><a href="#" class="nav-link" data-target="none" id="userList">Lista utenti</a></span>
         <%} %>
       </div>
     </div>
@@ -253,6 +257,11 @@
 	  	document.getElementById('img2Inputs').style.display = 'block';
 	  }
 </script>  
+
+<div id="userTableContainer">
+	
+</div>
+    <script src="js/usersManagement.js"></script>
   <div id="btnChoice" class="button-group  justify-content-around">
       <button type="button" id="Modifica" class="btn btn-outline-success">Modifica Prodotto</button>
       <button type="button" id="Inserisci" class="btn btn-outline-success">Inserisci Prodotto</button>

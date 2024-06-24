@@ -4,15 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.LinkedList;
 
-public class UserDAO {
+public class UserDAO implements UserModel{
     private Connection connection;
 
-    public UserDAO(Connection connection) {
-        this.connection = connection;
-    }
-
     public boolean registerUser(User user) {
+    	connection = null;
         String sql = "INSERT INTO users (username,nome,cognome, password,saltPW, email, role,Indirizzo,ncivico) VALUES (?, ?,?,?,?, ?, ?, ?,?,?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
         	statement.setString(1, user.getUsername());
@@ -33,6 +32,7 @@ public class UserDAO {
     }
 
     public User validateUser(String username, String password) {
+    	connection = null;
         String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, username);
@@ -51,4 +51,67 @@ public class UserDAO {
         }
         return null;
     }
+    
+    public void updateRole(User u) {
+    	connection = null;
+    }
+    
+    public synchronized Collection<User> doRetrieveAll() throws SQLException{
+        connection = null;
+        PreparedStatement preparedStatement = null;
+        Collection<User> user = new LinkedList<>();
+
+        String selectSQL = "SELECT * FROM utente";
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(selectSQL);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                User u = new User();
+                u.setUsername(rs.getString("Username"));
+                u.setNome(rs.getString("nome"));
+                u.setCognome(rs.getString("cognome"));
+                u.setPassword(rs.getString("pw"));
+                u.setsaltPassword(rs.getString("saltPW"));
+                u.setEmail(rs.getString("email"));
+                u.setRole(rs.getString("ruolo"));
+                u.setIndirizzo(rs.getString("indirizzo"));
+                u.setncivico(rs.getInt("ncivico"));
+                user.add(u);
+            }
+        } finally {
+            if (preparedStatement != null)
+                preparedStatement.close();
+            if (connection != null)
+                connection.close();
+        }
+        return user;
+    }
+    
+    public void updateUserRole(String username, String role) throws SQLException {
+        String updateQuery = "UPDATE utente SET ruolo = ? WHERE Username = ?";
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(updateQuery);
+            
+            preparedStatement.setString(1, role); // Imposta il primo parametro (ruolo)
+            preparedStatement.setString(2, username); // Imposta il secondo parametro (username)
+            
+            preparedStatement.executeUpdate();
+            connection.commit();
+        } finally {
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+    }
+
+
 }

@@ -28,13 +28,14 @@ public class AreaPersonaleControl extends HttpServlet {
 	static AccessorioModel modelAcc;
 	static EspansioneModel modelEsp;
 	static AreaPersonaleModel modelAp;
-	
+	static UserModel modelUser;
 	static {
 			modelGioco = new GiocoModelDM();
 			modelAcc = new AccessorioModelDM();
 			modelEsp = new EspansioneModelDM();
 			modelAp = new AreaPersonaleModelDM();
 			modelCarta = new CartaModelDM();
+			modelUser = new UserDAO();
 	}
 	
     /**
@@ -576,6 +577,40 @@ public class AreaPersonaleControl extends HttpServlet {
     	        	}
     		}
     	}
+    	
+    	if (action != null && action.equals("showUsers")) {
+    	    boolean isAjaxRequest = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+
+    	    try {
+    	        Collection<User> users = modelUser.doRetrieveAll();
+    	        request.setAttribute("userList", users);
+
+    	        if (isAjaxRequest) {
+    	            // Restituisci solo il frammento HTML della tabella
+    	            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/userTable.jsp");
+    	            dispatcher.include(request, response);
+    	        } else {
+    	            // Reindirizza all'intera pagina JSP
+    	            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/AreaPersonale.jsp");
+    	            dispatcher.forward(request, response);
+    	        }
+    	    } catch (SQLException e) {
+    	        System.out.println("Error: " + e.getMessage());
+    	    }
+    	}
+    	
+    	if (action != null && action.equals("updateRole")) {
+            String username = request.getParameter("username");
+            String role = request.getParameter("role");
+            try {
+                // Supponiamo che modelUser abbia un metodo per aggiornare il ruolo
+                modelUser.updateUserRole(username, role);
+                response.setStatus(HttpServletResponse.SC_OK);
+            } catch (SQLException e) {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                e.printStackTrace();
+            }
+        }
     	
     }
 	/**
