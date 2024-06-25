@@ -64,25 +64,8 @@ public class AreaPersonaleControl extends HttpServlet {
 
                 if (isAjaxRequest) {
                     response.setContentType("text/html");
-                    PrintWriter out = response.getWriter();
-                    out.println("<div class=\"row\" id=\"allGames\" style=\"margin-left: 3%; margin-right:3%;margin-top:2%;\">");
-
-                    if (giochi != null && !giochi.isEmpty()) {
-                        for (GiocoBean bean : giochi) {
-                            out.println("<div class=\"col-sm-3 mb-3\" style=\"width: 25%;\">");
-                            out.println("<div class=\"card\">");
-                            out.println("<div class=\"card-body\">");
-                            out.println("<img src=\"" + bean.getImmagineCop() + "\" class=\"card-img-top\">");
-                            out.println("<h5 class=\"card-title\">" + bean.getNomegioco() + "</h5>");
-                            out.println("<p class=\"card-text\">Prezzo: " + bean.getPrezzo() + "</p>");
-                            out.println("<button class=\"edit-Game-button\" data-game-id=\"" + bean.getCod_Gioco() + "\">Modifica</button>");
-                            out.println("<button class=\"del-Gioco-button\" data-game-id=\"" + bean.getCod_Gioco() + "\">Elimina</button>");
-                            out.println("</div>");
-                            out.println("</div>");
-                            out.println("</div>");
-                        }
-                    } 
-                    out.println("</div>");
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/showGioco.jsp");
+                    dispatcher.include(request, response);
                 } else {
                     request.removeAttribute("prodottiAP");
                     request.setAttribute("prodottiAP", giochi);
@@ -101,25 +84,8 @@ public class AreaPersonaleControl extends HttpServlet {
 
                 if (isAjaxRequest) {
                     response.setContentType("text/html");
-                    PrintWriter out = response.getWriter();
-                    out.println("<div class=\"row\" id=\"allGames\" style=\"margin-left: 3%; margin-right:3%;margin-top:2%;\">");
-
-                    if (accessori != null && !accessori.isEmpty()) {
-                        for (AccessorioBean bean : accessori) {
-                            out.println("<div class=\"col-sm-3 mb-3\" style=\"width: 25%;\">");
-                            out.println("<div class=\"card\">");
-                            out.println("<div class=\"card-body\">");
-                            out.println("<img src=\"" + bean.getImmagineCop() + "\" class=\"card-img-top\">");
-                            out.println("<h5 class=\"card-title\">" + bean.getNomeaccessorio() + "</h5>");
-                            out.println("<p class=\"card-text\">Prezzo: " + bean.getPrezzo() + "</p>");
-                            out.println("<button class=\"edit-Acc-button\" data-acc-id=\"" + bean.getCod_Accessorio() + "\">Modifica</button>");
-                            out.println("<button class=\"del-Acc-button\" data-acc-id=\"" + bean.getCod_Accessorio() + "\">Elimina</button>");
-                            out.println("</div>");
-                            out.println("</div>");
-                            out.println("</div>");
-                        }
-                    } 
-                    out.println("</div>");
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/showAccessorio.jsp");
+                    dispatcher.include(request, response);
                 } else {
                     request.removeAttribute("prodottiAP");
                     request.setAttribute("prodottiAP", accessori);
@@ -168,7 +134,7 @@ public class AreaPersonaleControl extends HttpServlet {
                 System.out.println("Error:" + e.getMessage());
             }
          }else if (action != null && action.equalsIgnoreCase("ShowEspansione")) {
-             boolean isAjaxRequest = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+        	 boolean isAjaxRequest = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
 
              try {
                  Collection<espansioneBean> espansioni = modelEsp.doRetrieveAll(sort);
@@ -176,25 +142,8 @@ public class AreaPersonaleControl extends HttpServlet {
 
                  if (isAjaxRequest) {
                      response.setContentType("text/html");
-                     PrintWriter out = response.getWriter();
-                     out.println("<div class=\"row\" id=\"allGames\" style=\"margin-left: 3%; margin-right:3%;margin-top:2%;\">");
-
-                     if (espansioni != null && !espansioni.isEmpty()) {
-                         for (espansioneBean bean : espansioni) {
-                             out.println("<div class=\"col-sm-3 mb-3\" style=\"width: 25%;\">");
-                             out.println("<div class=\"card\">");
-                             out.println("<div class=\"card-body\">");
-                             out.println("<img src=\"" + bean.getImmagineCop() + "\" class=\"card-img-top\">");
-                             out.println("<h5 class=\"card-title\">" + bean.getNomeespansione() + "</h5>");
-                             out.println("<p class=\"card-text\">Prezzo: " + bean.getPrezzo() + "</p>");
-                             out.println("<button class=\"edit-Esp-button\" data-esp-id=\"" + bean.getCod_espansione() + "\">Modifica</button>");
-                             out.println("<button class=\"del-Esp-button\" data-esp-id=\"" + bean.getCod_espansione() + "\">Elimina</button>");
-                             out.println("</div>");
-                             out.println("</div>");
-                             out.println("</div>");
-                         }
-                     } 
-                     out.println("</div>");
+                     RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/showEspansione.jsp");
+                     dispatcher.include(request, response);
                  } else {
                      request.removeAttribute("prodottiAP");
                      request.setAttribute("prodottiAP", espansioni);
@@ -235,44 +184,13 @@ public class AreaPersonaleControl extends HttpServlet {
         	}
         }
         
-        if(action!=null && action.equalsIgnoreCase("showInsForm")) {
-    	    String insForm = "<form id='insertForm' action='insertProduct' method='POST' enctype='multipart/form-data'>" +
-    	                        "<input type='text' name='codice' value='' placeholder='codice'><br>" +
-    	                        "<input type='text' name='nome' value='' placeholder='nome'><br>" +
-    	                        "<input type='number' step='0.01' name='prezzo' value='' placeholder='prezzo'><br>"+
-    	                        "<input type='file' id='imgCopertina' name='imgCopertina' accept='.jpeg, .jpg, .png'><label for='imgCopertina'>COPERTINA</label><br>"+
-    	                        "<input type='file' id='img2' name='img2' accept='.jpeg, .jpg, .png'><label for='img2'>SECONDA IMG</label><br>";
+        if (action != null && action.equalsIgnoreCase("showInsForm")) {
+            request.setAttribute("insType", insType);
 
-        	if(insType!=null && insType.equalsIgnoreCase("gioco")){
-        		    	insForm = insForm + "<input type='text' name='edizione' value='' placeholder='edizione'><br>" +
-        		    	"<select id='tipologia' name='tipologia'><br>" + 
-        				"        <option value='tavolo'>TAVOLO</option><br>" + 
-        				"        <option value='carte'>CARTE</option><br>" + 
-        				"    	 </select><br>"+
-                        "<input type='number' name='min_gio' value='' placeholder='min-giocatori'><br>" +
-                        "<input type='number' name='max_gio' value='' placeholder='max-giocatori'><br>"+
-                        "<input type='hidden' name='prodType' value='giochi'><br>";
-        	}
-        	
-        	if(insType!=null && insType.equalsIgnoreCase("accessorio")){
-        		insForm = insForm + 
-        				"<select id='tipologia' name='tipologia'><br>" + 
-        				"        <option value='altri brand'>ALTRI BRAND</option><br>" + 
-        				"        <option value='esclusivi'>ESCLUSIVI</option><br>" + 
-        				"    	 </select><br>"+
-        				"<input type='hidden' name='prodType' value='accessori'><br>";
-        	}
-        	
-        	if(insType!=null && insType.equalsIgnoreCase("espansione")){
-        		insForm = insForm + "<input type='text' name='codGioco' value='' placeholder='cod_gioco'><br>"+
-        				"<input type='hidden' name='prodType' value='espansioni'><br>";
-        	}
-        	insForm += "<textarea rows='7' cols='100' name='descrizione' placeholder='descrizione'></textarea><br>" +
-            "<input type='button' onclick='submitInsForm()' value='Invia'>" +
-            "</form>";
-        	response.setContentType("text/html");
-    	    response.getWriter().write(insForm);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/formInsertProd.jsp");
+            dispatcher.forward(request, response);
         }
+
     
         if (action != null && action.equalsIgnoreCase("InsertCards")) {
         	String fullName = request.getParameter("fullName");
@@ -302,98 +220,45 @@ public class AreaPersonaleControl extends HttpServlet {
         }
         
         if (action != null && action.equalsIgnoreCase("GameModifyForm")) {
-            	    String gameId = request.getParameter("gameId");
-            	    try {
-						GiocoBean bean = modelGioco.doRetrieveByKey(gameId);
-            	    // Creare il form di modifica per il gioco specifico
-            	    String modifyForm = "<form id='ModifyGameForm' action='updateGame' method='POST' enctype=\"multipart/form-data\">" +
-            	                        "<input type='hidden' name='gameId' value='" + gameId + "'><br>" +
-            	                        "<input type='text' name='codice' value='"+bean.getCod_Gioco()+"'><br>" +
-            	                        "<input type='text' name='nome' value='"+bean.getNomegioco()+"'><br>" +
-            	                        "<input type='number' step='0.01' name='prezzo' value='"+bean.getPrezzo()+"'><br>" +
-            	                        "<input type='text' name='edizione' value='"+bean.getEdizione()+"'><br>" +
-            	                        "<input type='text' name='tipologia' value='"+bean.getTipologia()+"'><br>" +
-            	                        "<input type='number' name='min_gio' value='"+bean.getN_giocatori_min()+"'><br>" +
-            	                        "<input type='number' name='max_gio' value='"+bean.getN_giocatori_max()+"'><br>" +
-            	                        "<textarea rows='7' cols='100' name='descrizione'>"+bean.getDescrizione()+"</textarea><br>" +
-            	                        "<button type='button' onclick='showCopertinaInputs()'>Modifica Copertina</button>" +
-            	                        "<button type='button' onclick='showImg2Inputs()'>Modifica Immagine 2</button><br>" +
-            	                        "<div id='copertinaInputs' style='display:none;'>" +
-            	                        "<input type='file' id='imgCopertina' name='imgCopertina' accept='.jpeg, .jpg, .png'><label for='imgCopertina'>COPERTINA</label><br>" +
-            	                        "</div>"+
-            	                        "<div id='img2Inputs' style='display:none;'>"+
-            	                        "<input type='file' id='img2' name='img2' accept='.jpeg, .jpg, .png'><label for='img2'>SECONDA IMG</label><br>" +
-            	                        "</div>" +
-            	                        "<input type='button' onclick='submitGameForm()' value='Invia'>" +
-            	                        "</form>";
-            	    response.setContentType("text/html");
-            	    response.getWriter().write(modifyForm);
-            	}
-         catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-      }
-        
+            String gameId = request.getParameter("gameId");
+            try {
+                GiocoBean bean = modelGioco.doRetrieveByKey(gameId);
+                request.setAttribute("bean", bean);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/formModGioco.jsp");
+                dispatcher.forward(request, response);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                // Gestisci l'errore come necessario
+            }
+        }
+
         if (action != null && action.equalsIgnoreCase("AccModifyForm")) {
-    	    String accId = request.getParameter("accId");
-    	    try {
-				AccessorioBean bean = modelAcc.doRetrieveByKey(accId);
-    	    // Creare il form di modifica per il gioco specifico
-				String modifyForm = "<form id='ModifyAccForm' action='updateAccessorio' method='POST' enctype='multipart/form-data'>" +
-                        "<input type='hidden' name='accId' value='" + accId + "'><br>" +
-                        "<input type='text' name='codice' value='" + bean.getCod_Accessorio() + "'><br>" +
-                        "<input type='text' name='nome' value='" + bean.getNomeaccessorio() + "'><br>" +
-                        "<input type='number' step='0.01' name='prezzo' value='" + bean.getPrezzo() + "'><br>" +
-                        "<input type='text' name='tipologia' value='" + bean.getTipologia() + "'><br>" +
-                        "<textarea rows='7' cols='100' name='descrizione'>" + bean.getDescrizione() + "</textarea><br>" +
-                        "<button type='button' onclick='showCopertinaInputs()'>Modifica Copertina</button>" +
-                        "<button type='button' onclick='showImg2Inputs()'>Modifica Immagine 2</button><br>" +
-                        "<div id='copertinaInputs' style='display:none;'>" +
-                        "<input type='file' id='imgCopertina' name='imgCopertina' accept='.jpeg, .jpg, .png'><label for='imgCopertina'>COPERTINA</label><br>" +
-                        "</div>"+
-                        "<div id='img2Inputs' style='display:none;'>"+
-                        "<input type='file' id='img2' name='img2' accept='.jpeg, .jpg, .png'><label for='img2'>SECONDA IMG</label><br>" +
-                        "</div>" +
-                        "<input type='button' onclick='submitAccForm()' value='Invia'>" +
-                        "</form>";
-    	    response.setContentType("text/html");
-    	    response.getWriter().write(modifyForm);
-			    	}
-			 catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			}
-        
+            String accId = request.getParameter("accId");
+            try {
+                AccessorioBean bean = modelAcc.doRetrieveByKey(accId);
+                request.setAttribute("bean", bean);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/formModAcc.jsp");
+                dispatcher.forward(request, response);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                // Gestisci l'errore come necessario
+            }
+        }
+
         if (action != null && action.equalsIgnoreCase("EspModifyForm")) {
-    	    String espId = request.getParameter("espId");
-    	    try {
-				espansioneBean bean = modelEsp.doRetrieveByKey(espId);
-    	    // Creare il form di modifica per il gioco specifico
-    	    String modifyForm = "<form id='ModifyEspForm' action='updateEspansione' method='POST' enctype='multipart/form-data'>" +
-    	                        "<input type='hidden' name='espId' value='" + espId + "'><br>" +
-    	                        "<input type='text' name='codice' value='"+bean.getCod_espansione()+"'><br>" +
-    	                        "<input type='text' name='nome' value='"+bean.getNomeespansione()+"'><br>" +
-    	                        "<input type='number' step='0.01' name='prezzo' value='"+bean.getPrezzo()+"'><br>" +
-    	                        "<textarea rows='7' cols='100' name='descrizione'>"+bean.getDescrizione()+"</textarea><br>" +
-    	                        "<button type='button' onclick='showCopertinaInputs()'>Modifica Copertina</button>" +
-    	                        "<button type='button' onclick='showImg2Inputs()'>Modifica Immagine 2</button><br>" +
-    	                        "<div id='copertinaInputs' style='display:none;'>" +
-    	                        "<input type='file' id='imgCopertina' name='imgCopertina' accept='.jpeg, .jpg, .png'><label for='imgCopertina'>COPERTINA</label><br>" +
-    	                        "</div>"+
-    	                        "<div id='img2Inputs' style='display:none;'>"+
-    	                        "<input type='file' id='img2' name='img2' accept='.jpeg, .jpg, .png'><label for='img2'>SECONDA IMG</label><br>" +
-    	                        "</div>" +
-    	                        "<input type='button' onclick='submitEspForm()' value='Invia'>" +
-    	                        "</form>";
-    	    response.setContentType("text/html");
-    	    response.getWriter().write(modifyForm);
-    	}
- catch (SQLException e) {
-	// TODO Auto-generated catch block
-	e.printStackTrace();
- }}
+        	System.out.println("ciao");
+            String espId = request.getParameter("espId");
+            try {
+                espansioneBean bean = modelEsp.doRetrieveByKey(espId);
+                request.setAttribute("bean", bean);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/formModEsp.jsp");
+                dispatcher.forward(request, response);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                // Gestisci l'errore come necessario
+            }
+        }
+
         
         boolean img1Status = false;
         boolean img2Status = false;

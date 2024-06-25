@@ -29,7 +29,7 @@ document.querySelectorAll('.nav-link').forEach(link => {
   function displaySavedCards() {
 	    const savedCardsContainer = document.getElementById('savedCards');
 	    const noCardsMessage = document.getElementById('noCardsMessage');
-	    
+		
 	    if (savedCards.length === 0) {
 	        noCardsMessage.style.display = 'block';
 	        savedCardsContainer.style.display = 'none';

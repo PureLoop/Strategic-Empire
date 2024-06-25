@@ -29,116 +29,172 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	
+	<script>
+	function showCopertinaInputs(){
+  	document.getElementById('copertinaInputs').style.display = 'block';
+  }
+  
+  function showImg2Inputs(){
+	  	document.getElementById('img2Inputs').style.display = 'block';
+	  }
+</script> 
 	<style>
-	
 	.user-table {
-            margin-top: 2%; /* Aggiungi un margine superiore alla tabella */
-        }
+    margin-top: 2%; /* Aggiungi un margine superiore alla tabella */
+}
 	
+.rectangle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Larghezza del rettangolo */
+    height: 100px; /* Altezza del rettangolo */
+    border: 1px solid #ccc; /* Bordo del rettangolo */
+    border-radius: 8px; /* Angoli arrotondati */
+    margin-top: 20px; /* Margine superiore */
+}
+
+.rectangle-item {
+    display: inline-block;
+    text-align: center;
+    flex: 1;
+}
+.rectangle-item:not(:last-child) {
+    border-right: 1px solid #ccc;
+}
+.rectangle-item a {
+    text-decoration: none;
+    color: inherit;
+}
+.rectangle-item a:hover {
+    color: inherit;
+}
+
+#paymentSection {
+    display: none;
+    margin-top: 200px;
+}
+
+.card-list {
+    list-style: none;
+    padding: 0;
+}
+
+.card-list li {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-list li span {
+    display: block;
+}
+
+#paymentForm {
+    display: none;
+}
+
+.button-group {
+    margin-top: 20px; /* Margine superiore per i bottoni */
+}
+
+.button-group .btn {
+    width: 30%;
+}
+
+#updateCatContainer {
+    margin-top: 20px; /* Margine superiore per il contenitore di rettangoli */
+}
+
+#choiceProdotti {
+    display: none;
+}
+
+#btnChoice {
+    display: none;
+}
+
+#choiceProdottiUp {
+    display: none;
+}
+
+.user-info {
+    margin-top: 20px;
+}
+
+.info-item {
+    margin-bottom: 10px;
+}
+
+.info-item label {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+/* Media Queries */
+
+/* Tablet */
+@media (max-width: 768px) {
     .rectangle {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      left: 10%;
-      width: 80%;
-      height: 12.5%;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      width: 100%; /* Larghezza del rettangolo */
-      height: 100px; /* Altezza del rettangolo */
-      border: 1px solid #ccc; /* Bordo del rettangolo */
-      border-radius: 8px; /* Angoli arrotondati */
-      margin-top: 20px; /* Margine superiore */
+        height: 80px; /* Riduce l'altezza del rettangolo */
     }
-    
+
     .rectangle-item {
-      display: inline-block;
-      text-align: center;
-      flex: 1;
-    }
-    .rectangle-item:not(:last-child) {
-      border-right: 1px solid #ccc;
-    }
-    .rectangle-item a {
-      text-decoration: none;
-      color: inherit;
-    }
-    .rectangle-item a:hover {
-      color: inherit;
+        font-size: 0.9em; /* Riduce la dimensione del font */
     }
 
-    #paymentSection {
-      display: none;
-      margin-top: 200px;
-    }
-
-    .card-list {
-      list-style: none;
-      padding: 0;
+    .button-group .btn {
+        width: 45%; /* Aumenta la larghezza dei bottoni su tablet */
     }
 
     .card-list li {
-      margin-bottom: 10px;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+        flex-direction: column;
+        align-items: flex-start;
     }
 
     .card-list li span {
-      display: block;
+        margin-bottom: 5px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .rectangle {
+        flex-direction: column; /* Dispone gli elementi del rettangolo in colonna */
+        height: auto; /* Altezza automatica per adattarsi al contenuto */
+        padding: 10px; /* Aggiunge padding */
     }
 
-    #paymentForm {
-      display: none;
+    .rectangle-item {
+        border-right: none;
+        border-bottom: 1px solid #ccc; /* Aggiunge bordo inferiore */
+        padding: 10px 0; /* Aggiunge padding */
     }
-    
-    .search-bar {
-      margin-top: 20px; /* Margine superiore per la barra di ricerca */
+
+    .rectangle-item:not(:last-child) {
+        border-bottom: 1px solid #ccc; /* Bordo inferiore per tutti tranne l'ultimo */
     }
-    .search-bar .form-control {
-      border-radius: 0; /* Rimuovi gli angoli arrotondati */
+
+    .button-group .btn {
+        width: 100%; /* Bottoni a larghezza piena */
+        margin-top: 10px; /* Margine superiore tra i bottoni */
     }
-    .search-bar .btn {
-      border-radius: 0; /* Rimuovi gli angoli arrotondati */
+
+    .card-list li {
+        flex-direction: column;
+        align-items: flex-start;
     }
-    
-    .button-group {
-      margin-top: 20px; /* Margine superiore per i bottoni */
+
+    .card-list li span {
+        margin-bottom: 5px;
     }
-    
-    .button-group .btn{
-      width: 30%;
-    }
-    
-    #updateCatContainer{
-      margin-top: 20px; /* Margine superiore per il contenitore di rettangoli */
-    }
-    
-    #choiceProdotti{
-    	display: none;
-    }
-    
-    #btnChoice{
-    	display: none;
-    }
-    
-    #choiceProdottiUp{
-    	display: none;
-    }
-        .user-info {
-        margin-top: 20px;
-        
-    }
-    .info-item {
-        margin-bottom: 10px;
-    }
-    .info-item label {
-        font-weight: bold;
-        margin-right: 5px;
-    }
+}
+
   </style>
 </head>
 <body>
@@ -247,16 +303,7 @@
     </form>
 </div>
 	<div id="showSavedPayment"></div>
-<script src="js/areaPersonaleCards.js">
-
-  function showCopertinaInputs(){
-  	document.getElementById('copertinaInputs').style.display = 'block';
-  }
-  
-  function showImg2Inputs(){
-	  	document.getElementById('img2Inputs').style.display = 'block';
-	  }
-</script>  
+<script src="js/areaPersonaleCards.js"></script> 
 
 <div id="userTableContainer">
 	
