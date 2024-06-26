@@ -9,14 +9,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-<<<<<<< HEAD:StrategicEmpireJava/src/it/unisa/CartaControl.java
 import it.unisa.bean.CartaBean;
 import it.unisa.model.CartaModelDM;
-=======
-import it.unisa.CartaModelDM;
 import it.unisa.model.CartaModel;
->>>>>>> 6bd804a1c16ee5f29e50bc3eb0adf86f6e04983b:StrategicEmpireJava/src/it/unisa/control/CartaControl.java
 
 import javax.servlet.annotation.WebServlet;
 

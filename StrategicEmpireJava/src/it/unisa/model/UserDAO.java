@@ -7,12 +7,8 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
 
-<<<<<<< HEAD:StrategicEmpireJava/src/it/unisa/model/UserDAO.java
-import it.unisa.UserModel;
-import it.unisa.bean.User;
-=======
 import it.unisa.model.UserModel;
->>>>>>> 6bd804a1c16ee5f29e50bc3eb0adf86f6e04983b:StrategicEmpireJava/src/it/unisa/UserDAO.java
+import it.unisa.bean.User;
 
 public class UserDAO implements UserModel{
     private Connection connection;

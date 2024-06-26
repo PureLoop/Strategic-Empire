@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-<<<<<<< HEAD:StrategicEmpireJava/src/it/unisa/DettagliControl.java
 import it.unisa.bean.AccessorioBean;
 import it.unisa.bean.GiocoBean;
 import it.unisa.bean.espansioneBean;
@@ -20,14 +18,9 @@ import it.unisa.model.AccessorioModelDM;
 import it.unisa.model.EspansioneModel;
 import it.unisa.model.EspansioneModelDM;
 import it.unisa.model.GiocoModelDM;
-=======
-import it.unisa.AccessorioModelDM;
-import it.unisa.EspansioneModelDM;
-import it.unisa.GiocoModelDM;
 import it.unisa.model.AccessorioModel;
 import it.unisa.model.EspansioneModel;
 import it.unisa.model.GiocoModel;
->>>>>>> 6bd804a1c16ee5f29e50bc3eb0adf86f6e04983b:StrategicEmpireJava/src/it/unisa/control/DettagliControl.java
 
 
 /**

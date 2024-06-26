@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import it.unisa.RecensioneModel;
+import it.unisa.model.RecensioneModel;
 import it.unisa.bean.RecensioneBean;
 import it.unisa.model.RecensioneModel;
 
