@@ -1,4 +1,4 @@
-package it.unisa;
+package it.unisa.model;
 
 import java.sql.SQLException;
 

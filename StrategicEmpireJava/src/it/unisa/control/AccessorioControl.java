@@ -1,4 +1,4 @@
-package it.unisa;
+package it.unisa.control;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -10,8 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+<<<<<<< HEAD:StrategicEmpireJava/src/it/unisa/AccessorioControl.java
 import it.unisa.bean.AccessorioBean;
 import it.unisa.model.AccessorioModelDM;
+=======
+import it.unisa.AccessorioModelDM;
+import it.unisa.model.AccessorioModel;
+>>>>>>> 6bd804a1c16ee5f29e50bc3eb0adf86f6e04983b:StrategicEmpireJava/src/it/unisa/control/AccessorioControl.java
 
 public class AccessorioControl extends HttpServlet {
     private static final long serialVersionUID = 1L;

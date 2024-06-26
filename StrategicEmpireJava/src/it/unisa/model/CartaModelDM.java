@@ -9,8 +9,12 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+<<<<<<< HEAD:StrategicEmpireJava/src/it/unisa/model/CartaModelDM.java
 import it.unisa.CartaModel;
 import it.unisa.bean.CartaBean;
+=======
+import it.unisa.model.CartaModel;
+>>>>>>> 6bd804a1c16ee5f29e50bc3eb0adf86f6e04983b:StrategicEmpireJava/src/it/unisa/CartaModelDM.java
 
 public class CartaModelDM implements CartaModel {
 

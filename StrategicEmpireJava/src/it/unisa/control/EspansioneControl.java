@@ -1,4 +1,4 @@
-package it.unisa;
+package it.unisa.control;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -10,7 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+<<<<<<< HEAD:StrategicEmpireJava/src/it/unisa/EspansioneControl.java
 import it.unisa.bean.espansioneBean;
+=======
+import it.unisa.EspansioneModelDM;
+>>>>>>> 6bd804a1c16ee5f29e50bc3eb0adf86f6e04983b:StrategicEmpireJava/src/it/unisa/control/EspansioneControl.java
 import it.unisa.model.EspansioneModel;
 import it.unisa.model.EspansioneModelDM;
 

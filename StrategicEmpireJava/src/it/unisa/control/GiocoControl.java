@@ -1,4 +1,4 @@
-package it.unisa;
+package it.unisa.control;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -12,8 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+<<<<<<< HEAD:StrategicEmpireJava/src/it/unisa/GiocoControl.java
 import it.unisa.bean.GiocoBean;
 import it.unisa.model.GiocoModelDM;
+=======
+import it.unisa.GiocoModelDM;
+import it.unisa.model.GiocoModel;
+>>>>>>> 6bd804a1c16ee5f29e50bc3eb0adf86f6e04983b:StrategicEmpireJava/src/it/unisa/control/GiocoControl.java
 
 
 

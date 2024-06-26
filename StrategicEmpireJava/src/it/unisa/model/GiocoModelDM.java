@@ -11,8 +11,12 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
 
+<<<<<<< HEAD:StrategicEmpireJava/src/it/unisa/model/GiocoModelDM.java
 import it.unisa.GiocoModel;
 import it.unisa.bean.GiocoBean;
+=======
+import it.unisa.model.GiocoModel;
+>>>>>>> 6bd804a1c16ee5f29e50bc3eb0adf86f6e04983b:StrategicEmpireJava/src/it/unisa/GiocoModelDM.java
 
 import java.util.Base64;
 

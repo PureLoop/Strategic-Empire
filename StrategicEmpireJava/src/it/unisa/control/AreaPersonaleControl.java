@@ -1,4 +1,4 @@
-package it.unisa;
+package it.unisa.control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+<<<<<<< HEAD:StrategicEmpireJava/src/it/unisa/AreaPersonaleControl.java
 import it.unisa.bean.AccessorioBean;
 import it.unisa.bean.CartaBean;
 import it.unisa.bean.GiocoBean;
@@ -28,6 +29,20 @@ import it.unisa.model.EspansioneModel;
 import it.unisa.model.EspansioneModelDM;
 import it.unisa.model.GiocoModelDM;
 import it.unisa.model.UserDAO;
+=======
+import it.unisa.AccessorioModelDM;
+import it.unisa.AreaPersonaleModelDM;
+import it.unisa.CartaModelDM;
+import it.unisa.EspansioneModelDM;
+import it.unisa.GiocoModelDM;
+import it.unisa.UserDAO;
+import it.unisa.model.AccessorioModel;
+import it.unisa.model.AreaPersonaleModel;
+import it.unisa.model.CartaModel;
+import it.unisa.model.EspansioneModel;
+import it.unisa.model.GiocoModel;
+import it.unisa.model.UserModel;
+>>>>>>> 6bd804a1c16ee5f29e50bc3eb0adf86f6e04983b:StrategicEmpireJava/src/it/unisa/control/AreaPersonaleControl.java
 
 /**
  * Servlet implementation class AreaPersonaleControl

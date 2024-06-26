@@ -8,8 +8,12 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
 
+<<<<<<< HEAD:StrategicEmpireJava/src/it/unisa/model/AccessorioModelDM.java
 import it.unisa.AccessorioModel;
 import it.unisa.bean.AccessorioBean;
+=======
+import it.unisa.model.AccessorioModel;
+>>>>>>> 6bd804a1c16ee5f29e50bc3eb0adf86f6e04983b:StrategicEmpireJava/src/it/unisa/AccessorioModelDM.java
 
 public class AccessorioModelDM implements AccessorioModel {
 
