@@ -1,8 +1,10 @@
 
-package it.unisa;
+package it.unisa.model;
 
 import java.sql.SQLException;
 import java.util.Collection;
+
+import it.unisa.CartaBean;
 
 public interface CartaModel {
     void doSave(CartaBean accessory) throws SQLException;

@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import it.unisa.model.AccessorioModel;
+
 public class AccessorioModelDM implements AccessorioModel {
 
     private static final String TABLE_NAME = "accessorio";

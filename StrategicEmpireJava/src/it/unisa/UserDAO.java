@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import it.unisa.model.UserModel;
+
 public class UserDAO implements UserModel{
     private Connection connection;
 

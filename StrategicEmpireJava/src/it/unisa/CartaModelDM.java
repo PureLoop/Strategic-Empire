@@ -9,6 +9,8 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+import it.unisa.model.CartaModel;
+
 public class CartaModelDM implements CartaModel {
 
 	private static final String TABLE_NAME = "carta";

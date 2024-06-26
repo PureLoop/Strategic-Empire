@@ -1,4 +1,4 @@
-package it.unisa;
+package it.unisa.control;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import it.unisa.EspansioneModelDM;
 import it.unisa.model.EspansioneModel;
 
 public class EspansioneControl extends HttpServlet {

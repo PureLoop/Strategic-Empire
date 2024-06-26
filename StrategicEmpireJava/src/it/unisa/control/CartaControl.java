@@ -1,4 +1,4 @@
-package it.unisa;
+package it.unisa.control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,6 +9,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import it.unisa.CartaModelDM;
+import it.unisa.model.CartaModel;
+
 import javax.servlet.annotation.WebServlet;
 
 @WebServlet("/CartaControl")

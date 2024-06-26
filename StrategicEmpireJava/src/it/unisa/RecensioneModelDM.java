@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 import it.unisa.bean.RecensioneBean;
+import it.unisa.model.RecensioneModel;
 
 public class RecensioneModelDM implements RecensioneModel{
 	private static final String TABLE_NAME = "recensione";

@@ -1,4 +1,4 @@
-package it.unisa;
+package it.unisa.control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,7 +16,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import it.unisa.AccessorioModelDM;
+import it.unisa.AreaPersonaleModelDM;
+import it.unisa.CartaModelDM;
+import it.unisa.EspansioneModelDM;
+import it.unisa.GiocoModelDM;
+import it.unisa.UserDAO;
+import it.unisa.model.AccessorioModel;
+import it.unisa.model.AreaPersonaleModel;
+import it.unisa.model.CartaModel;
 import it.unisa.model.EspansioneModel;
+import it.unisa.model.GiocoModel;
+import it.unisa.model.UserModel;
 
 /**
  * Servlet implementation class AreaPersonaleControl

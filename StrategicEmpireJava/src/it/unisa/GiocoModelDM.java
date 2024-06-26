@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import it.unisa.model.GiocoModel;
+
 import java.util.Base64;
 
 public class GiocoModelDM implements GiocoModel{
