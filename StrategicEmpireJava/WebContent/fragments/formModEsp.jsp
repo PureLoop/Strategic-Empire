@@ -1,4 +1,4 @@
-<%@ page import="it.unisa.espansioneBean" %>
+<%@ page import="it.unisa.bean.espansioneBean" %>
 <%
 espansioneBean bean = (espansioneBean) request.getAttribute("bean");
 %>

@@ -1,4 +1,4 @@
-package it.unisa;
+package it.unisa.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+
+import it.unisa.CartaModel;
+import it.unisa.bean.CartaBean;
 
 public class CartaModelDM implements CartaModel {
 

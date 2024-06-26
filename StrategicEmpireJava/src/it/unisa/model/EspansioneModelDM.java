@@ -1,5 +1,5 @@
 
-package it.unisa;
+package it.unisa.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import it.unisa.model.EspansioneModel;
+import it.unisa.bean.espansioneBean;
 
 public class EspansioneModelDM implements EspansioneModel {
 

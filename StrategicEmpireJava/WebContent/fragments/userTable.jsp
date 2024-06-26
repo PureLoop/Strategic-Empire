@@ -1,4 +1,4 @@
-<%@ page import="it.unisa.User" %>
+<%@ page import="it.unisa.bean.User" %>
 <%@ page contentType="text/html; charset=UTF-8"
 	import="java.util.*"%>
 <table class="table table-bordered table-striped user-table">

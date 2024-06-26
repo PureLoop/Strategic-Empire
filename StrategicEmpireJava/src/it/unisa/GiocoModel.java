@@ -3,6 +3,8 @@ package it.unisa;
 import java.sql.SQLException;
 import java.util.Collection;
 
+import it.unisa.bean.GiocoBean;
+
 public interface GiocoModel {
 
 	public GiocoBean doRetrieveByKey(String code) throws SQLException;

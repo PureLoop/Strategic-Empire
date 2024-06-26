@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import it.unisa.RecensioneModel;
-import it.unisa.RecensioneModelDM;
 import it.unisa.bean.RecensioneBean;
+import it.unisa.model.RecensioneModelDM;
 
 @WebServlet("/RecensioneControl")
 public class RecensioneControl extends HttpServlet {

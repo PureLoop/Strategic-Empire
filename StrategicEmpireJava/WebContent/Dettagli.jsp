@@ -1,6 +1,6 @@
-<%@ page import="java.util.*, it.unisa.GiocoBean" %>
-<%@ page import="java.util.*, it.unisa.AccessorioBean" %>
-<%@ page import="java.util.*, it.unisa.espansioneBean" %>
+<%@ page import="java.util.*,it.unisa.bean.GiocoBean" %>
+<%@ page import="java.util.*,it.unisa.bean.AccessorioBean" %>
+<%@ page import="java.util.*,it.unisa.bean.espansioneBean" %>
 <%@ page import="java.net.URLEncoder" %>
 
 <%

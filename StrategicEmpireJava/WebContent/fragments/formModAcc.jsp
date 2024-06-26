@@ -1,4 +1,4 @@
-<%@ page import="it.unisa.AccessorioBean" %>
+<%@ page import="it.unisa.bean.AccessorioBean" %>
 <%
 AccessorioBean bean = (AccessorioBean) request.getAttribute("bean");
 %>

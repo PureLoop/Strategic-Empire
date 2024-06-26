@@ -4,6 +4,8 @@ package it.unisa;
 import java.sql.SQLException;
 import java.util.Collection;
 
+import it.unisa.bean.AccessorioBean;
+
 public interface AccessorioModel {
 
     AccessorioBean doRetrieveByKey(String code) throws SQLException;

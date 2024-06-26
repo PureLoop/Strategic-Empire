@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.OggettiCarrelloBean"%>
+<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.bean.OggettiCarrelloBean"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>

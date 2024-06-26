@@ -1,5 +1,5 @@
 
-package it.unisa;
+package it.unisa.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
+
+import it.unisa.AccessorioModel;
+import it.unisa.bean.AccessorioBean;
 
 public class AccessorioModelDM implements AccessorioModel {
 

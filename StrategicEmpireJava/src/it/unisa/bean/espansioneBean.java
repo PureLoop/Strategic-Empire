@@ -1,4 +1,4 @@
-package it.unisa;
+package it.unisa.bean;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,18 +7,17 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
 
-public class AccessorioBean implements Serializable{
-    public String cod_accessorio,nome_accessorio,tipologia,descrizione;
+public class espansioneBean implements Serializable{
+    public String cod_gioco,cod_espansione,nome_espansione,descrizione;
     public Double prezzo;
-    public String immagineCopertina,immagine2;
+    public String immagineCopertina, img2;
 
-    public AccessorioBean(){
-        cod_accessorio = "";
-        nome_accessorio = "";
-        tipologia = "";
-        prezzo = 0.0;
+    public espansioneBean(){
+    	cod_gioco = "";
+        cod_espansione = "";
+        nome_espansione = "";
         descrizione = "";
-
+        prezzo = 0.0;
     }
 
     public void setImmagineCop(String img) {
@@ -30,34 +29,34 @@ public class AccessorioBean implements Serializable{
     }
     
     public void setImmagine2(String img) {
-    	this.immagine2 = img;
+    	this.img2 = img;
     }
     
     public String getImmagine2() {
-    	return immagine2;
+    	return img2;
     }
     
-    public void setCod_accessorio(String cod) {
-        this.cod_accessorio = cod;
+    public void setCod_espansione(String cod) {
+        this.cod_espansione = cod;
     }
-    public String getCod_Accessorio() {
-        return this.cod_accessorio;
+    public String getCod_espansione() {
+        return this.cod_espansione;
     }
     
-    public void setNomeaccessorio(String nome){
-        this.nome_accessorio = nome;
+    public void setNomeespansione(String nome){
+        this.nome_espansione = nome;
     }
 
-    public String getNomeaccessorio() {
-        return nome_accessorio;
+    public String getNomeespansione() {
+        return nome_espansione;
     }
 
-    public void setTipologia(String tipologia) {
-        this.tipologia = tipologia;
+    public void setCod_gioco(String cod) {
+        this.cod_gioco = cod;
     }
 
-    public String getTipologia() {
-        return tipologia;
+    public String getCod_gioco() {
+        return cod_gioco;
     }
 
     public Double getPrezzo() {
@@ -79,9 +78,9 @@ public class AccessorioBean implements Serializable{
     @Override
     public String toString() {
         return "GiocoBean{" +
-                "cod_accessorio='" + cod_accessorio + '\'' +
-                ", nome accessorio='" + nome_accessorio + '\'' +
-                ", tipologia='" + tipologia + '\'' +
+                "cod_gioco='" + cod_gioco + '\'' +
+                ", nome_espansione='" + nome_espansione + '\'' +
+                ", cod_espansione='" + cod_espansione + '\'' +
                 ", prezzo=" + prezzo + '\'' +             
                 ", descrizione='" + descrizione +
                 '}';

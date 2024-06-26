@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*, org.mindrot.jbcrypt.BCrypt, it.unisa.User" %>
+<%@ page import="java.sql.*, org.mindrot.jbcrypt.BCrypt,it.unisa.bean.User" %>
 
 <%
     // Recupera le credenziali dall'input dell'utente

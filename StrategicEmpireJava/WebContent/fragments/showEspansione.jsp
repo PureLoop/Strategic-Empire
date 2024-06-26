@@ -1,4 +1,4 @@
-<%@ page import="it.unisa.espansioneBean" %>
+<%@ page import="it.unisa.bean.espansioneBean" %>
 <%@ page import="java.util.Collection" %>
 
 <% 

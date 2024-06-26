@@ -1,4 +1,4 @@
-<%@ page import="it.unisa.GiocoBean" %>
+<%@ page import="it.unisa.bean.GiocoBean" %>
 <%
 GiocoBean bean = (GiocoBean) request.getAttribute("bean");
 %>

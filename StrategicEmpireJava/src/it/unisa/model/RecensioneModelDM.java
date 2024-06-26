@@ -1,4 +1,4 @@
-package it.unisa;
+package it.unisa.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import it.unisa.RecensioneModel;
 import it.unisa.bean.RecensioneBean;
 
 public class RecensioneModelDM implements RecensioneModel{

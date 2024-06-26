@@ -1,9 +1,11 @@
-package it.unisa;
+package it.unisa.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import it.unisa.AreaPersonaleModel;
 
 public class AreaPersonaleModelDM implements AreaPersonaleModel{
 }

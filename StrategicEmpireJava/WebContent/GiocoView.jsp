@@ -15,7 +15,7 @@ Cart cart = (Cart) request.getAttribute("cart");
 
 <!DOCTYPE html>
 <html>
-<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.GiocoBean"%>
+<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.bean.GiocoBean"%>
 <%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.Cart"%>
 
 <head>

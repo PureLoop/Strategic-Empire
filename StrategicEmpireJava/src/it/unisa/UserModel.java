@@ -2,6 +2,8 @@ package it.unisa;
 import java.sql.SQLException;
 import java.util.Collection;
 
+import it.unisa.bean.User;
+
 public interface UserModel {
 	public boolean registerUser(User user);
 	public User validateUser(String username, String password);

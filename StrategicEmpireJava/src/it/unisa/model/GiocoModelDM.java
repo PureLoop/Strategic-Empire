@@ -1,4 +1,4 @@
-package it.unisa;
+package it.unisa.model;
 
 
 import java.io.ByteArrayOutputStream;
@@ -10,6 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
+
+import it.unisa.GiocoModel;
+import it.unisa.bean.GiocoBean;
 
 import java.util.Base64;
 

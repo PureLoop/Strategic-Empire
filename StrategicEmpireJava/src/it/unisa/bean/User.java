@@ -1,4 +1,4 @@
-package it.unisa;
+package it.unisa.bean;
 
 public class User {
     private String Username;
