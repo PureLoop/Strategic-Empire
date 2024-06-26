@@ -18,7 +18,7 @@ if(recensioni == null || recensioni.isEmpty()) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.RecensioneBean"%>
+	<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.bean.RecensioneBean"%>
     <title>Recensioni dei Clienti</title>
     <%@ page import="java.text.SimpleDateFormat" %>
     

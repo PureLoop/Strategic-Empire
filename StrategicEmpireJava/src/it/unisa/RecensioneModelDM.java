@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import it.unisa.bean.RecensioneBean;
+
 public class RecensioneModelDM implements RecensioneModel{
 	private static final String TABLE_NAME = "recensione";
 	@Override

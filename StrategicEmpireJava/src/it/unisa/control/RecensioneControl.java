@@ -1,4 +1,4 @@
-package it.unisa_control;
+package it.unisa.control;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import it.unisa.RecensioneBean;
 import it.unisa.RecensioneModel;
 import it.unisa.RecensioneModelDM;
+import it.unisa.bean.RecensioneBean;
 
 @WebServlet("/RecensioneControl")
 public class RecensioneControl extends HttpServlet {
