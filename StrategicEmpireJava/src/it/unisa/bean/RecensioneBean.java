@@ -4,14 +4,14 @@ import java.sql.Date;
 
 public class RecensioneBean {
 	public int valutazione;
-	public String titolo,descrizione,cod_review, cod_utente;
+	public String titolo,descrizione,cod_review, username;
 	public Date data;
 	public RecensioneBean() {
 		valutazione = 0;
 		titolo = "";
 		descrizione = "";
 		cod_review = "";
-		cod_utente= "";
+		username= "";
 	}
 	
 	public void setValutazione(int val) {
@@ -54,11 +54,11 @@ public class RecensioneBean {
 		return data;
 	}
 	
-	public void setCod_Utente(String cod) {
-		cod_utente = cod;
+	public void setUsername(String user) {
+		username = user;
 	}
 	
-	public String getCod_Utente() {
-		return cod_utente;
+	public String getUsername() {
+		return username;
 	}
 }

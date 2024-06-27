@@ -71,6 +71,7 @@ public class AreaPersonaleControl extends HttpServlet {
         String sort = request.getParameter("sort");
         String action = request.getParameter("action");
         String insType = request.getParameter("type");
+        request.setAttribute("pageType", "AreaPersonale");
         		
 
         if (action != null && action.equalsIgnoreCase("ShowGioco")) {

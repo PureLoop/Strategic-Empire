@@ -90,8 +90,7 @@ insert into componente(nomeComponente) values
     ("Mappa","g001",1),("Tracciato Energia","g001",1),("Tessere","g001",100),
     ("Basi Neutrali","g001",3),("Basi","g001",5),("Ingegneri","g001",100),("Elevazioni","g001",5); 
 insert into sconto(nome_sconto,cod_sconto,perc_sconto) values
-	("saldi primaverili","sco001",25),
-    ("buono sconto di benvenuto!","sco002",50);
+	("UNISA","sco001",25);
 insert into utente(Username,nome,cognome, pw,saltPW, email, ruolo,indirizzo,ncivico) values
  ("Cherry","Antonio","Ceruso","1212",23,"antonio.ceruso9988@gmail.comutente","amministratore","Via facaldo",121),
  ("Scippo","Luigi","Nasta","1212",23,"luigi@gmail.com","amministratore","Via canneto est",3);

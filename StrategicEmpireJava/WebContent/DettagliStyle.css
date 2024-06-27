@@ -25,7 +25,17 @@
 }
 
 .container-img {
-    text-align: center;
+    position: relative; /* Posizione relativa per contenere elementi posizionati assolutamente */
+    display: flex;
+    align-items: center; /* Allineamento verticale al centro */
+}
+
+.carousel-inner {
+    position: relative; /* Posizione relativa per posizionare il contenuto all'interno */
+}
+
+.carousel-item {
+    text-align: center; /* Allineamento testo al centro per ciascun elemento del carosello */
 }
 
 .img-fluid {
@@ -42,21 +52,21 @@
     padding: 20px;
     border-radius: 10px;
     margin-top: 30px;
+    color: #FFFFFF; /* Colore del testo bianco */
 }
 
 .buy-now h4 {
-    color: #FFFFFF;
-    text-align: center;
     font-size: 24px;
+    text-align: center;
 }
 
 .buy-now .product-info {
-    color: #FFFFFF;
     margin-top: 20px;
 }
 
 .buy-now .product-info h5 {
     font-size: 28px; /* Nome del gioco più grande */
+    margin-bottom: 10px; /* Margine inferiore per separazione */
 }
 
 .buy-now .product-info p {
@@ -66,8 +76,6 @@
 }
 
 .buy-now .btn-primary {
-	position: absolute;
-	right: 30%;
     margin-top: 20px;
     background-color: #00BFFF !important;
     border-color: #00BFFF !important;
@@ -79,16 +87,17 @@
 }
 
 .paypal-logo {
-    width: 50px; /* larghezza desiderata */
-    position:absolute;
-    right: 1%;
-    margin-right: 1px; /* margine sinistro per allineare l'immagine */
+    width: 50px;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
 }
 
 .icon-carrello {
-    position: center;
     height: 40px;
     width: 40px;
-    right: 10%;
-    top: 85%;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
 }
+

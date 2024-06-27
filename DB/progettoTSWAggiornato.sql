@@ -97,7 +97,7 @@ create table ordine(
     n_articoli int not null,
     totale numeric(5,2) not null,
     data date not null,
-	email_utente varchar(25) not null references utente(email),
+	Username varchar(25) not null references utente(Username),
     cod_sconto varchar(10) default null references sconto(cod_sconto)
 		on delete cascade
         on update cascade,
