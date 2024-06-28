@@ -117,31 +117,14 @@ public class AreaPersonaleControl extends HttpServlet {
             boolean isAjaxRequest = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
             String username = request.getParameter("username"); // Ottieni il nome utente dal parametro della richiesta
 
-
             try {
                 Collection<CartaBean> carte = modelCarta.doRetrieveByFilter(username);
                 request.setAttribute("prodottiAP", carte);
 
                 if (isAjaxRequest) {
                     response.setContentType("text/html");
-                    PrintWriter out = response.getWriter();
-                    out.println("<div class=\"row\" id=\"allCard\" style=\"margin-left: 30%; margin-right:30%;margin-top:2%;\">");
-                    if (carte != null && !carte.isEmpty()) {
-                        for (CartaBean bean : carte) {
-                       	 out.println("<div class=\"col-sm-3 mb-3\" style=\"width: 25%; flex: 1 0 auto;\">");
-                            out.println("<div class=\"card\" style=\"border: 1px solid #ccc; border-radius: 5px; box-shadow: 0 2px 50px rgba(0, 0, 0, 0.1); transition: box-shadow 0.3s ease;\">");
-                            out.println("<div class=\"card-body\">");
-                            out.println("<h5 class=\"card-title\">" + bean.getNome() + "</h5>");
-                            out.println("<p class=\"card-text\">Numero: " + bean.getNumero() + "</p>");
-                            out.println("<p class=\"card-text\">Scadenza: " + bean.getScadenza() + "</p>");
-                            // Aggiungi il pulsante Modifica se necessario
-                            // out.println("<button class=\"edit-Card-button\" data-card-id=\"" + bean.getCvv() + "\">Modifica</button>");
-                            out.println("</div>");
-                            out.println("</div>");
-                            out.println("</div>");
-                        }
-                    }
-                    out.println("</div>");
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/showCards.jsp");
+                    dispatcher.include(request, response);
                 } else {
                     request.removeAttribute("prodottiAP");
                     request.setAttribute("prodottiAP", carte);
@@ -151,7 +134,68 @@ public class AreaPersonaleControl extends HttpServlet {
             } catch (SQLException e) {
                 System.out.println("Error:" + e.getMessage());
             }
-         }else if (action != null && action.equalsIgnoreCase("ShowEspansione")) {
+        }
+        else if (action != null && action.equalsIgnoreCase("viewCard")) {
+            String numero = request.getParameter("numero"); // Ottieni il numero della carta dalla richiesta
+
+            try {
+                CartaBean carta = modelCarta.doRetrieveByKey(numero); // Recupera la carta dal modello
+                request.setAttribute("c", carta);
+
+                // Ottieni un dispatcher per il JSP dei dettagli della carta (o crea HTML direttamente)
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/showCardDetails.jsp");
+                dispatcher.include(request, response);
+            } catch (SQLException e) {
+                // Gestisci l'errore SQL
+                e.printStackTrace();
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            }
+        }
+        else if (action != null && action.equalsIgnoreCase("deleteCard")) {
+
+            String numero = request.getParameter("numero"); // Ottieni il numero della carta dalla richiesta
+
+            try {
+                 modelCarta.doDelete(numero); // Recupera la carta dal modell
+                // Ottieni un dispatcher per il JSP dei dettagli della carta (o crea HTML direttamente)
+                 
+
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/showCardDetails.jsp");
+                dispatcher.include(request, response);
+            } catch (SQLException e) {
+                // Gestisci l'errore SQL
+                e.printStackTrace();
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            }
+        }
+        else if (action != null && action.equalsIgnoreCase("editCard")) {
+            try {
+
+                String fullName = request.getParameter("fullName");
+                String cardNumber = request.getParameter("cardNumber");
+                int expiryDate = Integer.parseInt(request.getParameter("expiryDate"));
+                int cvv = Integer.parseInt(request.getParameter("newcvv"));
+                String username = request.getParameter("username");
+                // Chiamata al metodo doUpdate nel modello della carta
+                modelCarta.doUpdate(fullName, cardNumber, expiryDate, cvv, username);
+
+                // Dispatcher per il JSP dei dettagli della carta
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/showCardDetails.jsp");
+                dispatcher.include(request, response);
+            } catch (SQLException e) {
+                // Gestione dell'errore SQL
+                e.printStackTrace();
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            } catch (NumberFormatException e) {
+                // Gestione dell'errore di conversione numerica (per cvv e expiryDate)
+                e.printStackTrace();
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // Codice di stato HTTP 400
+            }
+        }
+
+
+
+else if (action != null && action.equalsIgnoreCase("ShowEspansione")) {
         	 boolean isAjaxRequest = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
 
              try {

@@ -43,7 +43,7 @@ public class CartaModelDM implements CartaModel {
     }*/
 
     @Override
-	public synchronized CartaBean doRetrieveByKey(String username) throws SQLException {
+	public synchronized CartaBean doRetrieveByKey(String numero) throws SQLException {
 		Connection connection = null;
 		
 		PreparedStatement preparedStatement = null;
@@ -51,13 +51,14 @@ public class CartaModelDM implements CartaModel {
 		CartaBean bean = new CartaBean();
 
 
-		String selectCarta = "select c.*" + 
-				"from " +CartaModelDM.TABLE_NAME +" as c \r\n" + 
-				"where c.username = ? ;";
+		String selectCarta = "SELECT c.* " + 
+                "FROM " + CartaModelDM.TABLE_NAME + " AS c " + 
+                "WHERE c.numero = ? " ;
+		
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(selectCarta);
-			preparedStatement.setString(1, username);
+			preparedStatement.setString(1, numero);
 			
 			ResultSet rs = preparedStatement.executeQuery();
 			while(rs.next()) {
@@ -91,7 +92,9 @@ public class CartaModelDM implements CartaModel {
 	    PreparedStatement preparedStatement = null;
 	    List<CartaBean> carte = new ArrayList<>(); // Creo una lista per memorizzare le carte
 
-	    String selectCarta = "SELECT * FROM " + CartaModelDM.TABLE_NAME + " WHERE username = ?";
+	    String selectCarta = "SELECT c.* " +
+                "FROM " + CartaModelDM.TABLE_NAME + " AS c " +
+                "WHERE c.username =  ?;";   
 	    
 	    try {
 	        connection = DriverManagerConnectionPool.getConnection();
@@ -158,8 +161,86 @@ public class CartaModelDM implements CartaModel {
 
 
 	@Override
-	public boolean doDelete(String code) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean doDelete(String numero) throws SQLException {
+	    String query = "DELETE FROM " + CartaModelDM.TABLE_NAME + " WHERE numero = ?";
+	    PreparedStatement preparedStatement = null;
+        connection = DriverManagerConnectionPool.getConnection();
+
+
+	    try {
+	        preparedStatement = connection.prepareStatement(query);
+	        preparedStatement.setString(1, numero);
+	        int rowsAffected = preparedStatement.executeUpdate();
+			connection.commit();
+
+	        return rowsAffected > 0;
+	        
+	        
+	    }finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            DriverManagerConnectionPool.releaseConnection(connection);
+	        }
+	    }
+
 	}
+
+
+	@Override
+	public void doUpdate(String nome, String numero, int exp, int cvv, String username) {
+	    // Prepara la query di aggiornamento
+	    String query = "UPDATE " + CartaModelDM.TABLE_NAME +
+	                   " SET nome = ?, scadenza = ?, cvv = ? " +
+	                   " WHERE numero = ?";
+
+	    Connection connection = null;
+	    PreparedStatement stmt = null;
+	    
+	    try {
+	        connection = DriverManagerConnectionPool.getConnection();
+	        stmt = connection.prepareStatement(query);
+	        
+	        // Imposta i parametri della query
+	        stmt.setString(1, nome);      // Nome della carta
+	        stmt.setInt(2, exp);          // Scadenza della carta (presumo sia un int, es. 1223 per dicembre 2023)
+	        stmt.setInt(3, cvv);          // CVV della carta
+	        stmt.setString(4, numero);    // Numero della carta
+	        System.out.println(nome+exp+cvv+numero);
+	        // Esegui la query di aggiornamento
+	        int rowsUpdated = stmt.executeUpdate();
+
+	        // Verifica se l'aggiornamento ha avuto successo
+	        if (rowsUpdated > 0) {
+	            System.out.println("Aggiornamento eseguito con successo.");
+	            connection.commit(); // Commit della transazione
+	        } else {
+	            System.out.println("Nessuna carta trovata con il numero specificato.");
+	        }
+	    } catch (SQLException e) {
+	        System.err.println("Errore durante l'esecuzione dell'aggiornamento: " + e.getMessage());
+	        if (connection != null) {
+	            try {
+	                connection.rollback(); // Rollback in caso di errore
+	            } catch (SQLException rollbackEx) {
+	                System.err.println("Errore durante il rollback della transazione: " + rollbackEx.getMessage());
+	            }
+	        }
+	    } finally {
+	        // Chiudi le risorse PreparedStatement e Connection
+	        try {
+	            if (stmt != null) {
+	                stmt.close();
+	            }
+	            if (connection != null) {
+	                connection.close();
+	            }
+	        } catch (SQLException e) {
+	            System.err.println("Errore durante la chiusura delle risorse: " + e.getMessage());
+	        }
+	    }
+	}
+
+
 }

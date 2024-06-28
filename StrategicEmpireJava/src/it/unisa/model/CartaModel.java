@@ -9,8 +9,10 @@ public interface CartaModel {
     void doSave(CartaBean accessory) throws SQLException;
 
     boolean doDelete(String code) throws SQLException;
+    
+    void doUpdate(String s, String s2, int x, int y, String a)throws SQLException;
 
-    CartaBean doRetrieveByKey(String username) throws SQLException;
+    CartaBean doRetrieveByKey(String s) throws SQLException;
 
     Collection<CartaBean> doRetrieveAll(String order) throws SQLException;
 

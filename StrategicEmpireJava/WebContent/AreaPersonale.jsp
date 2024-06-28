@@ -4,7 +4,6 @@
 <html lang="en">
 <%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.bean.GiocoBean"%>
 <%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.bean.CartaBean"%>
-
 <%@ page import="it.unisa.bean.User" %>
 
 <%
@@ -206,16 +205,16 @@
   <div class="row">
     <div class="col-md-12">
       <div class="rectangle">
-        <span class="rectangle-item"><a href="#" class="nav-link" data-target="Account">Gestione Account</a></span>
-        <span class="rectangle-item"><a href="#" class="nav-link" data-target="none">Ordini</a></span>
-        <span class="rectangle-item"><a href="#" class="nav-link" data-target="none">Rubrica Indirizzi</a></span>
+        <span class="rectangle-item"><a href="#" class="nav-link" onclick="handleCardDisplay(false)" data-target="Account">Gestione Account</a></span>
+        <span class="rectangle-item"><a href="#" class="nav-link" onclick="handleCardDisplay(false)"data-target="none">Ordini</a></span>
+        <span class="rectangle-item"><a href="#" class="nav-link" onclick="handleCardDisplay(false)"data-target="none">Rubrica Indirizzi</a></span>
 <span class="rectangle-item">
-    <a href="#" class="nav-link" data-target="paymentSection" id="payment">Metodi di pagamento</a>
+<a href="#" class="nav-link" data-target="paymentSection" id="payment" onclick="showPaymentMethods('<%= username %>')">Metodi di pagamento</a>
 </span>
 
         <% if(user.getRole().equalsIgnoreCase("Amministratore")){%>
-        <span class="rectangle-item"><a href="#" class="nav-link" data-target="none" id="addUpdateCatalog">Modifica catalogo</a></span>
-        <span class="rectangle-item"><a href="#" class="nav-link" data-target="none" id="userList">Lista utenti</a></span>
+        <span class="rectangle-item"><a href="#" class="nav-link" data-target="none" id="addUpdateCatalog" onclick="handleCardDisplay(false)">Modifica catalogo</a></span>
+        <span class="rectangle-item"><a href="#" class="nav-link" data-target="none" id="userList" onclick="handleCardDisplay(false)">Lista utenti</a></span>
         <%} %>
       </div>
     </div>
@@ -227,42 +226,13 @@
 <div class="container mt-3" id="paymentSection">
   <div class="row justify-content-center">
     <div class="col-md-8">
-      <h3 id="paymentTitle">Metodi di Pagamento Salvati</h3>
+      <h3 class="text-center mb-4" id="paymentTitle">I Tuoi Metodi di Pagamento</h3>
       <ul class="card-list" id="savedCards">
         <!-- Qui verranno inserite le carte salvate -->
       </ul>
-      <p id="noCardsMessage" class="text-center">Nessuna carta di credito o di debito salvata.</p>
-      <button id="addCardButton" class="btn btn-primary ">Aggiungi una carta di credito o di debito</button>
-
-      <!-- Form per l'aggiunta di metodi di pagamento -->
-<div id="paymentFormContainer" class="mt-4">
-    <h3>Aggiungi Metodo di Pagamento</h3>
-<form id="paymentForm" method="post" onsubmit="addPaymentMethod(); return false;">
-        <div class="mb-3">
-            <label for="fullName" class="form-label">Nome e Cognome</label>
-            <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Inserisci il tuo nome e cognome" required>
-        </div>
-        <div class="mb-3">
-            <label for="cardNumber" class="form-label">Numero di Carta</label>
-            <input type="text" class="form-control" id="cardNumber" name="cardNumber" placeholder="Inserisci il numero della carta" required>
-        </div>
-        <div class="mb-3">
-            <label for="expiryDate" class="form-label">Data di Scadenza</label>
-            <input type="text" class="form-control" id="expiryDate" name="expiryDate" placeholder="MM/AA" required>
-        </div>
-        <div class="mb-3">
-            <label for="cvv" class="form-label">CVV</label>
-            <input type="text" class="form-control" id="cvv" name="cvv" placeholder="Inserisci il CVV" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Aggiungi Metodo di Pagamento</button>
-    </form>
-</div>
-
-
-        <button id="backToCardsButton" class="btn btn-secondary mt-3">Torna alle carte</button>
-      </div>
     </div>
   </div>
+</div>
 
 <div class="container mt-3" id="Account" style="display: none;">
     <h3 id="managerTitle">Area Utente - Gestione Account</h3>
