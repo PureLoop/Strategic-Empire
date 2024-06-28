@@ -40,6 +40,15 @@
         <servlet-name>AreaPersonaleControl</servlet-name>
         <url-pattern>/prodottiAP</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>catalogoControl</servlet-name>
+        <servlet-class>it.unisa.control.catalogoControl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>catalogoControl</servlet-name>
+        <url-pattern>/prodotti</url-pattern>
+    </servlet-mapping>
    
     <servlet>
         <servlet-name>DettagliControl</servlet-name>

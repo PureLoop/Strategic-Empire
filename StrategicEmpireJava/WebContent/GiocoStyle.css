@@ -52,9 +52,6 @@ a.no-underline {
         transform: scale(1.1);
     }  
 
-        body {
-            margin-top: 50px; /* Altezza dell'header */
-        }
      .icon-carrello{
      position: absolute;
      	height: 40px;
@@ -68,7 +65,4 @@ a.no-underline {
     width: 100%;
     z-index: 1000;
     background-color: white;
-    }
-    #form-filtro{
-    margin-top: 5.5%
     }

@@ -12,7 +12,6 @@ if(recensioni == null || recensioni.isEmpty()) {
 	RecensioneBean recensione = (RecensioneBean) request.getAttribute("recensione");
 %>
 
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -54,29 +53,14 @@ if(recensioni == null || recensioni.isEmpty()) {
             align-items: center;
             margin-bottom: 10px;
         }
-        .review .rating img {
-            width: 30px;
-            height: 30px;
-            margin-right: 5px;
-            border-radius: 50%;
+        .review .rating .username {
+            margin-left: 10px;
+            color: black;
+            font-size: 16px; 
         }
         .review .text {
             margin-top: 10px;
             font-size: 16px;
-        }
-        .user-img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            overflow: hidden;
-            position: absolute;
-            top: 20px;
-            right: 20px;
-        }
-        .user-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
         }
         .date {
             position: absolute;
@@ -96,10 +80,10 @@ if(recensioni == null || recensioni.isEmpty()) {
         while (it.hasNext()&&countReview<3) { 
         	countReview++;
             RecensioneBean r = (RecensioneBean) it.next(); 
+            System.out.println(r.getUsername());
     %>
         <div class="review">
             <div class="rating">
-                <img src="IMMAGINI/IMMAGINI_HOME/Carousel2.jpg" alt="User">
                 <% int countStar = r.getValutazione();
                 while(countStar!=0){ %>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
@@ -107,6 +91,7 @@ if(recensioni == null || recensioni.isEmpty()) {
 				</svg>
 				<% countStar--;
 				} %>
+                <span class="username"><%=r.getUsername() %></span>
             </div>
             <div class="text">
                 <p><%=r.getTitolo() %></p>

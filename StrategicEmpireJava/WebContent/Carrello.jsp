@@ -8,13 +8,12 @@
     <title>Carrello</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
     <link href="CarrelloStyle.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- Font Awesome per icone -->
-</head>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    </head>
 <body>
-
-    <%@ include file="/header/header.jsp" %>
-
+<header><%@ include file="header/header.jsp" %></header>
     <%
         List<OggettiCarrelloBean> carrellobean = (List<OggettiCarrelloBean>) request.getSession().getAttribute("oggettiCarrello");
     u = (User) session.getAttribute("user");
@@ -253,12 +252,23 @@
         function closePopup() {
             document.getElementById('loginPopup').style.display = 'none';
         }
-
+        function calculateSubtotal() {
+            var subtotal = 0.0;
+            var articoli = document.querySelectorAll('[id^="quantity_"]');
+            articoli.forEach(function (element) {
+                var quantity = parseInt(element.innerText);
+                var prezzoArticolo = parseFloat(element.nextElementSibling.nextElementSibling.innerText);
+                subtotal += quantity * prezzoArticolo;
+            });
+            return subtotal;
+        }
     </script>
 
     <footer>
         <%@ include file="/footer/footer.jsp" %>
     </footer>
+
+
 
 </body>
 
