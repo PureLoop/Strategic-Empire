@@ -80,7 +80,6 @@ if(recensioni == null || recensioni.isEmpty()) {
         while (it.hasNext()&&countReview<3) { 
         	countReview++;
             RecensioneBean r = (RecensioneBean) it.next(); 
-            System.out.println(r.getUsername());
     %>
         <div class="review">
             <div class="rating">

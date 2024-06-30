@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import it.unisa.bean.GiocoBean;
 import it.unisa.bean.espansioneBean;
 
 public class EspansioneModelDM implements EspansioneModel {
@@ -102,18 +103,19 @@ public class EspansioneModelDM implements EspansioneModel {
     }
 
     @Override
-	 public synchronized Collection<espansioneBean> doRetrieveByFilter(Double prezzo, boolean check_prezzo) throws SQLException {
+	 public synchronized Collection<espansioneBean> doRetrieveByFilter(Double prezzo) throws SQLException {
 	        Connection connection = null;
 	        PreparedStatement preparedStatement = null;
 	        Collection<espansioneBean> beans = new LinkedList<>();
-	        String selectSQL = "SELECT * FROM " + TABLE_NAME;
-	        if (check_prezzo && prezzo != null) {
-	            selectSQL += " WHERE prezzo = ?";
+	        String selectSQL = "SELECT * FROM " + TABLE_NAME + " AS e " +
+	                "JOIN img_esp AS ie ON ie.cod_esp = e.cod_espansione where ie.copertina = 1 ";
+	        if (prezzo > 0) {
+	            selectSQL += " and prezzo <= ?";
 	        }
 	        try {
 	            connection = DriverManagerConnectionPool.getConnection();
 	            preparedStatement = connection.prepareStatement(selectSQL);
-	            if (check_prezzo && prezzo != null) {
+	            if (prezzo >0) {
 	                preparedStatement.setDouble(1, prezzo);
 	            }
 	            ResultSet rs = preparedStatement.executeQuery();
@@ -124,6 +126,7 @@ public class EspansioneModelDM implements EspansioneModel {
 	                bean.setNomeespansione(rs.getString("nome_espansione"));
 	                bean.setDescrizione(rs.getString("descrizione"));
 	                bean.setPrezzo(rs.getDouble("prezzo"));
+	                bean.setImmagineCop(rs.getString("img_name"));
 	                beans.add(bean);
 	            }
 	        } finally {
@@ -271,5 +274,39 @@ public class EspansioneModelDM implements EspansioneModel {
 		            DriverManagerConnectionPool.releaseConnection(connection);
 		        }
 		    }
+		}
+	 
+	 public Collection<espansioneBean>  searchEspansione(String searchParam) throws SQLException{
+		 String query = "SELECT * FROM " + TABLE_NAME + " AS e " +
+	                "JOIN img_esp AS ie ON ie.cod_esp = e.cod_espansione where ie.copertina = 1 and e.nome_espansione like ?";
+			Connection connection = null;
+		    PreparedStatement preparedStatement = null;
+		    Collection<espansioneBean> espansioni = new LinkedList<espansioneBean>();
+		    try {
+				connection = DriverManagerConnectionPool.getConnection();
+				preparedStatement = connection.prepareStatement(query);
+				preparedStatement.setString(1, searchParam);
+				ResultSet rs = preparedStatement.executeQuery();
+
+				while (rs.next()) {
+					espansioneBean espansione = new espansioneBean();
+	                espansione.setCod_espansione(rs.getString("cod_espansione"));
+	                espansione.setCod_gioco(rs.getString("cod_gioco"));
+	                espansione.setNomeespansione(rs.getString("nome_espansione"));
+	                espansione.setDescrizione(rs.getString("descrizione"));
+	                espansione.setPrezzo(rs.getDouble("prezzo"));
+	                espansione.setImmagineCop(rs.getString("img_name"));
+	                espansioni.add(espansione);
+				}
+
+			} finally {
+				try {
+					if (preparedStatement != null)
+						preparedStatement.close();
+				} finally {
+					DriverManagerConnectionPool.releaseConnection(connection);
+				}
+			}
+			return espansioni;
 		}
 }

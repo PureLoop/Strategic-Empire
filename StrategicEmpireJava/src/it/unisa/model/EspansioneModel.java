@@ -12,7 +12,7 @@ public interface EspansioneModel {
 
     Collection<espansioneBean> doRetrieveAll(String order) throws SQLException;
 
-    Collection<espansioneBean> doRetrieveByFilter(Double prezzo, boolean check_prezzo) throws SQLException;
+    Collection<espansioneBean> doRetrieveByFilter(Double prezzo) throws SQLException;
     
     void deleteEsp(String codEsp) throws SQLException;
     
@@ -21,4 +21,6 @@ public interface EspansioneModel {
 	void insertProd(espansioneBean espansione) throws SQLException;
 	
 	void updateEspansione(espansioneBean espansione, boolean img1, boolean img2) throws SQLException;
+	
+	public Collection<espansioneBean>  searchEspansione(String searchParam) throws SQLException;
 }

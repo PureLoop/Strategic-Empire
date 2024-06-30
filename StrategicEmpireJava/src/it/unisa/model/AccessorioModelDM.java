@@ -112,19 +112,22 @@ public class AccessorioModelDM implements AccessorioModel {
     }
 
     @Override
-	 public synchronized Collection<AccessorioBean> doRetrieveByFilter(String tipologia, Double prezzo, boolean check_prezzo) throws SQLException {
+	 public synchronized Collection<AccessorioBean> doRetrieveByFilter(String tipologia, Double prezzo) throws SQLException {
        Connection connection = null;
        PreparedStatement preparedStatement = null;
        Collection<AccessorioBean> beans = new LinkedList<>();
-       String selectSQL = "SELECT * FROM " + TABLE_NAME + " WHERE tipologia = ?";
-       if (check_prezzo && prezzo != null) {
-           selectSQL += " AND prezzo = ?";
+       String selectSQL = "SELECT * FROM " +TABLE_NAME + " as a " + 
+               "join img_acc as ig on ig.cod_acc = a.cod_accessorio where ig.copertina = 1 and a.tipologia = ?";
+       int param = 0;
+       if (prezzo > 0) {
+           selectSQL += " AND a.prezzo <= ?";
+           param++;
        }
        try {
            connection = DriverManagerConnectionPool.getConnection();
            preparedStatement = connection.prepareStatement(selectSQL);
            preparedStatement.setString(1, tipologia);
-           if (check_prezzo && prezzo != null) {
+           if (param == 1) {
                preparedStatement.setDouble(2, prezzo);
            }
            ResultSet rs = preparedStatement.executeQuery();
@@ -135,6 +138,7 @@ public class AccessorioModelDM implements AccessorioModel {
                bean.setTipologia(rs.getString("tipologia"));
                bean.setPrezzo(rs.getDouble("prezzo"));
                bean.setDescrizione(rs.getString("descrizione"));
+               bean.setImmagineCop(rs.getString("img_name"));
                beans.add(bean);
            }
        } finally {
@@ -289,4 +293,41 @@ public class AccessorioModelDM implements AccessorioModel {
 			}
 		}
 	}
+	
+	@Override
+	public synchronized Collection<AccessorioBean> searchAccessorio(String searchParam) throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        Collection<AccessorioBean> accessori = new LinkedList<>();
+
+        
+        String selectSQL = "SELECT * FROM " +TABLE_NAME + " as a " + 
+                "join img_acc as ig on ig.cod_acc = a.cod_accessorio where ig.copertina = 1 and a.nome_accessorio like ?";
+
+
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(selectSQL);
+            preparedStatement.setString(1, searchParam);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                AccessorioBean bean = new AccessorioBean();
+                bean.setCod_accessorio(rs.getString("cod_accessorio"));
+                bean.setNomeaccessorio(rs.getString("nome_accessorio"));
+                bean.setTipologia(rs.getString("tipologia"));
+                bean.setPrezzo(rs.getDouble("prezzo"));
+                bean.setDescrizione(rs.getString("descrizione"));
+				bean.setImmagineCop(rs.getString("img_name"));
+                accessori.add(bean);
+            }
+        } finally {
+            try {
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            } finally {
+                DriverManagerConnectionPool.releaseConnection(connection);
+            }
+        }
+        return accessori;
+    }
 }

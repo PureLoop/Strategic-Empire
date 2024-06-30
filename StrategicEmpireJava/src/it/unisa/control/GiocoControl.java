@@ -109,7 +109,7 @@ public class GiocoControl extends HttpServlet {
 				
 				    
 				    try { 
-				        Collection<GiocoBean> giochiFiltrati = model.doRetrieveByFilter(tipologia, prezzo, N_giocatori_min,check_prezzo,check_giocatori);
+				        Collection<GiocoBean> giochiFiltrati = model.doRetrieveByFilter(tipologia, prezzo, N_giocatori_min);
 				        request.setAttribute("giochiFiltrati", giochiFiltrati); 
 				    } catch (SQLException e) {
 				    	e.printStackTrace();
