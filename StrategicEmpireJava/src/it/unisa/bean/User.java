@@ -12,6 +12,7 @@ public class User {
     private int ncivico;
 	public User() {
 		Username= "";
+		nome = "";
 		password = "";
 		email = "";
 		role= "";

@@ -72,7 +72,7 @@ public class UserDAO implements UserModel{
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 User u = new User();
-                u.setUsername(rs.getString("Username"));
+                u.setUsername(rs.getString("username"));
                 u.setNome(rs.getString("nome"));
                 u.setCognome(rs.getString("cognome"));
                 u.setPassword(rs.getString("pw"));
