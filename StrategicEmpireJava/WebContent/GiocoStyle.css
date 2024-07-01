@@ -1,3 +1,5 @@
+/* Existing styles */
+
 #game-table {
     width: 100%;
     border-collapse: collapse; /* Rimuove lo spazio tra le celle */
@@ -12,7 +14,6 @@
 #game-table label {
     font-weight: bold;
 }
-
 
 #game-table select,
 #game-table input[type="number"] {
@@ -44,25 +45,131 @@ a.no-underline {
 }
 
 .card-img-top {
-        transition: transform 0.3s ease;
-        max-size: 600px;
-    }
+    transition: transform 0.3s ease;
+    max-width: 100%;
+}
 
-    .card-img-top:hover {
-        transform: scale(1.1);
-    }  
+.card-img-top:hover {
+    transform: scale(1.1);
+}
 
-     .icon-carrello{
-     position: absolute;
-     	height: 40px;
-     	width: 40px;
-     	right:10%;
-     	top:85%;
-     }
-    header {
+.icon-carrello {
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    right: 10%;
+    top: 85%;
+}
+
+header {
     position: fixed; /* Rende l'header fisso */
     top: 0;
     width: 100%;
     z-index: 1000;
     background-color: white;
+}
+
+.button-group {
+    margin-top: 20px;
+    margin-left: 40px; /* Margine superiore per i bottoni */
+    left: 10%;
+}
+
+.button-group .btn {
+    width: 30%;
+    margin-right: 3%;
+}
+
+.search-bar {
+    margin-top: 10px; /* Margine superiore per la barra di ricerca */
+    margin-bottom: 10px; /* Margine superiore per la barra di ricerca */
+}
+
+.search-bar .form-control {
+    border-radius: 0; /* Rimuovi gli angoli arrotondati */
+}
+
+.search-bar .btn {
+    border-radius: 0; /* Rimuovi gli angoli arrotondati */
+}
+
+#form-filtro {
+    display: none;
+}
+
+#game-table td {
+    background-color: white;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .button-group {
+        flex-direction: column;
+        align-items: center;
     }
+
+    .button-group .btn {
+        width: 80%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .search-bar .form-control,
+    .search-bar .btn {
+        width: 100%;
+        margin-bottom: 10px; /* Add space below elements */
+    }
+
+    #game-table td {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    #game-table {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #game-table tr {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .icon-carrello {
+        right: 5%; /* Adjust icon position */
+        top: 80%; /* Adjust icon position */
+    }
+
+    .products-container {
+        flex-direction: column; /* Stack products vertically */
+    }
+
+    .product-item {
+        flex: 1 1 100%; /* Full width for each product item */
+    }
+}
+
+/* New styles for product cards */
+.products-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px; /* Space between product items */
+}
+
+.product-item {
+    flex: 1 1 calc(25% - 16px); /* Four items per row with space */
+    box-sizing: border-box;
+}
+
+/* Responsive Adjustments for product cards */
+@media (max-width: 768px) {
+    .products-container {
+        flex-direction: column; /* Stack products vertically */
+    }
+
+    .product-item {
+        flex: 1 1 100%; /* Full width for each product item */
+    }
+}

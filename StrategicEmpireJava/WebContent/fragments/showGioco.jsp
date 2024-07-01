@@ -4,15 +4,15 @@
 <% 
 Collection<GiocoBean> giochi = null;
 if(request.getAttribute("pageType").equals("catalogo")){
-	 giochi = (Collection<GiocoBean>) request.getAttribute("prodotti");
+    giochi = (Collection<GiocoBean>) request.getAttribute("prodotti");
 }else if(request.getAttribute("pageType").equals("AreaPersonale")){
-	 giochi = (Collection<GiocoBean>) request.getAttribute("prodottiAP");
+    giochi = (Collection<GiocoBean>) request.getAttribute("prodottiAP");
 }
 %>
 <div class="row" id="allGames" style="margin-left: 3%; margin-right:3%;margin-top:2%;">
     <% if (giochi != null && !giochi.isEmpty()) { 
         for (GiocoBean bean : giochi) { %>
-            <div class="col-sm-3 mb-3" style="width: 25%;">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
                 <div class="card">
                 <%if(request.getAttribute("pageType").equals("catalogo")){ %>
                 <a class="no-underline card-link" href="DettagliControl?cod_gioco=<%=bean.getCod_Gioco()%>&DES=1">
@@ -39,4 +39,3 @@ if(request.getAttribute("pageType").equals("catalogo")){
         <% } 
     } %>
 </div>
-

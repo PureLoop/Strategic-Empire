@@ -8,38 +8,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
 <link rel="stylesheet" href="GiocoStyle.css">
 </head>
-<style>
-.button-group {
-    margin-top: 20px;
-    margin-left: 40px; /* Margine superiore per i bottoni */
-    left: 10%;
-}
-
-.button-group .btn {
-    width: 30%;
-    margin-right: 3%;
-}
-
-.search-bar {
-    margin-top: 10px; /* Margine superiore per la barra di ricerca */
-    margin-bottom: 10px; /* Margine superiore per la barra di ricerca */
-}
-.search-bar .form-control {
-    border-radius: 0; /* Rimuovi gli angoli arrotondati */
-}
-.search-bar .btn {
-    border-radius: 0; /* Rimuovi gli angoli arrotondati */
-}
-
-#form-filtro {
-    display: none;
-}
-
-#game-table td{
-	background-color: white;
-}
-
-</style>
 <body>
 <header>
 <%@ include file="/header/header.jsp" %>

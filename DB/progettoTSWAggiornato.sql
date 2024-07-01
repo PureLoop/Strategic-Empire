@@ -71,7 +71,6 @@ create table gioco(
 create table carrello(
 	cod_carrello varchar(10) primary key,
     cod_sconto varchar(10) references sconto(cod_sconto)
-   
     );
 create table sconto(
 	nome_sconto varchar(50) not null,
@@ -94,7 +93,7 @@ create table ordine(
     totale numeric(5,2) not null,
     data date not null,
 	Username varchar(25) not null references utente(Username),
-    cod_sconto varchar(10) default null references sconto(cod_sconto)
+    cod_carrello varchar(10) default null references carrello(cod_carrello)
 		on delete cascade
         on update cascade,
 	cod_utente varchar(20) not null references utente(Username)
