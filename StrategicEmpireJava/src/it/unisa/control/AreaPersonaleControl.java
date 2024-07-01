@@ -125,6 +125,29 @@ public class AreaPersonaleControl extends HttpServlet {
                 if (isAjaxRequest) {
                     response.setContentType("text/html");
                     RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/showCards.jsp");
+
+                    dispatcher.include(request, response);
+                } else {
+                    request.removeAttribute("prodottiAP");
+                    request.setAttribute("prodottiAP", carte);
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/AreaPersonale.jsp");
+                    dispatcher.forward(request, response);
+                }
+            } catch (SQLException e) {
+                System.out.println("Error:" + e.getMessage());
+            }
+        }
+        else if (action != null && action.equalsIgnoreCase("ShowCards2")) {
+            boolean isAjaxRequest = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+            String username = request.getParameter("username"); // Ottieni il nome utente dal parametro della richiesta
+
+            try {
+                Collection<CartaBean> carte = modelCarta.doRetrieveByFilter(username);
+                request.setAttribute("prodottiAP", carte);
+
+                if (isAjaxRequest) {
+                    response.setContentType("text/html");
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/showCards2.jsp");
                     dispatcher.include(request, response);
                 } else {
                     request.removeAttribute("prodottiAP");

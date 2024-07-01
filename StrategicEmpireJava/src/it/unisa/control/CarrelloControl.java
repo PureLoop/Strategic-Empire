@@ -58,9 +58,11 @@ public class CarrelloControl extends HttpServlet {
 
         try {
             if ("delete".equals(action)) {
+                String codiceArticolo = request.getParameter("cod_articolo");
+
                 for (Iterator<OggettiCarrelloBean> iterator = oggettiCarrello.iterator(); iterator.hasNext();) {
                     OggettiCarrelloBean oggetto = iterator.next();
-                    if (oggetto.getCod_articolo().equals(codiceGioco)) {
+                    if (oggetto.getCod_articolo().equals(codiceArticolo)) {
                         iterator.remove();
                         break;
                     }
@@ -130,6 +132,31 @@ public class CarrelloControl extends HttpServlet {
                     oggettiCarrello.add(oggettoCarrello);
                 }
             }
+            else if ("increaseQuantity".equals(action)) {
+
+                String codiceArticolo = request.getParameter("cod_articolo");
+                for (OggettiCarrelloBean oggetto : oggettiCarrello) {
+                    if (oggetto.getCod_articolo().equals(codiceArticolo)) {
+                        oggetto.setQuantita(oggetto.getQuantita() + 1);
+                        break;
+                    }
+                }
+            } else if ("decreaseQuantity".equals(action)) {
+                String codiceArticolo = request.getParameter("cod_articolo");
+                for (Iterator<OggettiCarrelloBean> iterator = oggettiCarrello.iterator(); iterator.hasNext();) {
+                    OggettiCarrelloBean oggetto = iterator.next();
+                    if (oggetto.getCod_articolo().equals(codiceArticolo)) {
+                        int quant = oggetto.getQuantita();
+                        if (quant > 1) {
+                            oggetto.setQuantita(quant - 1);
+                        } else if (quant == 1) {
+                            iterator.remove(); // Rimuovi l'oggetto dal carrello
+                        }
+                        break;
+                    }
+                }
+            }
+
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write("{\"success\": true}");

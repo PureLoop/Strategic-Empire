@@ -137,7 +137,6 @@ public class CartaModelDM implements CartaModel {
 	    try {
 	        connection = DriverManagerConnectionPool.getConnection();
 	        preparedStatement = connection.prepareStatement(insertCarta);
-	        System.out.println("machere");
 	        System.out.println(carta.toString());
 	        // Imposto i valori della carta da inserire nel PreparedStatement
 	        preparedStatement.setString(1, carta.getNumero());
