@@ -1,4 +1,3 @@
-
 var username;
 
 document.querySelectorAll('.nav-link').forEach(link => {
@@ -71,10 +70,8 @@ document.querySelectorAll('.nav-link').forEach(link => {
       });
   }
   	
-   function showPaymentMethods(username2) {
-		
+   function showPaymentMethods(username2) {	
                   username = username2;
-
   }
 
 

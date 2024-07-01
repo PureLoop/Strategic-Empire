@@ -50,10 +50,6 @@ create table img_esp(
     cod_esp varchar(10) references espansione(cod_espansione)
 );
 
-create table componente(
-	nomeComponente varchar(50) primary key
-);
-
 create table accessorio(
 	cod_accessorio varchar(10) primary key,
     nome_accessorio varchar(30) not null,
@@ -139,16 +135,3 @@ create table acq_espansione(
         on update cascade,
 	foreign key(nome_ut) references utente(Username)
 );
-
-create table composizioneGioco(
-	nome_componente varchar(50),
-    cod_gioco varchar(10),
-    n_componente int,
-    primary key(nome_componente,cod_gioco),
-    foreign key(nome_componente) references componente(nomeComponente)
-		on delete cascade
-        on update cascade,
-	foreign key(cod_gioco) references gioco(cod_gioco)
-		on delete cascade
-        on update cascade
-)

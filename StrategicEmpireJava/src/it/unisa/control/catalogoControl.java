@@ -114,7 +114,111 @@ public class catalogoControl extends HttpServlet {
              System.out.println("Error:" + e.getMessage());
          }
          }
+		if (action != null && action.equalsIgnoreCase("search")) {
+			String searchQuery = "%" + request.getParameter("searchParam") + "%";
+			String searchType = request.getParameter("searchType");
+;			if(searchType != null && searchType.equalsIgnoreCase("gioco")) {
+	        Collection<GiocoBean> searchResults = null;
+
+	        try {
+	            // Call your search method passing the searchQuery
+	            searchResults = modelGioco.searchGioco(searchQuery);
+	            
+	            // Prepare HTML response for AJAX
+	            response.setContentType("text/html");
+	            request.setAttribute("prodotti", searchResults);
+	            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/showGioco.jsp");
+	            dispatcher.include(request, response);
+	        } catch (SQLException e) {
+	            System.out.println("Error:" + e.getMessage());
+	            // Handle error response if necessary
+	        }
+	    }else if(searchType != null && searchType.equalsIgnoreCase("accessorio")) {
+	    	Collection<AccessorioBean> searchResults = null;
+
+	        try {
+	            // Call your search method passing the searchQuery
+	            searchResults = modelAcc.searchAccessorio(searchQuery);
+	            // Prepare HTML response for AJAX
+	            response.setContentType("text/html");
+	            request.setAttribute("prodotti", searchResults);
+	            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/showAccessorio.jsp");
+	            dispatcher.include(request, response);
+	        } catch (SQLException e) {
+	            System.out.println("Error:" + e.getMessage());
+	            // Handle error response if necessary
+	        }
+	    }else if(searchType != null && searchType.equalsIgnoreCase("espansione")) {
+	    	Collection<espansioneBean> searchResults = null;
+
+	        try {
+	            // Call your search method passing the searchQuery
+	            searchResults = modelEsp.searchEspansione(searchQuery);
+	            // Prepare HTML response for AJAX
+	            response.setContentType("text/html");
+	            request.setAttribute("prodotti", searchResults);
+	            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/showEspansione.jsp");
+	            dispatcher.include(request, response);
+	        } catch (SQLException e) {
+	            System.out.println("Error:" + e.getMessage());
+	            // Handle error response if necessary
+	        }
+	    }
 	}
+		
+		if (action != null && action.equalsIgnoreCase("filter")) {
+			String tipologia = request.getParameter("tipologia");
+		    double prezzo;
+		    int N_giocatori_min;
+		    
+
+		    // Controllo se i parametri prezzo e N_giocatori sono vuoti
+		    if (request.getParameter("prezzo") == null || request.getParameter("prezzo").isEmpty()) {
+
+		        prezzo = 0;
+		    } else {
+		        prezzo = Double.parseDouble(request.getParameter("prezzo"));
+		    }
+		    
+		    if (request.getParameter("N_giocatori") == null || request.getParameter("N_giocatori").isEmpty()) {
+		        N_giocatori_min = 0;
+		    } else {
+		        N_giocatori_min = Integer.parseInt(request.getParameter("N_giocatori"));
+		    }
+		    
+		    System.out.println(request.getParameter("searchType"));
+		
+		    if(request.getParameter("searchType").equalsIgnoreCase("gioco")) {
+		    	try { 
+			        Collection<GiocoBean> giochiFiltrati = modelGioco.doRetrieveByFilter(tipologia, prezzo, N_giocatori_min);
+			        request.setAttribute("prodotti", giochiFiltrati); 
+			        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/showGioco.jsp");
+		            dispatcher.include(request, response);
+			    } catch (SQLException e) {
+			    	e.printStackTrace();
+			    }
+		    }else if(request.getParameter("searchType").equalsIgnoreCase("accessorio")) {
+		    	try { 
+			        Collection<AccessorioBean> accessoriFiltrati = modelAcc.doRetrieveByFilter(tipologia.toLowerCase(), prezzo);
+			        request.setAttribute("prodotti", accessoriFiltrati); 
+			        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/showAccessorio.jsp");
+		            dispatcher.include(request, response);
+			    } catch (SQLException e) {
+			    	e.printStackTrace();
+			    }
+		    }else if(request.getParameter("searchType").equalsIgnoreCase("espansione")) {
+		    	try { 
+			        Collection<espansioneBean> espansioniFiltrate = modelEsp.doRetrieveByFilter(prezzo);
+			        request.setAttribute("prodotti", espansioniFiltrate); 
+			        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/showEspansione.jsp");
+		            dispatcher.include(request, response);
+			    } catch (SQLException e) {
+			    	e.printStackTrace();
+			    }
+		    }
+		    
+		}
+}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

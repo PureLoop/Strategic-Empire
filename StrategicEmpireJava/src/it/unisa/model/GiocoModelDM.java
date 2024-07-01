@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
+
 import it.unisa.bean.GiocoBean;
 import it.unisa.model.GiocoModel;
 
@@ -143,21 +144,22 @@ public class GiocoModelDM implements GiocoModel{
 	
 
 	@Override
-	public Collection<GiocoBean> doRetrieveByFilter(String tipologia, Double prezzo, Integer nGiocatori,boolean check_prezzo, boolean check_giocatori) throws SQLException {
+	public Collection<GiocoBean> doRetrieveByFilter(String tipologia, Double prezzo, Integer nGiocatori) throws SQLException {
 		 Connection connection = null;
 		    PreparedStatement preparedStatement = null;
-		    System.out.println("meeee");
 		    Collection<GiocoBean> beans = new LinkedList<>();
 		    String selectSQL = "select g.*,ig.img_name,ig.cod_img_gioco\r\n" + 
 					"from " +GiocoModelDM.TABLE_NAME +" as g \r\n" + 
 					"join img_gioco as ig on ig.cod_gioco = g.cod_gioco\r\n" + 
-					"where ig.copertina = true AND g.tipologia = ?;";
-
+					"where ig.copertina = true AND g.tipologia = ?";
+		    int p2 = 0,p3= 0;
 		    if(prezzo > 0) {	
-		    	selectSQL += " AND g.prezzo = ?";
+		    	selectSQL += " AND g.prezzo <= ?";
+		    	p2 ++;
 		    } 	
 		    if(nGiocatori > 0) {
-		    	selectSQL += " AND g.n_giocatori = ?";
+		    	selectSQL += " AND g.n_giocatori_min >= ?";
+		    	p3++;
 		    }
 		    try {
 		    	
@@ -166,21 +168,21 @@ public class GiocoModelDM implements GiocoModel{
 		        
 		        preparedStatement.setString(1, tipologia);
 		       
-		        if(check_prezzo == true && check_giocatori == false) {
+		        if(p2 == 1 && p3 == 0) {
 			        preparedStatement.setDouble(2, prezzo);
 
 		        }
-		        else if(check_prezzo == false && check_giocatori == true) {
+		        else if(p2 == 0 && p3 == 1) {
 			        preparedStatement.setInt(2, nGiocatori);
 		        }
 		        
-		        else if(check_prezzo == true && check_giocatori == true) {
+		        else if(p2 == 1 && p3 == 1) {
 			        preparedStatement.setDouble(2, prezzo);
 			        preparedStatement.setInt(3, nGiocatori);
 
 		        }
 		        
-
+		        System.out.println("Query SQL: " + selectSQL);
 		        ResultSet rs = preparedStatement.executeQuery();
 		        while (rs.next()) {
 
@@ -352,6 +354,45 @@ public class GiocoModelDM implements GiocoModel{
 	            DriverManagerConnectionPool.releaseConnection(connection);
 	        }
 	    }
+	}
+	
+	public Collection<GiocoBean>  searchGioco(String searchParam) throws SQLException{
+		String query = "select g.*,ig.img_name,ig.cod_img_gioco\r\n" + 
+				"from " +GiocoModelDM.TABLE_NAME +" as g \r\n" + 
+				"join img_gioco as ig on ig.cod_gioco = g.cod_gioco\r\n" + 
+				"where ig.copertina = true and g.nome_gioco like ?;";
+		Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    Collection<GiocoBean> gioco = new LinkedList<GiocoBean>();
+	    try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, searchParam);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				GiocoBean bean = new GiocoBean();
+				bean.setCod_gioco(rs.getString("cod_gioco"));
+				bean.setNomegioco(rs.getString("nome_gioco"));
+				bean.setEdizione(rs.getString("edizione"));
+				bean.setTipologia(rs.getString("tipologia"));
+				bean.setPrezzo(rs.getDouble("prezzo"));
+				bean.setDescrizione(rs.getString("descrizione"));
+				bean.setN_giocatori_min(rs.getInt("n_giocatori_min"));
+				bean.setN_giocatori_max(rs.getInt("n_giocatori_max"));
+				bean.setImmagineCop(rs.getString("img_name"));
+				gioco.add(bean);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return gioco;
 	}
 
 }

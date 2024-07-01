@@ -68,7 +68,7 @@ public class EspansioneControl extends HttpServlet {
                     }
 
                     try {
-                        Collection<espansioneBean> espansioniFiltrate = model.doRetrieveByFilter( prezzo, check_prezzo);
+                        Collection<espansioneBean> espansioniFiltrate = model.doRetrieveByFilter( prezzo);
                         request.setAttribute("espansioniFiltrate", espansioniFiltrate);
                     } catch (SQLException e) {
                         e.printStackTrace();
