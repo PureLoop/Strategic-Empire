@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*, org.mindrot.jbcrypt.BCrypt, it.unisa.User" %>
+<%@ page import="java.sql.*, org.mindrot.jbcrypt.BCrypt,it.unisa.bean.User" %>
 
 <%
     // Recupera le credenziali dall'input dell'utente
@@ -34,6 +34,7 @@
                 String userEmail = resultSet.getString("email");
                 String role = resultSet.getString("ruolo");
                 String Indirizzo= resultSet.getString("indirizzo");
+                String nome = resultSet.getString("nome");
 
                 // Crea un nuovo oggetto User con le informazioni recuperate
                 User user = new User();
@@ -41,6 +42,7 @@
                 user.setEmail(userEmail);
                 user.setRole(role);
                 user.setIndirizzo(Indirizzo);
+                user.setNome(nome);
 
                 // Memorizza l'oggetto User nella sessione
                 session.setAttribute("user", user);

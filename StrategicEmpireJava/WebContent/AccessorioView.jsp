@@ -15,7 +15,7 @@ Cart cart = (Cart) request.getAttribute("cart");
 
 <!DOCTYPE html>
 <html>
-<%@ page contentType="text/html; charset=UTF-8" import="java.util.*, it.unisa.AccessorioBean"%>
+<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.bean.AccessorioBean"%>
 <%@ page contentType="text/html; charset=UTF-8" import="java.util.*, it.unisa.Cart"%>
 
 <head>
@@ -40,6 +40,17 @@ Cart cart = (Cart) request.getAttribute("cart");
 
         .card {
             margin-bottom: 20px;
+        }
+        
+        .toast-container {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1050;
+        }
+        .toast {
+            min-width: 200px;
+            max-width: 300px;
         }
     </style>
 </head>
@@ -91,8 +102,7 @@ Cart cart = (Cart) request.getAttribute("cart");
             %>
             <div class="col-sm-3 mb-3">
                 <div class="card">
-                    <a class="no-underline card-link"
-                        href="DettagliControl?cod_accessorio=<%= bean.getCod_Accessorio()%>&DES=<%= DES_GIO %>">
+                    <a class="no-underline card-link" href="DettagliControl?cod_accessorio=<%= bean.getCod_Accessorio()%>&DES=<%= DES_GIO %>">
                         <div class="card-body">
                             <img src="<%= bean.getImmagineCop()%>" class="card-img-top">
                             <h5 class="card-title"><%= bean.getNomeaccessorio()%></h5>
@@ -116,6 +126,20 @@ Cart cart = (Cart) request.getAttribute("cart");
             }
             %>
         </div>
+        
+        <div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="cartToast" class="toast align-items-center border border-success" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex bg-white rounded p-2">
+            <div class="toast-body">
+                <span id="toastMessage">Oggetto aggiunto al carrello!</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle text-success ms-2" viewBox="0 0 16 16">
+                    <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0ZM6.406 11.328L4.47 9.414a.5.5 0 1 1 .707-.708l1.666 1.667 3.75-3.75a.5.5 0 0 1 .708.708l-4.167 4.167a.5.5 0 0 1-.708 0Z" />
+                </svg>
+            </div>
+        </div>
+   			 </div>
+		</div>
+        
 
         <div class="row justify-content-center" id="filteredGames" <% if (showAllGames) { %> style="display: none;" <% } %>>
             <!-- Questo è l'elenco degli accessori filtrati -->
@@ -166,8 +190,22 @@ Cart cart = (Cart) request.getAttribute("cart");
                         action: 'AddAccessorio',
                         cod_accessorio: codAcc
                     },
-                    success: function (response) {},
-                    error: function (xhr, status, error) {}
+                    success: function (response) {
+                    	$('#toastMessage').text(`Oggetto aggiunto al carrello!`);
+                        var toastElement = new bootstrap.Toast(document.getElementById('cartToast'));
+                        toastElement.show();
+                        setTimeout(function() {
+                            toastElement.hide();
+                        }, 1500); // Nasconde il toast dopo 1 secondo
+                    },
+                    error: function (xhr, status, error) {
+                    	$('#toastMessage').text('Errore durante l\'aggiunta dell\' accessorio al carrello.');
+                        var toastElement = new bootstrap.Toast(document.getElementById('cartToast'));
+                        toastElement.show();
+                        setTimeout(function() {
+                            toastElement.hide();
+                        }, 1500); // Nasconde il toast dopo 1 secondo
+                    }
                 });
             });
         });

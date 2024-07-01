@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.*, it.unisa.OggettiCarrelloBean"%>
+<%@ page import="java.util.*,it.unisa.bean.OggettiCarrelloBean"%>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%
     String codiceArticolo = request.getParameter("codiceArticolo");

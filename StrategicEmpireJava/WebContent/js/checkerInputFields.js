@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log("DOM completamente caricato. Eseguendo il codice...");
 
     var specialChars = /[\/<>()[\]{}]/g;
-    var inputFields = document.querySelectorAll('input[type="text"], input[type="password"]');
+    var inputFields = document.querySelectorAll('input[type="text"],input[type="email"], input[type="password"]');
     
     inputFields.forEach(function(input) {
         input.addEventListener("input", function() {

@@ -3,6 +3,8 @@ package it.unisa;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.unisa.bean.GiocoBean;
+
 public class Cart {
 
 	private List<GiocoBean> giochi;

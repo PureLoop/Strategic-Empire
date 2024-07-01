@@ -248,16 +248,15 @@ document.getElementById("Modifica").addEventListener('click', function(){
         var imgCopertina = $('#imgCopertina')[0].files[0];
         var img2 = $('#img2')[0].files[0];
 
-     // Verifica i file selezionati
-        if (!isValidImage(imgCopertina)) {
+        if (imgCopertina && !isValidImage(imgCopertina)) {
             alert('Il file della COPERTINA deve essere un\'immagine JPEG, JPG o PNG.');
-            event.preventDefault(); 
+            event.preventDefault(); // Blocca l'invio del form
             return;
         }
 
-        if (!isValidImage(img2)) {
+        if (img2 && !isValidImage(img2)) {
             alert('Il file della SECONDA IMG deve essere un\'immagine JPEG, JPG o PNG.');
-            event.preventDefault();
+            event.preventDefault(); // Blocca l'invio del form
             return;
         }
         
@@ -293,16 +292,15 @@ document.getElementById("Modifica").addEventListener('click', function(){
         var imgCopertina = $('#imgCopertina')[0].files[0];
         var img2 = $('#img2')[0].files[0];
 
-     // Verifica i file selezionati
-        if (!isValidImage(imgCopertina)) {
+        if (imgCopertina && !isValidImage(imgCopertina)) {
             alert('Il file della COPERTINA deve essere un\'immagine JPEG, JPG o PNG.');
-            event.preventDefault(); 
+            event.preventDefault(); // Blocca l'invio del form
             return;
         }
 
-        if (!isValidImage(img2)) {
+        if (img2 && !isValidImage(img2)) {
             alert('Il file della SECONDA IMG deve essere un\'immagine JPEG, JPG o PNG.');
-            event.preventDefault();
+            event.preventDefault(); // Blocca l'invio del form
             return;
         }
         
@@ -338,17 +336,17 @@ document.getElementById("Modifica").addEventListener('click', function(){
 
         var imgCopertina = $('#imgCopertina')[0].files[0];
         var img2 = $('#img2')[0].files[0];
+        
 
-     // Verifica i file selezionati
-        if (!isValidImage(imgCopertina)) {
+        if (imgCopertina && !isValidImage(imgCopertina)) {
             alert('Il file della COPERTINA deve essere un\'immagine JPEG, JPG o PNG.');
-            event.preventDefault(); 
+            event.preventDefault(); // Blocca l'invio del form
             return;
         }
 
-        if (!isValidImage(img2)) {
+        if (img2 && !isValidImage(img2)) {
             alert('Il file della SECONDA IMG deve essere un\'immagine JPEG, JPG o PNG.');
-            event.preventDefault();
+            event.preventDefault(); // Blocca l'invio del form
             return;
         }
         
@@ -447,22 +445,25 @@ document.getElementById("Modifica").addEventListener('click', function(){
     document.getElementById('insertForm').addEventListener('click', function(event) {
         var imgCopertina = document.getElementById('imgCopertina').files[0];
         var img2 = document.getElementById('img2').files[0];
-        
+
         // Funzione per verificare il tipo di file
         function isValidImage(file) {
             var validTypes = ['image/jpeg', 'image/jpg', 'image/png'];
-            return file && validTypes.includes(file.type);
+            return validTypes.includes(file.type);
         }
 
-        // Verifica i file selezionati
-        if (!isValidImage(imgCopertina)) {
+        // Verifica i file selezionati e mostra il messaggio di validazione solo se necessario
+        if (imgCopertina && !isValidImage(imgCopertina)) {
             alert('Il file della COPERTINA deve essere un\'immagine JPEG, JPG o PNG.');
             event.preventDefault(); // Blocca l'invio del form
         }
 
-        if (!isValidImage(img2)) {
+        if (img2 && !isValidImage(img2)) {
             alert('Il file della SECONDA IMG deve essere un\'immagine JPEG, JPG o PNG.');
             event.preventDefault(); // Blocca l'invio del form
         }
     });
+
+
+
    

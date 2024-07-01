@@ -1,5 +1,4 @@
 body {
-    background-image: url('logo.png'); /* Sostituisci 'percorso/del/tuo/logo.png' con il percorso effettivo del tuo logo */
     background-size: contain; /* Adatta l'immagine alle dimensioni dello schermo */
     background-repeat: no-repeat; /* Evita che l'immagine si ripeta */
     background-position: center; /* Centra l'immagine nello schermo */

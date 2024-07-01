@@ -15,7 +15,7 @@
     <!-- Altre servlet esistenti -->
     <servlet>
         <servlet-name>GiocoControl</servlet-name>
-        <servlet-class>it.unisa.GiocoControl</servlet-class>
+        <servlet-class>it.unisa.control.GiocoControl</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>GiocoControl</servlet-name>
@@ -24,7 +24,7 @@
     
      <servlet>
         <servlet-name>CartaControl</servlet-name>
-        <servlet-class>it.unisa.CartaControl</servlet-class>
+        <servlet-class>it.unisa.control.CartaControl</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CartaControl</servlet-name>
@@ -34,16 +34,25 @@
     
     <servlet>
         <servlet-name>AreaPersonaleControl</servlet-name>
-        <servlet-class>it.unisa.AreaPersonaleControl</servlet-class>
+        <servlet-class>it.unisa.control.AreaPersonaleControl</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AreaPersonaleControl</servlet-name>
         <url-pattern>/prodottiAP</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>catalogoControl</servlet-name>
+        <servlet-class>it.unisa.control.catalogoControl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>catalogoControl</servlet-name>
+        <url-pattern>/prodotti</url-pattern>
+    </servlet-mapping>
    
     <servlet>
         <servlet-name>DettagliControl</servlet-name>
-        <servlet-class>it.unisa.DettagliControl</servlet-class>
+        <servlet-class>it.unisa.control.DettagliControl</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DettagliControl</servlet-name>
@@ -52,12 +61,12 @@
     
     <servlet>
         <servlet-name>AccessorioControl</servlet-name>
-        <servlet-class>it.unisa.AccessorioControl</servlet-class>
+        <servlet-class>it.unisa.control.AccessorioControl</servlet-class>
     </servlet>
     <!-- Aggiunta della servlet ChiSiamoControl -->
         <servlet>
         <servlet-name>ChiSiamoControl</servlet-name>
-        <servlet-class>it.unisa.ChiSiamoControl</servlet-class>
+        <servlet-class>it.unisa.control.ChiSiamoControl</servlet-class>
     </servlet>
     
     <servlet-mapping>
@@ -71,7 +80,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>EspansioneControl</servlet-name>
-        <servlet-class>it.unisa.EspansioneControl</servlet-class>
+        <servlet-class>it.unisa.control.EspansioneControl</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EspansioneControl</servlet-name>
@@ -82,7 +91,7 @@
   </welcome-file-list>
   <servlet>
     <servlet-name>RecensioneControl</servlet-name>
-    <servlet-class>it.unisa.RecensioneControl</servlet-class>
+    <servlet-class>it.unisa.control.RecensioneControl</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>RecensioneControl</servlet-name>

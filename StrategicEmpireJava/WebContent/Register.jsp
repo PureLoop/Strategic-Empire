@@ -95,19 +95,7 @@
 </head>
 <body class="img js-fullheight"
 	style="background-image: url('IMMAGINI/bg.jpg');">
-	<script>
-document.addEventListener("DOMContentLoaded", function() {
-	var specialChars = /[\/<>]/g;
-    var inputFields = document.querySelectorAll('input[type="text"], input[type="password"]');
-    
-    inputFields.forEach(function(input) {
-        input.addEventListener("input", function() {
-            if (input.value.match(specialChars)) {
-                input.value = input.value.replace(specialChars, '');
-            }
-        });
-    });
-});
+	<script src="js/checkerInputFields.js">
 </script>
 	<%@ include file="/header/header.jsp"%>
 	<section class="ftco-section">

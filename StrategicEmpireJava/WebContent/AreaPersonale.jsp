@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <%@ page contentType="text/html; charset=UTF-8"
-	import="java.util.*,it.unisa.GiocoBean"%>
+	import="java.util.*,it.unisa.bean.GiocoBean"%>
 <html lang="en">
-<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.GiocoBean"%>
-<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.CartaBean"%>
-
-<%@ page import="it.unisa.User" %>
+<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.bean.GiocoBean"%>
+<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.bean.CartaBean"%>
+<%@ page import="it.unisa.bean.User" %>
 
 <%
 
@@ -25,116 +24,176 @@
 <link rel="stylesheet" href="GiocoStyle.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Barra orizzontale centrata con Bootstrap</title>
+  <title>Area Personale</title>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<style>
 	
+	<script>
+	function showCopertinaInputs(){
+  	document.getElementById('copertinaInputs').style.display = 'block';
+  }
+  
+  function showImg2Inputs(){
+	  	document.getElementById('img2Inputs').style.display = 'block';
+	  }
+</script> 
+	<style>
+	.user-table {
+    margin-top: 2%; /* Aggiungi un margine superiore alla tabella */
+}
+	
+.rectangle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Larghezza del rettangolo */
+    height: 100px; /* Altezza del rettangolo */
+    border: 1px solid #ccc; /* Bordo del rettangolo */
+    border-radius: 8px; /* Angoli arrotondati */
+    margin-top: 20px; /* Margine superiore */
+}
+
+.rectangle-item {
+    display: inline-block;
+    text-align: center;
+    flex: 1;
+}
+.rectangle-item:not(:last-child) {
+    border-right: 1px solid #ccc;
+}
+.rectangle-item a {
+    text-decoration: none;
+    color: inherit;
+}
+.rectangle-item a:hover {
+    color: inherit;
+}
+
+#paymentSection {
+    display: none;
+    margin-top: 200px;
+}
+
+.card-list {
+    list-style: none;
+    padding: 0;
+}
+
+.card-list li {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-list li span {
+    display: block;
+}
+
+#paymentForm {
+    display: none;
+}
+
+.button-group {
+    margin-top: 20px; /* Margine superiore per i bottoni */
+}
+
+.button-group .btn {
+    width: 30%;
+}
+
+#updateCatContainer {
+    margin-top: 20px; /* Margine superiore per il contenitore di rettangoli */
+}
+
+#choiceProdotti {
+    display: none;
+}
+
+#btnChoice {
+    display: none;
+}
+
+#choiceProdottiUp {
+    display: none;
+}
+
+.user-info {
+    margin-top: 20px;
+}
+
+.info-item {
+    margin-bottom: 10px;
+}
+
+.info-item label {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+/* Media Queries */
+
+/* Tablet */
+@media (max-width: 768px) {
     .rectangle {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      left: 10%;
-      width: 80%;
-      height: 12.5%;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      width: 100%; /* Larghezza del rettangolo */
-      height: 100px; /* Altezza del rettangolo */
-      border: 1px solid #ccc; /* Bordo del rettangolo */
-      border-radius: 8px; /* Angoli arrotondati */
-      margin-top: 20px; /* Margine superiore */
+        height: 80px; /* Riduce l'altezza del rettangolo */
     }
-    
+
     .rectangle-item {
-      display: inline-block;
-      text-align: center;
-      flex: 1;
-    }
-    .rectangle-item:not(:last-child) {
-      border-right: 1px solid #ccc;
-    }
-    .rectangle-item a {
-      text-decoration: none;
-      color: inherit;
-    }
-    .rectangle-item a:hover {
-      color: inherit;
+        font-size: 0.9em; /* Riduce la dimensione del font */
     }
 
-    #paymentSection {
-      display: none;
-      margin-top: 200px;
-    }
-
-    .card-list {
-      list-style: none;
-      padding: 0;
+    .button-group .btn {
+        width: 45%; /* Aumenta la larghezza dei bottoni su tablet */
     }
 
     .card-list li {
-      margin-bottom: 10px;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+        flex-direction: column;
+        align-items: flex-start;
     }
 
     .card-list li span {
-      display: block;
+        margin-bottom: 5px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .rectangle {
+        flex-direction: column; /* Dispone gli elementi del rettangolo in colonna */
+        height: auto; /* Altezza automatica per adattarsi al contenuto */
+        padding: 10px; /* Aggiunge padding */
     }
 
-    #paymentForm {
-      display: none;
+    .rectangle-item {
+        border-right: none;
+        border-bottom: 1px solid #ccc; /* Aggiunge bordo inferiore */
+        padding: 10px 0; /* Aggiunge padding */
     }
-    
-    .search-bar {
-      margin-top: 20px; /* Margine superiore per la barra di ricerca */
+
+    .rectangle-item:not(:last-child) {
+        border-bottom: 1px solid #ccc; /* Bordo inferiore per tutti tranne l'ultimo */
     }
-    .search-bar .form-control {
-      border-radius: 0; /* Rimuovi gli angoli arrotondati */
+
+    .button-group .btn {
+        width: 100%; /* Bottoni a larghezza piena */
+        margin-top: 10px; /* Margine superiore tra i bottoni */
     }
-    .search-bar .btn {
-      border-radius: 0; /* Rimuovi gli angoli arrotondati */
+
+    .card-list li {
+        flex-direction: column;
+        align-items: flex-start;
     }
-    
-    .button-group {
-      margin-top: 20px; /* Margine superiore per i bottoni */
+
+    .card-list li span {
+        margin-bottom: 5px;
     }
-    
-    .button-group .btn{
-      width: 30%;
-    }
-    
-    #updateCatContainer{
-      margin-top: 20px; /* Margine superiore per il contenitore di rettangoli */
-    }
-    
-    #choiceProdotti{
-    	display: none;
-    }
-    
-    #btnChoice{
-    	display: none;
-    }
-    
-    #choiceProdottiUp{
-    	display: none;
-    }
-        .user-info {
-        margin-top: 20px;
-        
-    }
-    .info-item {
-        margin-bottom: 10px;
-    }
-    .info-item label {
-        font-weight: bold;
-        margin-right: 5px;
-    }
+}
+
   </style>
 </head>
 <body>
@@ -146,16 +205,16 @@
   <div class="row">
     <div class="col-md-12">
       <div class="rectangle">
-        <span class="rectangle-item"><a href="#" class="nav-link" data-target="Account">Gestione Account</a></span>
-        <span class="rectangle-item"><a href="#" class="nav-link" data-target="none">Ordini</a></span>
-        <span class="rectangle-item"><a href="#" class="nav-link" data-target="none">Rubrica Indirizzi</a></span>
+        <span class="rectangle-item"><a href="#" class="nav-link" onclick="handleCardDisplay(false)" data-target="Account">Gestione Account</a></span>
+        <span class="rectangle-item"><a href="#" class="nav-link" onclick="handleCardDisplay(false)"data-target="none">Ordini</a></span>
+        <span class="rectangle-item"><a href="#" class="nav-link" onclick="handleCardDisplay(false)"data-target="none">Rubrica Indirizzi</a></span>
 <span class="rectangle-item">
-    <a href="#" class="nav-link" data-target="paymentSection" id="payment">Metodi di pagamento</a>
+<a href="#" class="nav-link" data-target="paymentSection" id="payment" onclick="showPaymentMethods('<%= username %>')">Metodi di pagamento</a>
 </span>
 
         <% if(user.getRole().equalsIgnoreCase("Amministratore")){%>
-        <span class="rectangle-item"><a href="#" class="nav-link" data-target="none" id="addUpdateCatalog">Modifica catalogo</a></span>
-        <span class="rectangle-item"><a href="#" class="nav-link" data-target="none">Lista utenti</a></span>
+        <span class="rectangle-item"><a href="#" class="nav-link" data-target="none" id="addUpdateCatalog" onclick="handleCardDisplay(false)">Modifica catalogo</a></span>
+        <span class="rectangle-item"><a href="#" class="nav-link" data-target="none" id="userList" onclick="handleCardDisplay(false)">Lista utenti</a></span>
         <%} %>
       </div>
     </div>
@@ -167,42 +226,13 @@
 <div class="container mt-3" id="paymentSection">
   <div class="row justify-content-center">
     <div class="col-md-8">
-      <h3 id="paymentTitle">Metodi di Pagamento Salvati</h3>
+      <h3 class="text-center mb-4" id="paymentTitle">I Tuoi Metodi di Pagamento</h3>
       <ul class="card-list" id="savedCards">
         <!-- Qui verranno inserite le carte salvate -->
       </ul>
-      <p id="noCardsMessage" class="text-center">Nessuna carta di credito o di debito salvata.</p>
-      <button id="addCardButton" class="btn btn-primary ">Aggiungi una carta di credito o di debito</button>
-
-      <!-- Form per l'aggiunta di metodi di pagamento -->
-<div id="paymentFormContainer" class="mt-4">
-    <h3>Aggiungi Metodo di Pagamento</h3>
-<form id="paymentForm" method="post" onsubmit="addPaymentMethod(); return false;">
-        <div class="mb-3">
-            <label for="fullName" class="form-label">Nome e Cognome</label>
-            <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Inserisci il tuo nome e cognome" required>
-        </div>
-        <div class="mb-3">
-            <label for="cardNumber" class="form-label">Numero di Carta</label>
-            <input type="text" class="form-control" id="cardNumber" name="cardNumber" placeholder="Inserisci il numero della carta" required>
-        </div>
-        <div class="mb-3">
-            <label for="expiryDate" class="form-label">Data di Scadenza</label>
-            <input type="text" class="form-control" id="expiryDate" name="expiryDate" placeholder="MM/AA" required>
-        </div>
-        <div class="mb-3">
-            <label for="cvv" class="form-label">CVV</label>
-            <input type="text" class="form-control" id="cvv" name="cvv" placeholder="Inserisci il CVV" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Aggiungi Metodo di Pagamento</button>
-    </form>
-</div>
-
-
-        <button id="backToCardsButton" class="btn btn-secondary mt-3">Torna alle carte</button>
-      </div>
     </div>
   </div>
+</div>
 
 <div class="container mt-3" id="Account" style="display: none;">
     <h3 id="managerTitle">Area Utente - Gestione Account</h3>
@@ -243,16 +273,12 @@
     </form>
 </div>
 	<div id="showSavedPayment"></div>
-<script src="js/areaPersonaleCards.js">
+<script src="js/areaPersonaleCards.js"></script> 
 
-  function showCopertinaInputs(){
-  	document.getElementById('copertinaInputs').style.display = 'block';
-  }
-  
-  function showImg2Inputs(){
-	  	document.getElementById('img2Inputs').style.display = 'block';
-	  }
-</script>  
+<div id="userTableContainer">
+	
+</div>
+    <script src="js/usersManagement.js"></script>
   <div id="btnChoice" class="button-group  justify-content-around">
       <button type="button" id="Modifica" class="btn btn-outline-success">Modifica Prodotto</button>
       <button type="button" id="Inserisci" class="btn btn-outline-success">Inserisci Prodotto</button>

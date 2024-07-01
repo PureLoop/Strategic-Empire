@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="it.unisa.User" %>
+<%@ page import="it.unisa.bean.User" %>
 <%
     // Assumiamo che l'oggetto utente sia già stato impostato nella sessione
     User u = (User) session.getAttribute("user");

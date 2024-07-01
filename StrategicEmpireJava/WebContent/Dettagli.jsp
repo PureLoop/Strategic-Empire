@@ -1,6 +1,6 @@
-<%@ page import="java.util.*, it.unisa.GiocoBean" %>
-<%@ page import="java.util.*, it.unisa.AccessorioBean" %>
-<%@ page import="java.util.*, it.unisa.espansioneBean" %>
+<%@ page import="java.util.*,it.unisa.bean.GiocoBean" %>
+<%@ page import="java.util.*,it.unisa.bean.AccessorioBean" %>
+<%@ page import="java.util.*,it.unisa.bean.espansioneBean" %>
 <%@ page import="java.net.URLEncoder" %>
 
 <%
@@ -47,41 +47,42 @@
     %>
     <!-- Se DES_VER è 1, mostra le informazioni del gioco -->
     <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="title-box">
-                    <h2 class="game-title"><%= gioco.getNomegioco() %></h2>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="title-box">
+                <h2 class="game-title"><%= gioco.getNomegioco() %></h2>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="container-img">
+                <div id="carouselExampleIndicators" class="carousel slide">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="<%= gioco.getImmagineCop() %>" class="d-block w-100 img-fluid" alt="<%= gioco.getNomegioco() %>">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="<%= gioco.getImmagine2() %>" class="d-block w-100 img-fluid" alt="<%= gioco.getNomegioco() %>">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
             </div>
         </div>
-        <div class="row mt-4">
-            <div class="col-md-6">
-    <div class="container-img">
-        <div id="carouselExampleIndicators" class="carousel slide">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            </div>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="<%= gioco.getImmagineCop() %>" class="d-block w-100 img-fluid" alt="<%= gioco.getNomegioco() %>">
-                </div>
-                <div class="carousel-item">
-                    <img src="<%= gioco.getImmagine2() %>" class="d-block w-100 img-fluid" alt="<%= gioco.getNomegioco() %>">
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-            </div>
-            <div class="col-md-6">
-                <div class="description">
+        <div class="col-md-6">
+            <div class="description">
                     <h3 class="pastel-green">Descrizione</h3>
                     <p><%= gioco.getDescrizione() %></p>
                 </div>
@@ -108,7 +109,11 @@
                         
                     </div>
                 </div>
-                <script>
+        </div>
+    </div>
+</div>
+
+    <script>
                     $(document).ready(function() {
                         $('.custom-button').off('click').on('click', function(event) {
                             event.preventDefault(); // Prevenire la navigazione
@@ -131,9 +136,6 @@
                         });
                     });
                 </script>
-            </div>
-        </div>
-    </div>
     <% 
     } else if (DES_VER == 2) {
         AccessorioBean accessorio = (AccessorioBean) request.getAttribute("cod_accessorio");
@@ -174,9 +176,7 @@
         </div>
     </div>
 </div>
-
-
-        <div class="col-md-6">
+        <div class="col-md-6 negro">
             <div class="description">
                 <h3 class="pastel-green">Descrizione</h3>
                 <p><%= accessorio.getDescrizione() %></p>
@@ -196,18 +196,18 @@
                         <input type="hidden" name="cod_gioco" value="<%= accessorio.getCod_Accessorio() %>">
                         <input type="hidden" name="nome_gioco" value="<%= accessorio.getNomeaccessorio() %>">
                         <input type="hidden" name="prezzo" value="<%= accessorio.getPrezzo() %>">
-                        <a href="javascript:void(0);" class="custom-button" data-cod-gioco="<%= accessorio.getCod_Accessorio() %>">Aggiungi al Carrello</a>
+                        <a href="javascript:void(0);" class="custom-button" data-cod-acc="<%= accessorio.getCod_Accessorio() %>">Aggiungi al Carrello</a>
                     </form>
-                    <!-- Logo PayPal -->
-                   
                 </div>
-            </div>
-            
-            <script>
+            </div>          
+        </div>
+    </div>
+</div>
+<script>
                 $(document).ready(function() {
                     $('.custom-button').off('click').on('click', function(event) {
                         event.preventDefault(); // Prevenire la navigazione
-                        var codAcc = $(this).data('cod-gioco');
+                        var codAcc = $(this).data('cod-acc');
 
                         $.ajax({
                             url: 'CarrelloControl',
@@ -226,10 +226,6 @@
                     });
                 });
             </script>
-            
-        </div>
-    </div>
-</div>
  <% 
     } else if (DES_VER == 3) {
         espansioneBean espansione = (espansioneBean) request.getAttribute("cod_espansione");
@@ -289,7 +285,7 @@
                         <input type="hidden" name="cod_gioco" value="<%= espansione.getCod_espansione() %>">
                         <input type="hidden" name="nome_gioco" value="<%=espansione.getNomeespansione() %>">
                         <input type="hidden" name="prezzo" value="<%= espansione.getPrezzo() %>">
-                        <a href="javascript:void(0);" class="custom-button" data-cod-gioco="<%=espansione.getCod_espansione() %>">Aggiungi al Carrello</a>
+                        <a href="javascript:void(0);" class="custom-button" data-cod-esp="<%=espansione.getCod_espansione() %>">Aggiungi al Carrello</a>
                     </form>
                     <!-- Logo PayPal -->
                    
@@ -299,7 +295,7 @@
                 $(document).ready(function() {
                     $('.custom-button').off('click').on('click', function(event) {
                         event.preventDefault(); // Prevenire la navigazione
-                        var codEsp = $(this).data('cod-gioco');
+                        var codEsp = $(this).data('cod-esp');
 
                         $.ajax({
                             url: 'CarrelloControl',
@@ -324,6 +320,11 @@
 <% 
     } // Fine del blocco if DES_VER == 2
 %>
+
+<!-- FOOTER -->
+    <footer>
+      <%@ include file="/footer/footer.jsp" %>
+    </footer>
 <!-- Bootstrap JS e dipendenze -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
