@@ -4,6 +4,8 @@
 <html lang="en">
 <%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.bean.GiocoBean"%>
 <%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.bean.CartaBean"%>
+<%@ page import="it.unisa.control.UpdateAccountControl" %>
+
 <%@ page import="it.unisa.bean.User" %>
 
 <%
@@ -242,7 +244,7 @@
         <div class="row">
         <hr>
             <div class="col-md-4">
-                <label>Nome:</label>
+                <label>Username:</label>
                 <p><%= username %></p>
             </div>
             <div class="col-md-4">
@@ -255,19 +257,18 @@
             </div>
         </div>
     
-    <form action="updateAccount.jsp" method="post">
+    <form action="UpdateAccountControl" method="post">
         <h2>Modifica Informazioni</h2>
         <div class="form-group">
-            <label for="name">Nome:</label>
-            <input type="text" id="name" name="name" class="form-control" value="<%= user != null ? user.getUsername() : "" %>">
+ 			 <label for="Username">Username:</label>
+             <input type="text" id="Username" name="Username" required class="form-control" value="<%= user != null ? user.getUsername() : "" %>"><br>
         </div>
         <div class="form-group">
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" class="form-control" value="<%= user != null ? user.getEmail() : "" %>">
-        </div>
+			<input type="text" id="email" name="email" class="form-control" value="<%= user != null ? user.getEmail() : "" %>">        </div>
         <div class="form-group">
-            <label for="address">Indirizzo:</label>
-            <textarea id="address" name="address" class="form-control"><%= user != null ? user.getIndirizzo() : "N/A" %></textarea>
+			<label for="Indirizzo">Indirizzo:</label>
+            <textarea id="Indirizzo" name="Indirizzo" class="form-control"><%= user != null ? user.getIndirizzo() : "N/A" %></textarea>
         </div>
         <input type="submit" value="Salva Modifiche" class="btn btn-primary mt-3">
     </form>

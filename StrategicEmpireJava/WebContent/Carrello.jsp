@@ -298,6 +298,8 @@
     
     
 </script>
-
+    <footer>
+      <%@ include file="/footer/footer.jsp" %>
+    </footer>
 </body>
 </html>

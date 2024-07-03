@@ -1,6 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.io.*,java.util.*,javax.servlet.*,javax.servlet.http.*"%>
-<%@ page import="it.unisa.bean.User" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,25 +34,21 @@
     <div class="container">
         <h1>Aggiornamento Account - Risultato</h1>
         <%
-            String name = request.getParameter("Username");
-            String email = request.getParameter("email");
-            String address = request.getParameter("Indirizzo");
-            
-            // Esegui il salvataggio delle informazioni dell'account nell'archivio o nel database
-            
-            // Simuliamo un'operazione di aggiornamento riuscita
-            boolean updateSuccess = true;
-            
-            if(updateSuccess) {
-        %>
-            <p>Le informazioni dell'account sono state aggiornate con successo.</p>
-        <%
+            Boolean updateSuccess = (Boolean) request.getAttribute("updateSuccess");
+            String message = "";
+
+            if (updateSuccess != null && updateSuccess) {
+                message = "Le informazioni dell'account sono state aggiornate con successo.";
             } else {
-        %>
-            <p>Si è verificato un errore durante l'aggiornamento delle informazioni dell'account. Riprova più tardi.</p>
-        <%
+                message = "Si è verificato un errore durante l'aggiornamento delle informazioni dell'account. Riprova più tardi.";
             }
         %>
+        <script>
+            // Mostra l'alert con il messaggio appropriato
+            alert("<%= message %>");
+            // Reindirizza l'utente alla sua Area personale o alla pagina desiderata
+            window.location.href = "AreaPersonale.jsp"; // Modifica il percorso a seconda della tua struttura
+        </script>
     </div>
 </body>
 </html>

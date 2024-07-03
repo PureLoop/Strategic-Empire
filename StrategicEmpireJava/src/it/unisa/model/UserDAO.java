@@ -116,5 +116,38 @@ public class UserDAO implements UserModel{
         }
     }
 
+    public void UpdateUser(String newUsername, String newEmail, String newIndirizzo, String currentUsername) throws Exception {
+        String updateQuery = "UPDATE utente SET username=?, email=?, indirizzo=? WHERE username=?";
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
 
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(updateQuery);
+
+            preparedStatement.setString(1, newUsername);
+            preparedStatement.setString(2, newEmail);
+            preparedStatement.setString(3, newIndirizzo);
+            preparedStatement.setString(4, currentUsername); // Imposta il valore per il parametro WHERE
+
+            preparedStatement.executeUpdate();
+            connection.commit();
+        } catch (SQLException e) {
+            if (connection != null) {
+                try {
+                    connection.rollback();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            }
+            throw e;
+        } finally {
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+    }
 }
