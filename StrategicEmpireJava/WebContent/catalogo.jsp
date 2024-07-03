@@ -6,40 +6,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
-<link rel="stylesheet" href="GiocoStyle.css">
+<link rel="stylesheet" href="css/CatalogoStyle.css">
 </head>
-<style>
-.button-group {
-    margin-top: 20px;
-    margin-left: 40px; /* Margine superiore per i bottoni */
-    left: 10%;
-}
-
-.button-group .btn {
-    width: 30%;
-    margin-right: 3%;
-}
-
-.search-bar {
-    margin-top: 10px; /* Margine superiore per la barra di ricerca */
-    margin-bottom: 10px; /* Margine superiore per la barra di ricerca */
-}
-.search-bar .form-control {
-    border-radius: 0; /* Rimuovi gli angoli arrotondati */
-}
-.search-bar .btn {
-    border-radius: 0; /* Rimuovi gli angoli arrotondati */
-}
-
-#form-filtro {
-    display: none;
-}
-
-#game-table td{
-	background-color: white;
-}
-
-</style>
 <body>
 <header>
 <%@ include file="/header/header.jsp" %>

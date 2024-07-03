@@ -74,12 +74,6 @@
         <li class="nav-item">
           <a class="nav-link" href="ChiSiamo.jsp">Chi siamo</a>
         </li>
-                <li>
-                    <form class="d-flex" id="searchForm">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchbar">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
-                </li>
             </ul>
             
             <script>

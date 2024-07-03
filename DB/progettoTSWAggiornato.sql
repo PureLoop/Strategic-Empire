@@ -77,7 +77,6 @@ create table recap(
     acq_acc    varchar(10) default null references acq_accessorio(cod_accessorio)
 );
 
-
 create table sconto(
 	nome_sconto varchar(50) not null,
     cod_sconto varchar(10) primary key,

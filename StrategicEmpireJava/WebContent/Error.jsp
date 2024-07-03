@@ -1,0 +1,139 @@
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagina non trovata - Giochi da Tavolo</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('SfondoError.JPG') no-repeat center center;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+            text-align: center;
+        }
+
+        .container {
+            position: relative;
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 40%;
+            width: 60%; /* Ridotto il width per adattarsi meglio */
+            max-height: 70vh; /* Limita l'altezza massima per contenuti più brevi */
+            overflow: auto; /* Aggiunge la barra di scorrimento se necessario */
+            animation: fadeIn 1s ease-in-out;
+            margin-top: 1%; /* Slightly adjusted to move up */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #e74c3c;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .logo img {
+            width: 120px;
+            height: auto;
+            margin: 20px 0;
+        }
+
+        h2 {
+            font-size: 4em;
+            margin: 0;
+            color: #e74c3c;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #555;
+            margin: 10px 0;
+        }
+
+        .btn {
+            text-decoration: none;
+            color: #fff;
+            background-color: #3498db;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 3em;
+            }
+
+            .container {
+                padding: 30px 15px;
+                margin-top: 15%; /* Adjusted for smaller screens */
+            }
+
+            .logo img {
+                width: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Errore!<br>Pagina non trovata</h1>
+        <div class="logo">
+            <img src="logo.png" alt="Logo">
+        </div>
+        <div class="Error">
+            <h2>Oops!<br>ERRORE 404!</h2>
+            <p>La pagina che cerchi non è stata trovata.</p>
+            <p>Forse ti sei perso/a nel gioco!</p>
+            <a href="HomePage.jsp" class="btn btn-primary mt-3">Torna alla home</a>
+        </div>
+    </div>
+</body>
+</html>

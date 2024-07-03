@@ -2,13 +2,12 @@
 <%@ page import="java.util.Collection" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%@ page import="it.unisa.bean.User" %>
-
 <%
     Collection<GiocoBean> giochi = null;
     session = request.getSession(false);
     String username = "null"; // Default value if not logged in
 
-    // Verifica se la sessione esiste e se l'utente è loggato
+    // Verifica se la sessione esiste e se l'utente ï¿½ loggato
     if (session != null && session.getAttribute("user") != null) {
         User user = (User) session.getAttribute("user");
         username = user.getUsername(); // Supponendo che User abbia un metodo getUsername()
@@ -45,6 +44,7 @@
                            data-prezzo="<%= bean.getPrezzo() %>" 
                            data-username="<%= username %>"> <!-- Passa l'username o "null" -->
                            <img src="IMMAGINI/carrelloICON.png" class="icon-carrello">
+
                         </a>
                         <script src="js/addToCart.js"></script>
                     <% } %>

@@ -2,7 +2,23 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
     <display-name>Catalogo</display-name>
     
-    <!-- Servlet per la registrazione -->
+    <error-page>
+    <error-code>404</error-code>
+    <location>/Error.jsp</location>
+  </error-page>
+  <error-page>
+    <error-code>500</error-code>
+    <location>/Error.jsp</location>
+  </error-page>
+  <error-page>
+    <exception-type>javax.servlet.ServletException</exception-type>
+    <location>/Error.jsp</location>
+  </error-page>
+  <error-page>
+    <exception-type>java.lang.Exception</exception-type>
+    <location>/Error.jsp</location>
+  </error-page>
+    
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>it.unisa.RegisterServlet</servlet-class>
@@ -10,16 +26,6 @@
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
-    </servlet-mapping>
-    
-    <!-- Altre servlet esistenti -->
-    <servlet>
-        <servlet-name>GiocoControl</servlet-name>
-        <servlet-class>it.unisa.control.GiocoControl</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>GiocoControl</servlet-name>
-        <url-pattern>/gioco</url-pattern>
     </servlet-mapping>
     
      <servlet>
@@ -58,12 +64,6 @@
         <servlet-name>DettagliControl</servlet-name>
         <url-pattern>/dettaglio</url-pattern>
     </servlet-mapping>
-    
-    <servlet>
-        <servlet-name>AccessorioControl</servlet-name>
-        <servlet-class>it.unisa.control.AccessorioControl</servlet-class>
-    </servlet>
-    <!-- Aggiunta della servlet ChiSiamoControl -->
         <servlet>
         <servlet-name>ChiSiamoControl</servlet-name>
         <servlet-class>it.unisa.control.ChiSiamoControl</servlet-class>
@@ -72,19 +72,6 @@
     <servlet-mapping>
         <servlet-name>ChiSiamoControl</servlet-name>
         <url-pattern>/ChiSiamo</url-pattern>
-    </servlet-mapping>
-    
-    <servlet-mapping>
-        <servlet-name>AccessorioControl</servlet-name>
-        <url-pattern>/accessorio</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>EspansioneControl</servlet-name>
-        <servlet-class>it.unisa.control.EspansioneControl</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EspansioneControl</servlet-name>
-        <url-pattern>/espansione</url-pattern>
     </servlet-mapping>
   <welcome-file-list>
     <welcome-file>HomePage.jsp</welcome-file>

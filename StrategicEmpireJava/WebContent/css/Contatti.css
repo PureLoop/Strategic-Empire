@@ -1,0 +1,164 @@
+/* CSS */
+/* Contatti.css */
+
+/* Reset default styles */
+
+/* Contatti.css */
+
+/* Reset default styles */
+/* Stili globali */
+body, h1, h2, p, form, input, textarea, button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    line-height: 1.6;
+    color: #333;
+    background-image: url('SfondoContatti.webp'); /* Sostituisci con il percorso corretto alla tua immagine di sfondo */
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.parallax {
+    height: 100vh; /* Altezza per riempire l'intera finestra */
+    background-attachment: fixed;
+    background-position: center;
+}
+
+h1, h2 {
+    text-align: center;
+    color: rgb(236, 38, 0); /* Colore rosso per il titolo */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+p {
+    text-align: center;
+    color: #ddd;
+}
+
+main {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Stili del form */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-weight: bold;
+    color: #007BFF;
+}
+
+input, textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    background-color: #f4f4f4;
+}
+
+button.btn-form {
+    padding: 10px 20px;
+    background: linear-gradient(to right, #FF5733, #E64A19);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+button.btn-form:hover {
+    background: linear-gradient(to right, #E64A19, #FF5733);
+    transform: scale(1.05);
+}
+
+/* Stili del bottone dell'header */
+button.btn-header {
+    padding: 10px 20px;
+    background: linear-gradient(to right, #007BFF, #0056b3);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+button.btn-header:hover {
+    background: linear-gradient(to right, #0056b3, #007BFF);
+    transform: scale(1.05);
+}
+
+/* Stili di contatto aggiuntivo */
+#additional-contact p {
+    text-align: center;
+    margin: 10px 0;
+    color: #007BFF;
+}
+
+#additional-contact img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+/* Sezione dei social media */
+#social-media {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#social-media a {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+#social-media img {
+    width: 40px;
+    height: 40px;
+    transition: transform 0.3s;
+}
+
+#social-media img:hover {
+    transform: scale(1.1);
+}
+
+/* Sezione FAQ */
+#faq {
+    margin-top: 20px;
+}
+
+.faq-item {
+    margin-bottom: 10px;
+}
+
+.faq-item h3 {
+    cursor: pointer;
+    padding: 10px;
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.faq-item p {
+    display: none;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+}
+
+.faq-item.active p {
+    display: block;
+}
