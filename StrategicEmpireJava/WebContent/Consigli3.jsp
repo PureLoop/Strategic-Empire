@@ -11,7 +11,7 @@
 
 <main>
     <header>
-        <%@ include file="/header/header.jsp"%>
+        <%@ include file="header/header.jsp"%>
     </header>
 
     <div class="container my-5">

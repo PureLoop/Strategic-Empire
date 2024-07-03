@@ -224,8 +224,6 @@
       <!-- /END THE FEATURETTES -->
     </main>
 
-    <%@ include file="Review.jsp" %> 
-
     <!-- FOOTER -->
     <footer>
       <%@ include file="/footer/footer.jsp" %>

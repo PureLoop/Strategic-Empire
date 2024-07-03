@@ -84,4 +84,12 @@
     <servlet-name>RecensioneControl</servlet-name>
     <url-pattern>/recensione</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>UpdateAccountControl</servlet-name>
+    <servlet-class>it.unisa.control.UpdateAccountControl</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>UpdateAccountControl</servlet-name>
+    <url-pattern>/UpdateAccountControl1</url-pattern> <!-- Modified to avoid conflict -->
+</servlet-mapping>
 </web-app>

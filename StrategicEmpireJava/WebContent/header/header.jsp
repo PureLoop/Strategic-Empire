@@ -66,7 +66,7 @@
           <a class="nav-link active" aria-current="page" href="News.jsp">News</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Consigli</a>
+          <a class="nav-link" href="Consigli.jsp">Consigli</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="Contatti.jsp">Contatti</a>
@@ -74,6 +74,7 @@
         <li class="nav-item">
           <a class="nav-link" href="ChiSiamo.jsp">Chi siamo</a>
         </li>
+
             </ul>
             
             <script>
