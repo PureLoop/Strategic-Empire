@@ -77,18 +77,6 @@ insert into img_acc(cod_img_acc,copertina,img_name,cod_acc) values
 insert into img_esp(cod_img_esp,copertina,img_name,cod_esp) values
     ("esp001Img1",true,"IMMAGINI/IMMAGINI_ESPANSIONI/Barrage_5Th-Giocatore_scatola.png","esp001"),
     ("esp012Img1",true,"IMMAGINI/IMMAGINI_ESPANSIONI/implodingkittens.png","esp012");
-insert into componente(nomeComponente) values 
-	("Regolamento"),("Carte"),("Plance"),
-    ("Schede consegne"),("Impiegati"),("Camion in legno"),
-    ("Tabellone"),
-    ("Mappa"),("Tracciato Energia"),
-    ("Tessere"),("Basi Neutrali"),("Basi")
-    ,("Ingegneri"),("Elevazioni");
-    insert into composizioneGioco(nome_componente,cod_gioco,n_componente) values
-	("Regolamento","g002",1),("Carte","g002",69),("Plance","g002",6)
-    ,("Schede consegne","g002",6),("Impiegati","g002",100),("Camion in legno","g002",8),("Tabellone","g002",1),
-    ("Mappa","g001",1),("Tracciato Energia","g001",1),("Tessere","g001",100),
-    ("Basi Neutrali","g001",3),("Basi","g001",5),("Ingegneri","g001",100),("Elevazioni","g001",5); 
 insert into sconto(nome_sconto,cod_sconto,perc_sconto) values
 	("UNISA","sco001",25);
 insert into utente(Username,nome,cognome, pw,saltPW, email, ruolo,indirizzo,ncivico) values

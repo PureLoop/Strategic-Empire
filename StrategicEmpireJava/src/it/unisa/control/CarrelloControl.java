@@ -136,7 +136,7 @@ public class CarrelloControl extends HttpServlet {
 
                 // Aggiorna la sessione con il nuovo carrello
                 session.setAttribute("oggettiCarrello", oggettiCarrello);
-                response.sendRedirect(request.getContextPath() + "/GiocoView.jsp");
+                response.sendRedirect(request.getContextPath() + "/catalogo.jsp");
                 return;
             }
  else if ("addCarrello".equals(action)) {
@@ -252,7 +252,7 @@ public class CarrelloControl extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/Carrello.jsp");
             return;
         } else {
-            response.sendRedirect(request.getContextPath() + "/GiocoView.jsp");
+            response.sendRedirect(request.getContextPath() + "/catalogo.jsp");
         }
     }
 
