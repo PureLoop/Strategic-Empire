@@ -4,6 +4,7 @@ package it.unisa.model;
 import java.sql.SQLException;
 import java.util.Collection;
 
+import it.unisa.bean.GiocoBean;
 import it.unisa.bean.espansioneBean;
 
 public interface EspansioneModel {
@@ -23,4 +24,11 @@ public interface EspansioneModel {
 	void updateEspansione(espansioneBean espansione, boolean img1, boolean img2) throws SQLException;
 	
 	public Collection<espansioneBean>  searchEspansione(String searchParam) throws SQLException;
+	
+	void addEspansioneToCart(espansioneBean esp, String u, int quantita, boolean controllo) throws SQLException;
+	
+	public void deleteAcq_Espansione(String codEspansione) throws SQLException;
+
+	public  Collection<espansioneBean> doRetrieveAllDBACQ(String username) throws SQLException;
+
 }

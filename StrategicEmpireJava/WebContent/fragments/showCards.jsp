@@ -56,21 +56,26 @@ CartaBean CartaEdit = new CartaBean();
         <span class="close-popup" onclick="closeAddCardPopup()">&times;</span>
         <h2>Inserisci Nuova Carta</h2>
         <form id="newCardForm">
-            <div class="form-group">
-                <label for="newCardNumber">Numero Carta:</label>
-                <input type="text" id="newCardNumber" class="form-control" placeholder="Numero della carta" required>
-            </div>
+              <div class="form-group">
+    <label for="newCardNumber">Numero Carta:</label>
+    <input type="text" id="newCardNumber" class="form-control" placeholder="Numero della carta" required maxlength="19" oninput="formatCardInput(this)">
+    <small id="newCardNumberError" class="form-text text-danger"></small>
+</div>
+              
             <div class="form-group">
                 <label for="newCardName">Nome:</label>
                 <input type="text" id="newCardName" class="form-control" placeholder="Nome sulla carta" required>
+                <small id="newCardNameError" class="form-text text-danger"></small>
             </div>
             <div class="form-group">
                 <label for="newCardExpiry">Scadenza:</label>
                 <input type="text" id="newCardExpiry" class="form-control" placeholder="Scadenza (MM/YY)" required>
+                <small id="newCardExpiryError" class="form-text text-danger"></small>
             </div>
             <div class="form-group">
                 <label for="newcvv">CVV:</label>
                 <input type="text" id="newcvv" class="form-control" placeholder="CVV" required>
+                <small id="newcvvError" class="form-text text-danger"></small>
             </div>
             <button type="button" class="btn btn-primary" onclick="saveNewCard()">Salva</button>
         </form>
@@ -107,6 +112,11 @@ CartaBean CartaEdit = new CartaBean();
 
 
 <style>
+.form-text {
+    font-size: 0.875em;
+    color: #dc3545; /* Rosso per i messaggi di errore */
+}
+
     /* Stili per la carta */
     .credit-card {
         position: relative;
@@ -423,85 +433,125 @@ function editValue() {
         EditCardPopup.style.display = 'none';
     }
 
+ // Funzione per salvare una nuova carta
     function saveNewCard() {
-        var newCardNumber = document.getElementById('newCardNumber').value;
-        var newCardName = document.getElementById('newCardName').value;
-        var newCardExpiry = document.getElementById('newCardExpiry').value;
-        var newcvv = document.getElementById('newcvv').value;
-
-        // Esegui una richiesta AJAX per aggiungere la nuova carta
-        $.ajax({
-            url: 'AreaPersonaleControl', // Sostituisci con il percorso corretto per la tua servlet
-            method: 'GET',
-            data: {
-                action: 'insertCards', // Azione per inserire una nuova carta
-                fullName: newCardName,
-                cardNumber: newCardNumber,
-                expiryDate: newCardExpiry,
-                cvv: newcvv,
-                username: '<%= user.getUsername() %>' // Assicura che username sia accessibile e correttamente passato
-            },
-            success: function(response) {
-                // Verifica che i dati siano correttamente ricevuti
-                console.log(response);
-
-                // Crea gli elementi HTML per la nuova carta
-                var colDiv = document.createElement('div');
-                colDiv.classList.add('col', 'mb-4');
-
-                var creditCardDiv = document.createElement('div');
-                creditCardDiv.classList.add('credit-card');
-                creditCardDiv.setAttribute('data-username', response.username);
-                creditCardDiv.setAttribute('data-card-number', newCardNumber);
-
-                var editCardDiv = document.createElement('div');
-                editCardDiv.classList.add('edit-card');
-                editCardDiv.textContent = 'Modifica';
-                editCardDiv.onclick = function() {
-                    editCard(newCardNumber); // Chiama la funzione editCard passando il numero della carta
-                };
-
-                var cardChipDiv = document.createElement('div');
-                cardChipDiv.classList.add('card-chip');
-
-                var cardNumberDiv = document.createElement('div');
-                cardNumberDiv.classList.add('card-number');
-                cardNumberDiv.textContent = newCardNumber;
-
-                var cardNameDiv = document.createElement('div');
-                cardNameDiv.classList.add('card-name');
-                cardNameDiv.textContent = newCardName;
-
-                var cardExpiryDiv = document.createElement('div');
-                cardExpiryDiv.classList.add('card-expiry');
-                cardExpiryDiv.textContent = 'Valid Thru: ' + newCardExpiry;
-
-                // Costruisci la struttura gerarchica degli elementi
-                creditCardDiv.appendChild(editCardDiv);
-                creditCardDiv.appendChild(cardChipDiv);
-                creditCardDiv.appendChild(cardNumberDiv);
-                creditCardDiv.appendChild(cardNameDiv);
-                creditCardDiv.appendChild(cardExpiryDiv);
-
-                colDiv.appendChild(creditCardDiv);
-
-                // Aggiungi il nuovo elemento al DOM
-                var allCardDiv = document.getElementById('allCard');
-                var rowDiv = allCardDiv.querySelector('.row');
-                rowDiv.insertBefore(colDiv, rowDiv.firstChild); // Inserisci la nuova carta come prima figlia della row
-
-                // Chiudi il popup dopo il salvataggio
-                closeAddCardPopup();
-
-                // Resetta i campi del form
-                document.getElementById('newCardForm').reset();
-            },
-            error: function(xhr, status, error) {
-                console.error('Errore durante l\'aggiunta della carta', error);
-                alert('Errore durante l\'aggiunta della carta');
-            }
-        });
+    if (!validateNewCardForm()) {
+        return; // Se la validazione fallisce, non procedere
     }
+
+    var newCardNumber = document.getElementById('newCardNumber').value.replace(/-/g, ''); // Rimuovi i trattini
+    var newCardName = document.getElementById('newCardName').value;
+    var newCardExpiry = document.getElementById('newCardExpiry').value;
+    var newcvv = document.getElementById('newcvv').value;
+
+    $.ajax({
+        url: 'AreaPersonaleControl',
+        method: 'GET',
+        data: {
+            action: 'insertCards',
+            fullName: newCardName,
+            cardNumber: newCardNumber,
+            expiryDate: newCardExpiry,
+            cvv: newcvv,
+            username: '<%= user.getUsername() %>'
+        },
+        success: function(response) {
+            // Crea e aggiungi dinamicamente il nuovo elemento della carta
+            var colDiv = document.createElement('div');
+            colDiv.classList.add('col', 'mb-4');
+
+            var creditCardDiv = document.createElement('div');
+            creditCardDiv.classList.add('credit-card');
+            creditCardDiv.setAttribute('data-username', response.username);
+            creditCardDiv.setAttribute('data-card-number', newCardNumber);
+
+            var editCardDiv = document.createElement('div');
+            editCardDiv.classList.add('edit-card');
+            editCardDiv.textContent = 'Modifica';
+            editCardDiv.onclick = function() {
+                editCard(newCardNumber); // Chiama la funzione editCard passando il numero della carta
+            };
+
+            var cardChipDiv = document.createElement('div');
+            cardChipDiv.classList.add('card-chip');
+
+            var cardNumberDiv = document.createElement('div');
+            cardNumberDiv.classList.add('card-number');
+            cardNumberDiv.textContent = formatCardNumber(newCardNumber); // Formatta il numero della carta per la visualizzazione
+
+            var cardNameDiv = document.createElement('div');
+            cardNameDiv.classList.add('card-name');
+            cardNameDiv.textContent = newCardName;
+
+            var cardExpiryDiv = document.createElement('div');
+            cardExpiryDiv.classList.add('card-expiry');
+            cardExpiryDiv.textContent = 'Valid Thru: ' + newCardExpiry;
+
+            // Costruisci la struttura gerarchica degli elementi
+            creditCardDiv.appendChild(editCardDiv);
+            creditCardDiv.appendChild(cardChipDiv);
+            creditCardDiv.appendChild(cardNumberDiv);
+            creditCardDiv.appendChild(cardNameDiv);
+            creditCardDiv.appendChild(cardExpiryDiv);
+
+            colDiv.appendChild(creditCardDiv);
+
+            // Aggiungi il nuovo elemento al DOM
+            var allCardDiv = document.getElementById('allCard');
+            var rowDiv = allCardDiv.querySelector('.row');
+            rowDiv.insertBefore(colDiv, rowDiv.querySelector('.add-card').parentElement); // Inserisci la nuova carta prima del pulsante di aggiunta
+
+            // Chiudi il pop-up e resetta il form
+            closeAddCardPopup();
+            document.getElementById('newCardForm').reset();
+        },
+        error: function(xhr, status, error) {
+            console.error('Errore durante l\'aggiunta della carta', error);
+            alert('Errore durante l\'aggiunta della carta');
+        }
+    });
+}
+
+function editValue() {
+    var numero = document.getElementById('editCardNumber').value.replace(/-/g, ''); // Rimuovi i trattini
+    var nome = document.getElementById('editCardName').value;
+    var scadenza = document.getElementById('editCardExpiry').value;
+    var cvv = document.getElementById('editcvv').value;
+
+    $.ajax({
+        url: 'AreaPersonaleControl',
+        method: 'GET',
+        data: {
+            action: 'editCard',
+            cardNumber: numero,
+            fullName: nome,
+            expiryDate: scadenza,
+            newcvv: cvv,
+            username: '<%= user.getUsername() %>'
+        },
+        success: function(response) {
+            // Chiudi il popup dopo il salvataggio
+            closeEditCardPopup();
+            closeAddCardPopup();
+            closePopup()
+
+            // Aggiorna l'interfaccia della carta modificata
+            var cardDiv = $('[data-card-number="' + numero + '"]').closest('.credit-card');
+            cardDiv.find('.card-number').text(formatCardNumber(numero)); // Formatta il numero della carta per la visualizzazione
+            cardDiv.find('.card-name').text(nome);
+            cardDiv.find('.card-expiry').text('Valid Thru: ' + scadenza);
+
+            // Resetta il form di modifica della carta
+            document.getElementById('editCardForm').reset();
+        },
+        error: function(xhr, status, error) {
+            console.error('Errore durante il salvataggio della carta');
+            alert('Errore durante il salvataggio della carta');
+        }
+    });
+}
+
+
 
 
     function removeCard(numero) {
@@ -531,5 +581,99 @@ function editValue() {
             popup.style.display = 'none';
         }
     }
+ // Funzione di validazione per il modulo di aggiunta della carta
+  function validateNewCardForm() {
+    var isValid = true;
+
+    var cardNumber = document.getElementById('newCardNumber').value.replace(/\D/g, ''); // Rimuovi i trattini
+    var cardName = document.getElementById('newCardName').value;
+    var cardExpiry = document.getElementById('newCardExpiry').value;
+    var cvv = document.getElementById('newcvv').value;
+
+    // Definisci le espressioni regolari per la validazione
+    var cardNumberPattern = /^\d{16}$/; // Numero della carta a 16 cifre
+    var cardNamePattern = /^[a-zA-Z\s]+$/; // Nome solo lettere e spazi
+    var cardExpiryPattern = /^(0[1-9]|1[0-2])\/\d{2}$/; // Scadenza nel formato MM/YY
+    var cvvPattern = /^\d{3}$/; // CVV a 3 cifre
+
+    // Inizializza gli elementi degli errori
+    var cardNumberError = document.getElementById('newCardNumberError');
+    var cardNameError = document.getElementById('newCardNameError');
+    var cardExpiryError = document.getElementById('newCardExpiryError');
+    var cvvError = document.getElementById('newcvvError');
+
+    // Verifica il numero della carta
+    if (!cardNumberPattern.test(cardNumber)) {
+        cardNumberError.textContent = 'Il numero della carta deve essere di 16 cifre.';
+        isValid = false;
+    } else {
+        cardNumberError.textContent = '';
+    }
+
+    // Verifica il nome
+    if (!cardNamePattern.test(cardName)) {
+        cardNameError.textContent = 'Il nome deve contenere solo lettere e spazi.';
+        isValid = false;
+    } else {
+        cardNameError.textContent = '';
+    }
+
+    function formatCardInput(input) {
+        // Rimuovi tutti i caratteri non numerici
+        var cardNumber = input.value.replace(/\D/g, '');
+
+        // Limita il numero di cifre a 16
+        if (cardNumber.length > 16) {
+            cardNumber = cardNumber.slice(0, 16);
+        }
+
+        // Aggiungi trattini ogni 4 numeri
+        var formattedValue = cardNumber.replace(/(\d{4})(?=\d)/g, '$1-');
+        input.value = formattedValue;
+    }
+
+    function limitCardNumberInput(event) {
+        var input = event.target;
+        var cardNumber = input.value.replace(/\D/g, '');
+
+        if (cardNumber.length > 16) {
+            event.preventDefault();
+        }
+    }
+
+    // Applicare l'evento di input ai campi di input
+    document.getElementById('newCardNumber').addEventListener('input', formatCardInput);
+    document.getElementById('newCardNumber').addEventListener('keypress', limitCardNumberInput);
+
+
+    // Verifica il CVV
+    if (!cvvPattern.test(cvv)) {
+        cvvError.textContent = 'Il CVV deve essere di 3 cifre.';
+        isValid = false;
+    } else {
+        cvvError.textContent = '';
+    }
+
+    return isValid;
+}
+
+
+    function formatCardNumber(cardNumber) {
+        // Rimuovi tutti i caratteri non numerici
+        cardNumber = cardNumber.replace(/\D/g, '');
+
+        // Aggiungi trattini ogni 4 numeri
+        return cardNumber.replace(/(\d{4})(?=\d)/g, '$1-');
+    }
+ // Funzione per applicare la formattazione in tempo reale
+    function formatCardInput(event) {
+        var input = event.target;
+        var formattedValue = formatCardNumber(input.value);
+        input.value = formattedValue;
+    }
+
+    // Applicare l'evento di input ai campi di input
+    document.getElementById('newCardNumber').addEventListener('input', formatCardInput);
+    document.getElementById('editCardNumber').addEventListener('input', formatCardInput);
 
 </script>

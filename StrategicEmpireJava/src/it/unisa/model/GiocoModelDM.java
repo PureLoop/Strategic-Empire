@@ -9,6 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.List;
+import java.util.ArrayList;
+
 import java.util.LinkedList;
 
 import it.unisa.bean.GiocoBean;
@@ -20,8 +23,12 @@ public class GiocoModelDM implements GiocoModel{
 	private static final String TABLE_NAME = "gioco";
 	private static final String TABLE_NAME2 = "espansione";
 	private static final String TABLE_NAME3= "accessorio";
+	private static final String TABLE_NAME4= "acq_gioco";
+	
+
 
 	public synchronized GiocoBean doRetrieveByKey(String code) throws SQLException {
+		
 		Connection connection = null;
 		
 		PreparedStatement preparedStatement = null;
@@ -75,6 +82,59 @@ public class GiocoModelDM implements GiocoModel{
 		return bean;
 	}
 	
+	
+	
+	  public synchronized void addGiocoToCart(GiocoBean gioco, String username, int quantita,boolean controllo) throws SQLException {
+	        Connection connection = null;
+	        PreparedStatement preparedStatement = null;
+	        
+	        String query2 = "UPDATE "+TABLE_NAME4+" SET quantita = ?  WHERE(cod_gioco = ?)" ;
+	        // Query di inserimento
+	        String query = "INSERT INTO " + TABLE_NAME4 + " (cod_gioco, nome_ut, quantita) VALUES (?, ?, 1)";
+
+	        try {
+	            connection = DriverManagerConnectionPool.getConnection();
+
+	        	if(controllo) {
+		            preparedStatement = connection.prepareStatement(query2);
+		            preparedStatement.setInt(1, quantita);  // Imposta il codice del gioco
+		            preparedStatement.setString(2, gioco.getCod_Gioco());  // Imposta il codice del gioco
+		            preparedStatement.executeUpdate();
+
+	        	}else {
+
+	            preparedStatement = connection.prepareStatement(query);
+
+	            // Imposta i valori dei parametri
+	            preparedStatement.setString(1, gioco.getCod_Gioco());  // Imposta il codice del gioco
+	            preparedStatement.setString(2, username);  // Imposta il codice del gioco
+	            preparedStatement.executeUpdate();
+	            
+	        	}
+	        	
+				connection.commit();
+	        	
+
+
+	        } catch (SQLException e) {
+	            e.printStackTrace(); // Gestione dell'eccezione
+	            throw e; // Rilancia l'eccezione per la gestione a livello superiore
+	        } finally {
+	            // Chiudi le risorse
+	            try {
+	                if (preparedStatement != null) {
+	                    preparedStatement.close();
+	                }
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            } finally {
+	                if (connection != null) {
+	                    DriverManagerConnectionPool.releaseConnection(connection);
+	                }
+	            }
+	        }
+	    }
+
 	public synchronized Collection<GiocoBean> doRetrieveAll(String order) throws SQLException {
 	Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -118,6 +178,72 @@ public class GiocoModelDM implements GiocoModel{
 		}
 		return gioco;
 	}
+		
+
+	public synchronized Collection<GiocoBean> doRetrieveAllDBACQ(String username) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    ResultSet rs = null;
+	    Collection<GiocoBean> giochi = new LinkedList<>();
+	    
+	    String selectSQL = "SELECT cod_gioco FROM " + GiocoModelDM.TABLE_NAME4 + " WHERE nome_ut = ?;";
+
+	    try {
+	        // Ottieni la connessione dal pool
+	        connection = DriverManagerConnectionPool.getConnection();
+	        
+	        // Prepara la query per ottenere i codici dei giochi
+	        preparedStatement = connection.prepareStatement(selectSQL);
+	        preparedStatement.setString(1, username); // Imposta il parametro per il username
+
+	        // Esegui la query per ottenere i codici dei giochi
+	        rs = preparedStatement.executeQuery();
+
+	        // Lista per memorizzare i codici dei giochi
+	        List<String> codiciGiochi = new ArrayList<>();
+
+	        // Estrai i codici dei giochi dal ResultSet
+	        while (rs.next()) {
+	            String codG = rs.getString("cod_gioco");
+	            
+	            codiciGiochi.add(codG);
+	        }
+
+	        System.out.println("Codici giochi ottenuti: " + codiciGiochi.size());
+
+	        // Per ogni codice di gioco, recupera i dettagli completi
+	        for (String codG : codiciGiochi) {
+	            try {
+	                System.out.println("Inizio recupero dettagli per codice gioco: " + codG);
+	                GiocoBean gioco = doRetrieveByKey(codG);
+	                if (gioco != null) {
+	                    giochi.add(gioco);
+	                    System.out.println("Gioco aggiunto: " + gioco.getNomegioco());
+	                } else {
+	                    System.out.println("Gioco con codice " + codG + " non trovato.");
+	                }
+	            } catch (Exception e) {
+	                System.err.println("Errore durante il recupero del gioco con codice " + codG + ": " + e.getMessage());
+	                e.printStackTrace();
+	            }
+	        }
+	        
+	        System.out.println("Numero di giochi recuperati: " + giochi.size());
+	    } catch (SQLException e) {
+	        e.printStackTrace(); // Log dell'eccezione per il debug
+	    } finally {
+	        // Assicurati di chiudere la connessione
+	        if (connection != null) {
+	            DriverManagerConnectionPool.releaseConnection(connection);
+	        }
+	    }
+	    
+	    return giochi;
+	}
+
+
+
+
 
 	
 
@@ -343,6 +469,30 @@ public class GiocoModelDM implements GiocoModel{
 	        preparedStatement = connection.prepareStatement(query2);
 	        preparedStatement.setString(1, codGioco);
 	        preparedStatement.executeUpdate();
+
+	        // Commit della transazione
+	        connection.commit();
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            DriverManagerConnectionPool.releaseConnection(connection);
+	        }
+	    }
+	}
+	
+	@Override
+	public void deleteAcq_Gioco(String codGioco) throws SQLException {
+	    String query1 = "DELETE FROM " + TABLE_NAME4 + " WHERE cod_gioco = ?";
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    try {
+	        connection = DriverManagerConnectionPool.getConnection();
+	        preparedStatement = connection.prepareStatement(query1);
+	        preparedStatement.setString(1, codGioco);
+	        preparedStatement.executeUpdate();
+	        
 
 	        // Commit della transazione
 	        connection.commit();

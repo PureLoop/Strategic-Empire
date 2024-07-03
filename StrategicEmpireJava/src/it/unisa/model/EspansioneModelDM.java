@@ -5,8 +5,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 import it.unisa.bean.GiocoBean;
 import it.unisa.bean.espansioneBean;
@@ -14,6 +16,8 @@ import it.unisa.bean.espansioneBean;
 public class EspansioneModelDM implements EspansioneModel {
 
     private static final String TABLE_NAME = "espansione";
+    private static final String TABLE_NAME2 = "acq_espansione";
+
 
     @Override
 	public espansioneBean doRetrieveByKey(String code) throws SQLException {
@@ -68,7 +72,146 @@ public class EspansioneModelDM implements EspansioneModel {
 	    }
 	    return bean;
 	}
+    
+    
 
+	public synchronized Collection<espansioneBean> doRetrieveAllDBACQ(String username) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    ResultSet rs = null;
+	    Collection<espansioneBean> espansioni = new LinkedList<>();
+	    
+	    String selectSQL = "SELECT cod_espansione FROM " + EspansioneModelDM.TABLE_NAME2 + " WHERE nome_ut = ?;";
+
+	    try {
+	        // Ottieni la connessione dal pool
+	        connection = DriverManagerConnectionPool.getConnection();
+	        
+	        // Prepara la query per ottenere i codici dei giochi
+	        preparedStatement = connection.prepareStatement(selectSQL);
+	        preparedStatement.setString(1, username); // Imposta il parametro per il username
+
+	        // Esegui la query per ottenere i codici dei giochi
+	        rs = preparedStatement.executeQuery();
+
+	        // Lista per memorizzare i codici dei giochi
+	        List<String> codiciEspansioni = new ArrayList<>();
+
+	        // Estrai i codici dei giochi dal ResultSet
+	        while (rs.next()) {
+	            String codG = rs.getString("cod_espansione");
+	            
+	            codiciEspansioni.add(codG);
+	        }
+
+	        System.out.println("Codici giochi ottenuti: " + codiciEspansioni.size());
+
+	        // Per ogni codice di gioco, recupera i dettagli completi
+	        for (String codG : codiciEspansioni) {
+	            try {
+	                System.out.println("Inizio recupero dettagli per codice gioco: " + codG);
+	                espansioneBean esp = doRetrieveByKey(codG);
+	                if (esp != null) {
+	                    espansioni.add(esp);
+	                    System.out.println("Gioco aggiunto: " + esp.getNomeespansione());
+	                } else {
+	                    System.out.println("Gioco con codice " + codG + " non trovato.");
+	                }
+	            } catch (Exception e) {
+	                System.err.println("Errore durante il recupero del gioco con codice " + codG + ": " + e.getMessage());
+	                e.printStackTrace();
+	            }
+	        }
+	        
+	        System.out.println("Numero di giochi recuperati: " + espansioni.size());
+	    } catch (SQLException e) {
+	        e.printStackTrace(); // Log dell'eccezione per il debug
+	    } finally {
+	        // Assicurati di chiudere la connessione
+	        if (connection != null) {
+	            DriverManagerConnectionPool.releaseConnection(connection);
+	        }
+	    }
+	    
+	    return espansioni;
+	}
+
+
+
+	  public synchronized void addEspansioneToCart(espansioneBean esp, String username, int quantita, boolean controllo)
+				throws SQLException {
+	        Connection connection = null;
+	        PreparedStatement preparedStatement = null;
+	        
+	        String query2 = "UPDATE "+TABLE_NAME2+" SET quantita = ?  WHERE(cod_espansione = ?)" ;
+	        // Query di inserimento
+	        String query = "INSERT INTO " + TABLE_NAME2 + " (cod_espansione, nome_ut, quantita) VALUES (?, ?, 1)";
+
+	        try {
+	            connection = DriverManagerConnectionPool.getConnection();
+
+	        	if(controllo) {
+		            preparedStatement = connection.prepareStatement(query2);
+		            preparedStatement.setInt(1, quantita);  // Imposta il codice del gioco
+		            preparedStatement.setString(2, esp.getCod_espansione());  // Imposta il codice del gioco
+		            preparedStatement.executeUpdate();
+
+	        	}else {
+
+	            preparedStatement = connection.prepareStatement(query);
+
+	            // Imposta i valori dei parametri
+	            preparedStatement.setString(1, esp.getCod_espansione());  // Imposta il codice del gioco
+	            preparedStatement.setString(2, username);  // Imposta il codice del gioco
+	            preparedStatement.executeUpdate();
+	            
+	        	}
+	        	
+				connection.commit();
+	        	
+
+
+	        } catch (SQLException e) {
+	            e.printStackTrace(); // Gestione dell'eccezione
+	            throw e; // Rilancia l'eccezione per la gestione a livello superiore
+	        } finally {
+	            // Chiudi le risorse
+	            try {
+	                if (preparedStatement != null) {
+	                    preparedStatement.close();
+	                }
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            } finally {
+	                if (connection != null) {
+	                    DriverManagerConnectionPool.releaseConnection(connection);
+	                }
+	            }
+	        }
+	    }
+		@Override
+		public void deleteAcq_Espansione(String codEspansione) throws SQLException {
+		    String query1 = "DELETE FROM " + TABLE_NAME2 + " WHERE cod_espansione = ?";
+		    Connection connection = null;
+		    PreparedStatement preparedStatement = null;
+		    try {
+		        connection = DriverManagerConnectionPool.getConnection();
+		        preparedStatement = connection.prepareStatement(query1);
+		        preparedStatement.setString(1, codEspansione);
+		        preparedStatement.executeUpdate();
+		        
+
+		        // Commit della transazione
+		        connection.commit();
+		    } finally {
+		        try {
+		            if (preparedStatement != null)
+		                preparedStatement.close();
+		        } finally {
+		            DriverManagerConnectionPool.releaseConnection(connection);
+		        }
+		    }
+		}
     @Override
 	public synchronized Collection<espansioneBean> doRetrieveAll(String order) throws SQLException {
         Connection connection = null;
@@ -309,4 +452,5 @@ public class EspansioneModelDM implements EspansioneModel {
 			}
 			return espansioni;
 		}
+
 }

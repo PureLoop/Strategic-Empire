@@ -79,6 +79,16 @@
     List<OggettiCarrelloBean> carrellobean = (List<OggettiCarrelloBean>) request.getSession().getAttribute("oggettiCarrello");
     u = (User) session.getAttribute("user");
     loggedIn = (u != null);
+    
+    session = request.getSession(false);
+    String username = "null"; // Default value if not logged in
+
+    // Verifica se la sessione esiste e se l'utente è loggato
+    if (session != null && session.getAttribute("user") != null) {
+        u = (User) session.getAttribute("user");
+        username = u.getUsername(); // Supponendo che User abbia un metodo getUsername()
+    }
+
 
 %>
 <section class="h-100 h-custom" style="background-color: #eee;">
@@ -201,7 +211,10 @@
 <script type="text/javascript">
     function increaseQuantity(codiceArticolo) {
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', 'CarrelloControl?action=increaseQuantity&cod_articolo=' + codiceArticolo, true);
+        // Assuming 'username' is available in the global scope or passed to the function
+        const username = '<%= username %>'; // Fetching username from JSP
+        console.log(codiceArticolo);
+        xhr.open('GET', 'CarrelloControl?action=addCarrello&cod_articolo=' + codiceArticolo + '&username=' + encodeURIComponent(username), true);
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 location.reload();
@@ -223,10 +236,16 @@
 
     function deleteFromCart(codiceArticolo) {
         const xhr = new XMLHttpRequest();
+        console.log("Codice Articolo da eliminare: " + codiceArticolo);
         xhr.open('GET', 'CarrelloControl?action=delete&cod_articolo=' + codiceArticolo, true);
         xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                location.reload();
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    console.log("Articolo eliminato con successo.");
+                    location.reload();
+                } else {
+                    console.error("Errore nell'eliminazione dell'articolo: " + xhr.status);
+                }
             }
         };
         xhr.send();

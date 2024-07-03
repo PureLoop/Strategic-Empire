@@ -1,6 +1,8 @@
 package it.unisa.control;
 
 import java.io.IOException;
+import java.util.Collection;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -43,105 +45,186 @@ public class CarrelloControl extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String codiceGioco = request.getParameter("cod_gioco");
+        String codiceArt = request.getParameter("cod_articolo");
         String codiceEspansione = request.getParameter("cod_espansione");
         String codiceAccessorio = request.getParameter("cod_accessorio");
-
+        String username = request.getParameter("username");
         String action = request.getParameter("action");
 
         HttpSession session = request.getSession();
-        List<OggettiCarrelloBean> oggettiCarrello = (List<OggettiCarrelloBean>) session.getAttribute("oggettiCarrello");
 
+        List<OggettiCarrelloBean> oggettiCarrello = (List<OggettiCarrelloBean>) session.getAttribute("oggettiCarrello");
+        
+        
         if (oggettiCarrello == null) {
             oggettiCarrello = new ArrayList<>();
         }
 
         try {
             if ("delete".equals(action)) {
-                String codiceArticolo = request.getParameter("cod_articolo");
-
-                for (Iterator<OggettiCarrelloBean> iterator = oggettiCarrello.iterator(); iterator.hasNext();) {
+                Iterator<OggettiCarrelloBean> iterator = oggettiCarrello.iterator();
+                while (iterator.hasNext()) {
                     OggettiCarrelloBean oggetto = iterator.next();
-                    if (oggetto.getCod_articolo().equals(codiceArticolo)) {
+                    if (oggetto.getCod_articolo().equals(codiceArt)) {
+                        // Rimuovi l'elemento dal database
+                        if (codiceArt.startsWith("g")) {
+                            model.deleteAcq_Gioco(codiceArt);
+                        } else if (codiceArt.startsWith("a")) {
+                            model3.deleteAcq_Accessorio(codiceArt);
+                        } else if (codiceArt.startsWith("e")) {
+                            model2.deleteAcq_Espansione(codiceArt);
+                        }
+                        // Rimuovi l'elemento dal carrello
                         iterator.remove();
-                        break;
+                        break; // Esci dal ciclo dopo aver trovato e rimosso l'elemento
                     }
                 }
-            } else if ("AddGioco".equals(action)) {
+                session.setAttribute("oggettiCarrello", oggettiCarrello);
+                response.sendRedirect(request.getContextPath() + "/Carrello.jsp");
+                return;
+            }else if ("TakeDB".equals(action)) {
+                oggettiCarrello.clear();
+                System.out.println(username);
 
-                GiocoBean gioco = model.doRetrieveByKey(codiceGioco);
-                boolean trovato = false;
-                for (OggettiCarrelloBean oggetto : oggettiCarrello) {
-                    if (oggetto.getCod_articolo().equals(codiceGioco)) {
-                        int quant = oggetto.getQuantita();
-                        oggetto.setQuantita(quant + 1);
-                        trovato = true;
+                // Recupera giochi, accessori ed espansioni dal database
+                Collection<GiocoBean> giochi = model.doRetrieveAllDBACQ(username);
+                Collection<AccessorioBean> accessori = model3.doRetrieveAllDBACQ(username);
+                Collection<espansioneBean> espansioni = model2.doRetrieveAllDBACQ(username);
 
-                        break;
-                        
-                    }
-                }
-                if (!trovato) {
+                System.out.println("Giochi: " + giochi.size());
+                System.out.println("Accessori: " + accessori.size());
+                System.out.println("Espansioni: " + espansioni.size());
+
+                // Aggiungi i giochi al carrello
+                for (GiocoBean gioco : giochi) {
                     OggettiCarrelloBean oggettoCarrello = new OggettiCarrelloBean();
                     oggettoCarrello.setCod_articolo(gioco.getCod_Gioco());
                     oggettoCarrello.setImmagineCopertina(gioco.getImmagineCop());
                     oggettoCarrello.setNome_articolo(gioco.getNomegioco());
                     oggettoCarrello.setPrezzo(gioco.getPrezzo());
-                    oggettoCarrello.setQuantita(1);
+                    oggettoCarrello.setQuantita(1); // Imposta la quantità a 1 per ogni gioco
+                    
+                    // Aggiungi l'oggetto al carrello
                     oggettiCarrello.add(oggettoCarrello);
                 }
-            } else if ("AddAccessorio".equals(action)) {
-                AccessorioBean accessorio = model3.doRetrieveByKey(codiceAccessorio);
-                boolean trovato = false;
-                for (OggettiCarrelloBean oggetto : oggettiCarrello) {
-                    if (oggetto.getCod_articolo().equals(codiceAccessorio)) {
-                        int quant = oggetto.getQuantita();
-                        oggetto.setQuantita(quant + 1);
-                        trovato = true;
-                        break;
-                    }
-                }
-                if (!trovato) {
+
+                // Aggiungi gli accessori al carrello
+                for (AccessorioBean accessorio : accessori) {
                     OggettiCarrelloBean oggettoCarrello = new OggettiCarrelloBean();
                     oggettoCarrello.setCod_articolo(accessorio.getCod_Accessorio());
                     oggettoCarrello.setImmagineCopertina(accessorio.getImmagineCop());
                     oggettoCarrello.setNome_articolo(accessorio.getNomeaccessorio());
                     oggettoCarrello.setPrezzo(accessorio.getPrezzo());
-                    oggettoCarrello.setQuantita(1);
-                    System.out.println(oggettoCarrello.getCod_articolo());
+                    oggettoCarrello.setQuantita(1); // Imposta la quantità a 1 per ogni accessorio
+                    
+                    // Aggiungi l'oggetto al carrello
                     oggettiCarrello.add(oggettoCarrello);
                 }
-            } else if ("AddEspansione".equals(action)) {
-                espansioneBean espansione = model2.doRetrieveByKey(codiceEspansione);
-                boolean trovato = false;
-                for (OggettiCarrelloBean oggetto : oggettiCarrello) {
-                    if (oggetto.getCod_articolo().equals(codiceEspansione)) {
-                        int quant = oggetto.getQuantita();
-                        oggetto.setQuantita(quant + 1);
-                        trovato = true;
-                        break;
-                    }
-                }
-                if (!trovato) {
+
+                // Aggiungi le espansioni al carrello
+                for (espansioneBean espansione : espansioni) {
                     OggettiCarrelloBean oggettoCarrello = new OggettiCarrelloBean();
                     oggettoCarrello.setCod_articolo(espansione.getCod_espansione());
                     oggettoCarrello.setImmagineCopertina(espansione.getImmagineCop());
                     oggettoCarrello.setNome_articolo(espansione.getNomeespansione());
                     oggettoCarrello.setPrezzo(espansione.getPrezzo());
-                    oggettoCarrello.setQuantita(1);
+                    oggettoCarrello.setQuantita(1); // Imposta la quantità a 1 per ogni espansione
+                    
+                    // Aggiungi l'oggetto al carrello
                     oggettiCarrello.add(oggettoCarrello);
                 }
-            }
-            else if ("increaseQuantity".equals(action)) {
 
-                String codiceArticolo = request.getParameter("cod_articolo");
-                for (OggettiCarrelloBean oggetto : oggettiCarrello) {
-                    if (oggetto.getCod_articolo().equals(codiceArticolo)) {
-                        oggetto.setQuantita(oggetto.getQuantita() + 1);
-                        break;
+                // Aggiorna la sessione con il nuovo carrello
+                session.setAttribute("oggettiCarrello", oggettiCarrello);
+                response.sendRedirect(request.getContextPath() + "/GiocoView.jsp");
+                return;
+            }
+ else if ("addCarrello".equals(action)) {
+                if (codiceArt.startsWith("g")) {
+                    // Aggiungi Gioco
+                    GiocoBean gioco = model.doRetrieveByKey(codiceArt);
+                    boolean trovato = false;
+                    for (OggettiCarrelloBean oggetto : oggettiCarrello) {
+                        if (oggetto.getCod_articolo().equals(codiceArt)) {
+                            int quant = oggetto.getQuantita();
+                            oggetto.setQuantita(quant + 1);
+                            trovato = true;
+                            if (username != null) {
+                                model.addGiocoToCart(gioco, username, quant + 1, true);
+                            }
+                            break;
+                        }
+                    }
+                    if (!trovato) {
+                        if (username != null) {
+                            model.addGiocoToCart(gioco, username, 1, false);
+                        }
+                        OggettiCarrelloBean oggettoCarrello = new OggettiCarrelloBean();
+                        oggettoCarrello.setCod_articolo(gioco.getCod_Gioco());
+                        oggettoCarrello.setImmagineCopertina(gioco.getImmagineCop());
+                        oggettoCarrello.setNome_articolo(gioco.getNomegioco());
+                        oggettoCarrello.setPrezzo(gioco.getPrezzo());
+                        oggettoCarrello.setQuantita(1);
+                        oggettiCarrello.add(oggettoCarrello);
+                    }
+                } else if (codiceArt.startsWith("a")) {
+                    // Aggiungi Accessorio
+                    AccessorioBean accessorio = model3.doRetrieveByKey(codiceArt);
+                    boolean trovato = false;
+                    for (OggettiCarrelloBean oggetto : oggettiCarrello) {
+                        if (oggetto.getCod_articolo().equals(codiceArt)) {
+                            int quant = oggetto.getQuantita();
+                            oggetto.setQuantita(quant + 1);
+                            trovato = true;
+                            if (username != null) {
+                                model3.addAccessorioToCart(accessorio, username, quant + 1, true);
+                            }
+                            break;
+                        }
+                    }
+                    if (!trovato) {
+                        if (username != null) {
+                            model3.addAccessorioToCart(accessorio, username, 1, false);
+                        }
+                        OggettiCarrelloBean oggettoCarrello = new OggettiCarrelloBean();
+                        oggettoCarrello.setCod_articolo(accessorio.getCod_Accessorio());
+                        oggettoCarrello.setImmagineCopertina(accessorio.getImmagineCop());
+                        oggettoCarrello.setNome_articolo(accessorio.getNomeaccessorio());
+                        oggettoCarrello.setPrezzo(accessorio.getPrezzo());
+                        oggettoCarrello.setQuantita(1);
+                        oggettiCarrello.add(oggettoCarrello);
+                    }
+                } else if (codiceArt.startsWith("e")) {
+                    // Aggiungi Espansione
+                    espansioneBean espansione = model2.doRetrieveByKey(codiceArt);
+                    boolean trovato = false;
+                    for (OggettiCarrelloBean oggetto : oggettiCarrello) {
+                        if (oggetto.getCod_articolo().equals(codiceArt)) {
+                            int quant = oggetto.getQuantita();
+                            oggetto.setQuantita(quant + 1);
+                            trovato = true;
+                            if (username != null) {
+                                model2.addEspansioneToCart(espansione, username, quant + 1, true);
+                            }
+                            break;
+                        }
+                    }
+                    if (!trovato) {
+                        if (username != null) {
+                            model2.addEspansioneToCart(espansione, username, 1, false);
+                            
+                        }
+                        OggettiCarrelloBean oggettoCarrello = new OggettiCarrelloBean();
+                        oggettoCarrello.setCod_articolo(espansione.getCod_espansione());
+                        oggettoCarrello.setImmagineCopertina(espansione.getImmagineCop());
+                        oggettoCarrello.setNome_articolo(espansione.getNomeespansione());
+                        oggettoCarrello.setPrezzo(espansione.getPrezzo());
+                        oggettoCarrello.setQuantita(1);
+                        oggettiCarrello.add(oggettoCarrello);
                     }
                 }
-            } else if ("decreaseQuantity".equals(action)) {
+            }
+ else if ("decreaseQuantity".equals(action)) {
                 String codiceArticolo = request.getParameter("cod_articolo");
                 for (Iterator<OggettiCarrelloBean> iterator = oggettiCarrello.iterator(); iterator.hasNext();) {
                     OggettiCarrelloBean oggetto = iterator.next();

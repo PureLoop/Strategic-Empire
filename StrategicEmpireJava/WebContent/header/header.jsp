@@ -59,15 +59,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true">
-            Catalogo
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="AccessorioView.jsp">Accessori</a></li>
-            <li><a class="dropdown-item" href="EspansioneView.jsp">Espansioni</a></li>
-            <li><a class="dropdown-item" href="GiocoView.jsp">Giochi</a></li>
-          </ul>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="catalogo.jsp">Catalogo</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="News.jsp">News</a>
@@ -147,7 +140,7 @@
               </a>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                   <li><a class="dropdown-item" href="AreaPersonale.jsp">Area Utente</a></li>
-                  <li><a class="dropdown-item" href="Carrello.jsp">Carrello</a></li>
+                  <li><a class="dropdown-item" id="carrelloLink" href="Carrello.jsp">Carrello</a></li>
                   <li><a class="dropdown-item" href="logout.jsp">Esci</a></li>
               </ul>
           </div>
@@ -160,5 +153,37 @@
   </div>
 </nav>
 </body>
+<script>
+    $(document).ready(function(){
+        // Aggiungi l'evento click sul link del carrello
+        $("#carrelloLink").click(function(event){
+            // Evita il comportamento predefinito del link
+            event.preventDefault();
+            
+            // Ottieni il nome utente dal codice JSP
+            var username = "<%= name %>";
+
+            // Chiamata AJAX per eseguire l'azione desiderata
+            $.ajax({
+                url: 'CarrelloControl', // URL dell'azione che vuoi eseguire
+                type: 'GET',
+                data: {
+                    action: 'TakeDB', // Parametro per l'azione desiderata
+                    username: username // Passa il nome utente come parametro
+                },
+                success: function(response) {
+                    // Dopo la chiamata AJAX, reindirizza alla pagina Carrello.jsp
+                    window.location.href = 'Carrello.jsp';
+                },
+                error: function(xhr, status, error) {
+                    console.log('Errore nella chiamata AJAX:', error);
+                    // Eventuale gestione dell'errore
+                }
+            });
+        });
+    });
+</script>
+
+
 </html>
 

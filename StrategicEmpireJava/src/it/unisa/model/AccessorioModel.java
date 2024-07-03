@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 import it.unisa.bean.AccessorioBean;
+import it.unisa.bean.GiocoBean;
 
 public interface AccessorioModel {
 
@@ -19,4 +20,9 @@ public interface AccessorioModel {
     void insertImgAcc(AccessorioBean accessorio) throws SQLException;
     void deleteAcc(String codAcc) throws SQLException;
     public Collection<AccessorioBean> searchAccessorio(String searchParam) throws SQLException;
+	void addAccessorioToCart(AccessorioBean gioco, String u, int quantita, boolean controllo) throws SQLException;
+	public void deleteAcq_Accessorio(String codAccessorio) throws SQLException;
+	public  Collection<AccessorioBean> doRetrieveAllDBACQ(String username) throws SQLException;
+
+
 }

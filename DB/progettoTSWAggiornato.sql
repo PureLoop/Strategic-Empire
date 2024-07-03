@@ -106,6 +106,7 @@ create table ordine(
 
 create table acq_accessorio(
 	cod_accessorio varchar(10),
+    quantita int(3),
     nome_ut varchar(20),
     primary key(cod_accessorio,nome_ut),
     foreign key(cod_accessorio) references accessorio(cod_accessorio) 
@@ -117,6 +118,7 @@ create table acq_accessorio(
 
 create table acq_gioco(
 cod_gioco varchar(10),
+    quantita int(3),
     nome_ut varchar(20),
     primary key(cod_gioco,nome_ut),
     foreign key(cod_gioco) references gioco(cod_gioco) 
@@ -128,6 +130,7 @@ cod_gioco varchar(10),
 
 create table acq_espansione(
     cod_espansione varchar(10),
+	quantita int(3),
     nome_ut varchar(20),
     primary key(cod_espansione, nome_ut),
     foreign key(cod_espansione) references espansione(cod_espansione) 

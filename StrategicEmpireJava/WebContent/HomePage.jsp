@@ -212,7 +212,7 @@
       <!-- /END THE FEATURETTES -->
     </main>
 
-    <%@ include file="Review.jsp" %>  
+    <%@ include file="Review.jsp" %> 
 
     <!-- FOOTER -->
     <footer>
