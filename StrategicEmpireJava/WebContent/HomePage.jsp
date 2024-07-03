@@ -102,7 +102,16 @@
         width: 100%;
         height: auto;
       }
-    </style>
+      
+      .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Opacità e colore dell'overlay */
+}
+</style>
 
     <!-- Custom styles for this template -->
     <link href="carousel.css" rel="stylesheet">
@@ -120,6 +129,7 @@
         </div>
         <div class="carousel-inner">
           <div class="carousel-item active" style="background-image: url('IMMAGINI/IMMAGINI_HOME/Carousel1.jpg');">
+           <div class="overlay"></div>
             <div class="container">
               <div class="carousel-caption text-start">
                 <h1>Scopri nuovi mondi e storie fantastiche</h1>
@@ -129,6 +139,7 @@
             </div>
           </div>
           <div class="carousel-item" style="background-image: url('IMMAGINI/IMMAGINI_HOME/Carousel2.jpg');">
+           <div class="overlay"></div>
             <div class="container">
               <div class="carousel-caption">
                 <h1>Riscopri la bellezza di giocare in compagnia</h1>
@@ -138,6 +149,7 @@
             </div>
           </div>
           <div class="carousel-item" style="background-image: url('IMMAGINI/IMMAGINI_HOME/Carousel3.jpg');">
+           <div class="overlay"></div>
             <div class="container">
               <div class="carousel-caption text-end">
                 <h1>Strategia e molto ingegno</h1>

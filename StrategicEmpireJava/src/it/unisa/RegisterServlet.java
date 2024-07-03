@@ -49,7 +49,7 @@ public class RegisterServlet extends HttpServlet {
         }
 
         if (isEmailRegistered(email)) {
-            request.setAttribute("errorMessage", "Email già registrata.");
+            request.setAttribute("errorMessage", "Email giï¿½ registrata.");
             request.getRequestDispatcher("/Register.jsp").forward(request, response);
             return;
         }
@@ -70,7 +70,7 @@ public class RegisterServlet extends HttpServlet {
             statement.setInt(9, ncivico);
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
-                response.sendRedirect("GiocoView.jsp");
+                response.sendRedirect("HomePage.jsp");
             } else {
                 request.setAttribute("errorMessage", "Errore nella registrazione. Riprova.");
                 request.getRequestDispatcher("/Login.jsp").forward(request, response);

@@ -12,7 +12,7 @@ if(request.getAttribute("pageType").equals("catalogo")){
 <div class="row" id="allAccessories" style="margin-left: 3%; margin-right:3%;margin-top:2%;">
     <% if (accessori != null && !accessori.isEmpty()) { 
         for (AccessorioBean bean : accessori) { %>
-            <div class="col-sm-3 mb-3" style="width: 25%;">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
                 <div class="card">
                 <%if(request.getAttribute("pageType").equals("catalogo")) {%>
                 <a class="no-underline card-link" href="DettagliControl?cod_accessorio=<%= bean.getCod_Accessorio()%>&DES=2">

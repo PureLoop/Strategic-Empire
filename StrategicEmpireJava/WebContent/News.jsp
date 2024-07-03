@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notizie e Aggiornamenti - Nostro Sito di Giochi</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
-    <link href="News.css" rel="stylesheet">
+    <link href="css/News.css" rel="stylesheet">
 </head>
 <body>
 

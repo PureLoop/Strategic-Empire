@@ -1,5 +1,4 @@
-/* Existing styles */
-
+/* Stili esistenti */
 #game-table {
     width: 100%;
     border-collapse: collapse; /* Rimuove lo spazio tra le celle */
@@ -70,9 +69,10 @@ header {
 }
 
 .button-group {
-    margin-top: 20px;
     margin-left: 40px; /* Margine superiore per i bottoni */
     left: 10%;
+    display: flex;
+    justify-content: center; /* Centra i bottoni orizzontalmente */
 }
 
 .button-group .btn {
@@ -104,14 +104,15 @@ header {
 /* Responsive Adjustments */
 @media (max-width: 768px) {
     .button-group {
-        flex-direction: column;
-        align-items: center;
+        flex-direction: row; /* Dispone i bottoni orizzontalmente */
+        justify-content: center; /* Centra i bottoni orizzontalmente */
+        flex-wrap: wrap; /* Permette ai bottoni di andare a capo se necessario */
+        margin-left: 0; /* Remove left margin on smaller screens */
     }
 
     .button-group .btn {
         width: 80%;
-        margin-right: 0;
-        margin-bottom: 10px;
+        margin: 5px 0; /* Margine tra i bottoni */
     }
 
     .search-bar .form-control,
@@ -133,8 +134,10 @@ header {
 
     #game-table tr {
         display: flex;
-        flex-direction: column;
+        flex-direction: row; /* Dispone le celle in fila */
         width: 100%;
+        flex-wrap: wrap; /* Permette alle celle di andare a capo se necessario */
+        justify-content: space-between; /* Distribuisce lo spazio tra le celle */
     }
 
     .icon-carrello {
