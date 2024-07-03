@@ -59,6 +59,8 @@ public class catalogoControl extends HttpServlet {
 
             try {
                 Collection<GiocoBean> giochi = modelGioco.doRetrieveAll(sort);
+             	System.out.println("2"+giochi.isEmpty());
+
                 request.setAttribute("prodotti", giochi);
                 if (isAjaxRequest) {
                     response.setContentType("text/html");
@@ -67,6 +69,7 @@ public class catalogoControl extends HttpServlet {
                 } else {
                     request.removeAttribute("prodotti");
                     request.setAttribute("prodotti", giochi);
+                
                     RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/AreaPersonale.jsp");
                     dispatcher.forward(request, response);
                 }

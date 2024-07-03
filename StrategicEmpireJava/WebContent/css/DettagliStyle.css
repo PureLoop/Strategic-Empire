@@ -100,4 +100,21 @@
     right: 20px;
     bottom: 20px;
 }
+.custom-button {
+            position: absolute;
+            right: 30%;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #00BFFF;
+            border: 2px solid #00BFFF;
+            border-radius: 20px; /* Arrotonda i bordi */
+            color: white;
+            text-decoration: none; /* Rimuove la sottolineatura */
+            transition: background-color 0.3s, color 0.3s;
+        }
 
+        .custom-button:hover {
+            background-color: white;
+            color: #00BFFF;
+            text-decoration: none; /* Rimuove la sottolineatura anche quando ci passi sopra */
+        }

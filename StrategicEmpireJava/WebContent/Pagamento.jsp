@@ -239,7 +239,7 @@
 </head>
 <body>
 <%
-String total = request.getParameter("total");
+	String total = request.getParameter("total");
     u = (User) session.getAttribute("user");
     loggedIn = (u != null);
     
@@ -310,8 +310,10 @@ String total = request.getParameter("total");
             </div>
         </div>
 		<div class="input-box">
-		    <span>Totale da pagare:   <b>$<%= total %></span>
-		</div>
+    <span>Totale:</span>
+    <div id="totalValue"></div>
+</div>
+
 
         <div>
             <button type="submit" class="btn2">Invia</button>
@@ -506,6 +508,39 @@ String total = request.getParameter("total");
             input.addEventListener('input', function() {
                 validateInput(this);
             });
+        }
+    });
+    
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        // Funzione per aggiornare il valore del total solo se è valido
+        function updateTotal(total) {
+            // Solo se il valore non è null e non è una stringa vuota
+            if (total && total.trim() !== '') {
+                localStorage.setItem('total', total);
+                console.log("Total updated in localStorage:", total); // Verifica che il valore sia aggiornato
+            }
+        }
+
+        // Recupera il parametro 'total' dalla richiesta
+        const totalFromRequest = '<%= request.getParameter("total") %>';
+        console.log("Total from request:", totalFromRequest); // Verifica il valore
+
+        // Solo se 'total' è passato e non è null o vuoto, aggiorna il localStorage
+        if (totalFromRequest && totalFromRequest.trim() !== 'null') {
+            updateTotal(totalFromRequest);
+        }
+
+        // Recupera il valore di 'total' dal localStorage
+        const totalFromStorage = localStorage.getItem('total');
+        console.log("Total retrieved from localStorage:", totalFromStorage); // Verifica che il valore venga recuperato
+
+        // Visualizza il valore di 'total' nel campo desiderato
+        const totalElement = document.getElementById('totalValue');
+        if (totalElement) {
+            totalElement.textContent = totalFromStorage ? totalFromStorage : 'N/A'; // Mostra 'N/A' se non ci sono valori
+        } else {
+            console.error("Element with id 'totalValue' not found."); // Verifica che l'elemento esista
         }
     });
     

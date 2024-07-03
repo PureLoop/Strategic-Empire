@@ -16,5 +16,10 @@ public interface GiocoModel {
 	void updateGame(GiocoBean gioco, boolean img1, boolean img2) throws SQLException;
 	void insertImgGioco(GiocoBean gioco) throws SQLException;
 	public Collection<GiocoBean>  searchGioco(String searchParam) throws SQLException;
+	void addGiocoToCart(GiocoBean gioco, String u, int quantita, boolean controllo) throws SQLException;
+	public void deleteAcq_Gioco(String codGioco) throws SQLException;
+	public Collection<GiocoBean> doRetrieveAllDBACQ(String username) throws SQLException;
+
+
 
 }

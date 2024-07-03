@@ -13,29 +13,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="DettagliStyle.css">
+    <link rel="stylesheet" href="css/DettagliStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        .custom-button {
-            position: absolute;
-            right: 30%;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #00BFFF;
-            border: 2px solid #00BFFF;
-            border-radius: 20px; /* Arrotonda i bordi */
-            color: white;
-            text-decoration: none; /* Rimuove la sottolineatura */
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .custom-button:hover {
-            background-color: white;
-            color: #00BFFF;
-            text-decoration: none; /* Rimuove la sottolineatura anche quando ci passi sopra */
-        }
-    </style>
 </head>
 <body>
     <%@ include file="/header/header.jsp" %>
