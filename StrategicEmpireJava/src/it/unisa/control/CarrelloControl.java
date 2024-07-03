@@ -102,7 +102,7 @@ public class CarrelloControl extends HttpServlet {
                     oggettoCarrello.setImmagineCopertina(gioco.getImmagineCop());
                     oggettoCarrello.setNome_articolo(gioco.getNomegioco());
                     oggettoCarrello.setPrezzo(gioco.getPrezzo());
-                    oggettoCarrello.setQuantita(1); // Imposta la quantità a 1 per ogni gioco
+                    oggettoCarrello.setQuantita(gioco.getQuantita()); // Imposta la quantità a 1 per ogni gioco
                     
                     // Aggiungi l'oggetto al carrello
                     oggettiCarrello.add(oggettoCarrello);
@@ -115,7 +115,7 @@ public class CarrelloControl extends HttpServlet {
                     oggettoCarrello.setImmagineCopertina(accessorio.getImmagineCop());
                     oggettoCarrello.setNome_articolo(accessorio.getNomeaccessorio());
                     oggettoCarrello.setPrezzo(accessorio.getPrezzo());
-                    oggettoCarrello.setQuantita(1); // Imposta la quantità a 1 per ogni accessorio
+                    oggettoCarrello.setQuantita(accessorio.getQuantita()); // Imposta la quantità a 1 per ogni accessorio
                     
                     // Aggiungi l'oggetto al carrello
                     oggettiCarrello.add(oggettoCarrello);
@@ -128,7 +128,7 @@ public class CarrelloControl extends HttpServlet {
                     oggettoCarrello.setImmagineCopertina(espansione.getImmagineCop());
                     oggettoCarrello.setNome_articolo(espansione.getNomeespansione());
                     oggettoCarrello.setPrezzo(espansione.getPrezzo());
-                    oggettoCarrello.setQuantita(1); // Imposta la quantità a 1 per ogni espansione
+                    oggettoCarrello.setQuantita(espansione.getQuantita()); // Imposta la quantità a 1 per ogni espansione
                     
                     // Aggiungi l'oggetto al carrello
                     oggettiCarrello.add(oggettoCarrello);

@@ -5,7 +5,10 @@
 boolean visualizza = true;
 List<RecensioneBean> recensioni = (List<RecensioneBean>) request.getAttribute("recensioni");
 
-
+if(recensioni == null || recensioni.isEmpty()) {
+    response.sendRedirect("./recensione");  
+    return;
+}
 	RecensioneBean recensione = (RecensioneBean) request.getAttribute("recensione");
 %>
 
