@@ -11,7 +11,6 @@
     <link href="News.css" rel="stylesheet">
 </head>
 <body>
-<main>
     <header>
         <%@ include file="/header/header.jsp"%>
     </header>
@@ -45,18 +44,20 @@
                 <div class="carousel-caption d-none d-md-block text-center">
                     <h5 class="carousel-title">Costruisci Terre di Fantasia</h5>
                     <p class="carousel-text">Esplora e conquista terre incantate. Acquista oggi!</p>
+
                 </div>
             </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
+
+
 
     <!-- Card delle News -->
     <div class="container">
@@ -108,29 +109,29 @@
                         <h5 class="card-title">Terre di Fantasia</h5>
                         <p class="card-text">Costruisci il tuo impero in un mondo fantasy ricco di magia e creature mitiche. Esplora e conquista terre incantate.</p>
                         <a href="#" class="btn btn-primary w-100 mt-auto">Leggi di pi�</a>
+
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Newsletter -->
-    <div class="newsletter-container text-center my-5">
-        <h2 class="newsletter-title">Iscriviti alla nostra Newsletter</h2>
-        <form action="#" method="post" class="d-inline-block">
-            <div class="input-group">
-                <input type="email" class="form-control" id="email" name="email" placeholder="Inserisci la tua email" required>
-                <button type="submit" class="btn btn-primary">Iscriviti</button>
-            </div>
-        </form>
-    </div>
-
+        <!-- Newsletter -->
+        <div class="newsletter-container text-center my-5">
+            <h2 class="newsletter-title">Iscriviti alla nostra Newsletter</h2>
+            <form action="#" method="post" class="d-inline-block">
+                <div class="input-group">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Inserisci la tua email" required>
+                    <button type="submit" class="btn btn-primary">Iscriviti</button>
+                </div>
+            </form>
+        </div>
+    </main>
     <footer>
         <%@ include file="/footer/footer.jsp"%>
     </footer>
-</main>
 
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
 

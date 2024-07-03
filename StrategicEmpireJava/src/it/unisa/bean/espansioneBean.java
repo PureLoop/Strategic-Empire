@@ -11,13 +11,22 @@ public class espansioneBean implements Serializable{
     public String cod_gioco,cod_espansione,nome_espansione,descrizione;
     public Double prezzo;
     public String immagineCopertina, img2;
-
+    int quantita;
     public espansioneBean(){
     	cod_gioco = "";
         cod_espansione = "";
         nome_espansione = "";
         descrizione = "";
         prezzo = 0.0;
+        quantita = 0;
+    }
+    
+    public void setQuantita(int q) {
+    	this.quantita = q;
+    }
+    
+    public int getQuantita() {
+    	return quantita;
     }
 
     public void setImmagineCop(String img) {

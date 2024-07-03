@@ -11,16 +11,24 @@ public class AccessorioBean implements Serializable{
     public String cod_accessorio,nome_accessorio,tipologia,descrizione;
     public Double prezzo;
     public String immagineCopertina,immagine2;
-
+    int quantita;
     public AccessorioBean(){
         cod_accessorio = "";
         nome_accessorio = "";
         tipologia = "";
         prezzo = 0.0;
         descrizione = "";
-
+        quantita = 0;
     }
 
+    public void setQuantita(int q) {
+    	this.quantita = q;
+    }
+    
+    public int getQuantita() {
+    	return quantita;
+    }
+    
     public void setImmagineCop(String img) {
     	this.immagineCopertina = img;
     }

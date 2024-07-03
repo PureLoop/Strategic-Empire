@@ -181,73 +181,56 @@ public class GiocoModelDM implements GiocoModel{
 		
 
 	public synchronized Collection<GiocoBean> doRetrieveAllDBACQ(String username) throws SQLException {
-	    Connection connection = null;
-	    PreparedStatement preparedStatement = null;
-	    ResultSet rs = null;
 	    Collection<GiocoBean> giochi = new LinkedList<>();
 	    
-	    String selectSQL = "SELECT cod_gioco FROM " + GiocoModelDM.TABLE_NAME4 + " WHERE nome_ut = ?;";
+	    String selectSQL = "SELECT cod_gioco, quantita FROM " + GiocoModelDM.TABLE_NAME4 + " WHERE nome_ut = ?;";
 
-	    try {
-	        // Ottieni la connessione dal pool
-	        connection = DriverManagerConnectionPool.getConnection();
+	    try (Connection connection = DriverManagerConnectionPool.getConnection();
+	         PreparedStatement preparedStatement = connection.prepareStatement(selectSQL)) {
 	        
-	        // Prepara la query per ottenere i codici dei giochi
-	        preparedStatement = connection.prepareStatement(selectSQL);
-	        preparedStatement.setString(1, username); // Imposta il parametro per il username
+	        preparedStatement.setString(1, username);
 
-	        // Esegui la query per ottenere i codici dei giochi
-	        rs = preparedStatement.executeQuery();
-
-	        // Lista per memorizzare i codici dei giochi
-	        List<String> codiciGiochi = new ArrayList<>();
-
-	        // Estrai i codici dei giochi dal ResultSet
-	        while (rs.next()) {
-	            String codG = rs.getString("cod_gioco");
-	            
-	            codiciGiochi.add(codG);
-	        }
-
-	        System.out.println("Codici giochi ottenuti: " + codiciGiochi.size());
-
-	        // Per ogni codice di gioco, recupera i dettagli completi
-	        for (String codG : codiciGiochi) {
-	            try {
-	                System.out.println("Inizio recupero dettagli per codice gioco: " + codG);
-	                GiocoBean gioco = doRetrieveByKey(codG);
-	                if (gioco != null) {
-	                    giochi.add(gioco);
-	                    System.out.println("Gioco aggiunto: " + gioco.getNomegioco());
-	                } else {
-	                    System.out.println("Gioco con codice " + codG + " non trovato.");
-	                }
-	            } catch (Exception e) {
-	                System.err.println("Errore durante il recupero del gioco con codice " + codG + ": " + e.getMessage());
-	                e.printStackTrace();
+	        try (ResultSet rs = preparedStatement.executeQuery()) {
+	            List<String> codiciGiochi = new ArrayList<>();
+	            List<Integer> quantita = new ArrayList<>();
+	            while (rs.next()) {
+	                String codG = rs.getString("cod_gioco");
+	                int q = rs.getInt("quantita");
+	                quantita.add(q);
+	                codiciGiochi.add(codG);
 	            }
+
+	            System.out.println("Codici giochi ottenuti: " + codiciGiochi.size());
+
+	            for (int i = 0; i < codiciGiochi.size(); i++) {
+	                String codG = codiciGiochi.get(i);
+	                int q = quantita.get(i);
+	                try {
+	                    System.out.println("Inizio recupero dettagli per codice gioco: " + codG);
+	                    GiocoBean gioco = doRetrieveByKey(codG);
+	                    if (gioco != null) {
+	                        gioco.setQuantita(q); // Assumendo che GiocoBean abbia un metodo setQuantita
+	                        giochi.add(gioco);
+	                        System.out.println("Gioco aggiunto: " + gioco.getNomegioco() + " con quantità: " + q);
+	                    } else {
+	                        System.out.println("Gioco con codice " + codG + " non trovato.");
+	                    }
+	                } catch (Exception e) {
+	                    System.err.println("Errore durante il recupero del gioco con codice " + codG + ": " + e.getMessage());
+	                    e.printStackTrace();
+	                }
+	            }
+
+	            System.out.println("Numero di giochi recuperati: " + giochi.size());
 	        }
-	        
-	        System.out.println("Numero di giochi recuperati: " + giochi.size());
 	    } catch (SQLException e) {
-	        e.printStackTrace(); // Log dell'eccezione per il debug
-	    } finally {
-	        // Assicurati di chiudere la connessione
-	        if (connection != null) {
-	            DriverManagerConnectionPool.releaseConnection(connection);
-	        }
+	        System.err.println("Errore SQL: " + e.getMessage());
+	        e.printStackTrace();
 	    }
 	    
 	    return giochi;
 	}
 
-
-
-
-
-	
-
-	
 	private static byte[] readBytes(InputStream inputStream){
         ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
         int bufferSize = 1024;

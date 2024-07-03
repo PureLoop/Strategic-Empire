@@ -1,12 +1,4 @@
-/* CSS */
-/* Contatti.css */
-
-/* Reset default styles */
-
-/* Contatti.css */
-
-/* Reset default styles */
-/* Stili globali */
+/* Reset e impostazioni di base */
 body, h1, h2, p, form, input, textarea, button {
     margin: 0;
     padding: 0;
@@ -22,23 +14,27 @@ body {
     background-repeat: no-repeat;
 }
 
+/* Stili per la sezione di Parallax */
 .parallax {
     height: 100vh; /* Altezza per riempire l'intera finestra */
     background-attachment: fixed;
     background-position: center;
 }
 
+/* Stili per i titoli h1 e h2 */
 h1, h2 {
     text-align: center;
     color: rgb(236, 38, 0); /* Colore rosso per il titolo */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Effetto ombra */
 }
 
+/* Stili per i paragrafi */
 p {
     text-align: center;
     color: #ddd;
 }
 
+/* Contenitore principale */
 main {
     max-width: 1200px;
     margin: 20px auto;
@@ -48,7 +44,7 @@ main {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Stili del form */
+/* Stili per il form */
 form {
     display: flex;
     flex-direction: column;
@@ -84,7 +80,7 @@ button.btn-form:hover {
     transform: scale(1.05);
 }
 
-/* Stili del bottone dell'header */
+/* Stili per il bottone dell'header */
 button.btn-header {
     padding: 10px 20px;
     background: linear-gradient(to right, #007BFF, #0056b3);
@@ -101,11 +97,11 @@ button.btn-header:hover {
     transform: scale(1.05);
 }
 
-/* Stili di contatto aggiuntivo */
+/* Stili per i modi alternativi di contatto */
 #additional-contact p {
     text-align: center;
     margin: 10px 0;
-    color: #007BFF;
+    color: #FF5733; /* Rosso più acceso */
 }
 
 #additional-contact img {
@@ -113,9 +109,10 @@ button.btn-header:hover {
     height: 20px;
     margin-right: 10px;
     vertical-align: middle;
+    filter: invert(34%) sepia(92%) saturate(7509%) hue-rotate(349deg) brightness(94%) contrast(93%);
 }
 
-/* Sezione dei social media */
+/* Stili per la sezione dei social media */
 #social-media {
     text-align: center;
     margin-top: 20px;
@@ -134,6 +131,7 @@ button.btn-header:hover {
 
 #social-media img:hover {
     transform: scale(1.1);
+    filter: invert(34%) sepia(92%) saturate(7509%) hue-rotate(349deg) brightness(94%) contrast(93%);
 }
 
 /* Sezione FAQ */

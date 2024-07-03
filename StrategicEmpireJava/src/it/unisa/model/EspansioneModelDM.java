@@ -75,66 +75,57 @@ public class EspansioneModelDM implements EspansioneModel {
     
     
 
-	public synchronized Collection<espansioneBean> doRetrieveAllDBACQ(String username) throws SQLException {
-	    Connection connection = null;
-	    PreparedStatement preparedStatement = null;
-	    ResultSet rs = null;
-	    Collection<espansioneBean> espansioni = new LinkedList<>();
-	    
-	    String selectSQL = "SELECT cod_espansione FROM " + EspansioneModelDM.TABLE_NAME2 + " WHERE nome_ut = ?;";
+    public synchronized Collection<espansioneBean> doRetrieveAllDBACQ(String username) throws SQLException {
+        Collection<espansioneBean> espansioni = new LinkedList<>();
+        
+        String selectSQL = "SELECT cod_espansione, quantita FROM " + EspansioneModelDM.TABLE_NAME2 + " WHERE nome_ut = ?;";
 
-	    try {
-	        // Ottieni la connessione dal pool
-	        connection = DriverManagerConnectionPool.getConnection();
-	        
-	        // Prepara la query per ottenere i codici dei giochi
-	        preparedStatement = connection.prepareStatement(selectSQL);
-	        preparedStatement.setString(1, username); // Imposta il parametro per il username
+        try (Connection connection = DriverManagerConnectionPool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(selectSQL)) {
+            
+            preparedStatement.setString(1, username);
 
-	        // Esegui la query per ottenere i codici dei giochi
-	        rs = preparedStatement.executeQuery();
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                List<String> codiciEspansioni = new ArrayList<>();
+                List<Integer> quantita = new ArrayList<>();
+                while (rs.next()) {
+                    String codG = rs.getString("cod_espansione");
+                    int q = rs.getInt("quantita");
+                    quantita.add(q);
+                    codiciEspansioni.add(codG);
+                }
 
-	        // Lista per memorizzare i codici dei giochi
-	        List<String> codiciEspansioni = new ArrayList<>();
+                System.out.println("Codici espansioni ottenuti: " + codiciEspansioni.size());
 
-	        // Estrai i codici dei giochi dal ResultSet
-	        while (rs.next()) {
-	            String codG = rs.getString("cod_espansione");
-	            
-	            codiciEspansioni.add(codG);
-	        }
+                for (int i = 0; i < codiciEspansioni.size(); i++) {
+                    String codG = codiciEspansioni.get(i);
+                    int q = quantita.get(i);
+                    try {
+                        System.out.println("Inizio recupero dettagli per codice espansione: " + codG);
+                        espansioneBean esp = doRetrieveByKey(codG);
+                        if (esp != null) {
+                            esp.setQuantita(q); // Assumendo che espansioneBean abbia un metodo setQuantita
+                            espansioni.add(esp);
+                            System.out.println("Espansione aggiunta: " + esp.getNomeespansione() + " con quantità: " + q);
+                        } else {
+                            System.out.println("Espansione con codice " + codG + " non trovata.");
+                        }
+                    } catch (Exception e) {
+                        System.err.println("Errore durante il recupero dell'espansione con codice " + codG + ": " + e.getMessage());
+                        e.printStackTrace();
+                    }
+                }
 
-	        System.out.println("Codici giochi ottenuti: " + codiciEspansioni.size());
+                System.out.println("Numero di espansioni recuperate: " + espansioni.size());
+            }
+        } catch (SQLException e) {
+            System.err.println("Errore SQL: " + e.getMessage());
+            e.printStackTrace();
+        }
+        
+        return espansioni;
+    }
 
-	        // Per ogni codice di gioco, recupera i dettagli completi
-	        for (String codG : codiciEspansioni) {
-	            try {
-	                System.out.println("Inizio recupero dettagli per codice gioco: " + codG);
-	                espansioneBean esp = doRetrieveByKey(codG);
-	                if (esp != null) {
-	                    espansioni.add(esp);
-	                    System.out.println("Gioco aggiunto: " + esp.getNomeespansione());
-	                } else {
-	                    System.out.println("Gioco con codice " + codG + " non trovato.");
-	                }
-	            } catch (Exception e) {
-	                System.err.println("Errore durante il recupero del gioco con codice " + codG + ": " + e.getMessage());
-	                e.printStackTrace();
-	            }
-	        }
-	        
-	        System.out.println("Numero di giochi recuperati: " + espansioni.size());
-	    } catch (SQLException e) {
-	        e.printStackTrace(); // Log dell'eccezione per il debug
-	    } finally {
-	        // Assicurati di chiudere la connessione
-	        if (connection != null) {
-	            DriverManagerConnectionPool.releaseConnection(connection);
-	        }
-	    }
-	    
-	    return espansioni;
-	}
 
 
 
