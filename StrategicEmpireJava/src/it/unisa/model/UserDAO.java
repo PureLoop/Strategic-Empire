@@ -1,4 +1,5 @@
 package it.unisa.model;
+import java.sql.Timestamp;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,12 +7,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
+import javax.servlet.http.HttpSession;
 
 import it.unisa.model.UserModel;
+import it.unisa.bean.OggettiCarrelloBean;
 import it.unisa.bean.User;
 
 public class UserDAO implements UserModel{
     private Connection connection;
+    
+	private static final String TABLE_NAME= "ordine";
+	private static final String TABLE_NAME2= "recap";
+
 
     public boolean registerUser(User user) {
     	connection = null;
@@ -116,8 +124,8 @@ public class UserDAO implements UserModel{
         }
     }
 
-    public void UpdateUser(String newUsername, String newEmail, String newIndirizzo, String currentUsername) throws Exception {
-        String updateQuery = "UPDATE utente SET username=?, email=?, indirizzo=? WHERE username=?";
+    public void UpdateUser(String newName,String newCognome, String newEmail, String newIndirizzo, int newncivico,String Username) throws Exception {
+        String updateQuery = "UPDATE utente SET nome=?,cognome=?, email=?, indirizzo=?, ncivico=? WHERE username=?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
@@ -125,10 +133,12 @@ public class UserDAO implements UserModel{
             connection = DriverManagerConnectionPool.getConnection();
             preparedStatement = connection.prepareStatement(updateQuery);
 
-            preparedStatement.setString(1, newUsername);
-            preparedStatement.setString(2, newEmail);
-            preparedStatement.setString(3, newIndirizzo);
-            preparedStatement.setString(4, currentUsername); // Imposta il valore per il parametro WHERE
+            preparedStatement.setString(1, newName);
+            preparedStatement.setString(2, newCognome);
+            preparedStatement.setString(3, newEmail);
+            preparedStatement.setString(4, newIndirizzo);
+            preparedStatement.setInt(5, newncivico);
+            preparedStatement.setString(6, Username);
 
             preparedStatement.executeUpdate();
             connection.commit();
@@ -147,6 +157,198 @@ public class UserDAO implements UserModel{
             }
             if (connection != null) {
                 connection.close();
+            }
+        }
+    }
+    
+    public static int getRowCount() throws SQLException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        int rowCount = 0;
+
+        try {
+            // Stabilire la connessione al database
+            connection = DriverManagerConnectionPool.getConnection();
+
+            // Creare la query SQL per contare le righe
+            String sql = "SELECT COUNT(*) AS row_count FROM " + TABLE_NAME;
+
+            // Preparare la query
+            statement = connection.prepareStatement(sql);
+
+            // Eseguire la query
+            resultSet = statement.executeQuery();
+
+            // Ottenere il numero di righe
+            if (resultSet.next()) {
+                rowCount = resultSet.getInt("row_count");
+            }
+            System.out.println(rowCount);
+
+        } finally {
+            // Chiudere il ResultSet
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            // Chiudere il PreparedStatement
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            // Chiudere la connessione
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return rowCount;
+    }
+
+    public void CreateOrdine(String cod_sconto, String username, List<OggettiCarrelloBean> oggettiCarrello ) {
+        Connection connection = null; // Assicurati di avere una connessione valida
+        String sql = "INSERT INTO " + TABLE_NAME + " (data ,cod_sconto, cod_utente) VALUES (?, ?,?)";
+        int x;
+        try {
+            // Assumendo che `getConnection()` restituisca una connessione valida
+            connection = DriverManagerConnectionPool.getConnection();
+            Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+
+            x = getRowCount();
+            System.out.println(x);
+            x++;
+            // Crea il PreparedStatement
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                // Gestione del campo cod_sconto, che può essere NULL
+                if (cod_sconto!= null) {
+                    statement.setString(2,cod_sconto);
+                } else {
+
+                    statement.setNull(2, java.sql.Types.VARCHAR); // Imposta NULL se il valore non è presente
+                }
+                statement.setTimestamp(1,currentTimestamp); // Imposta il valore se non è NULL
+
+                statement.setString(3, username); // Codice utente
+                
+                // Esegui l'inserimento
+                int rowsInserted = statement.executeUpdate();
+                 connection.commit();
+                 for(OggettiCarrelloBean oggettoBean: oggettiCarrello) {
+                     if (oggettoBean.getCod_articolo().startsWith("g") && oggettoBean.getSelezionato() == true) {
+                    	 recap(x,oggettoBean.getCod_articolo(),null,null);
+                    	 
+                     } else if (oggettoBean.getCod_articolo().startsWith("a") && oggettoBean.getSelezionato() == true) {
+                    	 recap(x,null,oggettoBean.getCod_articolo(),null);
+
+                     } else if (oggettoBean.getCod_articolo().startsWith("e") && oggettoBean.getSelezionato() == true) {
+                    	 recap(x,null,null,oggettoBean.getCod_articolo());
+
+                     }
+
+                 }
+                 
+                 
+                 
+                if (rowsInserted > 0) {
+                    System.out.println("Ordine creato con successo.");
+                   
+                } else {
+                    System.out.println("Nessun ordine creato.");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Assicurati di chiudere la connessione in modo appropriato
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    
+    public void recap(int ord, String acq_gio, String acq_esp, String acq_acc) {
+        Connection connection = null;
+        String sql = "INSERT INTO recap (num_ordine, acq_gio, acq_esp, acq_acc) VALUES (?, ?, ?, ?)";
+        
+        try {
+            // Ottieni una connessione valida
+            connection = DriverManagerConnectionPool.getConnection();
+            // Disabilita l'auto-commit per gestire manualmente la transazione
+            connection.setAutoCommit(false);
+
+            // Crea il PreparedStatement
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                // Imposta i valori nei parametri della query
+                statement.setInt(1, ord); // Codice ordine
+                
+                // Imposta NULL se i valori sono nulli, altrimenti imposta il valore
+                if (acq_gio != null) {
+                    statement.setString(2, acq_gio);
+                } else {
+                    statement.setNull(2, java.sql.Types.VARCHAR);
+                }
+
+                if (acq_esp != null) {
+                    statement.setString(3, acq_esp);
+                } else {
+                    statement.setNull(3, java.sql.Types.VARCHAR);
+                }
+
+                if (acq_acc != null) {
+                    statement.setString(4, acq_acc);
+                } else {
+                    statement.setNull(4, java.sql.Types.VARCHAR);
+                }
+
+                // Esegui l'inserimento
+                int rowsInserted = statement.executeUpdate();
+                
+                // Commetti la transazione se l'inserimento ha successo
+                if (rowsInserted > 0) {
+                    connection.commit();
+                    System.out.println("Recap creato con successo.");
+                } else {
+                    System.out.println("Nessun recap creato.");
+                }
+            } catch (SQLException e) {
+                // Rollback in caso di errore
+                if (connection != null) {
+                    try {
+                        connection.rollback();
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Assicurati di chiudere la connessione in modo appropriato
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

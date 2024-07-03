@@ -120,7 +120,7 @@
                                     <h5><%= oggetto.getNome_articolo() %></h5>
                                     <p class="small mb-0">Codice articolo: <%= oggetto.getCod_articolo() %></p>
                                 </div>
-                            </div>
+                            </div>                            
                             <div class="d-flex flex-row align-items-center">
                                 <div style="width: 50px;">
                                     <a href="#!" style="color: #cecece;" onclick="increaseQuantity('<%= oggetto.getCod_articolo() %>')"><i class="fas fa-plus"></i></a>
@@ -273,11 +273,13 @@
 
         selectedItems.forEach(item => {
             let codiceArticolo = item.id.split('_')[1];
-            <% for (OggettiCarrelloBean oggetto : carrellobean) { %>
+            
+            <% if(carrellobean!= null){
+            for (OggettiCarrelloBean oggetto : carrellobean) { %>
                 if ("<%= oggetto.getCod_articolo() %>" === codiceArticolo) {
                     subtotal += <%= oggetto.getPrezzo() %> * <%= oggetto.getQuantita() %>;
                 }
-            <% } %>
+            <% } }%>
         });
 
         document.getElementById('subtotal').innerText = subtotal.toFixed(2) + '€';
@@ -286,17 +288,40 @@
         document.getElementById('checkoutAmount').innerText = (subtotal + shippingCost).toFixed(2) + '€';
     }
 
+
+    function updateCart(codiceArticolo, isChecked) {
+        const xhr = new XMLHttpRequest();
+        // Usa l'azione corretta basata sul valore di isChecked
+        let action = isChecked ? 'selected' : 'deselected';
+        xhr.open('GET', 'CarrelloControl?action=' + "selected" + '&cod_articolo=' + codiceArticolo, true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                console.log("Articolo aggiornato con successo.");
+                // Non ricaricare la pagina immediatamente
+                // Puoi aggiornare lo stato direttamente se necessario
+            } else if (xhr.readyState == 4) {
+                console.error("Errore nell'aggiornamento dell'articolo: " + xhr.status);
+            }
+        };
+        
+        xhr.send();
+    }
+
+
     document.addEventListener('DOMContentLoaded', function() {
         calculateTotal();
         let checkboxes = document.querySelectorAll('input[type="checkbox"]');
         checkboxes.forEach(checkbox => {
             checkbox.addEventListener('change', function() {
                 calculateTotal();
+                updateCart(this.id.split('_')[1], this.checked); // Chiama la funzione updateCart
             });
         });
     });
     
-    
+
 </script>
     <footer>
       <%@ include file="/footer/footer.jsp" %>

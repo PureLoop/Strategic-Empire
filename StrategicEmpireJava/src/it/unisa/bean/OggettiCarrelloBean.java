@@ -8,6 +8,7 @@ public class OggettiCarrelloBean implements Serializable {
     private Double prezzo;
     private Integer quantita;
     private String immagineCopertina;
+    private boolean selezionato;
 
     public OggettiCarrelloBean() {
         this.cod_articolo = "";
@@ -15,12 +16,17 @@ public class OggettiCarrelloBean implements Serializable {
         this.prezzo = 0.0;
         this.quantita = 1;
         this.immagineCopertina = "";
+        this.selezionato = true;
     }
 
     public String getCod_articolo() {
         return cod_articolo;
     }
-
+    
+    public boolean getSelezionato() {
+        return selezionato;
+    }
+    
     public String getNome_articolo() {
         return nome_articolo;
     }
@@ -55,5 +61,22 @@ public class OggettiCarrelloBean implements Serializable {
 
     public void setImmagineCopertina(String immagineCopertina) {
         this.immagineCopertina = immagineCopertina;
+       
+    }
+    
+    public void setSelezionato (boolean t) {
+        this.selezionato = t;
+    }
+    
+    @Override
+    public String toString() {
+        return "OggettiCarrelloBean{" +
+                "cod_articolo='" + cod_articolo + '\'' +
+                ", nome_articolo='" + nome_articolo + '\'' +
+                ", prezzo=" + prezzo +
+                ", quantita=" + quantita +
+                ", immagineCopertina='" + immagineCopertina + '\'' +
+                ", selezionato=" + selezionato +
+                '}';
     }
 }

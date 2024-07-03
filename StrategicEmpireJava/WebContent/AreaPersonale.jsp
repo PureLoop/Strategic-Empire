@@ -6,6 +6,7 @@
 <%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.bean.CartaBean"%>
 <%@ page import="it.unisa.control.UpdateAccountControl" %>
 
+
 <%@ page import="it.unisa.bean.User" %>
 
 <%
@@ -15,10 +16,17 @@
     String username = null;
 	String Email= null;
 	String Indirizzo=null;
+	String nome = null;
+	String cognome = null;
+	int ncivico = 0;
     if (user != null) {
+    	
         username = user.getUsername(); // Supponendo che User abbia un metodo getUsername()
         Email = user.getEmail();
         Indirizzo= user.getIndirizzo();
+        nome= user.getNome();
+        cognome= user.getCognome();
+        ncivico = user.getncivico();
     }
 %>
 <head>
@@ -244,9 +252,13 @@
         <div class="row">
         <hr>
             <div class="col-md-4">
-                <label>Username:</label>
-                <p><%= username %></p>
+                <label>Nome:</label>
+				<p><%= user.getNome()%></p>
             </div>
+            <div class="col-md-4">
+                <label>Cognome:</label>
+                <p><%= user.getCognome() %></p>            
+           </div>
             <div class="col-md-4">
                 <label>Email:</label>
                 <p><%= user != null ? Email : "N/A" %></p>
@@ -255,23 +267,38 @@
                 <label>Indirizzo:</label>
                 <p><%= user!=null ? Indirizzo : "N/A"%></p>
             </div>
+            <div class="col-md-4">
+                <label>numero civico:</label>
+                <p><%= user.getncivico() %></p>
+            </div>
         </div>
     
     <form action="UpdateAccountControl" method="post">
         <h2>Modifica Informazioni</h2>
         <div class="form-group">
- 			 <label for="Username">Username:</label>
-             <input type="text" id="Username" name="Username" required class="form-control" value="<%= user != null ? user.getUsername() : "" %>"><br>
+            <label for="Nome">Nome:</label>
+             <input type="text" id="Nome" name="Nome" required class="form-control" value="<%= user != null ? nome : "" %>"><br>
+        </div>
+        <div class="form-group">
+            <label for="Cognome">Cognome:</label>
+             <input type="text" id="Cognome" name="Cognome" required class="form-control" value="<%= user != null ? user.getCognome() : "" %>"><br>
         </div>
         <div class="form-group">
             <label for="email">Email:</label>
-			<input type="text" id="email" name="email" class="form-control" value="<%= user != null ? user.getEmail() : "" %>">        </div>
+            <input type="text" id="email" name="email" class="form-control" value="<%= user != null ? user.getEmail() : "" %>">
+        </div>
         <div class="form-group">
-			<label for="Indirizzo">Indirizzo:</label>
+            <label for="Indirizzo">Indirizzo:</label>
             <textarea id="Indirizzo" name="Indirizzo" class="form-control"><%= user != null ? user.getIndirizzo() : "N/A" %></textarea>
         </div>
+        <div class="form-group">
+            <label for="N_civico">N civico:</label>
+             <input type="text" id="ncivico" name="ncivico" required class="form-control" value="<%= user != null ? user.getncivico() : "" %>"><br>
+        </div>
+             <input type="hidden" id="Username" name="Username" value=<%= user.getUsername() %>><br>
         <input type="submit" value="Salva Modifiche" class="btn btn-primary mt-3">
     </form>
+
 </div>
 	<div id="showSavedPayment"></div>
 <script src="js/areaPersonaleCards.js"></script> 

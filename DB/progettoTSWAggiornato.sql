@@ -76,7 +76,7 @@ create table recap(
     acq_esp    varchar(10) default null references acq_espansione(cod_espansione),
     acq_acc    varchar(10) default null references acq_accessorio(cod_accessorio)
 );
-
+ALTER TABLE recap AUTO_INCREMENT = 1;
 create table sconto(
 	nome_sconto varchar(50) not null,
     cod_sconto varchar(10) primary key,
@@ -93,7 +93,7 @@ create table pagamento(
 );
 
 create table ordine(
-	cod_ordine varchar(10) primary key,
+	cod_ordine int auto_increment primary key,
     data date not null,
     cod_sconto varchar(10) default null references sconto(cod_sconto)
 		on delete cascade
@@ -102,6 +102,7 @@ create table ordine(
 		on delete cascade
         on update cascade
 );
+ALTER TABLE ordine AUTO_INCREMENT = 1;
 
 create table acq_accessorio(
 	cod_accessorio varchar(10),
