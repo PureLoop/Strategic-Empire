@@ -26,17 +26,12 @@ public class UpdateAccountControl extends HttpServlet {
         
         
         String nome = request.getParameter("Nome");
-        System.out.println(nome);
         String cognome = request.getParameter("Cognome");
-        System.out.println(cognome);
         String email = request.getParameter("email");
-        System.out.println(email);
         String indirizzo = request.getParameter("Indirizzo");
-        System.out.println(indirizzo);
         String ncivicoStr = request.getParameter("ncivico");
-        System.out.println(ncivicoStr);
         String Username = request.getParameter("Username");
-        System.out.println(Username);
+        String sesso = request.getParameter("sesso");
         int ncivico = 0; // Valore di default in caso di errore
 
         try {
@@ -46,11 +41,11 @@ public class UpdateAccountControl extends HttpServlet {
         }
         boolean updateSuccess = false;
 
-        if (nome != null && cognome!=null && email != null && indirizzo != null && Username !=null) {
+        if (nome != null && cognome!=null && email != null && indirizzo != null && Username !=null && sesso!=null) {
         
             UserDAO userDAO = new UserDAO();
             try {
-                userDAO.UpdateUser(nome,cognome, email, indirizzo, ncivico,Username);
+                userDAO.UpdateUser(nome,cognome, email, indirizzo, ncivico,Username,sesso);
                 updateSuccess = true;
             } catch (Exception e) {
                 e.printStackTrace();

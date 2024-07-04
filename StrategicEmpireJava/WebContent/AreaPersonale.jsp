@@ -17,7 +17,9 @@
 	String Email= null;
 	String Indirizzo=null;
 	String nome = null;
+	String ruolo = null;
 	String cognome = null;
+	String sesso= null;
 	int ncivico = 0;
     if (user != null) {
     	
@@ -25,8 +27,10 @@
         Email = user.getEmail();
         Indirizzo= user.getIndirizzo();
         nome= user.getNome();
+        ruolo= user.getRole();
         cognome= user.getCognome();
         ncivico = user.getncivico();
+        sesso = user.getsesso();
     }
 %>
 <head>
@@ -144,7 +148,65 @@
     font-weight: bold;
     margin-right: 5px;
 }
+/*Style per il radio botton sex */
+.gender-selection {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    width: 100%;
+}
 
+.gender-selection label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333333;
+    cursor: pointer;
+    position: relative;
+    padding-left: 30px;
+}
+
+.gender-selection input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.custom-radio {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 20px;
+    width: 20px;
+    background-color: #e0e0e0;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+}
+
+.gender-selection input[type="radio"]:checked + .custom-radio {
+    background-color: #4caf50;
+}
+
+.custom-radio::after {
+    content: "";
+    position: absolute;
+    display: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: white;
+}
+
+.gender-selection input[type="radio"]:checked + .custom-radio::after {
+    display: block;
+}
 /* Media Queries */
 
 /* Tablet */
@@ -270,6 +332,10 @@
                 <label>numero civico:</label>
                 <p><%= user.getncivico() %></p>
             </div>
+             <div class="col-md-4">
+                <label>Sesso:</label>
+                <p><%= user.getsesso() %></p>
+            </div>
         </div>
     
     <form action="UpdateAccountControl" method="post">
@@ -294,6 +360,24 @@
             <label for="N_civico">N civico:</label>
              <input type="text" id="ncivico" name="ncivico" required class="form-control" value="<%= user != null ? user.getncivico() : "" %>"><br>
         </div>
+    <div class="gender-selection">
+    <h4> Seleziona il tuo sesso: </h4>
+        <label>
+            <input type="radio" name="sesso" value="non specificato" checked>
+            <span class="custom-radio"></span>
+            Non specificato
+        </label>
+        <label>
+            <input type="radio" name="sesso" value="uomo">
+            <span class="custom-radio"></span>
+            Uomo
+        </label>
+        <label>
+            <input type="radio" name="sesso" value="donna">
+            <span class="custom-radio"></span>
+            Donna
+        </label>
+    </div>
              <input type="hidden" id="Username" name="Username" value=<%= user.getUsername() %>><br>
         <input type="submit" value="Salva Modifiche" class="btn btn-primary mt-3">
     </form>

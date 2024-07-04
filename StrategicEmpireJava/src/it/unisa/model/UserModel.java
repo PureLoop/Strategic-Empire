@@ -13,7 +13,7 @@ public interface UserModel {
 	public void updateRole(User u) ;
 	public Collection<User> doRetrieveAll() throws SQLException;
 	public void updateUserRole(String username, String role)  throws SQLException;
-	public void UpdateUser(String nome,String cognome,String email,String indirizzo,int ncivico,String Username) throws Exception;
+	public void UpdateUser(String nome,String cognome,String email,String indirizzo,int ncivico,String Username,String sesso) throws Exception;
     public void CreateOrdine(String cod_sconto, String username, List<OggettiCarrelloBean> oggettiCarrello, String carta );
 
 }

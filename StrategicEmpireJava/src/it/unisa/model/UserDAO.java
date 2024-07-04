@@ -124,22 +124,21 @@ public class UserDAO implements UserModel{
         }
     }
 
-    public void UpdateUser(String newName,String newCognome, String newEmail, String newIndirizzo, int newncivico,String Username) throws Exception {
-        String updateQuery = "UPDATE utente SET nome=?,cognome=?, email=?, indirizzo=?, ncivico=? WHERE username=?";
+    public void UpdateUser(String newName,String newCognome, String newEmail, String newIndirizzo, int newncivico,String Username,String sesso) throws Exception {
+        String updateQuery = "UPDATE utente SET nome=?,cognome=?, email=?, indirizzo=?, ncivico=? , sesso=? WHERE username=?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             connection = DriverManagerConnectionPool.getConnection();
             preparedStatement = connection.prepareStatement(updateQuery);
-
             preparedStatement.setString(1, newName);
             preparedStatement.setString(2, newCognome);
             preparedStatement.setString(3, newEmail);
             preparedStatement.setString(4, newIndirizzo);
             preparedStatement.setInt(5, newncivico);
-            preparedStatement.setString(6, Username);
-
+            preparedStatement.setString(6, sesso);
+            preparedStatement.setString(7, Username);
             preparedStatement.executeUpdate();
             connection.commit();
         } catch (SQLException e) {
