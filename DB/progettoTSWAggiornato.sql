@@ -100,8 +100,9 @@ create table ordine(
         on update cascade,
 	cod_utente varchar(20) not null references utente(Username)
 		on delete cascade
-        on update cascade
-);
+        on update cascade,
+	carta varchar(16) not null
+ );
 ALTER TABLE ordine AUTO_INCREMENT = 1;
 
 create table acq_accessorio(

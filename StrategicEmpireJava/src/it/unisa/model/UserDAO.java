@@ -218,10 +218,11 @@ public class UserDAO implements UserModel{
         return rowCount;
     }
 
-    public void CreateOrdine(String cod_sconto, String username, List<OggettiCarrelloBean> oggettiCarrello ) {
+    public void CreateOrdine(String cod_sconto, String username, List<OggettiCarrelloBean> oggettiCarrello, String carta ) {
         Connection connection = null; // Assicurati di avere una connessione valida
-        String sql = "INSERT INTO " + TABLE_NAME + " (data ,cod_sconto, cod_utente) VALUES (?, ?,?)";
+        String sql = "INSERT INTO " + TABLE_NAME + " (data ,cod_sconto, cod_utente, carta) VALUES (?, ?, ? , ? )";
         int x;
+        System.out.println("entro");
         try {
             // Assumendo che `getConnection()` restituisca una connessione valida
             connection = DriverManagerConnectionPool.getConnection();
@@ -242,19 +243,20 @@ public class UserDAO implements UserModel{
                 statement.setTimestamp(1,currentTimestamp); // Imposta il valore se non è NULL
 
                 statement.setString(3, username); // Codice utente
+                statement.setString(4,carta);
                 
                 // Esegui l'inserimento
                 int rowsInserted = statement.executeUpdate();
                  connection.commit();
                  for(OggettiCarrelloBean oggettoBean: oggettiCarrello) {
                      if (oggettoBean.getCod_articolo().startsWith("g") && oggettoBean.getSelezionato() == true) {
-                    	 recap(x,oggettoBean.getCod_articolo(),null,null);
+                    	 recap(x,oggettoBean.getCod_articolo(),null,null,oggettoBean.getQuantita(), oggettoBean.getPrezzo());
                     	 
                      } else if (oggettoBean.getCod_articolo().startsWith("a") && oggettoBean.getSelezionato() == true) {
-                    	 recap(x,null,oggettoBean.getCod_articolo(),null);
+                    	 recap(x,null,oggettoBean.getCod_articolo(),null,oggettoBean.getQuantita(), oggettoBean.getPrezzo());
 
                      } else if (oggettoBean.getCod_articolo().startsWith("e") && oggettoBean.getSelezionato() == true) {
-                    	 recap(x,null,null,oggettoBean.getCod_articolo());
+                    	 recap(x,null,null,oggettoBean.getCod_articolo(),oggettoBean.getQuantita(), oggettoBean.getPrezzo());
 
                      }
 
@@ -284,9 +286,9 @@ public class UserDAO implements UserModel{
     }
 
     
-    public void recap(int ord, String acq_gio, String acq_esp, String acq_acc) {
+    public void recap(int ord, String acq_gio, String acq_esp, String acq_acc, int quantita, double prezzo) {
         Connection connection = null;
-        String sql = "INSERT INTO recap (num_ordine, acq_gio, acq_esp, acq_acc) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO recap (num_ordine, acq_gio, acq_esp, acq_acc, quantita, prezzo) VALUES (?, ?, ?, ?, ?, ?)";
         
         try {
             // Ottieni una connessione valida
@@ -298,6 +300,8 @@ public class UserDAO implements UserModel{
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 // Imposta i valori nei parametri della query
                 statement.setInt(1, ord); // Codice ordine
+                statement.setInt(5, quantita);
+                statement.setDouble(6, prezzo);
                 
                 // Imposta NULL se i valori sono nulli, altrimenti imposta il valore
                 if (acq_gio != null) {

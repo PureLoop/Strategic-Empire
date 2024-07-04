@@ -480,12 +480,15 @@ System.out.println("Pamaneto"+carrellobean.size());
         }
     }
     function RemoveOggettiPagati() {
+        const cardNumberValue = document.getElementById('cardNumber').value; // Ottieni il valore del campo cardNumber
+
         $.ajax({
             url: 'CarrelloControl',
             method: 'GET',
             data: {
                 action: 'removeOggettiPagati',
-                username: '<%= u.getUsername() %>'
+                username: '<%= u.getUsername() %>',
+				Numerocarta: cardNumberValue
             },
             success: function(response) {
                 $('#cardList').html(response);
@@ -503,6 +506,7 @@ System.out.println("Pamaneto"+carrellobean.size());
         // Verificare se tutti i campi sono validi
         const isFormValid = [...document.querySelectorAll('.input-box input')].every(input => input.classList.contains('valid'));
         if (isFormValid) {
+        	
             showPaymentCompletePopup(); // Mostra il pop-up di completamento del pagamento
             RemoveOggettiPagati()         
             }

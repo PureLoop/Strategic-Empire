@@ -54,7 +54,9 @@ public class CarrelloControl extends HttpServlet {
         String codiceAccessorio = request.getParameter("cod_accessorio");
         String username = request.getParameter("username");
         String action = request.getParameter("action");
+        String cardNumber = request.getParameter("Numerocarta"); // Prendi il numero della carta
 
+        
         HttpSession session = request.getSession();
 
         List<OggettiCarrelloBean> oggettiCarrello = (List<OggettiCarrelloBean>) session.getAttribute("oggettiCarrello");
@@ -109,14 +111,13 @@ public class CarrelloControl extends HttpServlet {
                 System.out.println("removeOggetti");
 
                 // Creazione dell'ordine con i parametri necessari
-                model4.CreateOrdine(null, username, oggettiCarrello);
+                System.out.println(cardNumber) ;             
+                model4.CreateOrdine(null, username, oggettiCarrello,cardNumber);
 
                 Iterator<OggettiCarrelloBean> iterator = oggettiCarrello.iterator();
                 while (iterator.hasNext()) {
-                    System.out.println("Iterating through carrello");
 
                     OggettiCarrelloBean oggetto = iterator.next();
-                    System.out.println("Processing oggetto: " + oggetto);
 
                     // Verifica se l'oggetto è selezionato
                     if (oggetto.getSelezionato()) {
@@ -124,19 +125,15 @@ public class CarrelloControl extends HttpServlet {
 
                         // Verifica il prefisso del codice articolo e rimuovi l'oggetto dal database
                         if (codiceArticolo.startsWith("g")) {
-                            System.out.println("Removing gioco");
                             model.deleteAcq_Gioco(codiceArticolo);
                         } else if (codiceArticolo.startsWith("a")) {
-                            System.out.println("Removing accessorio");
                             model3.deleteAcq_Accessorio(codiceArticolo);
                         } else if (codiceArticolo.startsWith("e")) {
-                            System.out.println("Removing espansione");
                             model2.deleteAcq_Espansione(codiceArticolo);
                         }
 
                         // Rimuovi l'oggetto dal carrello
                         iterator.remove();
-                        System.out.println("Removed oggetto from carrello: " + oggetto);
 
                         // Nota: Usa `break` solo se vuoi fermare l'iterazione dopo la prima rimozione
                         // Se vuoi rimuovere tutti gli oggetti selezionati, rimuovi `break` e lascia il ciclo continuare
@@ -145,7 +142,7 @@ public class CarrelloControl extends HttpServlet {
 
                 // Aggiorna la sessione con il nuovo carrello
                 session.setAttribute("oggettiCarrello", oggettiCarrello);
-                System.out.println("Session updated with new carrello");
+
 
                 // Reindirizza alla pagina del catalogo
                 response.sendRedirect(request.getContextPath() + "/catalogo.jsp");
@@ -154,16 +151,11 @@ public class CarrelloControl extends HttpServlet {
 
             else if ("TakeDB".equals(action)) {
                 oggettiCarrello.clear();
-                System.out.println(username);
 
                 // Recupera giochi, accessori ed espansioni dal database
                 Collection<GiocoBean> giochi = model.doRetrieveAllDBACQ(username);
                 Collection<AccessorioBean> accessori = model3.doRetrieveAllDBACQ(username);
                 Collection<espansioneBean> espansioni = model2.doRetrieveAllDBACQ(username);
-
-                System.out.println("Giochi: " + giochi.size());
-                System.out.println("Accessori: " + accessori.size());
-                System.out.println("Espansioni: " + espansioni.size());
 
                 // Aggiungi i giochi al carrello
                 for (GiocoBean gioco : giochi) {
