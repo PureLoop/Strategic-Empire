@@ -21,7 +21,8 @@ create table utente(
     email varchar(50)not null,
     ruolo varchar(14) not null check(ruolo in("cliente","amministratore")),
     indirizzo varchar(50) default null,
-    ncivico int(3) default null
+    ncivico int(3) default null,
+    sesso VARCHAR(15) DEFAULT 'non specificato' CHECK (sesso IN ('non specificato', 'uomo', 'donna'))
 );
 create table carta(
 	numero varchar(16) primary key not null,
