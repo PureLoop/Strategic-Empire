@@ -28,12 +28,15 @@ CartaBean CartaEdit = new CartaBean();
 <div class="container" id="allCard" style="margin-top: 2%;">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
         <% if (carte != null && !carte.isEmpty()) { 
-            for (CartaBean bean : carte) { %>
+            for (CartaBean bean : carte) { 
+                            String formattedNumero = bean.getNumero().replaceAll("(\\d{4})(?=\\d)", "$1-");
+            %>
+            
                 <div class="col mb-4">
                     <div class="credit-card" data-username="<%= bean.getUsername() %>" data-card-number="<%= bean.getNumero() %>">
                         <div class="edit-card" onclick="editCard('<%= bean.getNumero() %>')">Modifica</div>
                         <div class="card-chip"></div>
-                        <div class="card-number"><%= bean.getNumero() %></div>
+                        <div class="card-number"><%= formattedNumero %></div>
                         <div class="card-name"><%= bean.getNome() %></div>
                         <div class="card-expiry">Valid Thru: <%= bean.getScadenza() %></div>
                     </div>
@@ -67,10 +70,9 @@ CartaBean CartaEdit = new CartaBean();
                 <input type="text" id="newCardName" class="form-control" placeholder="Nome sulla carta" required>
                 <small id="newCardNameError" class="form-text text-danger"></small>
             </div>
-            <div class="form-group">
-                <label for="newCardExpiry">Scadenza:</label>
-                <input type="text" id="newCardExpiry" class="form-control" placeholder="Scadenza (MM/YY)" required>
-                <small id="newCardExpiryError" class="form-text text-danger"></small>
+             <div class="form-group">
+                <label for="dateInput" class="form-label">Seleziona una data:</label>
+                <input type="date" id="newCardExpiry" class="form-control" required>
             </div>
             <div class="form-group">
                 <label for="newcvv">CVV:</label>
@@ -96,9 +98,9 @@ CartaBean CartaEdit = new CartaBean();
                 <label for="editCardName">Nome:</label>
                 <input type="text" id="editCardName" class="form-control" placeholder="Nome sulla carta" required>
             </div>
-            <div class="form-group">
-                <label for="editCardExpiry">Scadenza:</label>
-                <input type="text" id="editCardExpiry" class="form-control" placeholder="Scadenza (MM/YY)" required>
+             <div class="form-group">
+                <label for="dateInput" class="form-label">Seleziona una data:</label>
+                <input type="date" id="editCardExpiry" class="form-control" required>
             </div>
             <div class="form-group">
                 <label for="editcvv">CVV:</label>
@@ -434,7 +436,7 @@ function editValue() {
     }
 
  // Funzione per salvare una nuova carta
-    function saveNewCard() {
+   function saveNewCard() {
     if (!validateNewCardForm()) {
         return; // Se la validazione fallisce, non procedere
     }
@@ -456,7 +458,6 @@ function editValue() {
             username: '<%= user.getUsername() %>'
         },
         success: function(response) {
-            // Crea e aggiungi dinamicamente il nuovo elemento della carta
             var colDiv = document.createElement('div');
             colDiv.classList.add('col', 'mb-4');
 
@@ -487,7 +488,6 @@ function editValue() {
             cardExpiryDiv.classList.add('card-expiry');
             cardExpiryDiv.textContent = 'Valid Thru: ' + newCardExpiry;
 
-            // Costruisci la struttura gerarchica degli elementi
             creditCardDiv.appendChild(editCardDiv);
             creditCardDiv.appendChild(cardChipDiv);
             creditCardDiv.appendChild(cardNumberDiv);
@@ -496,12 +496,10 @@ function editValue() {
 
             colDiv.appendChild(creditCardDiv);
 
-            // Aggiungi il nuovo elemento al DOM
             var allCardDiv = document.getElementById('allCard');
             var rowDiv = allCardDiv.querySelector('.row');
-            rowDiv.insertBefore(colDiv, rowDiv.querySelector('.add-card').parentElement); // Inserisci la nuova carta prima del pulsante di aggiunta
+            rowDiv.insertBefore(colDiv, rowDiv.querySelector('.add-card').parentElement);
 
-            // Chiudi il pop-up e resetta il form
             closeAddCardPopup();
             document.getElementById('newCardForm').reset();
         },

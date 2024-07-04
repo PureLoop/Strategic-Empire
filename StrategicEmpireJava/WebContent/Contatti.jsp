@@ -9,7 +9,6 @@
 </head>
 <body>
     <header>
-    <%@ include file="/header/header.jsp"%>
     </header>
 
     <div class="parallax"></div>

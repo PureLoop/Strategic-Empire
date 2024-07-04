@@ -1,17 +1,18 @@
 package it.unisa.bean;
+import java.sql.Date;
 
 import java.io.Serializable;
 
 public class CartaBean implements Serializable {
     private String numero;
-    private int scadenza;
+    private Date scadenza;
     private int cvv;
     private String username;
     private String nome;
 
     public CartaBean() {
         this.numero = "";
-        this.scadenza = 0;
+        this.scadenza = null;
         this.cvv = 0;
         this.username = "";
         this.nome = "";
@@ -25,11 +26,11 @@ public class CartaBean implements Serializable {
         this.numero = numero;
     }
 
-    public int getScadenza() {
+    public Date getScadenza() {
         return scadenza;
     }
 
-    public void setScadenza(int scadenza) {
+    public void setScadenza(Date scadenza) {
         this.scadenza = scadenza;
     }
 

@@ -197,7 +197,9 @@ public class AreaPersonaleControl extends HttpServlet {
 
                 String fullName = request.getParameter("fullName");
                 String cardNumber = request.getParameter("cardNumber");
-                int expiryDate = Integer.parseInt(request.getParameter("expiryDate"));
+    	        String expiryDateStr = request.getParameter("expiryDate");
+    	        java.sql.Date expiryDate = java.sql.Date.valueOf(expiryDateStr);
+
                 int cvv = Integer.parseInt(request.getParameter("newcvv"));
                 String username = request.getParameter("username");
                 // Chiamata al metodo doUpdate nel modello della carta
@@ -281,8 +283,10 @@ else if (action != null && action.equalsIgnoreCase("ShowEspansione")) {
         if (action != null && action.equalsIgnoreCase("InsertCards")) {
         	String fullName = request.getParameter("fullName");
 	        String cardNumber = request.getParameter("cardNumber");
-	        int expiryDate = Integer.parseInt(request.getParameter("expiryDate"));
+	        String expiryDateStr = request.getParameter("expiryDate");
 	        int cvv = Integer.parseInt(request.getParameter("cvv"));
+	        java.sql.Date expiryDate = java.sql.Date.valueOf(expiryDateStr);
+
 	        String username = request.getParameter("username");
 	        
 	        // Crea un nuovo bean per la carta con i dati ricevuti
