@@ -55,14 +55,16 @@ public class CartaControl extends HttpServlet {
                     out.println("Carta eliminata con successo.");
                 } else if (action.equalsIgnoreCase("insert")) {
                     String numero = request.getParameter("numero");
-                    int scadenza = Integer.parseInt(request.getParameter("scadenza"));
+        	        String scadenza = request.getParameter("scadenza");
+        	        java.sql.Date scadenza2 = java.sql.Date.valueOf(scadenza);
+
                     int cvv = Integer.parseInt(request.getParameter("cvv"));
                     String username = request.getParameter("username");
                     String nome = request.getParameter("nome");
 
                     CartaBean bean = new CartaBean();
                     bean.setNumero(numero);
-                    bean.setScadenza(scadenza);
+                    bean.setScadenza(scadenza2);
                     bean.setCvv(cvv);
                     bean.setUsername(username);
                     bean.setNome(nome);
