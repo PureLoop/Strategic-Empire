@@ -243,7 +243,6 @@
 <%
 
 List<OggettiCarrelloBean> carrellobean = (List<OggettiCarrelloBean>) request.getSession().getAttribute("oggettiCarrello");
-System.out.println("Pamaneto"+carrellobean.size());
 	String total = request.getParameter("total");
     u = (User) session.getAttribute("user");
     loggedIn = (u != null);
@@ -322,7 +321,7 @@ System.out.println("Pamaneto"+carrellobean.size());
 
         <div>
             <button type="submit" class="btn2">Invia</button>
-        </div>a
+        </div>
         
         <!-- Aggiunta del pulsante "Vedi le tue carte" -->
         <button type="button" class="btn btn-primary mb-3 btn-see-cards" onclick="openCardPopup()">Vedi le tue carte</button>
@@ -436,6 +435,7 @@ System.out.println("Pamaneto"+carrellobean.size());
             },
             success: function(response) {
                 $('#cardList').html(response);
+               
             },
             error: function(xhr, status, error) {
                 console.error('Errore: ' + error);

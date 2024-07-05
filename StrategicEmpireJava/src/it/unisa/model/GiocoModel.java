@@ -19,6 +19,11 @@ public interface GiocoModel {
 	void addGiocoToCart(GiocoBean gioco, String u, int quantita, boolean controllo) throws SQLException;
 	public void deleteAcq_Gioco(String codGioco) throws SQLException;
 	public Collection<GiocoBean> doRetrieveAllDBACQ(String username) throws SQLException;
+	public  void setPreferito(String code, String username) throws SQLException;
+	public boolean ControllaPreferito(String code, String username) throws SQLException;
+	public  void DeletePreferito(String code, String username) throws SQLException;
+
+
 
 
 

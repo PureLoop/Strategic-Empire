@@ -8,29 +8,50 @@
 <link rel="stylesheet" href="css/CatalogoStyle.css">
 </head>
 <body>
+
 <header>
 <%@ include file="/header/header.jsp" %>
+<%
+
+   u = (User) session.getAttribute("user");
+	String username = null;
+   if(u !=null){ username = u.getUsername(); }
+   // Supponendo che User abbia un metodo getUsername()
+  
+
+%>
 </header>
+
+<!-- Hidden field to pass the username to JavaScript -->
+<input type="hidden" id="username" value="<%=username%>" />
+
 <div class="container search-bar">
     <form class="d-flex" role="search">
-    <input type="hidden" id="searchType" name="searchType" value="gioco">
-      <input class="form-control me-2" type="search" id="searchInput" placeholder="Cerca" aria-label="Cerca">
-      <button class="btn btn-outline-success" id="filter" type="button">Filtra</button>
+        <input type="hidden" id="searchType" name="searchType" value="gioco">
+        <input class="form-control me-2" type="search" id="searchInput" placeholder="Cerca" aria-label="Cerca">
+        <button class="btn btn-outline-success" id="filter" type="button">Filtra</button>
     </form>
 </div>
+
 <div class="container search-bar">
     <form method="post" id="form-filtro">
         <input type="hidden" name="action" value="filter">
         <table id="game-table" style="width: 100%;">
             <tr>
-                <td style="width: 33%;" id="game-type-td"><select id="game-type" name="tipologia" required style="width: 100%;">
-                    <option value="" selected>Tipo di gioco</option>
-                    <option value="Tutti">Tutti</option>
-                    <option value="tavolo">Tavolo</option>
-                    <option value="carte">Carte</option>
-                </select></td>
-                <td style="width: 33%;" id="num-players-td"><input type="number" name="N_giocatori" id="num-players" min="1" max="10" placeholder="Numero giocatori" style="width: 100%;" ></td>
-                <td style="width: 33%;" id="price-input-td"><input type="number" name="prezzo" id="priceInput" min="1" max="1000" placeholder="Prezzo" style="width: 100%;"></td>
+                <td style="width: 33%;" id="game-type-td">
+                    <select id="game-type" name="tipologia" required style="width: 100%;">
+                        <option value="" selected>Tipo di gioco</option>
+                        <option value="Tutti">Tutti</option>
+                        <option value="tavolo">Tavolo</option>
+                        <option value="carte">Carte</option>
+                    </select>
+                </td>
+                <td style="width: 33%;" id="num-players-td">
+                    <input type="number" name="N_giocatori" id="num-players" min="1" max="10" placeholder="Numero giocatori" style="width: 100%;">
+                </td>
+                <td style="width: 33%;" id="price-input-td">
+                    <input type="number" name="prezzo" id="priceInput" min="1" max="1000" placeholder="Prezzo" style="width: 100%;">
+                </td>
                 <td style="width: 25%;">
                     <button type="button" class="btn btn-outline-success" style="width: 100%;" id="submitFilter">Filtra</button>
                 </td>
@@ -43,7 +64,11 @@
     <button type="button" id="accessori" class="btn btn-outline-success">Accessori</button>
     <button type="button" id="giochi" class="btn btn-outline-success">Giochi</button>
     <button type="button" id="espansioni" class="btn btn-outline-success">Espansioni</button>
+    <% if (username != null) { %>
+    <button type="button" id="preferiti" class="btn btn-outline-success">Preferiti</button>
+    <% } %>
 </div>
+
 <div id="sezioneProdotti"></div>
 
 <div class="toast-container position-fixed top-0 end-0 p-3">
@@ -58,8 +83,12 @@
         </div>
     </div>
 </div>
+
 <script>
 $(document).ready(function() {
+    // Ottieni il nome utente dal campo hidden
+    var username = $('#username').val();
+
     function loadGiochi() {
         $.ajax({
             url: 'catalogoControl',
@@ -118,7 +147,7 @@ $(document).ready(function() {
             $('#num-players-td').hide();
             $('#price-input-td').show();
             $('#price-input-td').css({'margin-left': 'auto', 'margin-right': '0'});
-        }else {
+        } else {
             $('#game-type').html(`
                 <option value="" selected>Tipo di gioco</option>
                 <option value="Tutti">Tutti</option>
@@ -135,7 +164,6 @@ $(document).ready(function() {
     $('#submitFilter').click(function(event) {
         event.preventDefault();
         var searchType = $('#searchType').val(); // Get the current search type
-        console.log(searchType);
         var data = {
             action: 'filter',
             tipologia: $('#game-type').val(),
@@ -160,7 +188,7 @@ $(document).ready(function() {
         });
     });
 
-    $('#giochi, #accessori, #espansioni').click(function(event) {
+    $('#preferiti, #giochi, #accessori, #espansioni').click(function(event) {
         event.preventDefault();
         var actionType = $(this).attr('id'); // Ottieni l'azione da eseguire
         var actionParam;
@@ -174,13 +202,17 @@ $(document).ready(function() {
         } else if (actionType === 'espansioni') {
             actionParam = 'ShowEspansione';
             $('#searchType').val('espansione');
+        } else if (actionType === 'preferiti') {
+            actionParam = 'ShowPreferiti';
+            $('#searchType').val('preferiti');
         }
 
         $.ajax({
             url: 'catalogoControl',
             method: 'GET',
             data: {
-                action: actionParam
+                action: actionParam,
+                username: username
             },
             success: function(response) {
                 $('#sezioneProdotti').html(response);
@@ -192,9 +224,9 @@ $(document).ready(function() {
     });
 });
 </script>
-	<!-- FOOTER -->
-    <footer>
-      <%@ include file="/footer/footer.jsp" %>
-    </footer>
+<!-- FOOTER -->
+<footer>
+  <%@ include file="/footer/footer.jsp" %>
+</footer>
 </body>
 </html>

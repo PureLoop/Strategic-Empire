@@ -1,7 +1,7 @@
 package it.unisa.control;
-
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.servlet.RequestDispatcher;
@@ -50,9 +50,13 @@ public class catalogoControl extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		String sort = request.getParameter("sort");
+		String username = request.getParameter("username");
+
+		
 		request.setAttribute("pageType", "catalogo");
 		if (action != null && action.equalsIgnoreCase("ShowGioco")) {
             boolean isAjaxRequest = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
@@ -117,6 +121,53 @@ public class catalogoControl extends HttpServlet {
              System.out.println("Error:" + e.getMessage());
          }
          }
+        else if (action != null && action.equalsIgnoreCase("ShowPreferiti")) {
+            boolean isAjaxRequest = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+
+            try {
+                Collection<GiocoBean> giochi = modelGioco.doRetrieveAll(action);
+                Collection<GiocoBean> giochi2 = new ArrayList<>(); // Inizializzazione corretta
+                Collection<AccessorioBean>accessori = modelAcc.doRetrieveAll(action);
+                Collection<AccessorioBean> accessori2 = new ArrayList<>(); // Inizializzazione corretta
+                Collection<espansioneBean>espansioni = modelEsp.doRetrieveAll(action);
+                Collection<espansioneBean> espansioni2 = new ArrayList<>(); // Inizializzazione corretta
+
+
+
+
+                for (GiocoBean gioco : giochi) {
+                    if (modelGioco.ControllaPreferito(gioco.getCod_Gioco(), username)) {
+                        giochi2.add(gioco);
+                    }
+                }
+                for (AccessorioBean accessorio : accessori) {
+                    if (modelAcc.ControllaPreferito(accessorio.getCod_Accessorio(), username)) {
+                        accessori2.add(accessorio);
+                    }
+                }
+                for (espansioneBean espansione : espansioni) {
+                    if (modelEsp.ControllaPreferito(espansione.getCod_espansione(), username)) {
+                        espansioni2.add(espansione);
+                    }
+                }
+                
+                request.setAttribute("giochiPreferiti", giochi2);
+                request.setAttribute("accessoriPreferiti", accessori2);
+                request.setAttribute("espansioneiPreferiti", espansioni2);
+
+
+                if (isAjaxRequest) {
+                    response.setContentType("text/html");
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/showPreferiti.jsp");
+                    dispatcher.include(request, response);
+                } else {
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/catalogo.jsp");
+                    dispatcher.forward(request, response);
+                }
+            } catch (SQLException e) {
+                System.out.println("Error:" + e.getMessage());
+            }
+        }
 		if (action != null && action.equalsIgnoreCase("search")) {
 			String searchQuery = "%" + request.getParameter("searchParam") + "%";
 			String searchType = request.getParameter("searchType");

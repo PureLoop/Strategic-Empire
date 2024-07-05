@@ -30,5 +30,11 @@ public interface EspansioneModel {
 	public void deleteAcq_Espansione(String codEspansione) throws SQLException;
 
 	public  Collection<espansioneBean> doRetrieveAllDBACQ(String username) throws SQLException;
+	
+	public  void setPreferito(String code, String username) throws SQLException;
+	
+	public boolean ControllaPreferito(String code, String username) throws SQLException;
+	public  void DeletePreferito(String code, String username) throws SQLException;
+
 
 }

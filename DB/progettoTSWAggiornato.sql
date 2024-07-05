@@ -68,7 +68,10 @@ create table gioco(
     descrizione varchar(1500) not null,
     n_giocatori_min int not null,
     n_giocatori_max int not null
+    
     );
+    
+    
 
 create table recap(
 	oggetto int auto_increment primary key,
@@ -105,7 +108,11 @@ create table ordine(
         on update cascade,
 	carta varchar(16) not null
  );
-
+create table preferiti(
+    Username varchar(20) references utente(Username),
+    cod_oggetto varchar(10),
+    preferito boolean default null
+);
 create table acq_accessorio(
 	cod_accessorio varchar(10),
     quantita int,

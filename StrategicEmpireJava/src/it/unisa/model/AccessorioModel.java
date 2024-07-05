@@ -23,6 +23,9 @@ public interface AccessorioModel {
 	void addAccessorioToCart(AccessorioBean gioco, String u, int quantita, boolean controllo) throws SQLException;
 	public void deleteAcq_Accessorio(String codAccessorio) throws SQLException;
 	public  Collection<AccessorioBean> doRetrieveAllDBACQ(String username) throws SQLException;
+	public  void setPreferito(String code, String username) throws SQLException;
+	public boolean ControllaPreferito(String code, String username) throws SQLException;
+	public  void DeletePreferito(String code, String username) throws SQLException;
 
 
 }
