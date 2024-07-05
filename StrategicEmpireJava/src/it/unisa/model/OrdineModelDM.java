@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import it.unisa.bean.GiocoBean;
 import it.unisa.bean.OggettiCarrelloBean;
 import it.unisa.bean.OrdineBean;
+import it.unisa.bean.RecensioneBean;
 
 public class OrdineModelDM implements OrdineModel{
 

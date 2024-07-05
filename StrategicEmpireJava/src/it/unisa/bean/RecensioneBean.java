@@ -3,15 +3,24 @@ package it.unisa.bean;
 import java.sql.Date;
 
 public class RecensioneBean {
-	public int valutazione;
-	public String titolo,descrizione,cod_review, username;
+	public int valutazione, codOrdine,cod_review;
+	public String titolo,descrizione, username;
 	public Date data;
 	public RecensioneBean() {
 		valutazione = 0;
 		titolo = "";
 		descrizione = "";
-		cod_review = "";
+		cod_review =0;
 		username= "";
+		codOrdine = 0;
+	}
+	
+	public void setCodOrdine(int val) {
+		this.codOrdine = val;
+	}
+	
+	public int getCodOrdine() {
+		return codOrdine;
 	}
 	
 	public void setValutazione(int val) {
@@ -22,11 +31,11 @@ public class RecensioneBean {
 		return valutazione;
 	}
 	
-	public void setCod_Review(String cod) {
+	public void setCod_Review(int cod) {
 		this.cod_review = cod;
 	}
 	
-	public String getCod_Review() {
+	public int getCod_Review() {
 		return cod_review;
 	}
 	
