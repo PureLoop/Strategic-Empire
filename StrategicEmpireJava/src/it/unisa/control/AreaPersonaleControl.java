@@ -589,46 +589,65 @@ else if (action != null && action.equalsIgnoreCase("ShowEspansione")) {
             }
     	}
     	if (action != null && action.equals("scaricaFattura")) {
-            String codiceOrdineStr = request.getParameter("codOrdine");
+    	    String codiceOrdineStr = request.getParameter("codOrdine");
 
-            OrdineBean ordineDaScaricare = null;
-            try {
-                ordineDaScaricare = modelOrdine.doRetrieveByCodOrdine(codiceOrdineStr);
-            } catch (SQLException e) {
-                e.printStackTrace();
-                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                return;
-            }
+    	    OrdineBean ordineDaScaricare = null;
+    	    try {
+    	        ordineDaScaricare = modelOrdine.doRetrieveByCodOrdine(codiceOrdineStr);
+    	    } catch (SQLException e) {
+    	        e.printStackTrace();
+    	        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    	        return;
+    	    }
 
-            if (ordineDaScaricare != null) {
-                response.setContentType("text/plain");
-                response.setHeader("Content-Disposition", "attachment; filename=\"fattura_ordine_" + codiceOrdineStr + ".txt\"");
+    	    if (ordineDaScaricare != null) {
+    	        response.setContentType("text/plain");
+    	        response.setHeader("Content-Disposition", "attachment; filename=\"fattura_ordine_" + codiceOrdineStr + ".txt\"");
 
-                try (OutputStream outputStream = response.getOutputStream()) {
-                    StringBuilder sb = new StringBuilder();
-                    sb.append("Codice Ordine: ").append(ordineDaScaricare.getCodOrdine()).append("\n");
-                    sb.append("Codice Utente: ").append(ordineDaScaricare.getCodiceUtente()).append("\n");
-                    sb.append("Carta: ").append(ordineDaScaricare.getCarta()).append("\n");
-                    sb.append("Codice Sconto: ").append(ordineDaScaricare.getCodSconto()).append("\n");
-                    sb.append("Data: ").append(ordineDaScaricare.getData()).append("\n");
-                    sb.append("Articoli:\n");
+    	        try (OutputStream outputStream = response.getOutputStream()) {
+    	            StringBuilder sb = new StringBuilder();
+    	            sb.append("---------------------------------------------------------------------------------------------\n");
+    	            sb.append(String.format("| %-20s | %-20s | %-20s | %-20s |\n", "Codice Ordine", ordineDaScaricare.getCodOrdine(), "Data", ordineDaScaricare.getData()));
+    	            sb.append("---------------------------------------------------------------------------------------------\n");
+    	            sb.append(String.format("| %-20s | %-20s | %-20s | %-20s |\n", "Codice Utente", ordineDaScaricare.getCodiceUtente(), "Carta", ordineDaScaricare.getCarta()));
+    	            sb.append("---------------------------------------------------------------------------------------------\n");
+    	            sb.append(String.format("| %-20s | %-20s | %-20s | %-20s |\n", "Codice Sconto", ordineDaScaricare.getCodSconto(), "", ""));
+    	            sb.append("---------------------------------------------------------------------------------------------\n");
 
-                    for (OggettiCarrelloBean item : ordineDaScaricare.getListItems()) {
-                        sb.append("  Articolo: ").append(item.getCod_articolo())
-                          .append(" - Prezzo: ").append(item.getPrezzo())
-                          .append(" - Quantità: ").append(item.getQuantita())
-                          .append("\n");
-                    }
+    	            sb.append("----------------------------------------------------------------------------------------------------------\n");
+    	            sb.append(String.format("| %-15s | %-30s | %-15s | %-15s | %-15s |\n", "Codice", "Descrizione", "Prezzo", "Quantità", "Totale"));
+    	            sb.append("----------------------------------------------------------------------------------------------------------\n");
 
-                    outputStream.write(sb.toString().getBytes());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                }
-            } else {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Ordine non trovato");
-            }
-        }
+    	            double totalePrezzo = 0; // Inizializziamo il totale prezzo a zero
+
+    	            for (OggettiCarrelloBean item : ordineDaScaricare.getListItems()) {
+    	                double totaleArticolo = item.getQuantita() * item.getPrezzo();
+    	                sb.append(String.format("| %-15s | %-30s | %-15s | %-15s | %-15s |\n",
+    	                        item.getCod_articolo(),
+    	                        "Descrizione Articolo",  // Puoi sostituire con la descrizione reale se disponibile
+    	                        String.format("%.2f", item.getPrezzo()),
+    	                        item.getQuantita(),
+    	                        String.format("%.2f", totaleArticolo)));
+
+    	                totalePrezzo += totaleArticolo; // Aggiungiamo il totale dell'articolo al totale complessivo
+    	            }
+
+    	            sb.append("----------------------------------------------------------------------------------------------------------\n");
+    	            sb.append(String.format("| %-15s | %-30s | %-15s | %-15s | %-15s |\n", "", "", "", "Totale Articoli", ordineDaScaricare.getListItems().size()));
+    	            sb.append("----------------------------------------------------------------------------------------------------------\n");
+    	            sb.append(String.format("| %-15s | %-30s | %-15s | %-15s | %-15s |\n", "", "", "", "Totale Pagato", String.format("%.2f", totalePrezzo)));
+    	            sb.append("----------------------------------------------------------------------------------------------------------\n");
+
+    	            outputStream.write(sb.toString().getBytes());
+    	        } catch (Exception e) {
+    	            e.printStackTrace();
+    	            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    	        }
+    	    } else {
+    	        response.sendError(HttpServletResponse.SC_NOT_FOUND, "Ordine non trovato");
+    	    }
+    	}
+
     }
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
