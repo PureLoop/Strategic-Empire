@@ -18,6 +18,7 @@ import javax.servlet.http.Part;
 import it.unisa.bean.AccessorioBean;
 import it.unisa.bean.CartaBean;
 import it.unisa.bean.GiocoBean;
+import it.unisa.bean.OrdineBean;
 import it.unisa.bean.User;
 import it.unisa.bean.espansioneBean;
 import it.unisa.model.AccessorioModelDM;
@@ -26,6 +27,8 @@ import it.unisa.model.CartaModelDM;
 import it.unisa.model.EspansioneModel;
 import it.unisa.model.EspansioneModelDM;
 import it.unisa.model.GiocoModelDM;
+import it.unisa.model.OrdineModel;
+import it.unisa.model.OrdineModelDM;
 import it.unisa.model.UserDAO;
 import it.unisa.model.AccessorioModel;
 import it.unisa.model.AreaPersonaleModel;
@@ -47,6 +50,7 @@ public class AreaPersonaleControl extends HttpServlet {
 	static EspansioneModel modelEsp;
 	static AreaPersonaleModel modelAp;
 	static UserModel modelUser;
+	static OrdineModel modelOrdine;
 	static {
 			modelGioco = new GiocoModelDM();
 			modelAcc = new AccessorioModelDM();
@@ -54,7 +58,8 @@ public class AreaPersonaleControl extends HttpServlet {
 			modelAp = new AreaPersonaleModelDM();
 			modelCarta = new CartaModelDM();
 			modelUser = new UserDAO();
-	}
+			modelOrdine = new OrdineModelDM();
+			}
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -567,6 +572,20 @@ else if (action != null && action.equalsIgnoreCase("ShowEspansione")) {
             }
         }
     	
+    	if(action != null && action.equals("showOrdini")) {
+    		String username = request.getParameter("username");
+    		try {
+                // Supponiamo che modelUser abbia un metodo per aggiornare il ruolo
+                Collection<OrdineBean> bean = modelOrdine.doRetrieveAll(username);
+                request.setAttribute("bean", bean);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/showOrdini.jsp");
+                dispatcher.forward(request, response);
+                response.setStatus(HttpServletResponse.SC_OK);
+            } catch (SQLException e) {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                e.printStackTrace();
+            }
+    	}
     }
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

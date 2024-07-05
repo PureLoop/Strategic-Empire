@@ -277,7 +277,7 @@
     <div class="col-md-12">
       <div class="rectangle">
         <span class="rectangle-item"><a href="#" class="nav-link" onclick="handleCardDisplay(false)" data-target="Account">Gestione Account</a></span>
-        <span class="rectangle-item"><a href="#" class="nav-link" onclick="handleCardDisplay(false)"data-target="none">Ordini</a></span>
+        <span class="rectangle-item"><a href="#" class="nav-link" onclick="handleCardDisplay(false)"data-target="none" id="ordini">Ordini</a></span>
         <span class="rectangle-item"><a href="#" class="nav-link" onclick="handleCardDisplay(false)"data-target="none">Rubrica Indirizzi</a></span>
 <span class="rectangle-item">
 <a href="#" class="nav-link" data-target="paymentSection" id="payment" onclick="showPaymentMethods('<%= username %>')">Metodi di pagamento</a>
@@ -304,7 +304,31 @@
     </div>
   </div>
 </div>
-
+<script>
+    $(document).ready(function() {
+        $("#ordini").click(function(event) {
+            event.preventDefault(); // Previene il comportamento predefinito del link
+            
+            var username = "<%= username %>"; // Ottieni l'username dalla pagina
+            
+            $.ajax({
+                url: "AreaPersonaleControl",
+                type: "GET",
+                data: {
+                    action: "showOrdini",
+                    username: username
+                },
+                success: function(response) {
+                    // Gestisci la risposta dalla servlet
+                    $("#rectangleContainer").html(response); // Inserisci la risposta nel contenitore
+                },
+                error: function(xhr, status, error) {
+                    console.error("Errore nella richiesta AJAX: " + error);
+                }
+            });
+        });
+    });
+</script>
 <div class="container mt-3" id="Account" style="display: none;">
     <h3 id="managerTitle">Area Utente - Gestione Account</h3>
     <div class="user-info">

@@ -92,5 +92,13 @@
     <servlet-name>UpdateAccountControl</servlet-name>
     <url-pattern>/UpdateAccountControl1</url-pattern> <!-- Modified to avoid conflict -->
 </servlet-mapping>
+	 <servlet>
+    <servlet-name>scaricaFatturaControl</servlet-name>
+    <servlet-class>it.unisa.control.scaricaFatturaControl</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>scaricaFatturaControl</servlet-name>
+    <url-pattern>/scaricaFatturaControl</url-pattern>
+</servlet-mapping>
 
 </web-app>
