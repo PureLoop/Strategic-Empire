@@ -20,13 +20,36 @@ public class OrdineModelDM implements OrdineModel{
 	    PreparedStatement preparedStatement = null;
 	    Collection<OrdineBean> ordini = new LinkedList<>();
 
+	    String selectRoleSQL = "SELECT ruolo FROM utente WHERE username = ?";
 	    String selectSQL = "SELECT * FROM ordine WHERE cod_utente = ?";
+	    String selectSQLManager = "SELECT * FROM ordine";
 	    String selectRecapItems = "SELECT * FROM recap WHERE num_ordine = ?";
+	    String selectImageAccSQL = "SELECT img_name FROM img_acc WHERE cod_acc = ? AND copertina = 1";
+	    String selectImageGioSQL = "SELECT img_name FROM img_gioco WHERE cod_gioco = ? AND copertina = 1";
+	    String selectImageEspSQL = "SELECT img_name FROM img_esp WHERE cod_esp = ? AND copertina = 1";
 
 	    try {
 	        connection = DriverManagerConnectionPool.getConnection();
-	        preparedStatement = connection.prepareStatement(selectSQL);
+	        
+	        // Step 1: Retrieve the role of the user
+	        preparedStatement = connection.prepareStatement(selectRoleSQL);
 	        preparedStatement.setString(1, username);
+	        ResultSet roleResultSet = preparedStatement.executeQuery();
+	        String role = null;
+	        if (roleResultSet.next()) {
+	            role = roleResultSet.getString("ruolo");
+	        }
+	        roleResultSet.close();
+	        preparedStatement.close();
+	        
+	        // Step 2: Based on the role, select the appropriate SQL query
+	        if ("cliente".equalsIgnoreCase(role)) {
+	            preparedStatement = connection.prepareStatement(selectSQL);
+	            preparedStatement.setString(1, username);
+	        } else {
+	            preparedStatement = connection.prepareStatement(selectSQLManager);
+	        }
+
 	        ResultSet rs = preparedStatement.executeQuery();
 
 	        while (rs.next()) {
@@ -50,19 +73,48 @@ public class OrdineModelDM implements OrdineModel{
 	                recapItem.setPrezzo(recapResultSet.getDouble("prezzo"));
 	                recapItem.setQuantita(recapResultSet.getInt("quantita"));
 	                String codArticoloGio = recapResultSet.getString("acq_gio");
+	                String codArticoloAcc = recapResultSet.getString("acq_acc");
+	                String codArticoloEsp = recapResultSet.getString("acq_esp");
+
+	                String imgName = null;
+	                PreparedStatement imageStatement = null;
+
 	                if (codArticoloGio != null) {
 	                    recapItem.setCod_articolo(codArticoloGio);
-	                }
-	                
-	                String codArticoloAcc = recapResultSet.getString("acq_acc");
-	                if (codArticoloAcc != null) {
+	                    imageStatement = connection.prepareStatement(selectImageGioSQL);
+	                    imageStatement.setString(1, codArticoloGio);
+	                    ResultSet imgResultSet = imageStatement.executeQuery();
+	                    if (imgResultSet.next()) {
+	                        imgName = imgResultSet.getString("img_name");
+	                    }
+	                    recapItem.setImmagineCopertina(imgName);
+	                    imgResultSet.close();
+	                } else if (codArticoloAcc != null) {
 	                    recapItem.setCod_articolo(codArticoloAcc);
-	                }
-	                
-	                String codArticoloEsp = recapResultSet.getString("acq_esp");
-	                if (codArticoloEsp != null) {
+	                    imageStatement = connection.prepareStatement(selectImageAccSQL);
+	                    imageStatement.setString(1, codArticoloAcc);
+	                    ResultSet imgResultSet = imageStatement.executeQuery();
+	                    if (imgResultSet.next()) {
+	                        imgName = imgResultSet.getString("img_name");
+	                    }
+	                    recapItem.setImmagineCopertina(imgName);
+	                    imgResultSet.close();
+	                } else if (codArticoloEsp != null) {
 	                    recapItem.setCod_articolo(codArticoloEsp);
+	                    imageStatement = connection.prepareStatement(selectImageEspSQL);
+	                    imageStatement.setString(1, codArticoloEsp);
+	                    ResultSet imgResultSet = imageStatement.executeQuery();
+	                    if (imgResultSet.next()) {
+	                        imgName = imgResultSet.getString("img_name");
+	                    }
+	                    recapItem.setImmagineCopertina(imgName);
+	                    imgResultSet.close();
 	                }
+
+	                if (imageStatement != null) {
+	                    imageStatement.close();
+	                }
+
 	                recapItems.add(recapItem);
 	            }
 	            ordine.setListItems(recapItems);
@@ -81,12 +133,6 @@ public class OrdineModelDM implements OrdineModel{
 	    }
 	    return ordini;
 	}
-
-	@Override
-	public Collection<OrdineBean> doRetrieveAllMenager(String username) throws SQLException {
-		return null;
-	}
-
 	@Override
 	public OrdineBean doRetrieveByCodOrdine(String cod_ordine) throws SQLException {
         Connection connection = null;

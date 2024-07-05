@@ -7,6 +7,5 @@ import it.unisa.bean.OrdineBean;
 
 public interface OrdineModel {
 	public Collection<OrdineBean> doRetrieveAll(String username) throws SQLException;
-	public Collection<OrdineBean> doRetrieveAllMenager(String username) throws SQLException;
 	public OrdineBean doRetrieveByCodOrdine(String cod_ordine) throws SQLException;
 }
