@@ -73,8 +73,28 @@
 </table>
 
 <script>
-function scaricaFattura(codiceOrdine) {
-    window.location.href = "scaricaFatturaControl?codiceOrdine=" + codiceOrdine;
+function scaricaFattura(codOrdine) {
+    $.ajax({
+        url: 'AreaPersonaleControl',
+        method: 'GET',
+        data: {
+            action: 'scaricaFattura',
+            codOrdine: codOrdine
+        },
+        xhrFields: {
+            responseType: 'blob'
+        },
+        success: function(data, status, xhr) {
+            var blob = new Blob([data], { type: 'text/plain' });
+            var link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = 'fattura_ordine_' + codOrdine + '.txt';
+            link.click();
+        },
+        error: function(xhr, status, error) {
+            console.error('Errore durante la generazione della fattura:', status, error);
+        }
+    });
 }
 
     function mostraArticoli(codiceOrdine) {

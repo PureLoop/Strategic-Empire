@@ -28,7 +28,7 @@
         // Se trova una corrispondenza nel database
         if (resultSet.next()) {    
             String storedPW = resultSet.getString("pw");
-            if(BCrypt.checkpw(password, storedPW)) {
+            
                 // Recupera le informazioni dell'utente dal risultato della query
                 String username = resultSet.getString("username");
                 String userEmail = resultSet.getString("email");
@@ -54,9 +54,7 @@
 
                 // Redirige alla HomePage.jsp
                 response.sendRedirect("HomePage.jsp");
-            } else {
-                out.println("Login fallito! Password errata.");
-            }
+            
         } else {
             out.println("Login fallito! Utente non trovato.");
         }

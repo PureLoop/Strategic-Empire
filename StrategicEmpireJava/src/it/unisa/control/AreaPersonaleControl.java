@@ -1,6 +1,7 @@
 package it.unisa.control;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.Collection;
@@ -18,6 +19,7 @@ import javax.servlet.http.Part;
 import it.unisa.bean.AccessorioBean;
 import it.unisa.bean.CartaBean;
 import it.unisa.bean.GiocoBean;
+import it.unisa.bean.OggettiCarrelloBean;
 import it.unisa.bean.OrdineBean;
 import it.unisa.bean.User;
 import it.unisa.bean.espansioneBean;
@@ -586,6 +588,47 @@ else if (action != null && action.equalsIgnoreCase("ShowEspansione")) {
                 e.printStackTrace();
             }
     	}
+    	if (action != null && action.equals("scaricaFattura")) {
+            String codiceOrdineStr = request.getParameter("codOrdine");
+
+            OrdineBean ordineDaScaricare = null;
+            try {
+                ordineDaScaricare = modelOrdine.doRetrieveByCodOrdine(codiceOrdineStr);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                return;
+            }
+
+            if (ordineDaScaricare != null) {
+                response.setContentType("text/plain");
+                response.setHeader("Content-Disposition", "attachment; filename=\"fattura_ordine_" + codiceOrdineStr + ".txt\"");
+
+                try (OutputStream outputStream = response.getOutputStream()) {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("Codice Ordine: ").append(ordineDaScaricare.getCodOrdine()).append("\n");
+                    sb.append("Codice Utente: ").append(ordineDaScaricare.getCodiceUtente()).append("\n");
+                    sb.append("Carta: ").append(ordineDaScaricare.getCarta()).append("\n");
+                    sb.append("Codice Sconto: ").append(ordineDaScaricare.getCodSconto()).append("\n");
+                    sb.append("Data: ").append(ordineDaScaricare.getData()).append("\n");
+                    sb.append("Articoli:\n");
+
+                    for (OggettiCarrelloBean item : ordineDaScaricare.getListItems()) {
+                        sb.append("  Articolo: ").append(item.getCod_articolo())
+                          .append(" - Prezzo: ").append(item.getPrezzo())
+                          .append(" - Quantità: ").append(item.getQuantita())
+                          .append("\n");
+                    }
+
+                    outputStream.write(sb.toString().getBytes());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                }
+            } else {
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Ordine non trovato");
+            }
+        }
     }
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
