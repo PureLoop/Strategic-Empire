@@ -32,7 +32,7 @@
                 <button type="button" onclick="mostraArticoli('<%= ordine.getCodOrdine() %>')">Mostra Articoli</button>
             </td>
             <td>
-                <button type="button" onclick="scaricaFattura('<%= ordine.getCodOrdine() %>')">Scarica Fattura</button>
+                <labe type="text" onclick="scaricaFattura('<%= ordine.getCodOrdine() %>')">Visualizza Fattura</button>
             </td>
         </tr>
         <tr id="recapItems_<%= ordine.getCodOrdine() %>" style="display: none;">
@@ -78,6 +78,8 @@
 
 <script>
 function scaricaFattura(codOrdine) {
+	 var url = "Fattura.jsp";
+	    // Naviga verso l'URL costruito
     $.ajax({
         url: 'AreaPersonaleControl',
         method: 'GET',
@@ -89,11 +91,8 @@ function scaricaFattura(codOrdine) {
             responseType: 'blob'
         },
         success: function(data, status, xhr) {
-            var blob = new Blob([data], { type: 'text/plain' });
-            var link = document.createElement('a');
-            link.href = window.URL.createObjectURL(blob);
-            link.download = 'fattura_ordine_' + codOrdine + '.txt';
-            link.click();
+    	    window.location.href = url;
+
         },
         error: function(xhr, status, error) {
             console.error('Errore durante la generazione della fattura:', status, error);
