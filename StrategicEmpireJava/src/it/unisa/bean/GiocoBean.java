@@ -13,6 +13,7 @@ public class GiocoBean implements Serializable{
     public Double prezzo;
     public int n_giocatori_min,n_giocatori_max,quantita;
     public String immagineCopertina, img2;
+    public boolean preferito;
 
     public GiocoBean(){
         cod_gioco = "";
@@ -24,6 +25,7 @@ public class GiocoBean implements Serializable{
         n_giocatori_min = 0;
         n_giocatori_max = 0;
         quantita = 0;
+        preferito = false;
     }
 
     public void setQuantita(int q) {
@@ -34,6 +36,9 @@ public class GiocoBean implements Serializable{
     	return quantita;
     }
     
+    public boolean getPreferito() {
+    	return preferito;
+    }
     public void setImmagineCop(String img) {
     	this.immagineCopertina = img;
     }
@@ -54,6 +59,11 @@ public class GiocoBean implements Serializable{
     }
     public String getCod_Gioco() {
         return this.cod_gioco;
+    }
+    
+    
+    public void setPreferito(boolean preferito) {
+    	this.preferito = preferito;
     }
     
     public void setNomegioco(String nome){

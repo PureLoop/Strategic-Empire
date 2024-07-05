@@ -1,5 +1,5 @@
 package it.unisa.control;
-
+import java.util.ArrayList;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -121,7 +121,9 @@ public class AreaPersonaleControl extends HttpServlet {
             } catch (SQLException e) {
                 System.out.println("Error:" + e.getMessage());
             }
-        }else if (action != null && action.equalsIgnoreCase("ShowCards")) {
+        }
+           
+else if (action != null && action.equalsIgnoreCase("ShowCards")) {
             boolean isAjaxRequest = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
             String username = request.getParameter("username"); // Ottieni il nome utente dal parametro della richiesta
 

@@ -17,6 +17,7 @@ public class EspansioneModelDM implements EspansioneModel {
 
     private static final String TABLE_NAME = "espansione";
     private static final String TABLE_NAME2 = "acq_espansione";
+	private static final String TABLE_NAME5="preferiti";
 
 
     @Override
@@ -180,6 +181,49 @@ public class EspansioneModelDM implements EspansioneModel {
 	            }
 	        }
 	    }
+		public synchronized void DeletePreferito(String code, String username) throws SQLException {
+		    Connection connection = null;
+		    PreparedStatement preparedStatement = null;
+
+		    // Corretto "INSERTO INTO" in "INSERT INTO" e aggiornato per DELETE
+		    String deletePreferitoQuery = "DELETE FROM " + TABLE_NAME5 + " WHERE cod_oggetto = ? AND Username = ?";
+
+		    try {
+		        connection = DriverManagerConnectionPool.getConnection();
+		        preparedStatement = connection.prepareStatement(deletePreferitoQuery);
+		        preparedStatement.setString(1, code);
+		        preparedStatement.setString(2, username);
+
+		        // Usa executeUpdate() per eseguire le dichiarazioni di manipolazione dei dati
+		        int rowsAffected = preparedStatement.executeUpdate();
+		        if (rowsAffected > 0) {
+		            connection.commit(); // Assicurati che il commit sia appropriato
+		            System.out.println("Preferito rimosso con successo.");
+		        } else {
+		            System.out.println("Nessun preferito trovato con i parametri specificati.");
+		        }
+		    } catch (SQLException e) {
+		        // Gestisci eccezioni SQL
+		        System.err.println("Errore durante la rimozione del preferito: " + e.getMessage());
+		        if (connection != null) {
+		            try {
+		                connection.rollback(); // Rollback in caso di errore
+		            } catch (SQLException rollbackEx) {
+		                System.err.println("Errore durante il rollback: " + rollbackEx.getMessage());
+		            }
+		        }
+		    } finally {
+		        try {
+		            if (preparedStatement != null) {
+		                preparedStatement.close();
+		            }
+		        } finally {
+		            if (connection != null) {
+		                DriverManagerConnectionPool.releaseConnection(connection);
+		            }
+		        }
+		    }
+		}
 		@Override
 		public void deleteAcq_Espansione(String codEspansione) throws SQLException {
 		    String query1 = "DELETE FROM " + TABLE_NAME2 + " WHERE cod_espansione = ?";
@@ -235,6 +279,79 @@ public class EspansioneModelDM implements EspansioneModel {
         }
         return espansioni;
     }
+	
+	public synchronized void setPreferito(String code, String username) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    System.out.println(code);
+
+	    // Corretto "INSERTO INTO" in "INSERT INTO"
+	    String insertGioco = "INSERT INTO " + TABLE_NAME5 + " (cod_oggetto, Username, preferito) VALUES (?, ?, ?)";
+
+	    try {
+	        connection = DriverManagerConnectionPool.getConnection();
+	        preparedStatement = connection.prepareStatement(insertGioco);
+	        preparedStatement.setString(1, code);
+	        preparedStatement.setString(2, username);
+	        preparedStatement.setBoolean(3, true);
+
+	        // Usa executeUpdate() per eseguire le dichiarazioni di manipolazione dei dati
+	        preparedStatement.executeUpdate();
+	        connection.commit(); // Assicurati che il commit sia appropriato
+
+	    } finally {
+	        try {
+	            if (preparedStatement != null) {
+	                preparedStatement.close();
+	            }
+	        } finally {
+	            if (connection != null) {
+	                DriverManagerConnectionPool.releaseConnection(connection);
+	            }
+	        }
+	    }
+	}
+	
+	
+	public synchronized boolean ControllaPreferito(String code, String username) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    ResultSet resultSet = null;
+	    boolean isFavorito = false;
+
+	    // Corretto "INSERTO INTO" in "INSERT INTO" e utilizza "SELECT" per la query
+	    String selectQuery = "SELECT * FROM " + TABLE_NAME5 + " WHERE Username = ? AND cod_oggetto = ?";
+
+	    try {
+	        connection = DriverManagerConnectionPool.getConnection();
+	        preparedStatement = connection.prepareStatement(selectQuery);
+	        preparedStatement.setString(1, username);
+	        preparedStatement.setString(2, code);
+
+	        resultSet = preparedStatement.executeQuery();
+
+	        // Controlla se il risultato esiste
+	        if (resultSet.next()) {
+	            isFavorito = true; // Gioco è nei preferiti
+	        }
+
+	    } finally {
+	        try {
+	            if (resultSet != null) {
+	                resultSet.close();
+	            }
+	            if (preparedStatement != null) {
+	                preparedStatement.close();
+	            }
+	        } finally {
+	            if (connection != null) {
+	                DriverManagerConnectionPool.releaseConnection(connection);
+	            }
+	        }
+	    }
+	    return isFavorito;
+	}
+
 
     @Override
 	 public synchronized Collection<espansioneBean> doRetrieveByFilter(Double prezzo) throws SQLException {

@@ -107,7 +107,52 @@ public class CarrelloControl extends HttpServlet {
                 session.setAttribute("oggettiCarrello", oggettiCarrello);
                 response.sendRedirect(request.getContextPath() + "/catalogo.jsp");
                 return;
-            }else if ("removeOggettiPagati".equals(action)) {
+            }
+            else if ("addPreferito".equals(action)) {
+                
+                if (codiceArt.startsWith("g")) {
+                	
+                    boolean isFavorito = model.ControllaPreferito(codiceArt, username);
+                    if(isFavorito == true) {
+
+                    	model.DeletePreferito(codiceArt, username);
+
+                    }
+                    else {
+                	model.setPreferito(codiceArt, username);
+                    }
+
+                } else if (codiceArt.startsWith("a")) {
+                	  boolean isFavorito = model3.ControllaPreferito(codiceArt, username);
+                      if(isFavorito == true) {
+
+                      	model3.DeletePreferito(codiceArt, username);
+
+                      }
+                      else {
+                	model3.setPreferito(codiceArt, username);
+                      }
+                } else if (codiceArt.startsWith("e")) {
+                	  boolean isFavorito = model2.ControllaPreferito(codiceArt, username);
+                      if(isFavorito == true) {
+
+                      	model2.DeletePreferito(codiceArt, username);
+
+                      }
+                      else {
+                	model2.setPreferito(codiceArt, username);
+                      }
+                }
+                return;
+            }
+            else if ("isPreferito".equals(action)) {
+                boolean isFavorito = model.ControllaPreferito(codiceArt, username);
+                response.setContentType("text/plain");
+                response.getWriter().write(Boolean.toString(isFavorito));
+                return;
+            }
+
+            else if ("removeOggettiPagati".equals(action)) {
                 System.out.println("removeOggetti");
 
                 // Creazione dell'ordine con i parametri necessari
