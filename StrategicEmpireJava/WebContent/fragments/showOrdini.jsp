@@ -36,10 +36,11 @@
             </td>
         </tr>
         <tr id="recapItems_<%= ordine.getCodOrdine() %>" style="display: none;">
-            <td colspan="6">
+            <td colspan="7">
                 <table class="table">
                     <thead>
                         <tr>
+                            <th scope="col">Immagine</th>
                             <th scope="col">Codice Articolo</th>
                             <th scope="col">Prezzo</th>
                             <th scope="col">Quantità</th>
@@ -51,6 +52,9 @@
                                    if (item != null && item.getCod_articolo() != null) {
                         %>
                         <tr>
+                            <td>
+                                <img src="<%= item.getImmagineCopertina() %>" alt="Immagine Articolo" style="width: 50px; height: 50px;">
+                            </td>
                             <td><%= item.getCod_articolo() %></td>
                             <td><%= item.getPrezzo() %></td>
                             <td><%= item.getQuantita() %></td>
@@ -59,7 +63,7 @@
                                }
                            } else { %>
                         <tr>
-                            <td colspan="3">Nessun articolo trovato.</td>
+                            <td colspan="4">Nessun articolo trovato.</td>
                         </tr>
                         <% } %>
                     </tbody>
@@ -97,13 +101,12 @@ function scaricaFattura(codOrdine) {
     });
 }
 
-    function mostraArticoli(codiceOrdine) {
-        var recapItemsRow = document.getElementById("recapItems_" + codiceOrdine);
-        if (recapItemsRow.style.display === "none") {
-            recapItemsRow.style.display = "table-row";
-        } else {
-            recapItemsRow.style.display = "none";
-        }
+function mostraArticoli(codiceOrdine) {
+    var recapItemsRow = document.getElementById("recapItems_" + codiceOrdine);
+    if (recapItemsRow.style.display === "none") {
+        recapItemsRow.style.display = "table-row";
+    } else {
+        recapItemsRow.style.display = "none";
     }
+}
 </script>
-

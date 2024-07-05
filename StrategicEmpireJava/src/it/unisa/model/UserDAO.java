@@ -251,10 +251,10 @@ public class UserDAO implements UserModel{
                      if (oggettoBean.getCod_articolo().startsWith("g") && oggettoBean.getSelezionato() == true) {
                     	 recap(x,oggettoBean.getCod_articolo(),null,null,oggettoBean.getQuantita(), oggettoBean.getPrezzo());
                     	 
-                     } else if (oggettoBean.getCod_articolo().startsWith("a") && oggettoBean.getSelezionato() == true) {
+                     } else if (oggettoBean.getCod_articolo().startsWith("e") && oggettoBean.getSelezionato() == true) {
                     	 recap(x,null,oggettoBean.getCod_articolo(),null,oggettoBean.getQuantita(), oggettoBean.getPrezzo());
 
-                     } else if (oggettoBean.getCod_articolo().startsWith("e") && oggettoBean.getSelezionato() == true) {
+                     } else if (oggettoBean.getCod_articolo().startsWith("a") && oggettoBean.getSelezionato() == true) {
                     	 recap(x,null,null,oggettoBean.getCod_articolo(),oggettoBean.getQuantita(), oggettoBean.getPrezzo());
 
                      }
