@@ -1,3 +1,4 @@
+/* News.css */
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #f8f9fa;
@@ -21,7 +22,9 @@ main {
     padding: 1rem;
     border-radius: 0.5rem;
     text-align: center;
+    
 }
+
 
 .carousel-title {
     font-size: 2rem;
@@ -81,3 +84,4 @@ footer {
     text-align: center;
     padding: 1rem 0;
 }
+
