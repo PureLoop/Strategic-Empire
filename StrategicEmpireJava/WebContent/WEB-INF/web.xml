@@ -20,11 +20,11 @@
   </error-page>
     
     <servlet>
-        <servlet-name>RegisterServlet</servlet-name>
-        <servlet-class>it.unisa.RegisterServlet</servlet-class>
+        <servlet-name>RegisterControl</servlet-name>
+        <servlet-class>it.unisa.control.RegisterControl</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-name>RegisterControl</servlet-name>
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
     
@@ -92,4 +92,14 @@
     <servlet-name>UpdateAccountControl</servlet-name>
     <url-pattern>/UpdateAccountControl1</url-pattern> <!-- Modified to avoid conflict -->
 </servlet-mapping>
+
+<servlet>
+    <servlet-name>LoginControl</servlet-name>
+    <servlet-class>it.unisa.control.LoginControl</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>LoginControl</servlet-name>
+    <url-pattern>/login</url-pattern>
+</servlet-mapping>
+
 </web-app>
