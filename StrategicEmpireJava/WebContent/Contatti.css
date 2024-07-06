@@ -9,9 +9,11 @@ body, h1, h2, p, form, input, textarea, button {
 body {
     line-height: 1.6;
     color: #333;
-    background-image: url('SfondoContatti.webp'); /* Sostituisci con il percorso corretto alla tua immagine di sfondo */
+    background-color: #fff; /* Colore di sfondo di fallback */
+    background-image: url('css/SfondoContatti.webp'); /* Percorso corretto all'immagine di sfondo */
     background-size: cover;
     background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 /* Stili per la sezione di Parallax */
@@ -24,14 +26,20 @@ body {
 /* Stili per i titoli h1 e h2 */
 h1, h2 {
     text-align: center;
-    color: rgb(236, 38, 0); /* Colore rosso per il titolo */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Effetto ombra */
+    font-family: 'Lora', serif; /* Utilizzo del font Lora per i titoli */
+}
+
+h1.main-title {
+    color: rgb(236, 38, 0); /* Colore rosso per il titolo */
+    font-size: 2em; /* Dimensione del font più grande per il titolo principale */
 }
 
 /* Stili per i paragrafi */
 p {
     text-align: center;
     color: #ddd;
+    font-size: 1.1em; /* Dimensione del font aumentata per i paragrafi */
 }
 
 /* Contenitore principale */
@@ -62,38 +70,29 @@ input, textarea {
     border-radius: 5px;
     font-size: 1em;
     background-color: #f4f4f4;
+    background-position: 10px center;
+    background-repeat: no-repeat;
+}
+
+button.btn-form, button.btn-header {
+    padding: 10px 20px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 button.btn-form {
-    padding: 10px 20px;
     background: linear-gradient(to right, #FF5733, #E64A19);
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-button.btn-form:hover {
-    background: linear-gradient(to right, #E64A19, #FF5733);
-    transform: scale(1.05);
-}
-
-/* Stili per il bottone dell'header */
 button.btn-header {
-    padding: 10px 20px;
     background: linear-gradient(to right, #007BFF, #0056b3);
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-button.btn-header:hover {
-    background: linear-gradient(to right, #0056b3, #007BFF);
+button.btn-form:hover, button.btn-header:hover {
     transform: scale(1.05);
 }
 
@@ -118,11 +117,6 @@ button.btn-header:hover {
     margin-top: 20px;
 }
 
-#social-media a {
-    display: inline-block;
-    margin: 0 10px;
-}
-
 #social-media img {
     width: 40px;
     height: 40px;
@@ -131,32 +125,39 @@ button.btn-header:hover {
 
 #social-media img:hover {
     transform: scale(1.1);
-    filter: invert(34%) sepia(92%) saturate(7509%) hue-rotate(349deg) brightness(94%) contrast(93%);
 }
 
-/* Sezione FAQ */
-#faq {
-    margin-top: 20px;
+/* Media Queries per Responsiveness */
+@media (max-width: 768px) {
+    main {
+        padding: 15px;
+    }
+    
+    form, #additional-contact, #social-media {
+        padding: 10px;
+    }
+    
+    input, textarea, button.btn-form {
+        font-size: 0.9em;
+    }
+    
+    #social-media img {
+        width: 30px;
+        height: 30px;
+    }
 }
 
-.faq-item {
-    margin-bottom: 10px;
-}
-
-.faq-item h3 {
-    cursor: pointer;
-    padding: 10px;
-    background-color: #f4f4f4;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.faq-item p {
-    display: none;
-    padding: 10px;
-    border-top: 1px solid #ccc;
-}
-
-.faq-item.active p {
-    display: block;
+@media (max-width: 480px) {
+    h1, h2 {
+        font-size: 1.5em;
+    }
+    
+    p {
+        font-size: 0.9em;
+    }
+    
+    #social-media img {
+        width: 25px;
+        height: 25px;
+    }
 }
