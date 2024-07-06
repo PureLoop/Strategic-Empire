@@ -11,8 +11,9 @@ public class GiocoBean implements Serializable{
 	private static final long serialVersionUID = 1L;
     public String cod_gioco,nome_gioco,edizione,tipologia,descrizione;
     public Double prezzo;
-    public int n_giocatori_min,n_giocatori_max;
+    public int n_giocatori_min,n_giocatori_max,quantita;
     public String immagineCopertina, img2;
+    public boolean preferito;
 
     public GiocoBean(){
         cod_gioco = "";
@@ -23,8 +24,21 @@ public class GiocoBean implements Serializable{
         descrizione = "";
         n_giocatori_min = 0;
         n_giocatori_max = 0;
+        quantita = 0;
+        preferito = false;
     }
 
+    public void setQuantita(int q) {
+    	this.quantita = q;
+    }
+    
+    public int getQuantita() {
+    	return quantita;
+    }
+    
+    public boolean getPreferito() {
+    	return preferito;
+    }
     public void setImmagineCop(String img) {
     	this.immagineCopertina = img;
     }
@@ -45,6 +59,11 @@ public class GiocoBean implements Serializable{
     }
     public String getCod_Gioco() {
         return this.cod_gioco;
+    }
+    
+    
+    public void setPreferito(boolean preferito) {
+    	this.preferito = preferito;
     }
     
     public void setNomegioco(String nome){

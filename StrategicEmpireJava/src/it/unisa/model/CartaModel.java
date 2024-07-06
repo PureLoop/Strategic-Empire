@@ -1,5 +1,6 @@
 
 package it.unisa.model;
+import java.sql.Date;
 
 import java.sql.SQLException;
 import java.util.Collection;
@@ -10,7 +11,7 @@ public interface CartaModel {
 
     boolean doDelete(String code) throws SQLException;
     
-    void doUpdate(String s, String s2, int x, int y, String a)throws SQLException;
+    void doUpdate(String s, String s2, Date x, int y, String a)throws SQLException;
 
     CartaBean doRetrieveByKey(String s) throws SQLException;
 

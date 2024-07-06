@@ -1,3 +1,5 @@
+<%@ page contentType="text/html; charset=UTF-8" import="java.util.*, it.unisa.bean.OggettiCarrelloBean" %>
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -239,6 +241,8 @@
 </head>
 <body>
 <%
+
+List<OggettiCarrelloBean> carrellobean = (List<OggettiCarrelloBean>) request.getSession().getAttribute("oggettiCarrello");
 	String total = request.getParameter("total");
     u = (User) session.getAttribute("user");
     loggedIn = (u != null);
@@ -261,10 +265,10 @@
                 </div>
                 <div class="input-box">
                     <span>Indirizzo:</span>
-                    <input type="text" id="address" placeholder="Via - Numero civico - Localit‡" value="<%= loggedIn ? u.getIndirizzo() : "" %>">
+                    <input type="text" id="address" placeholder="Via - Numero civico - Localit√†" value="<%= loggedIn ? u.getIndirizzo() : "" %>">
                 </div>
                 <div class="input-box">
-                    <span>Citt‡:</span>
+                    <span>Citt√†:</span>
                     <input type="text" id="city" placeholder="Berlino">
                 </div>
                 <div class="flex">
@@ -347,7 +351,7 @@
                 <path class="checkmark-check" fill="none" d="M14 27l7 7 14-14"/>
             </svg>
         </div>
-        <p>Il pagamento Ë stato completato con successo.</p>
+        <p>Il pagamento √® stato completato con successo.</p>
     </div>
 </div>
 
@@ -431,6 +435,7 @@
             },
             success: function(response) {
                 $('#cardList').html(response);
+               
             },
             error: function(xhr, status, error) {
                 console.error('Errore: ' + error);
@@ -471,10 +476,28 @@
             document.getElementById('cardName').value = cardName;
             document.getElementById('cardExpiryMonth').value = expiryParts[0] || '';
             document.getElementById('cardExpiryYear').value = expiryParts[1] || '';
-            // Assumendo che il CVV non Ë salvato nel localStorage; se necessario, puÚ essere aggiunto
+            // Assumendo che il CVV non √® salvato nel localStorage; se necessario, pu√≤ essere aggiunto
         }
     }
+    function RemoveOggettiPagati() {
+        const cardNumberValue = document.getElementById('cardNumber').value; // Ottieni il valore del campo cardNumber
 
+        $.ajax({
+            url: 'CarrelloControl',
+            method: 'GET',
+            data: {
+                action: 'removeOggettiPagati',
+                username: '<%= u.getUsername() %>',
+				Numerocarta: cardNumberValue
+            },
+            success: function(response) {
+                $('#cardList').html(response);
+            },
+            error: function(xhr, status, error) {
+                console.error('Errore: ' + error);
+            }
+        });
+    }
     // Validare il modulo al submit
     document.getElementById('paymentForm').addEventListener('submit', function(event) {
         event.preventDefault(); // Previene l'invio reale del modulo
@@ -483,10 +506,14 @@
         // Verificare se tutti i campi sono validi
         const isFormValid = [...document.querySelectorAll('.input-box input')].every(input => input.classList.contains('valid'));
         if (isFormValid) {
+        	
             showPaymentCompletePopup(); // Mostra il pop-up di completamento del pagamento
-        }
+            RemoveOggettiPagati()         
+            }
+        
     });
 
+    
     // Popolare i dettagli della carta quando la pagina viene caricata
     window.onload = function() {
         populateCardDetails();
@@ -513,9 +540,9 @@
     
     
     document.addEventListener('DOMContentLoaded', () => {
-        // Funzione per aggiornare il valore del total solo se Ë valido
+        // Funzione per aggiornare il valore del total solo se √® valido
         function updateTotal(total) {
-            // Solo se il valore non Ë null e non Ë una stringa vuota
+            // Solo se il valore non √® null e non √® una stringa vuota
             if (total && total.trim() !== '') {
                 localStorage.setItem('total', total);
                 console.log("Total updated in localStorage:", total); // Verifica che il valore sia aggiornato
@@ -526,7 +553,7 @@
         const totalFromRequest = '<%= request.getParameter("total") %>';
         console.log("Total from request:", totalFromRequest); // Verifica il valore
 
-        // Solo se 'total' Ë passato e non Ë null o vuoto, aggiorna il localStorage
+        // Solo se 'total' √® passato e non √® null o vuoto, aggiorna il localStorage
         if (totalFromRequest && totalFromRequest.trim() !== 'null') {
             updateTotal(totalFromRequest);
         }

@@ -10,6 +10,7 @@ public class User {
     private String role;
     private String Indirizzo;
     private int ncivico;
+    private String sesso;
 	public User() {
 		Username= "";
 		nome = "";
@@ -17,6 +18,7 @@ public class User {
 		email = "";
 		role= "";
 		Indirizzo="";
+		sesso="";
 	}
     
     public String getUsername() {
@@ -88,5 +90,11 @@ public class User {
     }
     public void setncivico(int ncivico) {
     	this.ncivico=ncivico;
+    }
+    public String getsesso() {
+    	return sesso;
+    }
+    public void setsesso(String sesso) {
+    	this.sesso=sesso;
     }
 }

@@ -208,10 +208,13 @@
 
       <div class="container">
         <% 
+	        u = (User) session.getAttribute("user");
+	        loggedIn = (u != null);
           String logoutMessage = request.getParameter("logout");
           if ("true".equals(logoutMessage)) {
         %>
         <div class="alert alert-success mt-3" role="alert">
+        
           Logout effettuato con successo.
         </div>
         <% } %>
@@ -231,5 +234,20 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gyb2MI6jVQDAgg6B0x3YRPH7rOhFnk9pNNRTtV5z6NR1xfWlC2" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-Q6E3U3t8ST3x0C1WZOm8W9lpQ7JoAxYoBrrcBz7+HFiZ9jrHjJJ0quv+KXlF5kVx" crossorigin="anonymous"></script>
+<script>
+    // Passa l'informazione di login al client
+    const loggedIn = <%= loggedIn %>;
+
+    // Funzione per svuotare il local storage se l'utente non è loggato
+    function checkLoginAndClearLocalStorage() {
+        if (!loggedIn) {
+            localStorage.clear();
+            console.log("Local storage svuotato perché l'utente non è loggato.");
+        }
+    }
+
+    // Chiamata alla funzione
+    checkLoginAndClearLocalStorage();
+</script>
   </body>
 </html>

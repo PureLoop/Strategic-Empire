@@ -1,11 +1,13 @@
 package it.unisa.control;
-
+import java.util.ArrayList;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 import java.io.File;
+import javax.servlet.http.HttpSession;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,6 +20,9 @@ import javax.servlet.http.Part;
 import it.unisa.bean.AccessorioBean;
 import it.unisa.bean.CartaBean;
 import it.unisa.bean.GiocoBean;
+import it.unisa.bean.OggettiCarrelloBean;
+import it.unisa.bean.OrdineBean;
+import it.unisa.bean.RecensioneBean;
 import it.unisa.bean.User;
 import it.unisa.bean.espansioneBean;
 import it.unisa.model.AccessorioModelDM;
@@ -26,6 +31,10 @@ import it.unisa.model.CartaModelDM;
 import it.unisa.model.EspansioneModel;
 import it.unisa.model.EspansioneModelDM;
 import it.unisa.model.GiocoModelDM;
+import it.unisa.model.OrdineModel;
+import it.unisa.model.OrdineModelDM;
+import it.unisa.model.RecensioneModel;
+import it.unisa.model.RecensioneModelDM;
 import it.unisa.model.UserDAO;
 import it.unisa.model.AccessorioModel;
 import it.unisa.model.AreaPersonaleModel;
@@ -47,6 +56,8 @@ public class AreaPersonaleControl extends HttpServlet {
 	static EspansioneModel modelEsp;
 	static AreaPersonaleModel modelAp;
 	static UserModel modelUser;
+	static OrdineModel modelOrdine;
+	static RecensioneModel modelRecensione;
 	static {
 			modelGioco = new GiocoModelDM();
 			modelAcc = new AccessorioModelDM();
@@ -54,7 +65,9 @@ public class AreaPersonaleControl extends HttpServlet {
 			modelAp = new AreaPersonaleModelDM();
 			modelCarta = new CartaModelDM();
 			modelUser = new UserDAO();
-	}
+			modelOrdine = new OrdineModelDM();
+			modelRecensione = new RecensioneModelDM();
+			}
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -72,6 +85,8 @@ public class AreaPersonaleControl extends HttpServlet {
         String action = request.getParameter("action");
         String insType = request.getParameter("type");
         request.setAttribute("pageType", "AreaPersonale");
+        HttpSession session = request.getSession();
+
         		
 
         if (action != null && action.equalsIgnoreCase("ShowGioco")) {
@@ -114,7 +129,9 @@ public class AreaPersonaleControl extends HttpServlet {
             } catch (SQLException e) {
                 System.out.println("Error:" + e.getMessage());
             }
-        }else if (action != null && action.equalsIgnoreCase("ShowCards")) {
+        }
+           
+else if (action != null && action.equalsIgnoreCase("ShowCards")) {
             boolean isAjaxRequest = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
             String username = request.getParameter("username"); // Ottieni il nome utente dal parametro della richiesta
 
@@ -197,7 +214,9 @@ public class AreaPersonaleControl extends HttpServlet {
 
                 String fullName = request.getParameter("fullName");
                 String cardNumber = request.getParameter("cardNumber");
-                int expiryDate = Integer.parseInt(request.getParameter("expiryDate"));
+    	        String expiryDateStr = request.getParameter("expiryDate");
+    	        java.sql.Date expiryDate = java.sql.Date.valueOf(expiryDateStr);
+
                 int cvv = Integer.parseInt(request.getParameter("newcvv"));
                 String username = request.getParameter("username");
                 // Chiamata al metodo doUpdate nel modello della carta
@@ -281,8 +300,10 @@ else if (action != null && action.equalsIgnoreCase("ShowEspansione")) {
         if (action != null && action.equalsIgnoreCase("InsertCards")) {
         	String fullName = request.getParameter("fullName");
 	        String cardNumber = request.getParameter("cardNumber");
-	        int expiryDate = Integer.parseInt(request.getParameter("expiryDate"));
+	        String expiryDateStr = request.getParameter("expiryDate");
 	        int cvv = Integer.parseInt(request.getParameter("cvv"));
+	        java.sql.Date expiryDate = java.sql.Date.valueOf(expiryDateStr);
+
 	        String username = request.getParameter("username");
 	        
 	        // Crea un nuovo bean per la carta con i dati ricevuti
@@ -563,7 +584,104 @@ else if (action != null && action.equalsIgnoreCase("ShowEspansione")) {
             }
         }
     	
+    	if(action != null && action.equals("showOrdini")) {
+    		String username = request.getParameter("username");
+    		try {
+                // Supponiamo che modelUser abbia un metodo per aggiornare il ruolo
+                Collection<OrdineBean> bean = modelOrdine.doRetrieveAll(username);
+                request.setAttribute("bean", bean);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/showOrdini.jsp");
+                dispatcher.forward(request, response);
+                response.setStatus(HttpServletResponse.SC_OK);
+            } catch (SQLException e) {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                e.printStackTrace();
+            }
+    	}
+    	if (action != null && action.equals("scaricaFattura")) {
+    	    String codiceOrdineStr = request.getParameter("codOrdine");    	    
+    	   
+    	    OrdineBean ordineDaScaricare = null;
+    	    try {
+    	        ordineDaScaricare = modelOrdine.doRetrieveByCodOrdine(codiceOrdineStr);
+    	    } catch (SQLException e) {
+    	        e.printStackTrace();
+    	        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    	        return;
+    	    }
+
+    	    if (ordineDaScaricare != null) {
+    	        // Imposta l'oggetto ordine come attributo della richiesta
+    	    
+    	        session.setAttribute("ordine", ordineDaScaricare);
+
+
+    	        // Forward alla JSP
+    	        RequestDispatcher dispatcher = request.getRequestDispatcher("Fattura.jsp");
+    	        dispatcher.forward(request, response);
+    	    } else {
+    	        response.sendError(HttpServletResponse.SC_NOT_FOUND, "Ordine non trovato");
+    	    }
+    	}
+    	if(action!=null && action.equals("recensione")) {
+    		String codiceOrdineStr = request.getParameter("codOrdine");
+    		String username = request.getParameter("username");
+    		System.out.println("ciao: "+codiceOrdineStr + username);
+    		if (codiceOrdineStr != null && username != null) {
+    	        
+    	            int codiceOrdine = Integer.parseInt(codiceOrdineStr);
+
+    	            // Chiamata per recuperare la recensione
+    	            RecensioneBean recensione;
+					try {
+						recensione = modelRecensione.retrieveReview(username, codiceOrdine);
+						if (recensione != null) {
+	    	                // Se la recensione è trovata, setta l'attributo nella request e reindirizza a showReview.jsp
+	    	                request.setAttribute("recensione", recensione);
+	    	                request.setAttribute("insVis",1);
+	    	                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/showReview.jsp");
+	    	                dispatcher.forward(request, response);
+	    	            } else {
+	    	                // Se la recensione non è trovata, reindirizza a showFormRecensione.jsp
+	    	                request.setAttribute("username", username); // Passa l'username alla JSP
+	    	                request.setAttribute("codiceOrdine", codiceOrdine); // Passa il codice ordine alla JSP
+	    	                request.setAttribute("insVis",1);
+	    	                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/showReview.jsp");
+	    	                dispatcher.forward(request, response);
+	    	            }
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}      	       
+    			}
+    		}
+    	
+    	if (action != null && action.equals("insertRev")) {
+            // Recupero dei parametri dal form
+            String username = request.getParameter("username");
+            int codiceOrdine = Integer.parseInt(request.getParameter("codiceOrdine"));
+            String titolo = request.getParameter("titolo");
+            String descrizione = request.getParameter("descrizione");
+            int valutazione = Integer.parseInt(request.getParameter("valutazione"));
+
+            try {
+                // Chiamata al metodo per inserire la recensione nel database
+                modelRecensione.insertReview(username, titolo, descrizione, valutazione,codiceOrdine);
+
+                // Puoi aggiungere un messaggio di successo nella request se necessario
+                request.setAttribute("insertSuccess", true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                // Gestione dell'eccezione SQL se necessario
+                // Potresti anche reindirizzare a una pagina di errore
+            }
+
+            // Dopo l'inserimento, reindirizza a showReview.jsp per visualizzare le recensioni aggiornate
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/showReview.jsp");
+            dispatcher.forward(request, response);
+        }
     }
+    
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

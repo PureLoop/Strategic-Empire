@@ -1,4 +1,5 @@
 package it.unisa.model;
+import java.sql.Date;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -63,7 +64,7 @@ public class CartaModelDM implements CartaModel {
 			ResultSet rs = preparedStatement.executeQuery();
 			while(rs.next()) {
 				bean.setNumero(rs.getString("numero"));
-				bean.setScadenza(rs.getInt("scadenza"));
+				bean.setScadenza(rs.getDate("scadenza"));
 				bean.setCvv(rs.getInt("cvv"));
 				bean.setUsername(rs.getString("Username"));
 				bean.setNome(rs.getString("nome"));
@@ -107,7 +108,7 @@ public class CartaModelDM implements CartaModel {
 
 	            // Imposto i valori della carta dal ResultSet
 	            bean.setNumero(rs.getString("numero"));
-	            bean.setScadenza(rs.getInt("scadenza"));
+	            bean.setScadenza(rs.getDate("scadenza"));
 	            bean.setCvv(rs.getInt("cvv"));
 	            bean.setUsername(rs.getString("username"));
 	            bean.setNome(rs.getString("nome"));
@@ -140,7 +141,7 @@ public class CartaModelDM implements CartaModel {
 	        System.out.println(carta.toString());
 	        // Imposto i valori della carta da inserire nel PreparedStatement
 	        preparedStatement.setString(1, carta.getNumero());
-	        preparedStatement.setInt(2, carta.getScadenza());
+	        preparedStatement.setDate(2, carta.getScadenza());
 	        preparedStatement.setInt(3, carta.getCvv());
 	        preparedStatement.setString(4, carta.getUsername());
 	        preparedStatement.setString(5, carta.getNome());
@@ -188,7 +189,7 @@ public class CartaModelDM implements CartaModel {
 
 
 	@Override
-	public void doUpdate(String nome, String numero, int exp, int cvv, String username) {
+	public void doUpdate(String nome, String numero, Date exp, int cvv, String username) {
 	    // Prepara la query di aggiornamento
 	    String query = "UPDATE " + CartaModelDM.TABLE_NAME +
 	                   " SET nome = ?, scadenza = ?, cvv = ? " +
@@ -203,7 +204,7 @@ public class CartaModelDM implements CartaModel {
 	        
 	        // Imposta i parametri della query
 	        stmt.setString(1, nome);      // Nome della carta
-	        stmt.setInt(2, exp);          // Scadenza della carta (presumo sia un int, es. 1223 per dicembre 2023)
+	        stmt.setDate(2, exp);          // Scadenza della carta (presumo sia un int, es. 1223 per dicembre 2023)
 	        stmt.setInt(3, cvv);          // CVV della carta
 	        stmt.setString(4, numero);    // Numero della carta
 	        System.out.println(nome+exp+cvv+numero);

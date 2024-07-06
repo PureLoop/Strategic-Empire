@@ -46,5 +46,3 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 3000); // 3000 millisecondi (3 secondi)
     }
 });
-
-

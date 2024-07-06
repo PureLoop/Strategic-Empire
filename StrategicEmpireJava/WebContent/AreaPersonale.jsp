@@ -6,6 +6,7 @@
 <%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.bean.CartaBean"%>
 <%@ page import="it.unisa.control.UpdateAccountControl" %>
 
+
 <%@ page import="it.unisa.bean.User" %>
 
 <%
@@ -15,10 +16,21 @@
     String username = null;
 	String Email= null;
 	String Indirizzo=null;
+	String nome = null;
+	String ruolo = null;
+	String cognome = null;
+	String sesso= null;
+	int ncivico = 0;
     if (user != null) {
+    	
         username = user.getUsername(); // Supponendo che User abbia un metodo getUsername()
         Email = user.getEmail();
         Indirizzo= user.getIndirizzo();
+        nome= user.getNome();
+        ruolo= user.getRole();
+        cognome= user.getCognome();
+        ncivico = user.getncivico();
+        sesso = user.getsesso();
     }
 %>
 <head>
@@ -136,7 +148,65 @@
     font-weight: bold;
     margin-right: 5px;
 }
+/*Style per il radio botton sex */
+.gender-selection {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    width: 100%;
+}
 
+.gender-selection label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333333;
+    cursor: pointer;
+    position: relative;
+    padding-left: 30px;
+}
+
+.gender-selection input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.custom-radio {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 20px;
+    width: 20px;
+    background-color: #e0e0e0;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+}
+
+.gender-selection input[type="radio"]:checked + .custom-radio {
+    background-color: #4caf50;
+}
+
+.custom-radio::after {
+    content: "";
+    position: absolute;
+    display: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: white;
+}
+
+.gender-selection input[type="radio"]:checked + .custom-radio::after {
+    display: block;
+}
 /* Media Queries */
 
 /* Tablet */
@@ -202,13 +272,12 @@
 <header>
 	<%@ include file="/header/header.jsp" %>
     </header>
-
 <div class="container">
   <div class="row">
     <div class="col-md-12">
       <div class="rectangle">
         <span class="rectangle-item"><a href="#" class="nav-link" onclick="handleCardDisplay(false)" data-target="Account">Gestione Account</a></span>
-        <span class="rectangle-item"><a href="#" class="nav-link" onclick="handleCardDisplay(false)"data-target="none">Ordini</a></span>
+        <span class="rectangle-item"><a href="#" class="nav-link" onclick="handleCardDisplay(false)"data-target="none" id="ordini">Ordini</a></span>
         <span class="rectangle-item"><a href="#" class="nav-link" onclick="handleCardDisplay(false)"data-target="none">Rubrica Indirizzi</a></span>
 <span class="rectangle-item">
 <a href="#" class="nav-link" data-target="paymentSection" id="payment" onclick="showPaymentMethods('<%= username %>')">Metodi di pagamento</a>
@@ -235,43 +304,145 @@
     </div>
   </div>
 </div>
+<script>
+// Funzione per nascondere la sezione degli ordini e dei metodi di pagamento
+function hideOrdiniSection() {
+    $("#rectangleContainer").empty(); // Svuota il contenuto per nascondere completamente la sezione
+    $("#paymentSection").hide(); // Nascondi la sezione dei metodi di pagamento
+}
 
-<div class="container mt-3" id="Account" style="display: none;">
-    <h3 id="managerTitle">Area Utente - Gestione Account</h3>
-    <div class="user-info">
-        <h2>Informazioni Utente</h2>
-        </div>
-        <div class="row">
-        <hr>
-            <div class="col-md-4">
-                <label>Username:</label>
-                <p><%= username %></p>
-            </div>
-            <div class="col-md-4">
-                <label>Email:</label>
-                <p><%= user != null ? Email : "N/A" %></p>
-            </div>
-            <div class="col-md-4">
-                <label>Indirizzo:</label>
-                <p><%= user!=null ? Indirizzo : "N/A"%></p>
-            </div>
-        </div>
+$(document).ready(function() {
+    // Gestisci il click sul link "Ordini"
+    $("#ordini").click(function(event) {
+        event.preventDefault(); // Previene il comportamento predefinito del link
+        
+        var username = "<%= username %>"; // Ottieni l'username dalla pagina
+        
+        $.ajax({
+            url: "AreaPersonaleControl",
+            type: "GET",
+            data: {
+                action: "showOrdini",
+                username: username
+            },
+            success: function(response) {
+                // Inserisci la risposta dalla servlet nel container
+                $("#rectangleContainer").html(response);
+                $("#paymentSection").hide(); // Assicurati che #paymentSection sia nascosto dopo aver inserito gli ordini
+            },
+            error: function(xhr, status, error) {
+                console.error("Errore nella richiesta AJAX: " + error);
+            }
+        });
+    });
+
+    // Gestisci il click sugli altri link del menu per nascondere la sezione degli ordini e dei metodi di pagamento
+    $(".nav-link").not("#ordini").click(function(event) {
+        event.preventDefault(); // Previene il comportamento predefinito del link
+        
+        // Nascondi la sezione degli ordini e dei metodi di pagamento
+        hideOrdiniSection();
+        
+        // Mostra la sezione corrispondente al link cliccato
+        var targetSection = $(this).data("target");
+        $("#" + targetSection).show();
+    });
+});
+
     
-    <form action="UpdateAccountControl" method="post">
-        <h2>Modifica Informazioni</h2>
-        <div class="form-group">
- 			 <label for="Username">Username:</label>
-             <input type="text" id="Username" name="Username" required class="form-control" value="<%= user != null ? user.getUsername() : "" %>"><br>
+</script>
+<div class="container mt-3" id="Account" style="display: none;">
+    <h3 id="managerTitle" class="text-center mb-4">Area Utente - Gestione Account</h3>
+    
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Informazioni Utente</h5>
+            <hr>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Nome:</label>
+                        <p><%= user.getNome() %></p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Cognome:</label>
+                        <p><%= user.getCognome() %></p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Email:</label>
+                        <p><%= user != null ? Email : "N/A" %></p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Indirizzo:</label>
+                        <p><%= user != null ? Indirizzo : "N/A" %></p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Numero civico:</label>
+                        <p><%= user.getncivico() %></p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Sesso:</label>
+                        <p><%= user.getsesso() %></p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="email">Email:</label>
-			<input type="text" id="email" name="email" class="form-control" value="<%= user != null ? user.getEmail() : "" %>">        </div>
-        <div class="form-group">
-			<label for="Indirizzo">Indirizzo:</label>
-            <textarea id="Indirizzo" name="Indirizzo" class="form-control"><%= user != null ? user.getIndirizzo() : "N/A" %></textarea>
+    </div>
+
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title">Modifica Informazioni</h5>
+            <form action="UpdateAccountControl" method="post">
+                <div class="mb-3">
+                    <label for="Nome" class="form-label">Nome:</label>
+                    <input type="text" id="Nome" name="Nome" class="form-control" required value="<%= user != null ? nome : "" %>">
+                </div>
+                <div class="mb-3">
+                    <label for="Cognome" class="form-label">Cognome:</label>
+                    <input type="text" id="Cognome" name="Cognome" class="form-control" required value="<%= user != null ? user.getCognome() : "" %>">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" id="email" name="email" class="form-control" value="<%= user != null ? user.getEmail() : "" %>">
+                </div>
+                <div class="mb-3">
+                    <label for="Indirizzo" class="form-label">Indirizzo:</label>
+                    <textarea id="Indirizzo" name="Indirizzo" class="form-control" rows="3"><%= user != null ? user.getIndirizzo() : "" %></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="N_civico" class="form-label">Numero civico:</label>
+                    <input type="text" id="ncivico" name="ncivico" class="form-control" required value="<%= user != null ? user.getncivico() : "" %>">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Seleziona il tuo sesso:</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="sesso" id="sessoNonSpec" value="non specificato" checked>
+                        <label class="form-check-label" for="sessoNonSpec">Non specificato</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="sesso" id="sessoUomo" value="uomo">
+                        <label class="form-check-label" for="sessoUomo">Uomo</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="sesso" id="sessoDonna" value="donna">
+                        <label class="form-check-label" for="sessoDonna">Donna</label>
+                    </div>
+                </div>
+                <input type="hidden" id="Username" name="Username" value="<%= user.getUsername() %>">
+                <button type="submit" class="btn btn-primary">Salva Modifiche</button>
+            </form>
         </div>
-        <input type="submit" value="Salva Modifiche" class="btn btn-primary mt-3">
-    </form>
+    </div>
 </div>
 	<div id="showSavedPayment"></div>
 <script src="js/areaPersonaleCards.js"></script> 

@@ -17,6 +17,7 @@ public class EspansioneModelDM implements EspansioneModel {
 
     private static final String TABLE_NAME = "espansione";
     private static final String TABLE_NAME2 = "acq_espansione";
+	private static final String TABLE_NAME5="preferiti";
 
 
     @Override
@@ -75,66 +76,57 @@ public class EspansioneModelDM implements EspansioneModel {
     
     
 
-	public synchronized Collection<espansioneBean> doRetrieveAllDBACQ(String username) throws SQLException {
-	    Connection connection = null;
-	    PreparedStatement preparedStatement = null;
-	    ResultSet rs = null;
-	    Collection<espansioneBean> espansioni = new LinkedList<>();
-	    
-	    String selectSQL = "SELECT cod_espansione FROM " + EspansioneModelDM.TABLE_NAME2 + " WHERE nome_ut = ?;";
+    public synchronized Collection<espansioneBean> doRetrieveAllDBACQ(String username) throws SQLException {
+        Collection<espansioneBean> espansioni = new LinkedList<>();
+        
+        String selectSQL = "SELECT cod_espansione, quantita FROM " + EspansioneModelDM.TABLE_NAME2 + " WHERE nome_ut = ?;";
 
-	    try {
-	        // Ottieni la connessione dal pool
-	        connection = DriverManagerConnectionPool.getConnection();
-	        
-	        // Prepara la query per ottenere i codici dei giochi
-	        preparedStatement = connection.prepareStatement(selectSQL);
-	        preparedStatement.setString(1, username); // Imposta il parametro per il username
+        try (Connection connection = DriverManagerConnectionPool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(selectSQL)) {
+            
+            preparedStatement.setString(1, username);
 
-	        // Esegui la query per ottenere i codici dei giochi
-	        rs = preparedStatement.executeQuery();
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                List<String> codiciEspansioni = new ArrayList<>();
+                List<Integer> quantita = new ArrayList<>();
+                while (rs.next()) {
+                    String codG = rs.getString("cod_espansione");
+                    int q = rs.getInt("quantita");
+                    quantita.add(q);
+                    codiciEspansioni.add(codG);
+                }
 
-	        // Lista per memorizzare i codici dei giochi
-	        List<String> codiciEspansioni = new ArrayList<>();
+                System.out.println("Codici espansioni ottenuti: " + codiciEspansioni.size());
 
-	        // Estrai i codici dei giochi dal ResultSet
-	        while (rs.next()) {
-	            String codG = rs.getString("cod_espansione");
-	            
-	            codiciEspansioni.add(codG);
-	        }
+                for (int i = 0; i < codiciEspansioni.size(); i++) {
+                    String codG = codiciEspansioni.get(i);
+                    int q = quantita.get(i);
+                    try {
+                        System.out.println("Inizio recupero dettagli per codice espansione: " + codG);
+                        espansioneBean esp = doRetrieveByKey(codG);
+                        if (esp != null) {
+                            esp.setQuantita(q); // Assumendo che espansioneBean abbia un metodo setQuantita
+                            espansioni.add(esp);
+                            System.out.println("Espansione aggiunta: " + esp.getNomeespansione() + " con quantità: " + q);
+                        } else {
+                            System.out.println("Espansione con codice " + codG + " non trovata.");
+                        }
+                    } catch (Exception e) {
+                        System.err.println("Errore durante il recupero dell'espansione con codice " + codG + ": " + e.getMessage());
+                        e.printStackTrace();
+                    }
+                }
 
-	        System.out.println("Codici giochi ottenuti: " + codiciEspansioni.size());
+                System.out.println("Numero di espansioni recuperate: " + espansioni.size());
+            }
+        } catch (SQLException e) {
+            System.err.println("Errore SQL: " + e.getMessage());
+            e.printStackTrace();
+        }
+        
+        return espansioni;
+    }
 
-	        // Per ogni codice di gioco, recupera i dettagli completi
-	        for (String codG : codiciEspansioni) {
-	            try {
-	                System.out.println("Inizio recupero dettagli per codice gioco: " + codG);
-	                espansioneBean esp = doRetrieveByKey(codG);
-	                if (esp != null) {
-	                    espansioni.add(esp);
-	                    System.out.println("Gioco aggiunto: " + esp.getNomeespansione());
-	                } else {
-	                    System.out.println("Gioco con codice " + codG + " non trovato.");
-	                }
-	            } catch (Exception e) {
-	                System.err.println("Errore durante il recupero del gioco con codice " + codG + ": " + e.getMessage());
-	                e.printStackTrace();
-	            }
-	        }
-	        
-	        System.out.println("Numero di giochi recuperati: " + espansioni.size());
-	    } catch (SQLException e) {
-	        e.printStackTrace(); // Log dell'eccezione per il debug
-	    } finally {
-	        // Assicurati di chiudere la connessione
-	        if (connection != null) {
-	            DriverManagerConnectionPool.releaseConnection(connection);
-	        }
-	    }
-	    
-	    return espansioni;
-	}
 
 
 
@@ -189,6 +181,49 @@ public class EspansioneModelDM implements EspansioneModel {
 	            }
 	        }
 	    }
+		public synchronized void DeletePreferito(String code, String username) throws SQLException {
+		    Connection connection = null;
+		    PreparedStatement preparedStatement = null;
+
+		    // Corretto "INSERTO INTO" in "INSERT INTO" e aggiornato per DELETE
+		    String deletePreferitoQuery = "DELETE FROM " + TABLE_NAME5 + " WHERE cod_oggetto = ? AND Username = ?";
+
+		    try {
+		        connection = DriverManagerConnectionPool.getConnection();
+		        preparedStatement = connection.prepareStatement(deletePreferitoQuery);
+		        preparedStatement.setString(1, code);
+		        preparedStatement.setString(2, username);
+
+		        // Usa executeUpdate() per eseguire le dichiarazioni di manipolazione dei dati
+		        int rowsAffected = preparedStatement.executeUpdate();
+		        if (rowsAffected > 0) {
+		            connection.commit(); // Assicurati che il commit sia appropriato
+		            System.out.println("Preferito rimosso con successo.");
+		        } else {
+		            System.out.println("Nessun preferito trovato con i parametri specificati.");
+		        }
+		    } catch (SQLException e) {
+		        // Gestisci eccezioni SQL
+		        System.err.println("Errore durante la rimozione del preferito: " + e.getMessage());
+		        if (connection != null) {
+		            try {
+		                connection.rollback(); // Rollback in caso di errore
+		            } catch (SQLException rollbackEx) {
+		                System.err.println("Errore durante il rollback: " + rollbackEx.getMessage());
+		            }
+		        }
+		    } finally {
+		        try {
+		            if (preparedStatement != null) {
+		                preparedStatement.close();
+		            }
+		        } finally {
+		            if (connection != null) {
+		                DriverManagerConnectionPool.releaseConnection(connection);
+		            }
+		        }
+		    }
+		}
 		@Override
 		public void deleteAcq_Espansione(String codEspansione) throws SQLException {
 		    String query1 = "DELETE FROM " + TABLE_NAME2 + " WHERE cod_espansione = ?";
@@ -244,6 +279,79 @@ public class EspansioneModelDM implements EspansioneModel {
         }
         return espansioni;
     }
+	
+	public synchronized void setPreferito(String code, String username) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    System.out.println(code);
+
+	    // Corretto "INSERTO INTO" in "INSERT INTO"
+	    String insertGioco = "INSERT INTO " + TABLE_NAME5 + " (cod_oggetto, Username, preferito) VALUES (?, ?, ?)";
+
+	    try {
+	        connection = DriverManagerConnectionPool.getConnection();
+	        preparedStatement = connection.prepareStatement(insertGioco);
+	        preparedStatement.setString(1, code);
+	        preparedStatement.setString(2, username);
+	        preparedStatement.setBoolean(3, true);
+
+	        // Usa executeUpdate() per eseguire le dichiarazioni di manipolazione dei dati
+	        preparedStatement.executeUpdate();
+	        connection.commit(); // Assicurati che il commit sia appropriato
+
+	    } finally {
+	        try {
+	            if (preparedStatement != null) {
+	                preparedStatement.close();
+	            }
+	        } finally {
+	            if (connection != null) {
+	                DriverManagerConnectionPool.releaseConnection(connection);
+	            }
+	        }
+	    }
+	}
+	
+	
+	public synchronized boolean ControllaPreferito(String code, String username) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    ResultSet resultSet = null;
+	    boolean isFavorito = false;
+
+	    // Corretto "INSERTO INTO" in "INSERT INTO" e utilizza "SELECT" per la query
+	    String selectQuery = "SELECT * FROM " + TABLE_NAME5 + " WHERE Username = ? AND cod_oggetto = ?";
+
+	    try {
+	        connection = DriverManagerConnectionPool.getConnection();
+	        preparedStatement = connection.prepareStatement(selectQuery);
+	        preparedStatement.setString(1, username);
+	        preparedStatement.setString(2, code);
+
+	        resultSet = preparedStatement.executeQuery();
+
+	        // Controlla se il risultato esiste
+	        if (resultSet.next()) {
+	            isFavorito = true; // Gioco è nei preferiti
+	        }
+
+	    } finally {
+	        try {
+	            if (resultSet != null) {
+	                resultSet.close();
+	            }
+	            if (preparedStatement != null) {
+	                preparedStatement.close();
+	            }
+	        } finally {
+	            if (connection != null) {
+	                DriverManagerConnectionPool.releaseConnection(connection);
+	            }
+	        }
+	    }
+	    return isFavorito;
+	}
+
 
     @Override
 	 public synchronized Collection<espansioneBean> doRetrieveByFilter(Double prezzo) throws SQLException {

@@ -25,6 +25,8 @@ import it.unisa.model.GiocoModelDM;
 import it.unisa.model.AccessorioModel;
 import it.unisa.model.EspansioneModel;
 import it.unisa.model.GiocoModel;
+import it.unisa.model.UserModel;
+import it.unisa.model.UserDAO;
 
 @WebServlet("/CarrelloControl")
 public class CarrelloControl extends HttpServlet {
@@ -32,11 +34,13 @@ public class CarrelloControl extends HttpServlet {
     static GiocoModel model;
     static EspansioneModel model2;
     static AccessorioModel model3;
+    static UserModel model4;
 
     static {
         model = new GiocoModelDM();
         model2 = new EspansioneModelDM();
         model3 = new AccessorioModelDM();
+        model4 = new UserDAO();
     }
 
     public CarrelloControl() {
@@ -50,7 +54,9 @@ public class CarrelloControl extends HttpServlet {
         String codiceAccessorio = request.getParameter("cod_accessorio");
         String username = request.getParameter("username");
         String action = request.getParameter("action");
+        String cardNumber = request.getParameter("Numerocarta"); // Prendi il numero della carta
 
+        
         HttpSession session = request.getSession();
 
         List<OggettiCarrelloBean> oggettiCarrello = (List<OggettiCarrelloBean>) session.getAttribute("oggettiCarrello");
@@ -82,18 +88,119 @@ public class CarrelloControl extends HttpServlet {
                 session.setAttribute("oggettiCarrello", oggettiCarrello);
                 response.sendRedirect(request.getContextPath() + "/Carrello.jsp");
                 return;
-            }else if ("TakeDB".equals(action)) {
+            }else if ("selected".equals(action)) {
+                
+            		
+                // Cerca l'oggetto nel carrello e aggiorna il suo stato
+                for (OggettiCarrelloBean oggettoCarrello : oggettiCarrello) {
+                    if (oggettoCarrello.getCod_articolo().equals(codiceArt)) {
+                    	if(oggettoCarrello.getSelezionato() == false)
+                        oggettoCarrello.setSelezionato(true); 
+                    	else
+                         oggettoCarrello.setSelezionato(false); 
+
+                    		// Imposta a true se è stato selezionato
+                    }
+                }
+
+                // Aggiorna la sessione con il nuovo carrello
+                session.setAttribute("oggettiCarrello", oggettiCarrello);
+                response.sendRedirect(request.getContextPath() + "/catalogo.jsp");
+                return;
+            }
+            else if ("addPreferito".equals(action)) {
+                
+                if (codiceArt.startsWith("g")) {
+                	
+                    boolean isFavorito = model.ControllaPreferito(codiceArt, username);
+                    if(isFavorito == true) {
+
+                    	model.DeletePreferito(codiceArt, username);
+
+                    }
+                    else {
+                	model.setPreferito(codiceArt, username);
+                    }
+
+                } else if (codiceArt.startsWith("a")) {
+                	  boolean isFavorito = model3.ControllaPreferito(codiceArt, username);
+                      if(isFavorito == true) {
+
+                      	model3.DeletePreferito(codiceArt, username);
+
+                      }
+                      else {
+                	model3.setPreferito(codiceArt, username);
+                      }
+                } else if (codiceArt.startsWith("e")) {
+                	  boolean isFavorito = model2.ControllaPreferito(codiceArt, username);
+                      if(isFavorito == true) {
+
+                      	model2.DeletePreferito(codiceArt, username);
+
+                      }
+                      else {
+                	model2.setPreferito(codiceArt, username);
+                      }
+                }
+                return;
+            }
+            else if ("isPreferito".equals(action)) {
+                boolean isFavorito = model.ControllaPreferito(codiceArt, username);
+                response.setContentType("text/plain");
+                response.getWriter().write(Boolean.toString(isFavorito));
+                return;
+            }
+
+            else if ("removeOggettiPagati".equals(action)) {
+                System.out.println("removeOggetti");
+
+                // Creazione dell'ordine con i parametri necessari
+                System.out.println(cardNumber) ;             
+                model4.CreateOrdine(null, username, oggettiCarrello,cardNumber);
+
+                Iterator<OggettiCarrelloBean> iterator = oggettiCarrello.iterator();
+                while (iterator.hasNext()) {
+
+                    OggettiCarrelloBean oggetto = iterator.next();
+
+                    // Verifica se l'oggetto è selezionato
+                    if (oggetto.getSelezionato()) {
+                        String codiceArticolo = oggetto.getCod_articolo(); // Ottieni il codice articolo
+
+                        // Verifica il prefisso del codice articolo e rimuovi l'oggetto dal database
+                        if (codiceArticolo.startsWith("g")) {
+                            model.deleteAcq_Gioco(codiceArticolo);
+                        } else if (codiceArticolo.startsWith("a")) {
+                            model3.deleteAcq_Accessorio(codiceArticolo);
+                        } else if (codiceArticolo.startsWith("e")) {
+                            model2.deleteAcq_Espansione(codiceArticolo);
+                        }
+
+                        // Rimuovi l'oggetto dal carrello
+                        iterator.remove();
+
+                        // Nota: Usa `break` solo se vuoi fermare l'iterazione dopo la prima rimozione
+                        // Se vuoi rimuovere tutti gli oggetti selezionati, rimuovi `break` e lascia il ciclo continuare
+                    }
+                }
+
+                // Aggiorna la sessione con il nuovo carrello
+                session.setAttribute("oggettiCarrello", oggettiCarrello);
+
+
+                // Reindirizza alla pagina del catalogo
+                response.sendRedirect(request.getContextPath() + "/catalogo.jsp");
+                return;
+            }
+
+            else if ("TakeDB".equals(action)) {
                 oggettiCarrello.clear();
-                System.out.println(username);
 
                 // Recupera giochi, accessori ed espansioni dal database
                 Collection<GiocoBean> giochi = model.doRetrieveAllDBACQ(username);
                 Collection<AccessorioBean> accessori = model3.doRetrieveAllDBACQ(username);
                 Collection<espansioneBean> espansioni = model2.doRetrieveAllDBACQ(username);
-
-                System.out.println("Giochi: " + giochi.size());
-                System.out.println("Accessori: " + accessori.size());
-                System.out.println("Espansioni: " + espansioni.size());
 
                 // Aggiungi i giochi al carrello
                 for (GiocoBean gioco : giochi) {
@@ -102,7 +209,7 @@ public class CarrelloControl extends HttpServlet {
                     oggettoCarrello.setImmagineCopertina(gioco.getImmagineCop());
                     oggettoCarrello.setNome_articolo(gioco.getNomegioco());
                     oggettoCarrello.setPrezzo(gioco.getPrezzo());
-                    oggettoCarrello.setQuantita(1); // Imposta la quantità a 1 per ogni gioco
+                    oggettoCarrello.setQuantita(gioco.getQuantita()); // Imposta la quantità a 1 per ogni gioco
                     
                     // Aggiungi l'oggetto al carrello
                     oggettiCarrello.add(oggettoCarrello);
@@ -115,7 +222,7 @@ public class CarrelloControl extends HttpServlet {
                     oggettoCarrello.setImmagineCopertina(accessorio.getImmagineCop());
                     oggettoCarrello.setNome_articolo(accessorio.getNomeaccessorio());
                     oggettoCarrello.setPrezzo(accessorio.getPrezzo());
-                    oggettoCarrello.setQuantita(1); // Imposta la quantità a 1 per ogni accessorio
+                    oggettoCarrello.setQuantita(accessorio.getQuantita()); // Imposta la quantità a 1 per ogni accessorio
                     
                     // Aggiungi l'oggetto al carrello
                     oggettiCarrello.add(oggettoCarrello);
@@ -128,7 +235,7 @@ public class CarrelloControl extends HttpServlet {
                     oggettoCarrello.setImmagineCopertina(espansione.getImmagineCop());
                     oggettoCarrello.setNome_articolo(espansione.getNomeespansione());
                     oggettoCarrello.setPrezzo(espansione.getPrezzo());
-                    oggettoCarrello.setQuantita(1); // Imposta la quantità a 1 per ogni espansione
+                    oggettoCarrello.setQuantita(espansione.getQuantita()); // Imposta la quantità a 1 per ogni espansione
                     
                     // Aggiungi l'oggetto al carrello
                     oggettiCarrello.add(oggettoCarrello);
@@ -139,7 +246,7 @@ public class CarrelloControl extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/catalogo.jsp");
                 return;
             }
- else if ("addCarrello".equals(action)) {
+            	else if ("addCarrello".equals(action)) {
                 if (codiceArt.startsWith("g")) {
                     // Aggiungi Gioco
                     GiocoBean gioco = model.doRetrieveByKey(codiceArt);
@@ -239,6 +346,7 @@ public class CarrelloControl extends HttpServlet {
                     }
                 }
             }
+            
 
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");

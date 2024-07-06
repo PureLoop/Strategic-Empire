@@ -125,29 +125,49 @@
         </tr>
         <% } %>
         
-      <% if (loggedIn) { %>
-      <!-- Se l'utente è loggato, mostra l'icona e il nome utente -->
-      <div class="user-info ms-auto">
-          <span class="me-2">Ciao, <%= u.getUsername() %>!</span>
-          <div class="dropdown">
-              <a href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src="./IMMAGINI/profilePic.png" alt="Profile Image" width="60" height="60">
-              </a>
-              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                  <li><a class="dropdown-item" href="AreaPersonale.jsp">Area Utente</a></li>
-                  <li><a class="dropdown-item" id="carrelloLink" href="Carrello.jsp">Carrello</a></li>
-                  <li><a class="dropdown-item" href="logout.jsp">Esci</a></li>
-              </ul>
-          </div>
-      </div>
-      <% } else { %>
-      <!-- Se l'utente non è loggato, mostra il link di login -->
-      <a class="nav-link" href="Login.jsp">Login</a>
-      <% } %>
+<% if (loggedIn) { %>
+<!-- Se l'utente è loggato, mostra l'icona e il nome utente -->
+<div class="user-info ms-auto">
+    <span class="me-2">Ciao, <%= u.getUsername() %>!</span>
+    <div class="dropdown">
+        <a href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="<%= getProfileImage(u.getsesso()) %>" alt="Profile Image" width="60" height="60">
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <li><a class="dropdown-item" href="AreaPersonale.jsp">Area Utente</a></li>
+            <li><a class="dropdown-item" id="carrelloLink" href="Carrello.jsp">Carrello</a></li>
+            <li><a class="dropdown-item" href="logout.jsp">Esci</a></li>
+        </ul>
+    </div>
+</div>
+<% } else { %>
+<!-- Se l'utente non è loggato, mostra il link di login -->
+<a class="nav-link" href="Login.jsp">Login</a>
+<% } %>
     </div>
   </div>
 </nav>
 </body>
+
+
+<%-- Funzione per ottenere l'immagine del profilo in base al sesso --%>
+<%! 
+    public String getProfileImage(String sesso) {
+        String imagePath = "./IMMAGINI/nb.png"; // Immagine di default
+        
+        if (sesso != null) {
+            if (sesso.equalsIgnoreCase("uomo")) {
+                imagePath = "./IMMAGINI/profilePic.png"; // Immagine per uomo
+            } else if (sesso.equalsIgnoreCase("donna")) {
+                imagePath = "./IMMAGINI/cartoon-girl.png"; // Immagine per donna
+            }
+        }
+        
+        return imagePath;
+    }
+%>
+
+
 <script>
     $(document).ready(function(){
         // Aggiungi l'evento click sul link del carrello

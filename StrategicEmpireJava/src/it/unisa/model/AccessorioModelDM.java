@@ -19,6 +19,8 @@ public class AccessorioModelDM implements AccessorioModel {
 
     private static final String TABLE_NAME = "accessorio";
     private static final String TABLE_NAME2 = "acq_accessorio";
+	private static final String TABLE_NAME5="preferiti";
+
 
 
     @Override
@@ -77,68 +79,172 @@ public class AccessorioModelDM implements AccessorioModel {
         }
         return bean;
     }
-
-	public synchronized Collection<AccessorioBean> doRetrieveAllDBACQ(String username) throws SQLException {
+	public synchronized void setPreferito(String code, String username) throws SQLException {
 	    Connection connection = null;
 	    PreparedStatement preparedStatement = null;
-	    ResultSet rs = null;
-	    Collection<AccessorioBean> accessori = new LinkedList<>();
-	    
-	    String selectSQL = "SELECT cod_accessorio FROM " + AccessorioModelDM.TABLE_NAME2 + " WHERE nome_ut = ?;";
+	    System.out.println(code);
+
+	    // Corretto "INSERTO INTO" in "INSERT INTO"
+	    String insertGioco = "INSERT INTO " + TABLE_NAME5 + " (cod_oggetto, Username, preferito) VALUES (?, ?, ?)";
 
 	    try {
-	        // Ottieni la connessione dal pool
 	        connection = DriverManagerConnectionPool.getConnection();
-	        
-	        // Prepara la query per ottenere i codici dei giochi
-	        preparedStatement = connection.prepareStatement(selectSQL);
-	        preparedStatement.setString(1, username); // Imposta il parametro per il username
+	        preparedStatement = connection.prepareStatement(insertGioco);
+	        preparedStatement.setString(1, code);
+	        preparedStatement.setString(2, username);
+	        preparedStatement.setBoolean(3, true);
 
-	        // Esegui la query per ottenere i codici dei giochi
-	        rs = preparedStatement.executeQuery();
+	        // Usa executeUpdate() per eseguire le dichiarazioni di manipolazione dei dati
+	        preparedStatement.executeUpdate();
+	        connection.commit(); // Assicurati che il commit sia appropriato
 
-	        // Lista per memorizzare i codici dei giochi
-	        List<String> codiciAccessori = new ArrayList<>();
-	        
-	        // Estrai i codici dei giochi dal ResultSet
-	        while (rs.next()) {
-	            String codG = rs.getString("cod_accessorio");
-	            
-	            codiciAccessori.add(codG);
-	        }
-
-	        System.out.println("Codici giochi ottenuti: " + codiciAccessori.size());
-
-	        // Per ogni codice di gioco, recupera i dettagli completi
-	        for (String codG : codiciAccessori) {
-	            try {
-	                System.out.println("Inizio recupero dettagli per codice gioco: " + codG);
-	                AccessorioBean accessorio = doRetrieveByKey(codG);
-	                if (accessorio != null) {
-	                    accessori.add(accessorio);
-	                    System.out.println("Gioco aggiunto: " + accessorio.getNomeaccessorio());
-	                } else {
-	                    System.out.println("Gioco con codice " + codG + " non trovato.");
-	                }
-	            } catch (Exception e) {
-	                System.err.println("Errore durante il recupero del gioco con codice " + codG + ": " + e.getMessage());
-	                e.printStackTrace();
+	    } finally {
+	        try {
+	            if (preparedStatement != null) {
+	                preparedStatement.close();
+	            }
+	        } finally {
+	            if (connection != null) {
+	                DriverManagerConnectionPool.releaseConnection(connection);
 	            }
 	        }
-	        
-	        System.out.println("Numero di giochi recuperati: " + accessori.size());
-	    } catch (SQLException e) {
-	        e.printStackTrace(); // Log dell'eccezione per il debug
+	    }
+	}
+	
+	
+	public synchronized boolean ControllaPreferito(String code, String username) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    ResultSet resultSet = null;
+	    boolean isFavorito = false;
+
+	    // Corretto "INSERTO INTO" in "INSERT INTO" e utilizza "SELECT" per la query
+	    String selectQuery = "SELECT * FROM " + TABLE_NAME5 + " WHERE Username = ? AND cod_oggetto = ?";
+
+	    try {
+	        connection = DriverManagerConnectionPool.getConnection();
+	        preparedStatement = connection.prepareStatement(selectQuery);
+	        preparedStatement.setString(1, username);
+	        preparedStatement.setString(2, code);
+
+	        resultSet = preparedStatement.executeQuery();
+
+	        // Controlla se il risultato esiste
+	        if (resultSet.next()) {
+	            isFavorito = true; // Gioco è nei preferiti
+	        }
+
 	    } finally {
-	        // Assicurati di chiudere la connessione
-	        if (connection != null) {
-	            DriverManagerConnectionPool.releaseConnection(connection);
+	        try {
+	            if (resultSet != null) {
+	                resultSet.close();
+	            }
+	            if (preparedStatement != null) {
+	                preparedStatement.close();
+	            }
+	        } finally {
+	            if (connection != null) {
+	                DriverManagerConnectionPool.releaseConnection(connection);
+	            }
 	        }
 	    }
-	    
-	    return accessori;
+	    return isFavorito;
 	}
+    
+    public synchronized Collection<AccessorioBean> doRetrieveAllDBACQ(String username) throws SQLException {
+        Collection<AccessorioBean> accessori = new LinkedList<>();
+        
+        String selectSQL = "SELECT cod_accessorio, quantita FROM " + AccessorioModelDM.TABLE_NAME2 + " WHERE nome_ut = ?;";
 
+        try (Connection connection = DriverManagerConnectionPool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(selectSQL)) {
+            
+            preparedStatement.setString(1, username);
+
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                List<String> codiciAccessori = new ArrayList<>();
+                List<Integer> quantita = new ArrayList<>();
+                while (rs.next()) {
+                    String codG = rs.getString("cod_accessorio");
+                    int q = rs.getInt("quantita");
+                    quantita.add(q);
+                    codiciAccessori.add(codG);
+                }
+
+                System.out.println("Codici accessori ottenuti: " + codiciAccessori.size());
+
+                for (int i = 0; i < codiciAccessori.size(); i++) {
+                    String codG = codiciAccessori.get(i);
+                    int q = quantita.get(i);
+                    try {
+                        System.out.println("Inizio recupero dettagli per codice accessorio: " + codG);
+                        AccessorioBean accessorio = doRetrieveByKey(codG);
+                        if (accessorio != null) {
+                            accessorio.setQuantita(q); // Assumendo che AccessorioBean abbia un metodo setQuantita
+                            accessori.add(accessorio);
+                            System.out.println("Accessorio aggiunto: " + accessorio.getNomeaccessorio() + " con quantità: " + q);
+                        } else {
+                            System.out.println("Accessorio con codice " + codG + " non trovato.");
+                        }
+                    } catch (Exception e) {
+                        System.err.println("Errore durante il recupero dell'accessorio con codice " + codG + ": " + e.getMessage());
+                        e.printStackTrace();
+                    }
+                }
+
+                System.out.println("Numero di accessori recuperati: " + accessori.size());
+            }
+        } catch (SQLException e) {
+            System.err.println("Errore SQL: " + e.getMessage());
+            e.printStackTrace();
+        }
+        
+        return accessori;
+    }
+
+	public synchronized void DeletePreferito(String code, String username) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+
+	    // Corretto "INSERTO INTO" in "INSERT INTO" e aggiornato per DELETE
+	    String deletePreferitoQuery = "DELETE FROM " + TABLE_NAME5 + " WHERE cod_oggetto = ? AND Username = ?";
+
+	    try {
+	        connection = DriverManagerConnectionPool.getConnection();
+	        preparedStatement = connection.prepareStatement(deletePreferitoQuery);
+	        preparedStatement.setString(1, code);
+	        preparedStatement.setString(2, username);
+
+	        // Usa executeUpdate() per eseguire le dichiarazioni di manipolazione dei dati
+	        int rowsAffected = preparedStatement.executeUpdate();
+	        if (rowsAffected > 0) {
+	            connection.commit(); // Assicurati che il commit sia appropriato
+	            System.out.println("Preferito rimosso con successo.");
+	        } else {
+	            System.out.println("Nessun preferito trovato con i parametri specificati.");
+	        }
+	    } catch (SQLException e) {
+	        // Gestisci eccezioni SQL
+	        System.err.println("Errore durante la rimozione del preferito: " + e.getMessage());
+	        if (connection != null) {
+	            try {
+	                connection.rollback(); // Rollback in caso di errore
+	            } catch (SQLException rollbackEx) {
+	                System.err.println("Errore durante il rollback: " + rollbackEx.getMessage());
+	            }
+	        }
+	    } finally {
+	        try {
+	            if (preparedStatement != null) {
+	                preparedStatement.close();
+	            }
+	        } finally {
+	            if (connection != null) {
+	                DriverManagerConnectionPool.releaseConnection(connection);
+	            }
+	        }
+	    }
+	}
 	@Override
 	public synchronized Collection<AccessorioBean> doRetrieveAll(String order) throws SQLException {
         Connection connection = null;

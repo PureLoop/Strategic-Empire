@@ -21,11 +21,12 @@ create table utente(
     email varchar(50)not null,
     ruolo varchar(14) not null check(ruolo in("cliente","amministratore")),
     indirizzo varchar(50) default null,
-    ncivico int(3) default null
+    ncivico int(3) default null,
+    sesso VARCHAR(15) DEFAULT 'non specificato' CHECK (sesso IN ('non specificato', 'uomo', 'donna'))
 );
 create table carta(
 	numero varchar(16) primary key not null,
-    scadenza int(4) not null,
+    scadenza date not null,
     cvv int (3) not null,
     Username varchar(20) references utente(Username),
     nome varchar(32) not null
@@ -67,16 +68,20 @@ create table gioco(
     descrizione varchar(1500) not null,
     n_giocatori_min int not null,
     n_giocatori_max int not null
+    
     );
+    
+    
 
 create table recap(
 	oggetto int auto_increment primary key,
 	num_ordine varchar(10) not null references ordine(cod_ordine),
     acq_gio	   varchar(10) default null references acq_gioco(cod_gioco),
     acq_esp    varchar(10) default null references acq_espansione(cod_espansione),
-    acq_acc    varchar(10) default null references acq_accessorio(cod_accessorio)
+    acq_acc    varchar(10) default null references acq_accessorio(cod_accessorio),
+	quantita 	int not null,
+    prezzo		numeric(10,2) not null
 );
-
 create table sconto(
 	nome_sconto varchar(50) not null,
     cod_sconto varchar(10) primary key,
@@ -93,16 +98,21 @@ create table pagamento(
 );
 
 create table ordine(
-	cod_ordine varchar(10) primary key,
+	cod_ordine int auto_increment primary key,
     data date not null,
     cod_sconto varchar(10) default null references sconto(cod_sconto)
 		on delete cascade
         on update cascade,
 	cod_utente varchar(20) not null references utente(Username)
 		on delete cascade
-        on update cascade
+        on update cascade,
+	carta varchar(16) not null
+ );
+create table preferiti(
+    Username varchar(20) references utente(Username),
+    cod_oggetto varchar(10),
+    preferito boolean default null
 );
-
 create table acq_accessorio(
 	cod_accessorio varchar(10),
     quantita int,

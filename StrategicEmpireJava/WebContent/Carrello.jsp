@@ -19,6 +19,11 @@
         .card img {
             max-width: 100%;
         }
+        
+        .custom-left-shift {
+   		margin-left: -20%; /* Adjust this value as needed */
+		}
+        
 
         .fixed-payment-details {
             position: fixed;
@@ -74,28 +79,40 @@
     </style>
 </head>
 <body>
-<header><%@ include file="header/header.jsp" %></header>
+<header><%@ include file="/header/header.jsp" %></header>
 <%
-    List<OggettiCarrelloBean> carrellobean = (List<OggettiCarrelloBean>) request.getSession().getAttribute("oggettiCarrello");
-    u = (User) session.getAttribute("user");
-    loggedIn = (u != null);
-    
-    session = request.getSession(false);
-    String username = "null"; // Default value if not logged in
+    session = request.getSession(false); // Ottieni la sessione esistente, senza crearne una nuova
+     u = null; // Dichiarazione della variabile User
+    String username = "null"; // Valore di default se non loggato
+     loggedIn = false; // Variabile di controllo per il login
 
     // Verifica se la sessione esiste e se l'utente è loggato
     if (session != null && session.getAttribute("user") != null) {
         u = (User) session.getAttribute("user");
         username = u.getUsername(); // Supponendo che User abbia un metodo getUsername()
+        loggedIn = true; // L'utente è loggato
     }
 
-
+    List<OggettiCarrelloBean> carrellobean = null;
+    if (session != null) {
+        carrellobean = (List<OggettiCarrelloBean>) session.getAttribute("oggettiCarrello");
+    }
 %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrello</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
 <section class="h-100 h-custom" style="background-color: #eee;">
     <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100 custom-left-shift">
             <% if (carrellobean != null && !carrellobean.isEmpty()) { %>
-            <div class="col-lg-8">
+            <div class="col-lg-7">
                 <h5 class="mb-3"><a href="HomePage.jsp" class="text-body"><i class="fas fa-long-arrow-alt-left me-2"></i>Continua lo shopping</a></h5>
                 <hr>
                 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -120,7 +137,7 @@
                                     <h5><%= oggetto.getNome_articolo() %></h5>
                                     <p class="small mb-0">Codice articolo: <%= oggetto.getCod_articolo() %></p>
                                 </div>
-                            </div>
+                            </div>                            
                             <div class="d-flex flex-row align-items-center">
                                 <div style="width: 50px;">
                                     <a href="#!" style="color: #cecece;" onclick="increaseQuantity('<%= oggetto.getCod_articolo() %>')"><i class="fas fa-plus"></i></a>
@@ -211,9 +228,7 @@
 <script type="text/javascript">
     function increaseQuantity(codiceArticolo) {
         const xhr = new XMLHttpRequest();
-        // Assuming 'username' is available in the global scope or passed to the function
         const username = '<%= username %>'; // Fetching username from JSP
-        console.log(codiceArticolo);
         xhr.open('GET', 'CarrelloControl?action=addCarrello&cod_articolo=' + codiceArticolo + '&username=' + encodeURIComponent(username), true);
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
@@ -258,7 +273,6 @@
         <% } else { %>
         const totalAmount = document.getElementById('totalAmount').innerText.replace('€', '');
         window.location.href = 'Pagamento.jsp?total=' + totalAmount;
-        console.log(totalAmount);
         <% } %>
     }
 
@@ -273,11 +287,13 @@
 
         selectedItems.forEach(item => {
             let codiceArticolo = item.id.split('_')[1];
-            <% for (OggettiCarrelloBean oggetto : carrellobean) { %>
+            
+            <% if(carrellobean!= null){
+            for (OggettiCarrelloBean oggetto : carrellobean) { %>
                 if ("<%= oggetto.getCod_articolo() %>" === codiceArticolo) {
                     subtotal += <%= oggetto.getPrezzo() %> * <%= oggetto.getQuantita() %>;
                 }
-            <% } %>
+            <% } }%>
         });
 
         document.getElementById('subtotal').innerText = subtotal.toFixed(2) + '€';
@@ -286,20 +302,43 @@
         document.getElementById('checkoutAmount').innerText = (subtotal + shippingCost).toFixed(2) + '€';
     }
 
+
+    function updateCart(codiceArticolo, isChecked) {
+        const xhr = new XMLHttpRequest();
+        // Usa l'azione corretta basata sul valore di isChecked
+        let action = isChecked ? 'selected' : 'deselected';
+        xhr.open('GET', 'CarrelloControl?action=' + "selected" + '&cod_articolo=' + codiceArticolo, true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                console.log("Articolo aggiornato con successo.");
+                // Non ricaricare la pagina immediatamente
+                // Puoi aggiornare lo stato direttamente se necessario
+            } else if (xhr.readyState == 4) {
+                console.error("Errore nell'aggiornamento dell'articolo: " + xhr.status);
+            }
+        };
+        
+        xhr.send();
+    }
+
+
     document.addEventListener('DOMContentLoaded', function() {
         calculateTotal();
         let checkboxes = document.querySelectorAll('input[type="checkbox"]');
         checkboxes.forEach(checkbox => {
             checkbox.addEventListener('change', function() {
                 calculateTotal();
+                updateCart(this.id.split('_')[1], this.checked); // Chiama la funzione updateCart
             });
         });
     });
-    
-    
+
 </script>
     <footer>
       <%@ include file="/footer/footer.jsp" %>
     </footer>
 </body>
 </html>
+
