@@ -81,6 +81,67 @@
         .close:hover {
             color: #555555;
         }
+
+        /* Media Queries */
+
+/* Tablet */
+@media (max-width: 768px) {
+    .rectangle {
+        height: 80px; /* Riduce l'altezza del rettangolo */
+    }
+
+    .rectangle-item {
+        font-size: 0.9em; /* Riduce la dimensione del font */
+    }
+
+    .button-group .btn {
+        width: 45%; /* Aumenta la larghezza dei bottoni su tablet */
+    }
+
+    .card-list li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .card-list li span {
+        margin-bottom: 5px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .rectangle {
+        flex-direction: column; /* Dispone gli elementi del rettangolo in colonna */
+        height: auto; /* Altezza automatica per adattarsi al contenuto */
+        padding: 10px; /* Aggiunge padding */
+    }
+
+    .rectangle-item {
+        border-right: none;
+        border-bottom: 1px solid #ccc; /* Aggiunge bordo inferiore */
+        padding: 10px 0; /* Aggiunge padding */
+    }
+
+    .rectangle-item:not(:last-child) {
+        border-bottom: 1px solid #ccc; /* Bordo inferiore per tutti tranne l'ultimo */
+    }
+
+    .button-group .btn {
+        width: 100%; /* Bottoni a larghezza piena */
+        margin-top: 10px; /* Margine superiore tra i bottoni */
+    }
+
+    .card-list li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .card-list li span {
+        margin-bottom: 5px;
+    }
+}
+        
+        
     </style>
 </head>
 <body>

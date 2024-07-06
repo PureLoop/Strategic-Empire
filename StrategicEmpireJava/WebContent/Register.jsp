@@ -12,52 +12,53 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <!-- Custom CSS -->
     <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Lato', sans-serif;
+        }
+        .img {
+            background-image: url('IMMAGINI/bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
         .login-container {
             max-width: 400px;
-            margin: 0 auto;
+            margin: auto;
             padding: 40px;
             border-radius: 2%;
             box-shadow: 0 10px 34px rgba(0, 0, 0, 0.1);
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(10px);
         }
-
         .login-container h2 {
             margin-bottom: 20px;
             text-align: center;
             font-weight: 700;
         }
-
         .form-group {
             position: relative;
             margin-bottom: 20px;
         }
-
         .form-control {
-            padding: 20px 45px 20px 15px;
+            padding: 20px 15px;
             border: 1px solid #ccc;
             border-radius: 2rem !important;
             background: rgba(255, 255, 255, 0.5) !important;
             backdrop-filter: blur(10px);
             color: #000;
         }
-
-        .toggle-icon {
-            position: relative;
-            top: -23px;
-            right: -90%;
-            transform: translateY(-50%);
-            cursor: pointer;
-        }
-
-        .toggle-password {
+        .toggle-icon, .toggle-password {
             position: absolute;
             top: 50%;
             right: 20px;
             transform: translateY(-50%);
             cursor: pointer;
         }
-
         .submit {
             border-radius: 50%;
             padding: 10px 20px;
@@ -67,41 +68,38 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-
         .submit:hover {
             background-color: #0056b3;
         }
-
         .register-link p {
             margin-top: 20px;
         }
-
         .password-requirements {
             font-size: 0.875rem;
             color: #666;
         }
-
         .password-requirements .valid {
             color: green;
         }
-
         .password-requirements .invalid {
             color: red;
         }
-
         .error-message {
             color: red;
             font-size: 0.875rem;
         }
-
-        .img {
-            background-size: cover;
-            background-position: center;
+        .footer {
+            margin-top: auto;
+            width: 100%;
+            background-color: #f8f9fa;
+            padding: 10px 0;
+            text-align: center;
         }
     </style>
 </head>
-<body class="img js-fullheight" style="background-image: url('IMMAGINI/bg.jpg');">
-    <%@ include file="/header/header.jsp"%>
+<body class="img js-fullheight">
+    <!-- Header Section -->
+    <%@ include file="/header/header.jsp" %>
 
     <section class="ftco-section">
         <div class="container">
@@ -169,7 +167,10 @@
         </div>
     </section>
 
-    <%@ include file="/footer/footer.jsp"%>
+    <!-- Footer Section -->
+    <footer class="footer">
+        <%@ include file="/footer/footer.jsp" %>
+    </footer>
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>

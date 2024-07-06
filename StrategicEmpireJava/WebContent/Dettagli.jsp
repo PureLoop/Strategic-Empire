@@ -207,10 +207,10 @@
                 });
             </script>
  <% 
-    } else if (DES_VER == 3) {
-        espansioneBean espansione = (espansioneBean) request.getAttribute("cod_espansione");
+} else if (DES_VER == 3) {
+    espansioneBean espansione = (espansioneBean) request.getAttribute("cod_espansione");
 %>
-<!-- Se DES_VER è 2, mostra le informazioni dell'accessorio -->
+<!-- Se DES_VER è 3, mostra le informazioni dell'espansione -->
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-12">
@@ -221,29 +221,30 @@
     </div>
     <div class="row mt-4">
         <div class="col-md-6">
-    <div class="container-img">
-        <div id="carouselExampleIndicators" class="carousel slide">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            </div>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="<%= espansione.getImmagineCop() %>" class="d-block w-100 img-fluid" alt="<%= espansione.getNomeespansione() %>">
+            <div class="container-img">
+                <div id="carouselExampleIndicators" class="carousel slide">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="<%= espansione.getImmagineCop() %>" class="d-block w-100 img-fluid" alt="<%= espansione.getNomeespansione() %>">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="<%= espansione.getImmagine2() %>" class="d-block w-100 img-fluid" alt="<%= espansione.getNomeespansione() %>">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
-                <div class="carousel-item">
-                    <img src="<%= espansione.getImmagine2() %>" class="d-block w-100 img-fluid" alt="<%= espansione.getNomeespansione() %>">
-                </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
         </div>
         <div class="col-md-6">
             <div class="description">
@@ -262,41 +263,40 @@
                     </div>
                     <!-- Bottone "Aggiungi al Carrello" con tutti i dati -->
                     <form action="AggiungiAlCarrello.jsp" method="post">
-                        <input type="hidden" name="cod_gioco" value="<%= espansione.getCod_espansione() %>">
-                        <input type="hidden" name="nome_gioco" value="<%=espansione.getNomeespansione() %>">
+                        <input type="hidden" name="cod_espansione" value="<%= espansione.getCod_espansione() %>">
+                        <input type="hidden" name="nome_espansione" value="<%= espansione.getNomeespansione() %>">
                         <input type="hidden" name="prezzo" value="<%= espansione.getPrezzo() %>">
-                        <a href="javascript:void(0);" class="custom-button" data-cod-esp="<%=espansione.getCod_espansione() %>">Aggiungi al Carrello</a>
+                        <a href="javascript:void(0);" class="custom-button" data-cod-esp="<%= espansione.getCod_espansione() %>">Aggiungi al Carrello</a>
                     </form>
-                    <!-- Logo PayPal -->
-                   
                 </div>
             </div>
-            <script>
-                $(document).ready(function() {
-                    $('.custom-button').off('click').on('click', function(event) {
-                        event.preventDefault(); // Prevenire la navigazione
-                        var codEsp = $(this).data('cod-esp');
-
-                        $.ajax({
-                            url: 'CarrelloControl',
-                            method: 'POST',
-                            data: {
-                                action: 'AddEspansione',
-                                cod_espansione: codEsp
-                            },
-                            success: function(response) {
-                                // Aggiorna la visualizzazione del carrello o altre azioni dopo l'aggiunta al carrello
-                            },
-                            error: function(xhr, status, error) {
-                                console.log("Errore durante l'aggiunta al carrello");
-                            }
-                        });
-                    });
-                });
-            </script>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('.custom-button').off('click').on('click', function(event) {
+            event.preventDefault(); // Prevenire la navigazione
+            var codEsp = $(this).data('cod-esp');
+
+            $.ajax({
+                url: 'CarrelloControl',
+                method: 'POST',
+                data: {
+                    action: 'AddEspansione',
+                    cod_espansione: codEsp
+                },
+                success: function(response) {
+                    // Aggiorna la visualizzazione del carrello o altre azioni dopo l'aggiunta al carrello
+                },
+                error: function(xhr, status, error) {
+                    console.log("Errore durante l'aggiunta al carrello");
+                }
+            });
+        });
+    });
+</script>
+
 <% 
     } // Fine del blocco if DES_VER == 2
 %>

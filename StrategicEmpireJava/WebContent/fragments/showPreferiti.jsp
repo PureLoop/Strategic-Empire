@@ -48,6 +48,8 @@
         username = user.getUsername(); // Supponendo che User abbia un metodo getUsername()
     }
 %>
+<br><br>
+<h3><center>Giochi preferiti</center></h3>
 <div class="row" id="favoriteGames" style="margin-left: 3%; margin-right:3%;margin-top:2%;">
     <% if (giochiPreferiti != null && !giochiPreferiti.isEmpty()) { 
         for (GiocoBean bean : giochiPreferiti) { 
@@ -74,9 +76,14 @@
             </div>
         </div>
     <% } 
-    } %>
+    } else { %>
+        <div class="col-md-12">
+            <p style="text-align: center;">Nessun gioco aggiunto nei preferiti.</p>
+        </div>
+    <% } %>
 </div>
-
+<br><br>
+<h3><center>Accessori preferiti</center></h3>
 <div class="row" id="allAccessories" style="margin-left: 3%; margin-right:3%; margin-top:2%;">
     <% if (accessoriPreferiti != null && !accessoriPreferiti.isEmpty()) { 
         for (AccessorioBean bean : accessoriPreferiti) { %>
@@ -108,10 +115,15 @@
                 </div>
             </div>
         <% } 
-    } %>
+    } else { %>
+        <div class="col-md-12">
+            <p style="text-align: center;">Nessun accessorio aggiunto nei preferiti.</p>
+        </div>
+    <% } %>
 </div>
-
-<div class="row" id="allAccessories" style="margin-left: 3%; margin-right:3%;margin-top:2%;">
+<br><br>
+<h3><center>Espansioni preferite</center></h3>
+<div class="row" id="allExpansions" style="margin-left: 3%; margin-right:3%; margin-top:2%;">
     <% if (espansioniPreferiti != null && !espansioniPreferiti.isEmpty()) { 
         for (espansioneBean bean : espansioniPreferiti) { %>
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
@@ -142,8 +154,13 @@
                 </div>
             </div>
         <% } 
-    } %>
+    } else { %>
+        <div class="col-md-12">
+            <p style="text-align: center;">Nessuna espansione aggiunta nei preferiti.</p>
+        </div>
+    <% } %>
 </div>
+
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
