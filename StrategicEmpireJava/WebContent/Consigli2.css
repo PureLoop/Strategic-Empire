@@ -1,0 +1,142 @@
+/* Stili globali per il corpo della pagina */
+body {
+    font-family: 'Open Sans', sans-serif; /* Impostazione del font per tutto il corpo */
+    margin: 0; /* Rimozione dei margini predefiniti */
+    padding: 0; /* Rimozione dei padding predefiniti */
+    box-sizing: border-box; /* Box model per includere padding e border nello spazio totale */
+    background-color: #f8f9fa; /* Colore di sfondo */
+    display: flex; /* Utilizzo del flexbox per il layout */
+    flex-direction: column; /* Orientazione verticale della disposizione degli elementi */
+    min-height: 100vh; /* Altezza minima del 100% della viewport */
+}
+
+/* Contenitore principale della pagina */
+.container {
+    flex: 1; /* Il contenitore principale si espande per riempire lo spazio rimanente */
+    padding: 20px; /* Spaziatura interna */
+    box-sizing: border-box; /* Box model per includere padding e border nello spazio totale */
+}
+
+/* Contenitore del titolo della sezione */
+.section-title-container {
+    position: relative; /* Posizionamento relativo */
+    background: linear-gradient(135deg, #FF9800, #FF5722); /* Sfondo con gradiente arancione */
+    color: white; /* Testo bianco */
+    text-align: center; /* Allineamento centrato del testo */
+    padding: 50px 20px; /* Spaziatura interna */
+    width: 100%; /* Larghezza al 100% del viewport */
+    box-sizing: border-box; /* Box model per includere padding e border nello spazio totale */
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%); /* Mascheratura del clip per il taglio angolare */
+    z-index: 1; /* Livello di sovrapposizione */
+    overflow: hidden; /* Nascondi contenuti fuori bordo */
+}
+
+/* Linee animate */
+.animated-lines {
+    position: absolute; /* Posizionamento assoluto */
+    bottom: 0; /* Inizio dal basso */
+    left: 0; /* Inizio da sinistra */
+    width: 100%; /* Larghezza del 100% */
+    height: 50px; /* Altezza delle linee */
+    z-index: 0; /* Livello di sovrapposizione sotto il titolo */
+    overflow: hidden; /* Nascondi contenuti fuori bordo */
+}
+
+.line {
+    position: absolute; /* Posizionamento assoluto */
+    width: 300%; /* Lunghezza iniziale delle linee */
+    height: 2px; /* Spessore delle linee */
+    background-color: rgba(255, 255, 255, 0.8); /* Colore delle linee con trasparenza */
+    animation: moveLine 2s ease-in-out infinite; /* Animazione con nome moveLine */
+}
+
+/* Animazione delle linee */
+@keyframes moveLine {
+    0% {
+        transform: translateX(-100%);
+    }
+    50% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* Stile del titolo della sezione */
+.section-title {
+    font-family: 'Montserrat', sans-serif; /* Font specifico per il titolo */
+    font-size: 2.5em; /* Dimensione del carattere */
+    position: relative; /* Posizionamento relativo */
+    z-index: 2; /* Livello di sovrapposizione sopra le linee */
+}
+
+/* Riga contenente le card dei video tutorial */
+.row {
+    display: flex; /* Utilizzo del flexbox per il layout */
+    flex-wrap: wrap; /* Wrap degli elementi su più righe se necessario */
+    justify-content: center; /* Allineamento centrale degli elementi */
+}
+
+.card {
+    border-radius: 0.5rem; /* Bordi arrotondati */
+    overflow: hidden; /* Nascondi contenuti fuori bordo */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease; /* Transizioni di animazione */
+    margin: 20px; /* Margine esterno */
+    background-color: white; /* Sfondo bianco */
+    border: none; /* Rimozione del bordo */
+}
+
+.card:hover {
+    transform: translateY(-10px); /* Solleva la card di 10px verso l'alto */
+    box-shadow: 0 8px 16px rgba(255, 165, 0, 0.5); /* Ombra arancione */
+    filter: brightness(110%); /* Aumenta la luminosità */
+}
+
+
+/* Contenitore del video */
+.video-container {
+    position: relative; /* Posizionamento relativo */
+    width: 100%; /* Larghezza del 100% */
+    padding-top: 56.25%; /* Aspect ratio 16:9 */
+    overflow: hidden; /* Nascondi contenuti fuori bordo */
+    transition: box-shadow 0.3s ease; /* Transizione dell'ombra */
+}
+
+/* I frame dei video */
+.video-container iframe {
+    position: absolute; /* Posizionamento assoluto */
+    top: 0; /* Posizionamento in alto */
+    left: 0; /* Posizionamento a sinistra */
+    width: 100%; /* Larghezza del 100% */
+    height: 100%; /* Altezza del 100% */
+    border: none; /* Rimozione del bordo */
+}
+
+/* Effetto hover sul contenitore del video */
+.video-container:hover {
+    box-shadow: 0 8px 16px rgba(255, 165, 0, 0.5); /* Ombra arancione */
+}
+
+/* Stile del corpo della card */
+.card-body {
+    padding: 20px; /* Spaziatura interna */
+    text-align: center; /* Allineamento centrato del testo */
+}
+
+/* Testo delle card */
+.card-text {
+    font-size: 1.1em; /* Dimensione del carattere */
+    color: #FF6600; /* Testo arancione */
+}
+/* Footer della pagina */
+footer {
+    text-align: center; /* Allineamento centrato del testo */
+    padding: 10px 0; /* Spaziatura interna */
+    background: none; /* Sfondo scuro */
+    color: white; /* Testo bianco */
+    width: 100%; /* Larghezza al 100% */
+    border: none !important; /* Rimozione del bordo e uso di !important per sovrascrivere eventuali altre regole */
+}
+
+

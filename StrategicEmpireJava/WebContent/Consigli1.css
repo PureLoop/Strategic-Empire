@@ -1,0 +1,139 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Altezza minima del 100% della viewport */
+}
+
+.container {
+    flex: 1; /* Il contenitore si espande per riempire lo spazio rimanente */
+    padding: 20px; /* Spaziatura interna del contenitore principale */
+}
+
+.section-title-container {
+    position: relative;
+    background: linear-gradient(135deg, #FF9800, #FF5722);
+    color: white;
+    text-align: center;
+    padding: 50px 20px;
+    width: 100%;
+    box-sizing: border-box;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+    z-index: 1;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    transform-origin: top;
+}
+
+.section-title-container::before,
+.section-title-container::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 50%;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.6);
+    transition: width 0.3s ease;
+}
+
+.section-title-container::before {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.section-title-container::after {
+    right: 50%;
+    transform: translateX(50%);
+}
+
+.section-title-container:hover::before,
+.section-title-container:hover::after {
+    width: 80%;
+}
+
+.header-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.2em;
+    color: #f0f0f0;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+}
+
+.tips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.tip {
+    width: calc(50% - 10px);
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tip:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(255, 165, 0, 0.2);
+}
+
+.tip i {
+    font-size: 3em;
+    color: #FF9800;
+    margin-bottom: 15px;
+    display: block;
+    text-align: center;
+}
+
+.tip h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
+}
+
+.tip p {
+    font-size: 1.1em;
+    color: #666;
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #333;
+    color: white;
+    margin-top: 40px;
+}
+
+/* Importazione degli stili di Font Awesome */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
+/* Importazione degli stili di animazione AOS */
+@import url('https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css');
+

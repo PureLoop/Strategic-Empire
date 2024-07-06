@@ -1,62 +1,88 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recensioni e Suggerimenti - Consigli di Gioco</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
-    <link href="consigli.css" rel="stylesheet">
+    <title>Consigli per il mio sito di giochi da tavolo</title>
+    <link rel="stylesheet" href="Consigli3.css">
+    <!-- Font Awesome per le icone (sostituisci con il tuo percorso o CDN) -->
 </head>
-<body>
-
-<main>
-    <header>
-        <%@ include file="header/header.jsp"%>
+<header>
+        <%@ include file="/header/header.jsp"%>
     </header>
 
-    <div class="container my-5">
-        <h1 class="text-center mb-4">Recensioni e Suggerimenti - Consigli di Gioco</h1>
+<body>
+    
+    <!-- Contenuto principale della pagina -->
+    <main class="container py-5">
+        <!-- Sezione del video -->
+        <section class="video-section">
+            <!-- Contenitore del titolo della sezione -->
+            <div class="section-title-container text-center mb-5">
+                <h2 class="section-title">Suggerimenti e recensioni</h2>
+            </div>
+            <!-- Linee animate -->
+            <div class="animated-lines">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </section>
 
-        <!-- Card Recensioni -->
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col">
-                <div class="card h-100">
-                    <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Recensione: Avventure Epiche</h5>
-                        <p class="card-text">Scopri cosa rende Avventure Epiche un gioco da tavolo unico.</p>
-                        <a href="#" class="btn btn-primary stretched-link">Leggi di più</a>
-                    </div>
+        <!-- Suggerimenti visivi -->
+        <section class="visual-tips">
+            <!-- Gioco 1: Catan -->
+            <div class="visual-tip">
+                <img src="IMMAGINI/IMMAGINI_CONSIGLI/Catan.jpg" alt="Catan">
+                <div class="visual-tip-content">
+                    <h3>Catan</h3>
+                    <p>Un classico gioco di strategia e negoziazione in cui i giocatori colonizzano un'isola, cercando risorse e costruendo insediamenti.</p>
                 </div>
             </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Recensione: Regni Perduti</h5>
-                        <p class="card-text">Scopri perché Regni Perduti è uno dei giochi più amati del momento.</p>
-                        <a href="#" class="btn btn-primary stretched-link">Leggi di più</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Recensione: Battaglie Galattiche</h5>
-                        <p class="card-text">Scopri il fascino delle Battaglie Galattiche nel mondo dei giochi da tavolo.</p>
-                        <a href="#" class="btn btn-primary stretched-link">Leggi di più</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
+            <!-- Gioco 2: Scythe -->
+            <div class="visual-tip">
+                <img src="IMMAGINI/IMMAGINI_CONSIGLI/Scythe.jpg" alt="Scythe">
+                <div class="visual-tip-content">
+                    <h3>Scythe</h3>
+                    <p>Un gioco di strategia ambientato in un'Europa alternativa degli anni '20, con mechs e azioni asimmetriche.</p>
+                </div>
+            </div>
+
+            <!-- Gioco 3: Ticket to Ride -->
+            <div class="visual-tip">
+                <img src="IMMAGINI/IMMAGINI_CONSIGLI/TicketToRide.jpg" alt="Ticket to Ride">
+                <div class="visual-tip-content">
+                    <h3>Ticket to Ride</h3>
+                    <p>Un gioco di costruzione ferroviaria in cui i giocatori competono per completare rotte tra le città nordamericane.</p>
+                </div>
+            </div>
+
+            <!-- Gioco 4: Pandemic -->
+            <div class="visual-tip">
+                <img src="IMMAGINI/IMMAGINI_CONSIGLI/Pandemic.jpg" alt="Pandemic">
+                <div class="visual-tip-content">
+                    <h3>Pandemic</h3>
+                    <p>Un gioco cooperativo in cui i giocatori lottano insieme contro epidemie globali, cercando di salvare il mondo.</p>
+                </div>
+            </div>
+
+            <!-- Gioco 5: Azul -->
+            <div class="visual-tip">
+                <img src="IMMAGINI/IMMAGINI_CONSIGLI/Azul.jpg" alt="Azul">
+                <div class="visual-tip-content">
+                    <h3>Azul</h3>
+                    <p>Un gioco di posizionamento dei tessere in cui i giocatori competono per creare bellissimi mosaici.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Inclusione del piè di pagina -->
     <footer>
-        <%@ include file="/footer/footer.jsp"%>
+        <%@ include file="/footer/footer.jsp" %>
     </footer>
-</main>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+

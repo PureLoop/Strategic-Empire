@@ -1,0 +1,176 @@
+/* Stili globali per il corpo della pagina */
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: 60px; /* Spazio per l'intestazione fissa */
+}
+
+/* Contenitore principale della pagina */
+.container {
+    flex: 1;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Contenitore del titolo della sezione */
+.section-title-container {
+    position: relative;
+    background: linear-gradient(135deg, #FF9800, #FF5722);
+    color: white;
+    text-align: center;
+    padding: 50px 20px;
+    width: 100%;
+    box-sizing: border-box;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+    z-index: 1;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    transform-origin: top;
+}
+
+.section-title-container::before,
+.section-title-container::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 50%;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.6);
+    transition: width 0.3s ease;
+}
+
+.section-title-container::before {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.section-title-container::after {
+    right: 50%;
+    transform: translateX(50%);
+}
+
+.section-title-container:hover::before,
+.section-title-container:hover::after {
+    width: 80%;
+}
+
+/* Linee animate */
+.animated-lines {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.line {
+    position: absolute;
+    width: 300%;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.8);
+    animation: moveLine 2s ease-in-out infinite;
+}
+
+@keyframes moveLine {
+    0% {
+        transform: translateX(-100%);
+    }
+    50% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* Suggerimenti visivi */
+.visual-tips {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.visual-tip {
+    position: relative;
+    width: calc(30% - 20px); /* Larghezza dei suggerimenti visivi con margine */
+    height: 300px; /* Altezza delle caselle di suggerimento */
+    background-color: #FFA726; /* Arancione sfumato */
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.visual-tip:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.visual-tip:active {
+    background-color: #FFB74D; /* Arancione più chiaro quando attivo */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.visual-tip img {
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.visual-tip:hover img {
+    filter: brightness(85%);
+}
+
+.visual-tip:active img {
+    filter: brightness(100%);
+}
+
+.visual-tip-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(to top, #FFA726, transparent); /* Sfumatura arancione */
+    color: white;
+    text-align: center;
+    box-sizing: border-box;
+    transition: opacity 0.3s ease;
+    opacity: 0; /* Inizialmente invisibile */
+}
+
+.visual-tip:hover .visual-tip-content {
+    opacity: 1; /* Mostra al passaggio del mouse */
+}
+
+.visual-tip-content h3 {
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.visual-tip-content p {
+    margin: 0;
+    font-size: 0.9em;
+}
+
+
+
+
