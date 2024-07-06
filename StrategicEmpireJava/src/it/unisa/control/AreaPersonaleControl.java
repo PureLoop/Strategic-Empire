@@ -22,6 +22,7 @@ import it.unisa.bean.CartaBean;
 import it.unisa.bean.GiocoBean;
 import it.unisa.bean.OggettiCarrelloBean;
 import it.unisa.bean.OrdineBean;
+import it.unisa.bean.RecensioneBean;
 import it.unisa.bean.User;
 import it.unisa.bean.espansioneBean;
 import it.unisa.model.AccessorioModelDM;
@@ -32,6 +33,8 @@ import it.unisa.model.EspansioneModelDM;
 import it.unisa.model.GiocoModelDM;
 import it.unisa.model.OrdineModel;
 import it.unisa.model.OrdineModelDM;
+import it.unisa.model.RecensioneModel;
+import it.unisa.model.RecensioneModelDM;
 import it.unisa.model.UserDAO;
 import it.unisa.model.AccessorioModel;
 import it.unisa.model.AreaPersonaleModel;
@@ -54,6 +57,7 @@ public class AreaPersonaleControl extends HttpServlet {
 	static AreaPersonaleModel modelAp;
 	static UserModel modelUser;
 	static OrdineModel modelOrdine;
+	static RecensioneModel modelRecensione;
 	static {
 			modelGioco = new GiocoModelDM();
 			modelAcc = new AccessorioModelDM();
@@ -62,6 +66,7 @@ public class AreaPersonaleControl extends HttpServlet {
 			modelCarta = new CartaModelDM();
 			modelUser = new UserDAO();
 			modelOrdine = new OrdineModelDM();
+			modelRecensione = new RecensioneModelDM();
 			}
 	
     /**
@@ -618,9 +623,65 @@ else if (action != null && action.equalsIgnoreCase("ShowEspansione")) {
     	        response.sendError(HttpServletResponse.SC_NOT_FOUND, "Ordine non trovato");
     	    }
     	}
+    	if(action!=null && action.equals("recensione")) {
+    		String codiceOrdineStr = request.getParameter("codOrdine");
+    		String username = request.getParameter("username");
+    		System.out.println("ciao: "+codiceOrdineStr + username);
+    		if (codiceOrdineStr != null && username != null) {
+    	        
+    	            int codiceOrdine = Integer.parseInt(codiceOrdineStr);
 
+    	            // Chiamata per recuperare la recensione
+    	            RecensioneBean recensione;
+					try {
+						recensione = modelRecensione.retrieveReview(username, codiceOrdine);
+						if (recensione != null) {
+	    	                // Se la recensione è trovata, setta l'attributo nella request e reindirizza a showReview.jsp
+	    	                request.setAttribute("recensione", recensione);
+	    	                request.setAttribute("insVis",1);
+	    	                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/showReview.jsp");
+	    	                dispatcher.forward(request, response);
+	    	            } else {
+	    	                // Se la recensione non è trovata, reindirizza a showFormRecensione.jsp
+	    	                request.setAttribute("username", username); // Passa l'username alla JSP
+	    	                request.setAttribute("codiceOrdine", codiceOrdine); // Passa il codice ordine alla JSP
+	    	                request.setAttribute("insVis",1);
+	    	                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/showReview.jsp");
+	    	                dispatcher.forward(request, response);
+	    	            }
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}      	       
+    			}
+    		}
+    	
+    	if (action != null && action.equals("insertRev")) {
+            // Recupero dei parametri dal form
+            String username = request.getParameter("username");
+            int codiceOrdine = Integer.parseInt(request.getParameter("codiceOrdine"));
+            String titolo = request.getParameter("titolo");
+            String descrizione = request.getParameter("descrizione");
+            int valutazione = Integer.parseInt(request.getParameter("valutazione"));
 
+            try {
+                // Chiamata al metodo per inserire la recensione nel database
+                modelRecensione.insertReview(username, titolo, descrizione, valutazione,codiceOrdine);
+
+                // Puoi aggiungere un messaggio di successo nella request se necessario
+                request.setAttribute("insertSuccess", true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                // Gestione dell'eccezione SQL se necessario
+                // Potresti anche reindirizzare a una pagina di errore
+            }
+
+            // Dopo l'inserimento, reindirizza a showReview.jsp per visualizzare le recensioni aggiornate
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/showReview.jsp");
+            dispatcher.forward(request, response);
+        }
     }
+    
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

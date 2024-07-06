@@ -4,6 +4,7 @@
 <%@ page import="it.unisa.bean.OrdineBean" %>
 <%@ page import="it.unisa.bean.OggettiCarrelloBean" %>
 
+
 <table class="table">
     <thead>
         <tr>
@@ -33,6 +34,9 @@
             </td>
             <td>
                 <labe type="text" onclick="scaricaFattura('<%= ordine.getCodOrdine() %>')">Visualizza Fattura</button>
+            </td>
+            <td>
+                <button type="button" onclick="inviaRecensione('<%= ordine.getCodOrdine() %>', '<%= ordine.getCodiceUtente() %>')">Recensione</button>
             </td>
         </tr>
         <tr id="recapItems_<%= ordine.getCodOrdine() %>" style="display: none;">
@@ -75,7 +79,13 @@
         %>
     </tbody>
 </table>
-
+<!-- Pop-up per la recensione -->
+<div id="recensionePopup" class="review-popup" style="display: none;">
+    <div class="review-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <div id="zonaRecensione"></div>
+    </div>
+</div>
 <script>
 function scaricaFattura(codOrdine) {
 	 var url = "Fattura.jsp";
@@ -97,15 +107,39 @@ function scaricaFattura(codOrdine) {
         error: function(xhr, status, error) {
             console.error('Errore durante la generazione della fattura:', status, error);
         }
-    });
-}
+    })}
+        function mostraArticoli(codiceOrdine) {
+            var recapItemsRow = document.getElementById("recapItems_" + codiceOrdine);
+            if (recapItemsRow.style.display === "none") {
+                recapItemsRow.style.display = "table-row";
+            } else {
+                recapItemsRow.style.display = "none";
+            }
+        }
 
-function mostraArticoli(codiceOrdine) {
-    var recapItemsRow = document.getElementById("recapItems_" + codiceOrdine);
-    if (recapItemsRow.style.display === "none") {
-        recapItemsRow.style.display = "table-row";
-    } else {
-        recapItemsRow.style.display = "none";
-    }
-}
-</script>
+        function inviaRecensione(codiceOrdine, username) {
+        	console.log(codiceOrdine,username);
+            $.ajax({
+                url: 'AreaPersonaleControl',
+                method: 'POST',
+                data: {
+                    action: 'recensione',
+                    codOrdine: codiceOrdine,
+                    username: username
+                },
+                success: function(response) {
+                    $('#zonaRecensione').html(response);
+                    $('#recensionePopup').css('display', 'block'); // Mostra il pop-up con la recensione
+                },
+                error: function(xhr, status, error) {
+                    console.error('Errore durante l\'invio della recensione:', status, error);
+                }
+            });
+        }
+
+        function closePopup() {
+            $('#recensionePopup').css('display', 'none'); // Chiudi il pop-up
+        }
+    </script>
+</body>
+</html>
