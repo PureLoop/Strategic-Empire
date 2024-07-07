@@ -21,7 +21,7 @@ body {
 /* Contenitore del titolo della sezione */
 .section-title-container {
     position: relative;
-    background: linear-gradient(135deg, #FF9800, #FF5722);
+    background: linear-gradient(135deg, #003366, #D5E8FF); /* Colore blu più scuro */
     color: white;
     text-align: center;
     padding: 50px 20px;
@@ -105,7 +105,7 @@ body {
     position: relative;
     width: calc(30% - 20px); /* Larghezza dei suggerimenti visivi con margine */
     height: 300px; /* Altezza delle caselle di suggerimento */
-    background-color: #FFA726; /* Arancione sfumato */
+    background-color: #D5E8FF; /* Colore celeste */
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -121,7 +121,7 @@ body {
 }
 
 .visual-tip:active {
-    background-color: #FFB74D; /* Arancione più chiaro quando attivo */
+    background-color: #a8d8ff; /* Celeste più chiaro quando attivo */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -148,8 +148,8 @@ body {
     left: 0;
     width: 100%;
     padding: 10px;
-    background: linear-gradient(to top, #FFA726, transparent); /* Sfumatura arancione */
-    color: white;
+    background: linear-gradient(to top, #D5E8FF, transparent); /* Sfumatura celeste */
+    color: black; /* Testo nero */
     text-align: center;
     box-sizing: border-box;
     transition: opacity 0.3s ease;
@@ -164,13 +164,59 @@ body {
     margin: 0;
     font-size: 1.2em;
     font-weight: bold;
+    color: #003366; /* Titolo del gioco blu più scuro */
 }
 
 .visual-tip-content p {
     margin: 0;
     font-size: 0.9em;
+    font-weight: bold;
+    color: black; /* Scritte sotto i giochi nere */
 }
 
+/* Stile del titolo della sezione */
+.section-title {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    color: #003366; /* Colore blu più scuro per il titolo */
+    position: relative;
+    display: inline-block;
+    padding-bottom: 10px;
+    background: linear-gradient(to right, #003366, #D5E8FF);
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: animateGradient 5s linear infinite;
+}
 
+@keyframes animateGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
 
+/* Footer della pagina */
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: none;
+    color: white;
+    width: 100%;
+    border: none !important;
+    margin-top: auto;
+}
 
+@media (max-width: 768px) {
+    .visual-tip {
+        width: calc(100% - 20px); /* Larghezza piena su dispositivi mobili */
+        height: auto; /* Altezza automatica su dispositivi mobili */
+    }
+    
+    .section-title {
+        font-size: 2em; /* Dimensione del font ridotta su dispositivi mobili */
+    }
+}

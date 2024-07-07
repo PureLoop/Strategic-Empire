@@ -1,0 +1,243 @@
+/* Stili globali per il corpo della pagina */
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f8f9fa; /* Colore di sfondo generale */
+}
+
+/* Contenitore principale della pagina */
+.container {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Intestazione (Header) */
+.header {
+    background-color: #007bff;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.header p {
+    font-size: 1.2em;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* Separazione tra l'intestazione e il contenuto principale */
+.main-content {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Stile del titolo della sezione */
+.section-title-container {
+    position: relative;
+    background: linear-gradient(135deg, #007bff, #a8d8ff);
+    color: white;
+    text-align: center;
+    padding: 50px 20px;
+    width: 100%;
+    box-sizing: border-box;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+    z-index: 1;
+    overflow: hidden;
+}
+
+/* Animazione delle linee */
+.animated-lines {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.line {
+    position: absolute;
+    width: 300%;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.8);
+    animation: moveLine 2s ease-in-out infinite;
+}
+
+@keyframes moveLine {
+    0% {
+        transform: translateX(-100%);
+    }
+    50% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.section-title {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    color: #007bff; /* Colore del testo blu */
+    position: relative;
+    display: inline-block;
+    padding-bottom: 10px;
+    background: linear-gradient(to right, #007bff, #a8d8ff);
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: animateGradient 5s linear infinite;
+}
+
+@keyframes animateGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+.section-title-container:hover .section-title {
+    color: #343a40;
+}
+
+/* Stile dei consigli */
+.tips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.tip {
+    width: calc(50% - 20px);
+    max-width: 400px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tip:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(213, 232, 255, 0.2);
+}
+
+.tip i {
+    font-size: 3em;
+    color: #007bff;
+    margin-bottom: 15px;
+    display: block;
+    text-align: center;
+}
+
+.tip h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #007bff;
+    text-align: center;
+}
+
+.tip p {
+    font-size: 1.1em;
+    color: #6c757d;
+    text-align: center;
+}
+
+/* Stile del footer */
+.footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #007bff;
+    color: white;
+    margin-top: auto;
+}
+
+/* Importazione degli stili di Font Awesome */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
+/* Importazione degli stili di animazione AOS */
+@import url('https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css');
+
+/* Stile del video container */
+.video-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px; /* Aggiunto margine inferiore per separazione */
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: #D5E8FF; /* Azzurro/blu */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.video-container:hover {
+    transform: translateY(-5px); /* Alzamento leggero al passaggio del mouse */
+    box-shadow: 0 8px 16px rgba(213, 232, 255, 0.2); /* Ombra al passaggio del mouse */
+    background-color: #a8d8ff; /* Cambio colore al passaggio del mouse */
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0); /* Trasparenza iniziale */
+    transition: background-color 0.3s ease;
+    z-index: 1;
+}
+
+.video-container:hover .video-overlay {
+    background-color: rgba(168, 216, 255, 0.8); /* Cambio colore al passaggio del mouse */
+}
+
+.video {
+    width: 100%;
+    height: auto;
+}
+
+/* Stile del testo sotto i video */
+.card-body {
+    padding: 20px;
+    text-align: center;
+    background-color: #D5E8FF; /* Colore di sfondo dei box */
+    transition: background-color 0.3s ease;
+}
+
+.card-body:hover {
+    background-color: #a8d8ff; /* Colore di sfondo dei box al passaggio del mouse */
+}
+
+.card-text {
+    font-size: 1.1em;
+    color: #007bff; /* Colore del testo */
+}
+
+@media (max-width: 768px) {
+    .tips {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tip {
+        width: 100%;
+        max-width: none;
+    }
+}
+

@@ -4,40 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nostro Sito di Giochi - Consigli</title>
+    
+    <!-- Includi Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet"> 
+    
+    <!-- Includi FontAwesome CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+    
+    <!-- Includi Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-<!-- Includi Bootstrap CSS -->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Includi Bootstrap JavaScript (opzionale, se necessario per componenti specifici) -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
-    
-    <link href="css/Consigli.css" rel="stylesheet">
-    
-    <!-- Includi jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Includi Bootstrap CSS per gli alert -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Includi Bootstrap JS per gli alert -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- Includi il tuo file JavaScript personalizzato -->
-    <script src="Consigli.js"></script>
+    <!-- Includi il tuo file CSS personalizzato -->
+    <link href="css/Consigli/Consigli.css" rel="stylesheet">
 </head>
 <body>
-
 <main>
     <header>
         <%@ include file="/header/header.jsp" %>
     </header>
 
     <div class="container my-5">
-        <h1 class="text-center mb-4" style="color: #ff2600;">Consigli sui Giochi da Tavolo</h1>
-        
+        <h1 class="text-center mb-4" style="color: #003366;">Consigli sui Giochi da Tavolo</h1>
 
-        <!-- Qui va il contenuto della pagina principale -->
         <p class="intro-text text-center">Benvenuti nella nostra sezione dedicata ai consigli sui giochi da tavolo! Qui troverete video, recensioni e suggerimenti per migliorare la vostra esperienza di gioco.</p>
-        
+
         <!-- Galleria di Immagini con Effetti di Hover -->
         <div class="row mb-5">
             <div class="col-md-4">
@@ -101,37 +91,44 @@
         </div>
 
         <!-- Sezione YouTube aggiuntiva -->
-        <div class="youtube-section">
-    <h2 class="text-white mb-4" style="font-size: 2rem;">Scopri il Nostro Canale YouTube</h2>
-    <p class="text-white" style="font-size: 1.2rem;">Iscriviti al nostro canale per non perdere i nostri video sui giochi da tavolo!</p>
-    <a href="https://www.youtube.com/channel/yourchannel" class="btn btn-primary btn-lg" style="font-size: 1.2rem;" target="_blank">Visita il Canale</a>
-</div>
-        
+        <div class="youtube-section text-center my-5">
+            <h2 class="text-primary mb-4" style="font-size: 2rem;">Scopri il Nostro Canale YouTube</h2>
+            <p class="text-dark" style="font-size: 1.2rem;">Iscriviti al nostro canale per non perdere i nostri video sui giochi da tavolo!</p>
+            <a href="https://www.youtube.com/channel/yourchannel" class="btn btn-primary btn-lg" style="font-size: 1.2rem;" target="_blank">Visita il Canale</a>
+        </div>
 
         <!-- Sezione Commenti Interattiva -->
-          <h2 class="text-center mb-4" style="color: #ff2600;">Commenti degli utenti</h2>
+        <h2 class="text-center mb-4" style="color: #003366;">Commenti degli utenti</h2>
         
-         <!-- Contenitore per i commenti -->
-          <div id="comment-container" class="comments-container">
+        <!-- Contenitore per i commenti -->
+        <div id="comment-container" class="comments-container mb-4">
             <!-- Qui verranno aggiunti dinamicamente i commenti -->
         </div>
-       <!-- Form per inserire commenti -->
+
+        <!-- Form per inserire commenti -->
+        <form id="comment-form" class="mb-5">
+            <div class="mb-3">
+                <input type="text" id="username" class="form-control" placeholder="Nome">
+            </div>
+            <div class="mb-3">
+                <textarea id="comment" class="form-control" placeholder="Inserisci il tuo commento"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Invia Commento</button>
+        </form>
     </div>
 
-  <form id="comment-form">
-        <input type="text" id="username" placeholder="Nome">
-        <textarea id="comment" placeholder="Inserisci il tuo commento"></textarea>
-        <button type="submit">Invia Commento</button>
-    </form>
-  
-        
     <footer>
         <%@ include file="/footer/footer.jsp" %>
     </footer>
 </main>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<!-- Includi jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Includi Bootstrap JavaScript -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+
+<!-- Includi il tuo file JavaScript personalizzato -->
 <script src="consigli.js"></script>
 </body>
 </html>
-

@@ -20,8 +20,8 @@ body {
 
 .section-title-container {
     position: relative;
-    background: linear-gradient(135deg, #FF9800, #FF5722);
-    color: white;
+    background: linear-gradient(135deg, #89b7db, #a8d8ff); /* Gradiente blu */
+    color: #343a40; /* Colore testo scuro */
     text-align: center;
     padding: 50px 20px;
     width: 100%;
@@ -40,7 +40,7 @@ body {
     bottom: 0;
     width: 50%;
     height: 1px;
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(52, 58, 64, 0.6); /* Colore linea */
     transition: width 0.3s ease;
 }
 
@@ -70,11 +70,12 @@ body {
 header h1 {
     font-size: 2.5em;
     margin-bottom: 10px;
+    color: #343a40; /* Colore testo scuro */
 }
 
 header p {
     font-size: 1.2em;
-    color: #f0f0f0;
+    color: #6c757d; /* Colore testo grigio */
 }
 
 main {
@@ -86,25 +87,28 @@ main {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    justify-content: center; /* Centra i consigli */
 }
 
 .tip {
     width: calc(50% - 10px);
+    max-width: 400px; /* Larghezza massima dei consigli */
     padding: 20px;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 20px; /* Spaziatura tra i consigli */
 }
 
 .tip:hover {
     transform: translateY(-10px);
-    box-shadow: 0 8px 16px rgba(255, 165, 0, 0.2);
+    box-shadow: 0 8px 16px rgba(213, 232, 255, 0.2); /* Cambio dell'ombra al passaggio */
 }
 
 .tip i {
     font-size: 3em;
-    color: #FF9800;
+    color: #a8d8ff; /* Cambiato il colore dell'icona a blu */
     margin-bottom: 15px;
     display: block;
     text-align: center;
@@ -113,22 +117,51 @@ main {
 .tip h2 {
     font-size: 1.5em;
     margin-bottom: 10px;
-    color: #333;
+    font-weight: bold; /* Rende il testo in grassetto */
+    color: #007bff; /* Cambia il colore del testo in blu */
     text-align: center;
 }
 
 .tip p {
     font-size: 1.1em;
-    color: #666;
+    color: #6c757d; /* Colore testo grigio */
     text-align: center;
 }
 
 footer {
     text-align: center;
     padding: 10px 0;
-    background-color: #333;
-    color: white;
-    margin-top: 40px;
+    background-color: #a8d8ff; /* Cambiato il colore del footer a blu */
+    color: #343a40; /* Colore testo scuro */
+    margin-top: auto; /* Sposta il footer in fondo */
+}
+
+.section-title {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    color: #007bff; /* Colore del titolo blu */
+    position: relative;
+    display: inline-block;
+    padding-bottom: 10px;
+    background: linear-gradient(to right, #007bff, #a8d8ff); /* Gradient per il titolo */
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: animateGradient 5s linear infinite; /* Animazione del gradiente */
+}
+
+@keyframes animateGradient {
+    0% {
+        background-position: 0% 50%; /* Inizio animazione */
+    }
+    100% {
+        background-position: 100% 50%; /* Fine animazione */
+    }
+}
+
+.section-title-container:hover .section-title {
+    color: #343a40; /* Cambio colore titolo al passaggio */
 }
 
 /* Importazione degli stili di Font Awesome */
@@ -136,4 +169,17 @@ footer {
 
 /* Importazione degli stili di animazione AOS */
 @import url('https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css');
+
+@media (max-width: 768px) {
+    .tips {
+        flex-direction: column; /* Layout a colonna per dispositivi più piccoli */
+        align-items: center; /* Centra i consigli */
+    }
+
+    .tip {
+        width: 100%; /* Occupa tutta la larghezza disponibile */
+        max-width: none; /* Rimuove la larghezza massima */
+    }
+}
+
 

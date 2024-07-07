@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consigli per il mio sito di giochi da tavolo</title>
-    <link rel="stylesheet" href="css/Consigli3.css">
+    <link rel="stylesheet" href="css/Consigli/Consigli3.css">
     <!-- Font Awesome per le icone (sostituisci con il tuo percorso o CDN) -->
 </head>
 <header>

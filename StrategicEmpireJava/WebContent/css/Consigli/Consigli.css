@@ -1,0 +1,313 @@
+/* Aggiungi stili per illuminare il contorno al passaggio del mouse */
+
+/* Stili generali */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa;
+    color: #343a40;
+}
+
+h1, h2, h3 {
+    font-weight: bold;
+    color: #007bff; /* Blu principale */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.intro-text {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #343a40;
+}
+
+.image-card, .video-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.75rem;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-card:hover, .video-card:hover {
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3); /* Ombra più pronunciata al passaggio del mouse */
+}
+
+.image-card img, .video-card img {
+    border-radius: 0.75rem;
+    transition: transform 0.3s ease;
+}
+
+.image-card:hover img, .video-card:hover img {
+    transform: scale(1.05); /* Ingrandimento leggero al passaggio del mouse */
+}
+
+.image-overlay, .video-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    font-size: 1.2rem;
+}
+
+.image-card:hover .image-overlay, .video-card:hover .video-overlay {
+    opacity: 1; /* Mostra overlay al passaggio del mouse */
+}
+
+.video-card .embed-responsive {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 56.25%; /* Proporzione 16:9 per il video */
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-card:hover .embed-responsive {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Ombra più pronunciata al passaggio del mouse */
+}
+
+.video-card .embed-responsive iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    transition: transform 0.3s ease;
+}
+
+.video-card:hover .embed-responsive iframe {
+    transform: scale(1.05); /* Ingrandimento leggero del video al passaggio del mouse */
+}
+
+.video-card .card-body {
+    padding: 1rem;
+    background: #fff;
+    border-top: 1px solid #dee2e6;
+}
+
+.video-card .card-body h3 {
+    font-weight: bold;
+    color: #343a40;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.video-card .card-body p {
+    color: #6c757d;
+    margin-bottom: 1rem;
+}
+
+.video-card .card-body .btn-primary {
+    background-color: #007bff; /* Blu principale */
+    border-color: #007bff;
+    color: #fff; /* Testo bianco */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.video-card .card-body .btn-primary:hover {
+    background-color: #0056b3; /* Blu più scuro al passaggio del mouse */
+    border-color: #0056b3;
+}
+
+.comments-section {
+    background: linear-gradient(to right, #007bff, #6cb2eb); /* Gradient blu */
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    color: #fff; /* Testo bianco per contrasto */
+    text-align: center;
+}
+
+.comment {
+    background: rgba(255, 255, 255, 0.8); /* Sfondo leggermente trasparente */
+    padding: 1rem;
+    border-radius: 0.75rem;
+    margin-bottom: 1rem;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    color: #343a40; /* Testo scuro per miglior leggibilità */
+}
+
+.comment:hover {
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.comment p {
+    margin: 0;
+}
+
+.comment-form .form-control {
+    border-radius: 0.75rem;
+}
+
+.youtube-section {
+    background-color: #007bff; /* Blu brillante */
+    color: #fff; /* Testo bianco */
+    padding: 4rem 0; /* Spaziatura interna */
+    text-align: center;
+}
+
+.youtube-section h2 {
+    font-weight: bold; /* Testo in grassetto */
+    margin-bottom: 1.5rem; /* Spaziatura inferiore */
+    color: #ffffff; /* Testo bianco */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Ombra leggera */
+}
+
+.youtube-section p {
+    font-size: 1.2rem; /* Dimensione del testo leggermente aumentata */
+    margin-bottom: 2rem; /* Spaziatura inferiore */
+}
+
+.youtube-section .btn-primary {
+    background-color: #ffffff; /* Colore di sfondo bianco */
+    color: #007bff; /* Testo blu */
+    border-color: #ffffff; /* Colore del bordo */
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.youtube-section .btn-primary:hover {
+    background-color: #0056b3; /* Blu più scuro al passaggio del mouse */
+    color: #fff; /* Testo bianco */
+    border-color: #0056b3;
+}
+
+.youtube-video {
+    position: relative; /* Posizione relativa */
+    padding-bottom: 56.25%; /* Proporzione 16:9 per il video */
+    height: 0; /* Altezza zero */
+    overflow: hidden; /* Nascondi overflow */
+    margin-bottom: 1.5rem; /* Spaziatura inferiore */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombra leggera */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transizioni animate */
+}
+
+.youtube-video iframe {
+    position: absolute; /* Posizione assoluta */
+    top: 0; /* Posizionamento in alto */
+    left: 0; /* Posizionamento a sinistra */
+    width: 100%; /* Larghezza al 100% */
+    height: 100%; /* Altezza al 100% */
+    border: none; /* Nessun bordo */
+}
+
+.youtube-video:hover {
+    transform: translateY(-5px); /* Effetto di sollevamento al passaggio del mouse */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Ombra più pronunciata */
+}
+
+.alert {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    width: 300px;
+    padding: 15px;
+    border: 1px solid #28a745;
+    background-color: #dff0d8;
+    color: #3c763d;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+}
+
+#comment-container {
+    background-color: #f8f9fa; /* Sfondo leggermente grigio */
+    padding: 20px; /* Spaziatura interna */
+    border: 1px solid #ced4da; /* Bordo sottile */
+    border-radius: 8px; /* Angoli arrotondati */
+    margin-top: 30px; /* Spaziatura superiore */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombra leggera */
+}
+
+#comment-form {
+    max-width: 600px; /* Larghezza massima del form */
+    margin: 0 auto; /* Centratura orizzontale */
+}
+
+#comment-form h2 {
+    font-weight: bold; /* Testo in grassetto */
+    margin-bottom: 1.5rem; /* Spaziatura inferiore */
+    color: #343a40; /* Testo scuro */
+}
+
+#comment-form label {
+    font-weight: bold; /* Testo in grassetto */
+    margin-bottom: 0.5rem; /* Spaziatura inferiore */
+    color: #343a40; /* Testo scuro */
+}
+
+#comment-form input[type="text"],
+#comment-form input[type="email"],
+#comment-form textarea {
+    width: calc(100% - 20px); /* Larghezza del 100% meno il padding */
+    padding: 10px; /* Spaziatura interna */
+    margin-bottom: 10px; /* Spaziatura inferiore */
+    border: 1px solid #ced4da; /* Bordo sottile */
+    border-radius: 4px; /* Angoli arrotondati */
+    transition: border-color 0.3s ease; /* Transizione animata */
+}
+
+#comment-form textarea {
+    height: 150px; /* Altezza del textarea */
+}
+
+#comment-form input[type="submit"] {
+    background-color: #007bff; /* Blu principale */
+    color: #fff; /* Testo bianco */
+    border: none; /* Nessun bordo */
+    padding: 12px 20px; /* Spaziatura interna */
+    cursor: pointer; /* Puntatore del mouse */
+    border-radius: 4px; /* Angoli arrotondati */
+    transition: background-color 0.3s ease; /* Transizione animata */
+}
+
+#comment-form input[type="submit"]:hover {
+    background-color: #0056b3; /* Blu più scuro al passaggio del mouse */
+}
+
+/* Stili per il contorno blu al passaggio del mouse */
+.image-card,
+.video-card {
+    border: 1px solid transparent; /* Bordo trasparente di default */
+    transition: border-color 0.3s ease; /* Transizione animata per il colore del bordo */
+}
+
+.image-card:hover,
+.video-card:hover {
+    border-color: #007bff; /* Colore del bordo blu al passaggio del mouse */
+}
+/* Media Query per rendere il layout responsivo */
+@media (max-width: 992px) {
+    .image-card, .video-card {
+        margin-bottom: 1rem; /* Ridurre lo spazio tra le cards */
+    }
+
+    .youtube-video {
+        margin-bottom: 1rem; /* Ridurre lo spazio tra i video */
+    }
+}
+
+@media (max-width: 768px) {
+    .youtube-video {
+        margin-bottom: 1rem; /* Ridurre ulteriormente lo spazio tra i video */
+    }
+
+    #comment-form {
+        padding: 0 15px; /* Aggiustare il padding del form */
+    }
+}
+
+@media (max-width: 576px) {
+    .image-overlay, .video-overlay {
+        font-size: 0.9rem; /* Ridurre la dimensione del testo negli overlay */
+    }
+}
+
