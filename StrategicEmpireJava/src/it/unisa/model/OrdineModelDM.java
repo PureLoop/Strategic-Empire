@@ -338,7 +338,6 @@ public Collection<OrdineBean> doRetrieveDataAdmin(Date data) throws SQLException
         String formattedDate = formatter.format(data);
         preparedStatement.setString(1, formattedDate);
 
-        System.out.println("Esecuzione query con data: " + formattedDate);
         ResultSet rs = preparedStatement.executeQuery();
 
         int rowCount = 0; // Contatore per il numero di righe
@@ -412,7 +411,7 @@ public Collection<OrdineBean> doRetrieveDataAdmin(Date data) throws SQLException
             recapStatement.close();
             ordini.add(ordine);
         }
-        System.out.println("Numero di ordini trovati: " + rowCount);
+
     } finally {
         try {
             if (preparedStatement != null)
