@@ -36,7 +36,7 @@ body {
 .fixed-payment-details {
     position: sticky;
     top: 20px; /* Altezza del tuo header, se presente */
-    right:80px
+    right:80px;
     width: 300px;
     background-color: #ffffff;
     border: 1px solid #e65100;
@@ -50,13 +50,14 @@ body {
 .popup {
     display: none;
     position: fixed;
-    top: 50%;
+    top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #ffffff;
     border: 1px solid #888;
     z-index: 9999;
-    width: 300px;
+    width: 600px;
+    height: 300px;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
@@ -115,7 +116,11 @@ body {
     background-color: #cc4b00 !important;
     border-color: #cc4b00 !important;
 }
-
+        .popup p {
+            font-size: 1.5em; /* 1.5 volte più grande */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Ombra sottile */
+            line-height: 1.5em; /* Aumenta la spaziatura per leggibilità */
+        }
 h5 {
     color: #e65100;
 }
@@ -511,10 +516,23 @@ a:hover {
 <div id="loginPopup" class="popup">
     <div class="popup-content">
         <span class="close" onclick="closePopup()">&times;</span>
-        <p>Per procedere con il checkout, devi effettuare il login.</p>
-        <a href="Login.jsp" class="btn btn-primary">Login</a>
+        <h3>Sembra che tu non sia ancora loggato nel sito!</h3>
+        <h4>Effettua il login per proseguire con gli acquisti!</h4>
+        <h4> Se non sei ancora registrato , affrettati!</h4>
+                        <a href="Login.jsp" class="btn btn-primary">Login</a>
+        
+                <a href="Register.jsp" class="btn btn-primary">Registrati</a>
     </div>
 </div>
+
+<div id="compraqualcosa" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup2()">&times;</span>
+        <p>Il tuo carrello sembra essere ancora vuoto, rimedia subito!</p>
+        <a href="catalogo.jsp" class="btn btn-primary">Vai allo store!</a>
+    </div>
+</div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.12.3/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
@@ -564,13 +582,25 @@ a:hover {
         const popup = document.getElementById('loginPopup');
         popup.style.display = 'block';
         <% } else { %>
+        	<% if (totale == 10){ %>
+            const popup = document.getElementById('compraqualcosa');
+            popup.style.display = 'block';
+
+
+        	<%}else{ %>
+        	
         const totalAmount = document.getElementById('totalAmount').innerText.replace('€', '');
         window.location.href = 'Pagamento.jsp?total=' + totalAmount;
-        <% } %>
+        <% }} %>
     }
 
     function closePopup() {
         document.getElementById('loginPopup').style.display = 'none';
+        
+    }
+    function closePopup2() {
+        document.getElementById('compraqualcosa').style.display = 'none';
+        
     }
 
     function calculateTotal() {
