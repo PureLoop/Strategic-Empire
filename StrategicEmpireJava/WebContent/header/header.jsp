@@ -21,6 +21,35 @@
  
     <title>Strategic-Empire</title>
     <style>
+    /* Stile per il link di navigazione */
+.nav-link {
+    position: relative;
+    display: inline-block;
+    color: #333; /* Colore del testo */
+    text-decoration: none; /* Rimuove la sottolineatura del link */
+    padding-bottom: 5px; /* Spaziatura inferiore */
+}
+
+/* Stile per l'effetto hover */
+.nav-link::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    display: block;
+    margin-top: 5px;
+    right: 0;
+    background: #000080; /* Colore giallo dorato */
+    transition: width 0.4s ease; /* Animazione per la larghezza */
+}
+
+/* Aumenta la larghezza quando si passa sopra il link */
+.nav-link:hover::after {
+    width: 100%;
+    left: 0;
+    background: #000080; /* Colore giallo dorato */
+}
+    
         /* Stile per l'header */
         nav.navbar {
             position: fixed; /* Posizionamento fisso */
@@ -67,13 +96,13 @@
           <a class="nav-link active" aria-current="page" href="News.jsp">News</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="Consigli.jsp">Consigli</a>
+          <a class="nav-link active" aria-current="page" href="Consigli.jsp">Consigli</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="Contatti.jsp">Contatti</a>
+          <a class="nav-link active" aria-current="page" href="Contatti.jsp">Contatti</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="ChiSiamo.jsp">Chi siamo</a>
+          <a class="nav-link active" aria-current="page" href="ChiSiamo.jsp">Chi siamo</a>
         </li>
 
             </ul>

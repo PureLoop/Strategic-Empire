@@ -248,8 +248,11 @@ public class CarrelloControl extends HttpServlet {
             }
             	else if ("addCarrello".equals(action)) {
                 if (codiceArt.startsWith("g")) {
+                	System.out.println("entra");
+                	System.out.println(codiceArt);
                     // Aggiungi Gioco
                     GiocoBean gioco = model.doRetrieveByKey(codiceArt);
+                    System.out.println(gioco);
                     boolean trovato = false;
                     for (OggettiCarrelloBean oggetto : oggettiCarrello) {
                         if (oggetto.getCod_articolo().equals(codiceArt)) {
@@ -257,6 +260,7 @@ public class CarrelloControl extends HttpServlet {
                             oggetto.setQuantita(quant + 1);
                             trovato = true;
                             if (username != null) {
+                            	System.out.println("bro ci sono");
                                 model.addGiocoToCart(gioco, username, quant + 1, true);
                             }
                             break;
@@ -265,6 +269,8 @@ public class CarrelloControl extends HttpServlet {
                     if (!trovato) {
                         if (username != null) {
                             model.addGiocoToCart(gioco, username, 1, false);
+                        	System.out.println("bro ci sono 2");
+
                         }
                         OggettiCarrelloBean oggettoCarrello = new OggettiCarrelloBean();
                         oggettoCarrello.setCod_articolo(gioco.getCod_Gioco());
@@ -275,6 +281,8 @@ public class CarrelloControl extends HttpServlet {
                         oggettiCarrello.add(oggettoCarrello);
                     }
                 } else if (codiceArt.startsWith("a")) {
+                	System.out.println("entra");
+
                     // Aggiungi Accessorio
                     AccessorioBean accessorio = model3.doRetrieveByKey(codiceArt);
                     boolean trovato = false;
@@ -284,6 +292,8 @@ public class CarrelloControl extends HttpServlet {
                             oggetto.setQuantita(quant + 1);
                             trovato = true;
                             if (username != null) {
+                            	System.out.println("entra si");
+
                                 model3.addAccessorioToCart(accessorio, username, quant + 1, true);
                             }
                             break;
