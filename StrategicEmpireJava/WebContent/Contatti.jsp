@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="Contatti.css">
 </head>
+<style> 
 <body>
     <header>
         <%@ include file="/header/header.jsp"%>
