@@ -237,7 +237,7 @@
 <script>
     // Passa l'informazione di login al client
     const loggedIn = <%= loggedIn %>;
-
+	
     // Funzione per svuotare il local storage se l'utente non è loggato
     function checkLoginAndClearLocalStorage() {
         if (!loggedIn) {
