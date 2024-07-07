@@ -13,7 +13,7 @@
 <!-- Includi Bootstrap JavaScript (opzionale, se necessario per componenti specifici) -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
     
-    <link href="Consigli.css" rel="stylesheet">
+    <link href="css/Consigli.css" rel="stylesheet">
     
     <!-- Includi jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

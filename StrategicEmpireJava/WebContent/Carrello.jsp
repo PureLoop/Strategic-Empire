@@ -8,74 +8,363 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
-        body {
-            background-color: #f8f9fa;
-        }
+body {
+    background-color: #fff1e6;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+}
 
-        .card {
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
 
-        .card img {
-            max-width: 100%;
-        }
-        
-        .custom-left-shift {
-   		margin-left: -20%; /* Adjust this value as needed */
-		}
-        
+.card img {
+    max-width: 100%;
+    border-radius: 10px;
+}
 
-        .fixed-payment-details {
-            position: fixed;
-            top: 80px;
-            right: 30px;
-            width: 300px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 15px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+.custom-left-shift {
+    margin-left: -20%;
+}
+.col-lg-8 {
+    margin-right: 30px; /* Aggiungi margine destro al contenuto principale */
+}
 
-        .popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            border: 1px solid #888;
-            z-index: 9999;
-            width: 300px;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
+.fixed-payment-details {
+    position: sticky;
+    top: 20px; /* Altezza del tuo header, se presente */
+    right:80px
+    width: 300px;
+    background-color: #ffffff;
+    border: 1px solid #e65100;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 100; /* Assicura che sia sopra gli altri contenuti */
+}
 
-        .popup-content {
-            text-align: center;
-        }
 
-        .popup-content .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    border: 1px solid #888;
+    z-index: 9999;
+    width: 300px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
 
-        .popup-content .close:hover,
-        .popup-content .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
+.popup-content {
+    text-align: center;
+}
 
-        @media (max-width: 768px) {
-            .fixed-payment-details {
-                position: static;
-                width: 100%;
-                margin-top: 20px;
-            }
-        }
+.popup-content .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.popup-content .close:hover,
+.popup-content .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.empty-cart-background {
+    background: url('logo.png') no-repeat center center;
+    background-size: cover;
+    min-height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.empty-cart-background h5 {
+    color: #e65100;
+    font-size: 24px;
+    margin-top: 20px;
+}
+
+.empty-cart-background .btn {
+    background-color: #e65100;
+    border-color: #e65100;
+}
+
+.empty-cart-background .btn:hover {
+    background-color: #cc4b00;
+    border-color: #cc4b00;
+}
+
+.btn-primary, .btn-dark {
+    background-color: #e65100 !important;
+    border-color: #e65100 !important;
+}
+
+.btn-primary:hover, .btn-dark:hover {
+    background-color: #cc4b00 !important;
+    border-color: #cc4b00 !important;
+}
+
+h5 {
+    color: #e65100;
+}
+
+a {
+    color: #e65100;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #cc4b00;
+    text-decoration: underline;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.logo-container img {
+    max-width: 150px;
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.cart-header h5 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #e65100;
+}
+
+.cart-header a {
+    color: #e65100;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.cart-header a:hover {
+    color: #cc4b00;
+}
+
+.product-details {
+    display: flex;
+    align-items: center;
+}
+
+.product-details img {
+    max-width: 65px;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+.product-info {
+    margin-left: 15px;
+}
+
+.product-info h5 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.product-info p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity-control a {
+    color: #e65100;
+    text-decoration: none;
+    font-size: 1.25rem;
+}
+
+.quantity-control a:hover {
+    color: #cc4b00;
+}
+
+.total-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+.total-details p {
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .fixed-payment-details {
+        position: static;
+        width: 100%;
+        margin-top: 20px;
+    }
+}
+
+  /* Stile arancione per i giochi nel carrello */
+.card {
+    border: 2px solid #e65100; /* Bordo arancione */
+}
+
+.card-body {
+    background-color: #fff3e0; /* Sfondo leggermente colorato */
+}
+
+.product-details h5,
+.product-details p {
+    color: #e65100; /* Testo arancione */
+}
+
+.btn-primary,
+.btn-dark {
+    background-color: #e65100 !important; /* Sfondo arancione per i bottoni */
+    border-color: #e65100 !important;
+}
+
+.btn-primary:hover,
+.btn-dark:hover {
+    background-color: #cc4b00 !important; /* Colore sfondo hover */
+    border-color: #cc4b00 !important;
+}
+
+/* Stile arancione per il riquadro di checkout */
+.fixed-payment-details {
+    background-color: #e65100; /* Sfondo arancione */
+    border: 2px solid #e65100; /* Bordo arancione */
+    border-radius: 10px; /* Bordi arrotondati */
+    padding: 15px; /* Spaziatura interna */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Ombra */
+}
+
+.fixed-payment-details h5,
+.fixed-payment-details p {
+    color: #ffffff; /* Testo bianco */
+}
+
+.fixed-payment-details .btn-dark {
+    background-color: #ffffff; /* Sfondo bianco per il pulsante di checkout */
+    color: #e65100; /* Testo arancione */
+    border-color: #ffffff; /* Bordo bianco */
+}
+
+.fixed-payment-details .btn-dark:hover {
+    background-color: #cc4b00; /* Colore sfondo hover */
+    border-color: #cc4b00;
+    color: #ffffff; /* Testo bianco */
+}
+/* Stile accattivante per il riquadro di checkout */
+.fixed-payment-details {
+    background-color: #ff6f00; /* Sfondo arancione acceso */
+    border: 2px solid #ff6f00; /* Bordo arancione */
+    border-radius: 10px; /* Bordi arrotondati */
+    padding: 15px; /* Spaziatura interna */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Ombra */
+    color: #ffffff; /* Testo bianco */
+}
+
+.fixed-payment-details h5,
+.fixed-payment-details p {
+    color: #ffffff; /* Testo bianco */
+}
+
+.fixed-payment-details .btn-dark {
+    background-color: #ffffff; /* Sfondo bianco per il pulsante di checkout */
+    color: #ff6f00; /* Testo arancione */
+    border-color: #ffffff; /* Bordo bianco */
+}
+
+.fixed-payment-details .btn-dark:hover {
+    background-color: #ff8f00; /* Colore sfondo hover */
+    border-color: #ff8f00;
+    color: #ffffff; /* Testo bianco */
+}
+
+/* Stile accattivante per il riquadro di checkout */
+.fixed-payment-details {
+    background-color: #ffffff; /* Sfondo bianco */
+    border: 2px solid #ff6f00; /* Bordo arancione */
+    border-radius: 10px; /* Bordi arrotondati */
+    padding: 15px; /* Spaziatura interna */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Ombra */
+    color: #333; /* Testo scuro */
+}
+
+.fixed-payment-details h5,
+.fixed-payment-details p {
+    color: #333; /* Testo scuro */
+}
+
+.fixed-payment-details .btn-dark {
+    background-color: #ff6f00; /* Sfondo arancione per il pulsante di checkout */
+    color: #ffffff; /* Testo bianco */
+    border-color: #ff6f00; /* Bordo arancione */
+}
+
+.fixed-payment-details .btn-dark:hover {
+    background-color: #ff8f00; /* Colore sfondo hover più chiaro */
+    border-color: #ff8f00;
+}
+
+/* Stile accattivante per i giochi nel carrello */
+.card {
+    border: 2px solid #ff6f00; /* Bordo arancione */
+    border-radius: 10px; /* Bordi arrotondati */
+    margin-bottom: 20px; /* Spaziatura inferiore */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Leggera ombra */
+    transition: transform 0.3s ease-in-out; /* Animazione trasformazione */
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Effetto di sollevamento al passaggio del mouse */
+}
+
+.card-body {
+    background-color: #ffffff; /* Sfondo bianco per il corpo della card */
+}
+
+.product-details h5,
+.product-details p {
+    color: #ff6f00; /* Testo arancione */
+}
+ 
+.btn-primary,
+.btn-dark {
+    background-color: #ff6f00 !important; /* Sfondo arancione per i bottoni */
+    border-color: #ff6f00 !important;
+}
+
+.btn-primary:hover,
+.btn-dark:hover {
+    background-color: #ff8f00 !important; /* Colore sfondo hover più chiaro */
+    border-color: #ff8f00 !important;
+}
+
+
     </style>
 </head>
 <body>
@@ -162,6 +451,10 @@
             <div class="text-center">
                 <h5>Nessun articolo aggiunto al carrello</h5>
                 <a href="HomePage.jsp" class="btn btn-primary mt-3">Continua lo shopping</a>
+             </h5>
+                 <div class="logo-container">
+                 <img src="logo.png" alt="Logo">
+                 </div>   
             </div>
             <% } %>
         </div>

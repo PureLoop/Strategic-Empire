@@ -9,7 +9,7 @@ body {
     line-height: 1.6;
     color: #333;
     background-color: #fff; /* Colore di sfondo di fallback */
-    background-image: url('css/SfondoContatti.webp'); /* Percorso corretto all'immagine di sfondo */
+    background-image: url('SfondoContatti.webp'); /* Percorso corretto all'immagine di sfondo */
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
