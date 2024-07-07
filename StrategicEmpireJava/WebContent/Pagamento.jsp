@@ -11,232 +11,241 @@
     <%@ include file="header/header.jsp" %>
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
 
-        .cont {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            max-width: 700px;
-            background: white;
-            padding: 20px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 70vh;
-        }
+body {
+    background-color: #f8f9fa;
+}
 
-        .cont form {
-            width: 100%;
-            padding: 20px;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+.cont {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-height: 70vh;
+}
 
-        form .row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
+.cont form {
+    width: 100%;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+}
 
-        .row .column {
-            flex: 1 1 250px;
-        }
+form .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
 
-        .column .title {
-            font-size: 20px;
-            color: #333;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-        }
+.column {
+    flex: 1;
+    min-width: 200px; /* Ensure columns do not shrink below a certain width */
+}
 
-        .column .input-box {
-            margin: 15px 0;
-        }
+.column .title {
+    font-size: 20px;
+    color: #333;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
 
-        .input-box span {
-            display: block;
-            margin-bottom: 10px;
-        }
+.column .input-box {
+    margin: 15px 0;
+}
 
-        .input-box input {
-            width: 100%;
-            padding: 10px 15px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 15px;
-        }
+.input-box span {
+    display: block;
+    margin-bottom: 10px;
+}
 
-        .column .flex {
-            display: flex;
-            gap: 15px;
-        }
+.input-box input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+}
 
-        .flex .input-box {
-            margin-top: 5px;
-        }
+.column .flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
 
-        .input-box img {
-            height: 34px;
-            margin-top: 10px;
-            filter: drop-shadow(0 0 1px #000);
-        }
+.flex .input-box {
+    margin-top: 5px;
+    flex: 1 1 48%; /* Allow two items per row with some gap */
+}
 
-        form .btn2 {
-            width: 100%;
-            padding: 12px;
-            background: #8175d3;
-            border: none;
-            outline: none;
-            border-radius: 6px;
-            font-size: 17px;
-            color: #fff;
-            margin-top: 5px;
-            cursor: pointer;
-            transition: .5s;
-        }
+.input-box img {
+    height: 34px;
+    margin-top: 10px;
+    filter: drop-shadow(0 0 1px #000);
+}
 
-        form .btn2:hover {
-            background: #6a5acd;
-        }
+form .btn2 {
+    width: 100%;
+    padding: 12px;
+    background: #8175d3;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    font-size: 17px;
+    color: #fff;
+    margin-top: 5px;
+    cursor: pointer;
+    transition: .5s;
+}
 
-        body {
-            background-color: #f8f9fa;
-        }
+form .btn2:hover {
+    background: #6a5acd;
+}
 
-        .input-box input.valid {
-            border-color: #4caf50;
-        }
+.input-box input.valid {
+    border-color: #4caf50;
+}
 
-        .input-box input.invalid {
-            border-color: #f44336;
-        }
+.input-box input.invalid {
+    border-color: #f44336;
+}
 
-        .fixed-payment-details {
-            position: sticky;
-            top: 20px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 15px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+.fixed-payment-details {
+    position: sticky;
+    top: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-        .form-control:focus {
-            box-shadow: none;
-            border-color: #4ca1af;
-        }
+.form-control:focus {
+    box-shadow: none;
+    border-color: #4ca1af;
+}
 
-        .btn-primary {
-            background-color: #4ca1af;
-            border-color: #4ca1af;
-        }
+.btn-primary {
+    background-color: #4ca1af;
+    border-color: #4ca1af;
+}
 
-        .btn-primary:hover {
-            background-color: #357e85;
-            border-color: #357e85;
-        }
+.btn-primary:hover {
+    background-color: #357e85;
+    border-color: #357e85;
+}
 
-        .popup {
-            display: none;
-            position: fixed;
-            z-index: 999;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            overflow: auto;
-            animation: fadeIn 0.5s ease-in-out;
-        }
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+    animation: fadeIn 0.5s ease-in-out;
+}
 
-        .popup-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 400px;
-            border-radius: 10px;
-            position: relative;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            animation: zoomIn 0.5s ease-in-out;
-        }
+.popup-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 10px;
+    position: relative;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: zoomIn 0.5s ease-in-out;
+}
 
-        .popup-content h3 {
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
+.popup-content h3 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
 
-        .close-popup {
-            color: #aaa;
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 24px;
-            cursor: pointer;
-        }
+.close-popup {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
 
-        .close-popup:hover,
-        .close-popup:focus {
-            color: black;
-            text-decoration: none;
-        }
+.close-popup:hover,
+.close-popup:focus {
+    color: black;
+    text-decoration: none;
+}
 
-        .btn-see-cards {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-        
-        .checkmark-wrapper {
-            margin: 20px auto;
-            width: 100px;
-            height: 100px;
-        }
+.btn-see-cards {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
 
-        .checkmark {
-            width: 100%;
-            height: 100%;
-            transform: rotate(45deg);
-        }
+.checkmark-wrapper {
+    margin: 20px auto;
+    width: 100px;
+    height: 100px;
+}
 
-        .checkmark-circle {
-            stroke: #4CAF50;
-            stroke-width: 2;
-            fill: none;
-        }
+.checkmark {
+    width: 100%;
+    height: 100%;
+    transform: rotate(45deg);
+}
 
-        .checkmark-check {
-            stroke: #4CAF50;
-            stroke-width: 4;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
+.checkmark-circle {
+    stroke: #4CAF50;
+    stroke-width: 2;
+    fill: none;
+}
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+.checkmark-check {
+    stroke: #4CAF50;
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
 
-        @keyframes zoomIn {
-            from { transform: scale(0.7); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+    .column .flex .input-box {
+        flex: 1 1 100%; /* Stacks fields vertically on small screens */
+    }
+
+    .column {
+        flex: 1 1 100%;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -288,6 +297,8 @@ List<OggettiCarrelloBean> carrellobean = (List<OggettiCarrelloBean>) request.get
                 <div class="input-box">
                     <span>Carte accettate:</span>
                     <img src="imgcards.png" alt="Immagine della carta">
+                            <button type="button" class="btn btn-primary mb-3 btn-see-cards" onclick="openCardPopup()">Vedi le tue carte</button>
+                    
                 </div>
                 <div class="input-box">
                     <span>Nome sulla carta:</span>
@@ -299,16 +310,12 @@ List<OggettiCarrelloBean> carrellobean = (List<OggettiCarrelloBean>) request.get
                 </div>
                 <div class="input-box">
                     <span>Mese di scadenza:</span>
-                    <input type="text" id="cardExpiryMonth" placeholder="Mese di scadenza">
+                    <input type="date" id="cardExpiryMonth" placeholder="Mese di scadenza">
                 </div>
                 <div class="flex">
                     <div class="input-box">
-                        <span>Anno Scadenza:</span>
-                        <input type="text" id="cardExpiryYear" placeholder="Anno di scadenza">
-                    </div>
-                    <div class="input-box">
                         <span>CVV:</span>
-                        <input type="text" id="cardCVV" placeholder="CVV" maxlength="3">
+                        <input type="text" id="cardCvv" placeholder="CVV" maxlength="3">
                     </div>
                 </div>
             </div>
@@ -324,7 +331,6 @@ List<OggettiCarrelloBean> carrellobean = (List<OggettiCarrelloBean>) request.get
         </div>
         
         <!-- Aggiunta del pulsante "Vedi le tue carte" -->
-        <button type="button" class="btn btn-primary mb-3 btn-see-cards" onclick="openCardPopup()">Vedi le tue carte</button>
         
     </form>
 </div>
@@ -469,11 +475,13 @@ List<OggettiCarrelloBean> carrellobean = (List<OggettiCarrelloBean>) request.get
         var cardNumber = localStorage.getItem('selectedCardNumber');
         var cardName = localStorage.getItem('selectedCardName');
         var cardExpiry = localStorage.getItem('selectedCardExpiry');
+        var cardCvv = localStorage.getItem('selectedCardCvv');
 
         if (cardNumber && cardName && cardExpiry) {
             var expiryParts = cardExpiry.split('/');
             document.getElementById('cardNumber').value = cardNumber;
             document.getElementById('cardName').value = cardName;
+            document.getElementById('cardCvv').value = cardCvv;
             document.getElementById('cardExpiryMonth').value = expiryParts[0] || '';
             document.getElementById('cardExpiryYear').value = expiryParts[1] || '';
             // Assumendo che il CVV non è salvato nel localStorage; se necessario, può essere aggiunto

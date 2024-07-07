@@ -21,11 +21,13 @@ CartaBean CartaEdit = new CartaBean();
     <% if (carte != null && !carte.isEmpty()) { 
         int counter = 1; // Inizializzazione del contatore
         for (CartaBean bean : carte) { %>
-            <div class="credit-card mb-4" onclick="selectCard('<%= bean.getNumero() %>', '<%= bean.getNome() %>', '<%= bean.getScadenza() %>')">
+            <div class="credit-card mb-4" onclick="selectCard('<%= bean.getNumero() %>', '<%= bean.getNome() %>', '<%= bean.getScadenza() %>', '<%= bean.getCvv() %>')">
                 <div class="card-chip"></div>
                 <div class="card-number"><%= bean.getNumero() %></div>
                 <div class="card-name"><%= bean.getNome() %></div>
                 <div class="card-expiry">Valid Thru: <%= bean.getScadenza() %></div>
+                <div class="cvv"><%= bean.getCvv() %></div>
+                
                 <div class="card-counter">Carta <%= counter %></div> <!-- Numerazione della carta -->
             </div>
             <% counter++; // Incremento del contatore dopo ogni carta %>
@@ -36,17 +38,21 @@ CartaBean CartaEdit = new CartaBean();
 </div>
 
 <script type="text/javascript">
-    function selectCard(cardNumber, cardName, cardExpiry) {
+    function selectCard(cardNumber, cardName, cardExpiry, cvv) {
         // Salva i dettagli della carta in localStorage
         localStorage.setItem('selectedCardNumber', cardNumber);
         localStorage.setItem('selectedCardName', cardName);
         localStorage.setItem('selectedCardExpiry', cardExpiry);
+        localStorage.setItem('selectedCardCvv',cvv);
                 // Reindirizza alla pagina pagamento.jsp
         window.location.href = 'Pagamento.jsp';
     }
 </script>
 
 <style>
+.cvv {
+    display: none; /* Nasconde completamente l'elemento */
+}
     /* Stili per la carta */
     .credit-card {
         position: relative;
