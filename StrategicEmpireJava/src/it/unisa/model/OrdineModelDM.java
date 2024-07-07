@@ -1,5 +1,10 @@
 package it.unisa.model;
+import java.sql.Date;
 
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Collection;
+import it.unisa.bean.CartaBean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -203,4 +208,221 @@ public class OrdineModelDM implements OrdineModel{
         return ordine;
     }
 	
+	@Override
+	public Collection<OrdineBean> doRetrieveNomeAdmin(String username) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    Collection<OrdineBean> ordini = new LinkedList<>();
+
+	    String selectSQL = "SELECT * FROM ordine where cod_utente = ?";
+	    String selectSQLManager = "SELECT * FROM ordine";
+	    String selectRecapItems = "SELECT * FROM recap WHERE num_ordine = ?";
+	    String selectImageAccSQL = "SELECT img_name FROM img_acc WHERE cod_acc = ? AND copertina = 1";
+	    String selectImageGioSQL = "SELECT img_name FROM img_gioco WHERE cod_gioco = ? AND copertina = 1";
+	    String selectImageEspSQL = "SELECT img_name FROM img_esp WHERE cod_esp = ? AND copertina = 1";
+
+	    try {
+	        connection = DriverManagerConnectionPool.getConnection();
+	        
+	        // Step 1: Retrieve the role of the user
+	        
+	            preparedStatement = connection.prepareStatement(selectSQL);
+	            preparedStatement.setString(1, username);
+
+	        ResultSet rs = preparedStatement.executeQuery();
+
+	        while (rs.next()) {
+	            OrdineBean ordine = new OrdineBean();
+	            ordine.setCarta(rs.getString("carta"));
+	            ordine.setCodiceUtente(rs.getString("cod_utente"));
+	            ordine.setCodOrdine(rs.getInt("cod_ordine"));
+	            ordine.setCodSconto(rs.getString("cod_sconto"));
+	            java.sql.Date sqlDate = rs.getDate("data");
+	            String dateString = sqlDate.toString();
+	            ordine.setData(dateString);
+
+	            // Ora recuperiamo gli elementi di recap per questo ordine
+	            PreparedStatement recapStatement = connection.prepareStatement(selectRecapItems);
+	            recapStatement.setInt(1, ordine.getCodOrdine());
+	            ResultSet recapResultSet = recapStatement.executeQuery();
+
+	            Collection<OggettiCarrelloBean> recapItems = new LinkedList<>();
+	            while (recapResultSet.next()) {
+	                OggettiCarrelloBean recapItem = new OggettiCarrelloBean();
+	                recapItem.setPrezzo(recapResultSet.getDouble("prezzo"));
+	                recapItem.setQuantita(recapResultSet.getInt("quantita"));
+	                String codArticoloGio = recapResultSet.getString("acq_gio");
+	                String codArticoloAcc = recapResultSet.getString("acq_acc");
+	                String codArticoloEsp = recapResultSet.getString("acq_esp");
+
+	                String imgName = null;
+	                PreparedStatement imageStatement = null;
+
+	                if (codArticoloGio != null) {
+	                    recapItem.setCod_articolo(codArticoloGio);
+	                    imageStatement = connection.prepareStatement(selectImageGioSQL);
+	                    imageStatement.setString(1, codArticoloGio);
+	                    ResultSet imgResultSet = imageStatement.executeQuery();
+	                    if (imgResultSet.next()) {
+	                        imgName = imgResultSet.getString("img_name");
+	                    }
+	                    recapItem.setImmagineCopertina(imgName);
+	                    imgResultSet.close();
+	                } else if (codArticoloAcc != null) {
+	                    recapItem.setCod_articolo(codArticoloAcc);
+	                    imageStatement = connection.prepareStatement(selectImageAccSQL);
+	                    imageStatement.setString(1, codArticoloAcc);
+	                    ResultSet imgResultSet = imageStatement.executeQuery();
+	                    if (imgResultSet.next()) {
+	                        imgName = imgResultSet.getString("img_name");
+	                    }
+	                    recapItem.setImmagineCopertina(imgName);
+	                    imgResultSet.close();
+	                } else if (codArticoloEsp != null) {
+	                    recapItem.setCod_articolo(codArticoloEsp);
+	                    imageStatement = connection.prepareStatement(selectImageEspSQL);
+	                    imageStatement.setString(1, codArticoloEsp);
+	                    ResultSet imgResultSet = imageStatement.executeQuery();
+	                    if (imgResultSet.next()) {
+	                        imgName = imgResultSet.getString("img_name");
+	                    }
+	                    recapItem.setImmagineCopertina(imgName);
+	                    imgResultSet.close();
+	                }
+
+	                if (imageStatement != null) {
+	                    imageStatement.close();
+	                }
+
+	                recapItems.add(recapItem);
+	            }
+	            ordine.setListItems(recapItems);
+
+	            recapStatement.close();
+
+	            ordini.add(ordine);
+	        }
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            DriverManagerConnectionPool.releaseConnection(connection);
+	        }
+	    }
+	    return ordini;
+	}
+	
+
+
+
+@Override
+public Collection<OrdineBean> doRetrieveDataAdmin(Date data) throws SQLException {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    Collection<OrdineBean> ordini = new LinkedList<>();
+
+    // Usa DATE_FORMAT per il confronto della data
+    String selectSQL = "SELECT * FROM ordine WHERE DATE_FORMAT(data, '%Y-%m-%d') = ?";
+    String selectRecapItems = "SELECT * FROM recap WHERE num_ordine = ?";
+    String selectImageAccSQL = "SELECT img_name FROM img_acc WHERE cod_acc = ? AND copertina = 1";
+    String selectImageGioSQL = "SELECT img_name FROM img_gioco WHERE cod_gioco = ? AND copertina = 1";
+    String selectImageEspSQL = "SELECT img_name FROM img_esp WHERE cod_esp = ? AND copertina = 1";
+
+    try {
+        connection = DriverManagerConnectionPool.getConnection();
+        preparedStatement = connection.prepareStatement(selectSQL);
+
+        // Converti la data a stringa
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = formatter.format(data);
+        preparedStatement.setString(1, formattedDate);
+
+        System.out.println("Esecuzione query con data: " + formattedDate);
+        ResultSet rs = preparedStatement.executeQuery();
+
+        int rowCount = 0; // Contatore per il numero di righe
+        while (rs.next()) {
+            rowCount++;
+            OrdineBean ordine = new OrdineBean();
+            ordine.setCarta(rs.getString("carta"));
+            ordine.setCodiceUtente(rs.getString("cod_utente"));
+            ordine.setCodOrdine(rs.getInt("cod_ordine"));
+            ordine.setCodSconto(rs.getString("cod_sconto"));
+            java.sql.Date sqlDate = rs.getDate("data");
+            ordine.setData(sqlDate.toString());
+
+            // Recuperiamo gli elementi di recap per questo ordine
+            PreparedStatement recapStatement = connection.prepareStatement(selectRecapItems);
+            recapStatement.setInt(1, ordine.getCodOrdine());
+            ResultSet recapResultSet = recapStatement.executeQuery();
+
+            Collection<OggettiCarrelloBean> recapItems = new LinkedList<>();
+            while (recapResultSet.next()) {
+                OggettiCarrelloBean recapItem = new OggettiCarrelloBean();
+                recapItem.setPrezzo(recapResultSet.getDouble("prezzo"));
+                recapItem.setQuantita(recapResultSet.getInt("quantita"));
+                String codArticoloGio = recapResultSet.getString("acq_gio");
+                String codArticoloAcc = recapResultSet.getString("acq_acc");
+                String codArticoloEsp = recapResultSet.getString("acq_esp");
+
+                String imgName = null;
+                PreparedStatement imageStatement = null;
+
+                if (codArticoloGio != null) {
+                    recapItem.setCod_articolo(codArticoloGio);
+                    imageStatement = connection.prepareStatement(selectImageGioSQL);
+                    imageStatement.setString(1, codArticoloGio);
+                    ResultSet imgResultSet = imageStatement.executeQuery();
+                    if (imgResultSet.next()) {
+                        imgName = imgResultSet.getString("img_name");
+                    }
+                    recapItem.setImmagineCopertina(imgName);
+                    imgResultSet.close();
+                } else if (codArticoloAcc != null) {
+                    recapItem.setCod_articolo(codArticoloAcc);
+                    imageStatement = connection.prepareStatement(selectImageAccSQL);
+                    imageStatement.setString(1, codArticoloAcc);
+                    ResultSet imgResultSet = imageStatement.executeQuery();
+                    if (imgResultSet.next()) {
+                        imgName = imgResultSet.getString("img_name");
+                    }
+                    recapItem.setImmagineCopertina(imgName);
+                    imgResultSet.close();
+                } else if (codArticoloEsp != null) {
+                    recapItem.setCod_articolo(codArticoloEsp);
+                    imageStatement = connection.prepareStatement(selectImageEspSQL);
+                    imageStatement.setString(1, codArticoloEsp);
+                    ResultSet imgResultSet = imageStatement.executeQuery();
+                    if (imgResultSet.next()) {
+                        imgName = imgResultSet.getString("img_name");
+                    }
+                    recapItem.setImmagineCopertina(imgName);
+                    imgResultSet.close();
+                }
+
+                if (imageStatement != null) {
+                    imageStatement.close();
+                }
+
+                recapItems.add(recapItem);
+            }
+            ordine.setListItems(recapItems);
+
+            recapStatement.close();
+            ordini.add(ordine);
+        }
+        System.out.println("Numero di ordini trovati: " + rowCount);
+    } finally {
+        try {
+            if (preparedStatement != null)
+                preparedStatement.close();
+        } finally {
+            DriverManagerConnectionPool.releaseConnection(connection);
+        }
+    }
+    return ordini;
+}
+
+
 }

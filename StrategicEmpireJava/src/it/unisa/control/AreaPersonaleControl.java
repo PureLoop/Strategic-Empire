@@ -42,6 +42,9 @@ import it.unisa.model.CartaModel;
 import it.unisa.model.EspansioneModel;
 import it.unisa.model.GiocoModel;
 import it.unisa.model.UserModel;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 
 /**
  * Servlet implementation class AreaPersonaleControl
@@ -590,6 +593,7 @@ else if (action != null && action.equalsIgnoreCase("ShowEspansione")) {
                 // Supponiamo che modelUser abbia un metodo per aggiornare il ruolo
                 Collection<OrdineBean> bean = modelOrdine.doRetrieveAll(username);
                 request.setAttribute("bean", bean);
+                System.out.println(bean.size());
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/showOrdini.jsp");
                 dispatcher.forward(request, response);
                 response.setStatus(HttpServletResponse.SC_OK);
@@ -598,6 +602,82 @@ else if (action != null && action.equalsIgnoreCase("ShowEspansione")) {
                 e.printStackTrace();
             }
     	}
+    	if(action != null && action.equals("showOrdini2")) {
+    		String username = request.getParameter("username");
+    		try {
+                // Supponiamo che modelUser abbia un metodo per aggiornare il ruolo
+                Collection<OrdineBean> bean = modelOrdine.doRetrieveAll(username);
+                request.setAttribute("bean2", bean);
+                System.out.println(bean.size());
+
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/showOrdini2.jsp");
+                dispatcher.forward(request, response);
+                response.setStatus(HttpServletResponse.SC_OK);
+                
+
+                
+            } catch (SQLException e) {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                e.printStackTrace();
+            }
+    	}
+    	if(action != null && action.equals("showOrdiniNome")) {
+    		String username = request.getParameter("username");
+    		
+    		System.out.println(username);
+    		try {
+                // Supponiamo che modelUser abbia un metodo per aggiornare il ruolo
+                Collection<OrdineBean> bean = modelOrdine.doRetrieveNomeAdmin(username);
+                request.setAttribute("bean2", bean);
+                System.out.println(bean.size());
+
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/showOrdini2.jsp");
+                dispatcher.forward(request, response);
+                response.setStatus(HttpServletResponse.SC_OK);
+                
+
+                
+            } catch (SQLException e) {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                e.printStackTrace();
+            }
+    	}
+    	if (action != null && action.equals("showOrdiniData")) {
+    	    String dataOrdineString = request.getParameter("dataOrdine");
+    	    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+    	    try {
+    	        // Parsing della stringa della data in java.util.Date
+    	        java.util.Date utilDate = formatter.parse(dataOrdineString);
+    	        
+    	        // Conversione da java.util.Date a java.sql.Date
+    	        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+
+    	        System.out.println("Data ricevuta: " + dataOrdineString);
+    	        System.out.println("Data convertita a java.sql.Date: " + sqlDate);
+
+    	        // Recupera gli ordini utilizzando la data
+    	        Collection<OrdineBean> bean = modelOrdine.doRetrieveDataAdmin(sqlDate);
+    	        request.setAttribute("bean2", bean);
+    	        System.out.println("Numero di ordini trovati: " + bean.size());
+
+    	        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/showOrdini2.jsp");
+    	        dispatcher.forward(request, response);
+    	        response.setStatus(HttpServletResponse.SC_OK);
+
+    	    } catch (ParseException e) {
+    	        // Gestisci l'errore di parsing della data
+    	        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+    	        e.printStackTrace();
+    	    } catch (SQLException e) {
+    	        // Gestisci l'errore SQL
+    	        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    	        e.printStackTrace();
+    	    }
+    	}
+
+
+
     	if (action != null && action.equals("scaricaFattura")) {
     	    String codiceOrdineStr = request.getParameter("codOrdine");    	    
     	   
