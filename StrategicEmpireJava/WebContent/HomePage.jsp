@@ -111,6 +111,76 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5); /* Opacità e colore dell'overlay */
 }
+       /* Wow box styles */
+        .wow-section {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 50px;
+        }
+
+.wow-box {
+    position: relative;
+    width: 30%;
+    height: 300px; /* Esempio di altezza fissa */
+    border: 2px solid #4CAF50;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.wow-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.wow-box:hover img {
+    transform: scale(1.02); /* Ridotto il fattore di scala */
+}
+
+.wow-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.wow-box h2 {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.wow-box:hover h2 {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+        /* Stili per i link "Scopri di più" */
+a.btn-primary {
+    background-color: #4caf50;
+    border-color: #4caf50;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none; /* Rimuove il sottolineato di default */
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+a.btn-primary:hover {
+    background-color: #45a049;
+    border-color: #45a049;
+    color: #fff;
+}
+
+a.btn-primary:focus,a.btn-primary:active {
+    background-color: #3f9142;
+    border-color: #3f9142;
+    color: #fff;
+}
 </style>
 
     <!-- Custom styles for this template -->
@@ -134,7 +204,7 @@
               <div class="carousel-caption text-start">
                 <h1>Scopri nuovi mondi e storie fantastiche</h1>
                 <p class="opacity-75">Esplora il nostro catalogo di giochi di ruolo. Immergiti in mondi e storie fantasy che metteranno a dura prova le tue capacit&agrave da player.</p>
-                <p><a class="btn btn-lg btn-primary" href="GiocoView.jsp">Scopri</a></p>
+                <p><a class="btn btn-lg btn-primary" href="catalogo.jsp">Scopri</a></p>
               </div>
             </div>
           </div>
@@ -144,7 +214,7 @@
               <div class="carousel-caption">
                 <h1>Riscopri la bellezza di giocare in compagnia</h1>
                 <p>Divertiti insieme ai tuoi amici con i pi&ugrave variegati party games e giochi di carte.</p>
-                <p><a class="btn btn-lg btn-primary" href="GiocoView.jsp">Scopri</a></p>
+                <p><a class="btn btn-lg btn-primary" href="catalogo.jsp">Scopri</a></p>
               </div>
             </div>
           </div>
@@ -154,7 +224,7 @@
               <div class="carousel-caption text-end">
                 <h1>Strategia e molto ingegno</h1>
                 <p>Consulta il nostro catalogo di giochi strategici e gestionali, gestisci le tue risorse, sviluppa le pi&ugrave ingegnose strategie per schiacciare i tuoi avversari.</p>
-                <p><a class="btn btn-lg btn-primary" href="GiocoView.jsp">Scopri</a></p>
+                <p><a class="btn btn-lg btn-primary" href="catalogo.jsp">Scopri</a></p>
               </div>
             </div>
           </div>
@@ -169,7 +239,26 @@
         </button>
       </div>
 
+        <!-- Wow Box Section -->
+        <div class="wow-section">
+            <div class="wow-box">
+                <img src="IMMAGINI/IMMAGINI_HOME/homeim1.jpg" alt="Immagine Wow Box 1">
+                <h2><a class="btn btn-primary" href="catalogo.jsp">Giochi</a></h2>
+            </div>
+            <div class="wow-box">
+                <img src="IMMAGINI/IMMAGINI_HOME/homeim2.jpg" alt="Immagine Wow Box 2">
+                <h2><a class="btn btn-primary" href="catalogo.jsp">Accessori</a></h2>
+            </div>
+            <div class="wow-box">
+                <img src="IMMAGINI/IMMAGINI_HOME/homeim3.jpg" alt="Immagine Wow Box 3">
+                <h2><a class="btn btn-primary" href="catalogo.jsp">Espansioni</a></h2>
+            </div>
+        </div>
+
+
       <!-- START THE FEATURETTES -->
+      
+      
       <hr class="featurette-divider">
 
       <div class="row featurette">
