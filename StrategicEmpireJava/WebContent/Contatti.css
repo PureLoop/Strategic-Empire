@@ -9,7 +9,7 @@ body {
     line-height: 1.6;
     color: #333;
     background-color: #fff; /* Colore di sfondo di fallback */
-    background-image: url('SfondoContatti.webp'); /* Percorso corretto all'immagine di sfondo */
+    background-image: url('css/SfondoContatti.png'); /* Percorso corretto all'immagine di sfondo */
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -84,7 +84,7 @@ button.btn-form, button.btn-header {
 }
 
 button.btn-form {
-    background: linear-gradient(to right, #FF5733, #E64A19);
+    background: linear-gradient(to right, rgb(71, 99, 142), #E64A19);
 }
 
 button.btn-header {
@@ -94,6 +94,17 @@ button.btn-header {
 button.btn-form:hover, button.btn-header:hover {
     transform: scale(1.05);
 }
+button.btn-header {
+    background: linear-gradient(to right, #007BFF, #0056b3);
+    padding: 10px 20px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 
 /* Stili per i modi alternativi di contatto */
 #additional-contact p {
