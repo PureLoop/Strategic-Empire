@@ -1,4 +1,4 @@
-<!doctype html>
++<!doctype html>
 <html lang="en" data-bs-theme="auto">
   <head>
     <script src="../assets/js/color-modes.js"></script>
@@ -12,7 +12,6 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/carousel/">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
     <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
-    
 
     <style>
       .bd-placeholder-img {
@@ -112,206 +111,76 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5); /* Opacità e colore dell'overlay */
 }
- /* Stili globali */
-        body {
-            background:#fff;
-            color: #333;
-        }
-
-        header {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 10px 0;
-        }
-
-        .navbar {
-            margin-bottom: 0;
-        }
-
-        .logo {
-            font-size: 2em;
-            font-weight: bold;
-            color: #fff;
-        }
-
-        .featurette-heading {
-            color: #fff;
-        }
-
-        .lead {
-            color: #dcdcdc;
-        }
-
-        /* Stili per i riquadri "wow" */
+       /* Wow box styles */
         .wow-section {
             display: flex;
             justify-content: space-around;
             margin-top: 50px;
         }
 
-        .wow-box {
-            position: relative;
-            width: 30%;
-            height: 250px;
-            background-color: rgba(206, 234, 251, 0.7); /* Sfondo celestino */
-        border: 2px solid #4CAF50; /* Bordo verde */
-            border-radius: 15px;
-            overflow: hidden;
-            transition: transform 0.3s;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .wow-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s;
-        }
-
-        .wow-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .wow-box:hover img {
-            transform: scale(1.05);
-        }
-
-        .wow-box h2 {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            color: #fff;
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .wow-box:hover h2 {
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-
-        .wow-box a {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: block;
-            z-index: 1;
-        }
-        /* Stili per la sezione spedizione e assistenza */
-        .shipping-section {
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 50px 0;
-            text-align: center;
-            margin-top: 50px;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .shipping-section h2 {
-            color: #fff;
-            margin-bottom: 30px;
-            font-weight: bold;
-        }
-
-        .shipping-section p {
-            color: #dcdcdc;
-            font-size: 1.1em;
-            line-height: 1.6;
-        }
-
-        .shipping-section .featurette-image {
-            width: 80%;
-            max-width: 500px;
-            margin-top: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-         /* Stili per la sezione "dove trovarci" */
-        .location-section {
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 50px 0;
-            text-align: center;
-            margin-top: 50px;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .location-section h2 {
-            color: #333;
-            margin-bottom: 30px;
-            font-weight: bold;
-        }
-
-        .location-section p {
-            color: #666;
-            font-size: 1.1em;
-            line-height: 1.6;
-        }
-
-        .location-section .featurette-image {
-            width: 80%;
-            max-width: 500px;
-            margin-top: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        /* Stili per il divider */
-      .featurette-divider {
-        margin: 80px 0;
-        border-top: 1px solid #ddd;
-      }
-
-      /* Stili per il button */
-      .btn-primary {
-        background-color: #4CAF50;
-        border-color: #4CAF50;
-      }
-
-      .btn-primary:hover {
-        background-color: #45a049;
-        border-color: #45a049;
-      }
-      /* Stili per le cards delle sezioni */
-.assistance-card,
-.location-card,
-.shipping-card {
-  background-color: rgba(206, 234, 251, 0.7);
-  border: 2px solid #4CAF50;
-  padding: 20px;
-  margin-bottom: 20px;
-  transition: transform 0.3s ease;
+.wow-box {
+    position: relative;
+    width: 30%;
+    height: 300px; /* Esempio di altezza fissa */
+    border: 2px solid #4CAF50;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.assistance-card:hover,
-.location-card:hover,
-.shipping-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.wow-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
 }
 
-/* Stili per il testo e titoli delle cards */
-.card-title {
-  font-size: 1.5em;
-  font-weight: bold;
-  color: #333;
+.wow-box:hover img {
+    transform: scale(1.02); /* Ridotto il fattore di scala */
 }
 
-.card-text {
-  color: #666;
+.wow-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Stili per le immagini nelle cards */
-.featurette-image {
-  max-width: 100%;
-  height: auto;
-  border-radius: 5px;
+.wow-box h2 {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
-      
-      
 
+.wow-box:hover h2 {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+        /* Stili per i link "Scopri di più" */
+a.btn-primary {
+    background-color: #4caf50;
+    border-color: #4caf50;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none; /* Rimuove il sottolineato di default */
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+a.btn-primary:hover {
+    background-color: #45a049;
+    border-color: #45a049;
+    color: #fff;
+}
+
+a.btn-primary:focus,a.btn-primary:active {
+    background-color: #3f9142;
+    border-color: #3f9142;
+    color: #fff;
+}
 </style>
 
     <!-- Custom styles for this template -->
@@ -335,7 +204,7 @@
               <div class="carousel-caption text-start">
                 <h1>Scopri nuovi mondi e storie fantastiche</h1>
                 <p class="opacity-75">Esplora il nostro catalogo di giochi di ruolo. Immergiti in mondi e storie fantasy che metteranno a dura prova le tue capacit&agrave da player.</p>
-                <p><a class="btn btn-lg btn-primary" href="GiocoView.jsp">Scopri</a></p>
+                <p><a class="btn btn-lg btn-primary" href="catalogo.jsp">Scopri</a></p>
               </div>
             </div>
           </div>
@@ -345,7 +214,7 @@
               <div class="carousel-caption">
                 <h1>Riscopri la bellezza di giocare in compagnia</h1>
                 <p>Divertiti insieme ai tuoi amici con i pi&ugrave variegati party games e giochi di carte.</p>
-                <p><a class="btn btn-lg btn-primary" href="GiocoView.jsp">Scopri</a></p>
+                <p><a class="btn btn-lg btn-primary" href="catalogo.jsp">Scopri</a></p>
               </div>
             </div>
           </div>
@@ -355,7 +224,7 @@
               <div class="carousel-caption text-end">
                 <h1>Strategia e molto ingegno</h1>
                 <p>Consulta il nostro catalogo di giochi strategici e gestionali, gestisci le tue risorse, sviluppa le pi&ugrave ingegnose strategie per schiacciare i tuoi avversari.</p>
-                <p><a class="btn btn-lg btn-primary" href="GiocoView.jsp">Scopri</a></p>
+                <p><a class="btn btn-lg btn-primary" href="catalogo.jsp">Scopri</a></p>
               </div>
             </div>
           </div>
@@ -370,64 +239,62 @@
         </button>
       </div>
 
- <!-- Sezione "wow" per giochi, espansioni e accessori -->
-        <div class="container wow-section">
-            <div class="wow-box" style="background-image: url('IMMAGINI/IMMAGINI_HOME/Games.jpg');">
-                <a href="Games.jsp"></a>
-                <h2>Giochi</h2>
+        <!-- Wow Box Section -->
+        <div class="wow-section">
+            <div class="wow-box">
+                <img src="IMMAGINI/IMMAGINI_HOME/homeim1.jpg" alt="Immagine Wow Box 1">
+                <h2><a class="btn btn-primary" href="catalogo.jsp">Giochi</a></h2>
             </div>
-
-            <div class="wow-box" style="background-image: url('IMMAGINI/IMMAGINI_HOME/Expansions.jpg');">
-                <a href="Expansions.jsp"></a>
-                <h2>Espansioni</h2>
+            <div class="wow-box">
+                <img src="IMMAGINI/IMMAGINI_HOME/homeim2.jpg" alt="Immagine Wow Box 2">
+                <h2><a class="btn btn-primary" href="catalogo.jsp">Accessori</a></h2>
             </div>
-
-            <div class="wow-box" style="background-image: url('IMMAGINI/IMMAGINI_HOME/Accessories.jpg');">
-                <a href="Accessories.jsp"></a>
-                <h2>Accessori</h2>
-            </div>
-        </div>
-        
-         <!-- Sezione assistenza -->
-        <div class="container shipping-section">
-            <div class="row">
-                <div class="col-md-6">
-                    <img src="IMMAGINI/IMMAGINI_HOME/callCenter.jpg" class="featurette-image img-fluid mx-auto" alt="Assistenza">
-                </div>
-                <div class="col-md-6">
-                    <h2>Assistenza clienti dedicata</h2>
-                    <p>Il nostro team di supporto è disponibile 7 giorni su 7 per rispondere a tutte le tue domande e fornire assistenza dettagliata sui nostri prodotti e servizi.</p>
-                </div>
+            <div class="wow-box">
+                <img src="IMMAGINI/IMMAGINI_HOME/homeim3.jpg" alt="Immagine Wow Box 3">
+                <h2><a class="btn btn-primary" href="catalogo.jsp">Espansioni</a></h2>
             </div>
         </div>
 
-        <!-- Sezione "Dove trovarci" -->
-        <div class="container location-section">
-            <div class="row">
-                <div class="col-md-6">
-                    <h2>Dove trovarci fisicamente</h2>
-                    <p>Vieni a trovarci nei nostri punti vendita in molte fiere del fumetto e eventi in tutta Italia. Approfitta delle nostre offerte esclusive e del supporto diretto del nostro team.</p>
-                </div>
-                <div class="col-md-6">
-                    <img src="IMMAGINI/IMMAGINI_HOME/standBG.jpeg" class="featurette-image img-fluid mx-auto" alt="Stand">
-                </div>
-            </div>
-        </div>
-         <!-- Sezione spedizione -->
-        <div class="container shipping-section">
-            <div class="row">
-                <div class="col-md-6">
-                    <h2>Spedizioni veloci e affidabili</h2>
-                    <p>Approfitta delle nostre spedizioni express in tutta Italia. Garantiamo consegne veloci e sicure, con opzioni di spedizione gratuita per ordini superiori a 75&euro;.</p>
-                </div>
-                <div class="col-md-6">
-                    <img src="IMMAGINI/IMMAGINI_HOME/spedizione.jpeg" class="featurette-image img-fluid mx-auto" alt="Spedizione">
-                </div>
-            </div>
-        </div>
 
-    
+      <!-- START THE FEATURETTES -->
       
+      
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading fw-normal lh-1">Spedizioni in tutta italia. <span class="text-body-secondary">Pi&ugrave veloce della luce</span></h2>
+          <p class="lead">Copertura in tutta Italia grazie alle nostre spedizioni express. Spedizioni a domicilio o negli appositi centri di ritiro. Spedizioni low cost o completamente gratuite per ordini superiori a 75&euro;.</p>
+        </div>
+        <div class="col-md-5">
+          <img src="IMMAGINI/IMMAGINI_HOME/spedizione.jpeg" class="featurette-image img-fluid mx-auto" alt="Spedizione">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7 order-md-2">
+          <h2 class="featurette-heading fw-normal lh-1">Dove trovarci fisicamente? <span class="text-body-secondary">IN FIERA!!!</span></h2>
+          <p class="lead">Oltre al nostro store online, hai la possibilit&agrave di trovarci in moltissime fiere del fumetto e non solo in giro per l'Italia. Vieni a trovarci per chiedere consigli sull'acquisto, avere scontistiche da fiera oppure semplicemente per provare alcuni dei titoli nel nostro catalogo.</p>
+        </div>
+        <div class="col-md-5 order-md-1">
+          <img src="IMMAGINI/IMMAGINI_HOME/standBG.jpeg" class="featurette-image img-fluid mx-auto" alt="Stand">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading fw-normal lh-1">Assistenza 7 giorni su 7 <span class="text-body-secondary">Per ogni tua domanda ci siamo noi!</span></h2>
+          <p class="lead">Per qualsiasi dubbio ci siamo Noi!!! Se hai domande, dubbi o neccessiti di supporto, sei nel posto giusto! Il nostro team dedicato &egrave qui per aiutarti in ogni modo possibile. Il nostro team &egrave qui per fornirti tutte le informazioni di cui potresti avere bisogno per utilizzare al meglio i nostri prodotti o servizi.</p>
+        </div>
+        <div class="col-md-5">
+          <img src="IMMAGINI/IMMAGINI_HOME/callCenter.jpg" class="featurette-image img-fluid mx-auto" alt="Assistenza">
+        </div>
+      </div>
+
       <div class="container">
         <% 
 	        u = (User) session.getAttribute("user");
@@ -459,7 +326,7 @@
 <script>
     // Passa l'informazione di login al client
     const loggedIn = <%= loggedIn %>;
-
+	
     // Funzione per svuotare il local storage se l'utente non è loggato
     function checkLoginAndClearLocalStorage() {
         if (!loggedIn) {
