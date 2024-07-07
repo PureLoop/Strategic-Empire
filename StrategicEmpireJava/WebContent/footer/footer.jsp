@@ -28,7 +28,7 @@
         }
       }
       .footer {
-        background-color: #f8f9fa;
+        background-color: #D5E8FF !important;
         padding-top: 2rem;
         padding-bottom: 2rem;
       }

@@ -27,6 +27,7 @@
             top: 0; /* Posizionamento in alto rispetto al viewport */
             width: 100%; /* Larghezza al 100% */
             z-index: 1000; /* Assicura che l'header rimanga sopra gli altri elementi */
+            background-color:#D5E8FF !important;
         }
         
         /* Stile per il corpo della pagina */
