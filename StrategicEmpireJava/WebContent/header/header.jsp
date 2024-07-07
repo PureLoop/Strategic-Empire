@@ -21,6 +21,35 @@
  
     <title>Strategic-Empire</title>
     <style>
+    /* Stile per il link di navigazione */
+.nav-link {
+    position: relative;
+    display: inline-block;
+    color: #333; /* Colore del testo */
+    text-decoration: none; /* Rimuove la sottolineatura del link */
+    padding-bottom: 5px; /* Spaziatura inferiore */
+}
+
+/* Stile per l'effetto hover */
+.nav-link::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    display: block;
+    margin-top: 5px;
+    right: 0;
+    background: #000080; /* Colore giallo dorato */
+    transition: width 0.4s ease; /* Animazione per la larghezza */
+}
+
+/* Aumenta la larghezza quando si passa sopra il link */
+.nav-link:hover::after {
+    width: 100%;
+    left: 0;
+    background: #000080; /* Colore giallo dorato */
+}
+    
         /* Stile per l'header */
         nav.navbar {
             position: fixed; /* Posizionamento fisso */
