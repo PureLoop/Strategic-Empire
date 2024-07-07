@@ -4,6 +4,14 @@
 <%@ page import="java.net.URLEncoder" %>
 
 <%
+
+String username = null; // Default value if not logged in
+
+if (session != null && session.getAttribute("user") != null) {
+    User user = (User) session.getAttribute("user");
+    username = user.getUsername(); // Supponendo che User abbia un metodo getUsername()
+}
+
     // Recupera il valore di DES_VER dalla richiesta
     Integer DES_VER = Integer.parseInt(request.getParameter("DES"));
 %>
@@ -17,6 +25,75 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+<style>
+
+
+.add-gioco-to-cart {
+            position: relative;
+            right: 30%;
+            margin-top: 20px;
+            float: right;
+            margin-left:20px;
+            padding: 10px 20px;
+            background-color: #00BFFF;
+            border: 2px solid #00BFFF;
+            border-radius: 20px; /* Arrotonda i bordi */
+            color: white;
+            text-decoration: none; /* Rimuove la sottolineatura */
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .cadd-gioco-to-cart:hover {
+            background-color: white;
+            color: #00BFFF;
+            text-decoration: none; /* Rimuove la sottolineatura anche quando ci passi sopra */
+        }
+        
+        .add-acc-to-cart {
+            position: relative;
+            right: 30%;
+            margin-top: 20px;
+            float: right;
+            margin-left:20px;
+            padding: 10px 20px;
+            background-color: #00BFFF;
+            border: 2px solid #00BFFF;
+            border-radius: 20px; /* Arrotonda i bordi */
+            color: white;
+            text-decoration: none; /* Rimuove la sottolineatura */
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .cadd-acc-to-cart:hover {
+            background-color: white;
+            color: #00BFFF;
+            text-decoration: none; /* Rimuove la sottolineatura anche quando ci passi sopra */
+        }
+        
+        
+        .add-esp-to-cart {
+            position: relative;
+            right: 30%;
+            margin-top: 20px;
+            float: right;
+            margin-left:20px;
+            padding: 10px 20px;
+            background-color: #00BFFF;
+            border: 2px solid #00BFFF;
+            border-radius: 20px; /* Arrotonda i bordi */
+            color: white;
+            text-decoration: none; /* Rimuove la sottolineatura */
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .cadd-esp-to-cart:hover {
+            background-color: white;
+            color: #00BFFF;
+            text-decoration: none; /* Rimuove la sottolineatura anche quando ci passi sopra */
+        }
+        
+        
+        </style>
 <body>
     <%@ include file="/header/header.jsp" %>
 
@@ -79,11 +156,17 @@
                             <h5><%= gioco.getPrezzo() %> &euro;</h5>
                         </div>
                         <!-- Bottone "Aggiungi al Carrello" con tutti i dati -->
-                        <form action="AggiungiAlCarrello.jsp" method="post">
+                        <form>
                             <input type="hidden" name="cod_gioco" value="<%= gioco.getCod_Gioco() %>">
                             <input type="hidden" name="nome_gioco" value="<%= gioco.getNomegioco() %>">
                             <input type="hidden" name="prezzo" value="<%= gioco.getPrezzo() %>">
-                            <a href="javascript:void(0);" class="custom-button" data-cod-gioco="<%= gioco.getCod_Gioco() %>">Aggiungi al Carrello</a>
+<!-- Bottone "Aggiungi al Carrello" con tutti i dati -->
+<a href="javascript:void(0);" class="add-gioco-to-cart" 
+   data-cod-gioco="<%= gioco.getCod_Gioco() %>" 
+   data-username="<%= username %>">Aggiungi al Carrello</a>
+
+						<script src="js/addToCart.js"></script>
+
                         </form>
                         <!-- Logo PayPal -->
                         
@@ -93,29 +176,6 @@
     </div>
 </div>
 
-    <script>
-                    $(document).ready(function() {
-                        $('.custom-button').off('click').on('click', function(event) {
-                            event.preventDefault(); // Prevenire la navigazione
-                            var codGioco = $(this).data('cod-gioco');
-
-                            $.ajax({
-                                url: 'CarrelloControl',
-                                method: 'POST',
-                                data: {
-                                    action: 'AddGioco',
-                                    cod_gioco: codGioco
-                                },
-                                success: function(response) {
-                                    // Aggiorna la visualizzazione del carrello o altre azioni dopo l'aggiunta al carrello
-                                },
-                                error: function(xhr, status, error) {
-                                    console.log("Errore durante l'aggiunta al carrello");
-                                }
-                            });
-                        });
-                    });
-                </script>
     <% 
     } else if (DES_VER == 2) {
         AccessorioBean accessorio = (AccessorioBean) request.getAttribute("cod_accessorio");
@@ -173,11 +233,16 @@
                     </div>
                     <!-- Bottone "Aggiungi al Carrello" con tutti i dati -->
                     <div class="sposta-destra">
-                    <form action="AggiungiAlCarrello.jsp" method="post">
-                        <input type="hidden" name="cod_gioco" value="<%= accessorio.getCod_Accessorio() %>">
-                        <input type="hidden" name="nome_gioco" value="<%= accessorio.getNomeaccessorio() %>">
+                    <form >
+                        <input type="hidden" name="cod_accessorio" value="<%= accessorio.getCod_Accessorio() %>">
+                        <input type="hidden" name="nome_accessorio" value="<%= accessorio.getNomeaccessorio() %>">
                         <input type="hidden" name="prezzo" value="<%= accessorio.getPrezzo() %>">
-                        <a href="javascript:void(0);" class="custom-button" data-cod-acc="<%= accessorio.getCod_Accessorio() %>">Aggiungi al Carrello</a>
+<a href="javascript:void(0);" class="add-acc-to-cart" 
+   data-cod-accessorio="<%= accessorio.getCod_Accessorio() %>" 
+   data-username="<%= username %>">Aggiungi al Carrello</a>                        						
+   <script src="js/addToCart.js"></script>
+                        
+                        
                     </form>
                     </div>
                 </div>
@@ -185,29 +250,7 @@
         </div>
     </div>
 </div>
-<script>
-                $(document).ready(function() {
-                    $('.custom-button').off('click').on('click', function(event) {
-                        event.preventDefault(); // Prevenire la navigazione
-                        var codAcc = $(this).data('cod-acc');
 
-                        $.ajax({
-                            url: 'CarrelloControl',
-                            method: 'POST',
-                            data: {
-                                action: 'AddAccessorio',
-                                cod_accessorio: codAcc
-                            },
-                            success: function(response) {
-                                // Aggiorna la visualizzazione del carrello o altre azioni dopo l'aggiunta al carrello
-                            },
-                            error: function(xhr, status, error) {
-                                console.log("Errore durante l'aggiunta al carrello");
-                            }
-                        });
-                    });
-                });
-            </script>
  <% 
 } else if (DES_VER == 3) {
     espansioneBean espansione = (espansioneBean) request.getAttribute("cod_espansione");
@@ -264,40 +307,22 @@
                         <h5><%= espansione.getPrezzo() %> &euro;</h5>
                     </div>
                     <!-- Bottone "Aggiungi al Carrello" con tutti i dati -->
-                    <form action="AggiungiAlCarrello.jsp" method="post">
+                    <form>
                         <input type="hidden" name="cod_espansione" value="<%= espansione.getCod_espansione() %>">
                         <input type="hidden" name="nome_espansione" value="<%= espansione.getNomeespansione() %>">
                         <input type="hidden" name="prezzo" value="<%= espansione.getPrezzo() %>">
-                        <a href="javascript:void(0);" class="custom-button" data-cod-esp="<%= espansione.getCod_espansione() %>">Aggiungi al Carrello</a>
+<a href="javascript:void(0);" class="add-esp-to-cart" 
+   data-cod-espansione="<%= espansione.getCod_espansione() %>" 
+   data-username="<%= username %>">Aggiungi al Carrello</a>
+   						<script src="js/addToCart.js"></script>
+   
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function() {
-        $('.custom-button').off('click').on('click', function(event) {
-            event.preventDefault(); // Prevenire la navigazione
-            var codEsp = $(this).data('cod-esp');
 
-            $.ajax({
-                url: 'CarrelloControl',
-                method: 'POST',
-                data: {
-                    action: 'AddEspansione',
-                    cod_espansione: codEsp
-                },
-                success: function(response) {
-                    // Aggiorna la visualizzazione del carrello o altre azioni dopo l'aggiunta al carrello
-                },
-                error: function(xhr, status, error) {
-                    console.log("Errore durante l'aggiunta al carrello");
-                }
-            });
-        });
-    });
-</script>
 
 <% 
     } // Fine del blocco if DES_VER == 2

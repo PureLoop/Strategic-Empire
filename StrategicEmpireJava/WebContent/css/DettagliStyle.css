@@ -100,7 +100,7 @@
     right: 20px;
     bottom: 20px;
 }
-.custom-button {
+.add-esp-to-cart {
             position: relative;
             right: 30%;
             margin-top: 20px;
@@ -115,12 +115,12 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        .custom-button:hover {
+        .add-esp-to-cart:hover {
             background-color: white;
             color: #00BFFF;
             text-decoration: none; /* Rimuove la sottolineatura anche quando ci passi sopra */
         }
 .sposta-destra {
     float: right;
-    margin-right: 100px; /* Modifica questo valore secondo le tue necessità */
+    margin-right: 100px; /* Modifica questo valore secondo le tue necessitï¿½ */
 }
