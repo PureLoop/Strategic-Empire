@@ -34,7 +34,8 @@ body {
 }
 
 .fixed-payment-details {
-    position: sticky;
+    position: absolute;
+    margin-top:10%
     top: 20px; /* Altezza del tuo header, se presente */
     right:80px;
     width: 300px;
@@ -369,7 +370,9 @@ a:hover {
     border-color: #ff8f00 !important;
 }
 
-
+        .colored-break {
+            background-color: #eee; /* colore della linea */
+        }
     </style>
 </head>
 <body>
@@ -465,7 +468,7 @@ a:hover {
         </div>
     </div>
 </section>
-
+ <div class="colored-break"><br><br><br><br><br><br><br><br></div>
 <div class="fixed-payment-details">
     <div class="card bg-white text-dark rounded-3 shadow">
         <div class="card-body">
