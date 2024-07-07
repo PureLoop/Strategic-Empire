@@ -351,7 +351,7 @@ a:hover {
 .product-details p {
     color: #ff6f00; /* Testo arancione */
 }
-
+ 
 .btn-primary,
 .btn-dark {
     background-color: #ff6f00 !important; /* Sfondo arancione per i bottoni */
