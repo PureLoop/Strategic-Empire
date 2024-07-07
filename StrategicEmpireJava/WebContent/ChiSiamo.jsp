@@ -24,7 +24,7 @@
 
         <div class="team">
             <div id="anna" class="member-content animate">
-                <img class="avatar" src="IMMAGINIChiSiamo/anna.jpg" alt="Foto di Anna">
+                <img class="avatar" src="IMMAGINIChiSiamo/anna.png" alt="Foto di Anna">
                 <h3 class="name">Anna</h3>
                 <p class="description">Conosciuta anche come Annarella, Anna è il genio strategico del nostro team. Con una mente analitica e un'abilità incredibile nel pianificare mosse audaci, è sempre pronta a guidare il gruppo verso la vittoria.</p>
             </div>
@@ -36,7 +36,7 @@
             </div>
 
             <div id="aldo" class="member-content animate">
-                <img class="avatar" src="IMMAGINIChiSiamo/aldo.jpg" alt="Foto di Aldo">
+                <img class="avatar" src="IMMAGINIChiSiamo/aldo.png" alt="Foto di Aldo">
                 <h3 class="name">Aldo</h3>
                 <p class="description">Conosciuto anche come Alduccio, Aldo è il collante che tiene insieme il nostro team. Con il suo senso dell'umorismo contagioso e la sua capacità di creare un'atmosfera rilassata, rende ogni partita un'esperienza divertente e memorabile.</p>
             </div>
