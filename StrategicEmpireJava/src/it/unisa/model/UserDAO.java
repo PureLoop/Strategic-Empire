@@ -160,6 +160,35 @@ public class UserDAO implements UserModel{
         }
     }
     
+    
+    public User ViewUser(String username) {
+    	connection = null;
+        String sql = "SELECT * FROM utente WHERE username = ?";
+        try {
+            connection = DriverManagerConnectionPool.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                User user = new User();
+                user.setUsername(resultSet.getString("username"));
+                user.setEmail(resultSet.getString("email"));
+                user.setCognome(resultSet.getString("cognome"));
+                user.setNome(resultSet.getString("nome"));
+                user.setsesso(resultSet.getString("sesso"));
+                user.setncivico(resultSet.getInt("ncivico"));
+                user.setIndirizzo(resultSet.getString("indirizzo"));
+                System.out.println(user);
+                System.out.println(user.getIndirizzo());
+                return user;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
     public static int getRowCount() throws SQLException {
         Connection connection = null;
         PreparedStatement statement = null;

@@ -23,14 +23,8 @@
 	int ncivico = 0;
     if (user != null) {
     	
-        username = user.getUsername(); // Supponendo che User abbia un metodo getUsername()
-        Email = user.getEmail();
-        Indirizzo= user.getIndirizzo();
-        nome= user.getNome();
-        ruolo= user.getRole();
-        cognome= user.getCognome();
-        ncivico = user.getncivico();
         sesso = user.getsesso();
+        System.out.println(user.getNome());
     }
 %>
 <head>
@@ -348,11 +342,55 @@ $(document).ready(function() {
     });
 });
 
-    
+<script>
+$(document).ready(function() {
+    // Funzione per caricare i dati dell'utente
+    function loadUserData() {
+        $.ajax({
+            url: 'GetUserDataControl', // URL del servlet che restituisce i dati dell'utente
+            type: 'GET',
+            success: function(data) {
+                // Aggiorna i dati nella pagina con il frammento HTML ricevuto
+                $('#nome').html($(data).find('#nome').html());
+                $('#cognome').html($(data).find('#cognome').html());
+                $('#email').html($(data).find('#email').html());
+                $('#indirizzo').html($(data).find('#indirizzo').html());
+                $('#ncivico').html($(data).find('#ncivico').html());
+                $('#sesso').html($(data).find('#sesso').html());
+            },
+            error: function(xhr, status, error) {
+                console.log('Errore nella richiesta AJAX:', error);
+            }
+        });
+    }
+
+    // Carica i dati dell'utente quando la pagina viene caricata
+    loadUserData();
+
+    // Gestisci il submit del modulo di aggiornamento dell'account
+    $('form').on('submit', function(e) {
+        e.preventDefault(); // Impedisce il submit predefinito del form
+
+        $.ajax({
+            url: $(this).attr('action'), // URL del servlet per aggiornare l'account
+            type: 'POST',
+            data: $(this).serialize(), // Serializza i dati del form
+            success: function(response) {
+                // Ricarica i dati dell'utente dopo l'aggiornamento
+                loadUserData();
+                alert('Dati aggiornati con successo!');
+            },
+            error: function(xhr, status, error) {
+                console.log('Errore nella richiesta AJAX:', error);
+                alert('Errore durante l\'aggiornamento dei dati.');
+            }
+        });
+    });
+});
 </script>
-<div class="container mt-3" id="Account" style="display: none;">
+<div class="container mt-3" id="Account">
     <h3 id="managerTitle" class="text-center mb-4">Area Utente - Gestione Account</h3>
-    
+
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Informazioni Utente</h5>
@@ -361,37 +399,37 @@ $(document).ready(function() {
                 <div class="col-md-6">
                     <div class="mb-3">
                         <label class="form-label">Nome:</label>
-                        <p><%= user.getNome() %></p>
+                        <p id="nome"><%= user.getNome() %></p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
                         <label class="form-label">Cognome:</label>
-                        <p><%= user.getCognome() %></p>
+                        <p id="cognome"><%= user.getCognome() %></p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
                         <label class="form-label">Email:</label>
-                        <p><%= user != null ? Email : "N/A" %></p>
+                        <p id="email"><%= user.getEmail() %></p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
                         <label class="form-label">Indirizzo:</label>
-                        <p><%= user != null ? Indirizzo : "N/A" %></p>
+                        <p id="indirizzo"><%= user.getIndirizzo() %></p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
                         <label class="form-label">Numero civico:</label>
-                        <p><%= user.getncivico() %></p>
+                        <p id="ncivico"><%= user.getncivico() %></p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
                         <label class="form-label">Sesso:</label>
-                        <p><%= user.getsesso() %></p>
+                        <p id="sesso"><%= user.getsesso() %></p>
                     </div>
                 </div>
             </div>
@@ -401,39 +439,39 @@ $(document).ready(function() {
     <div class="card mt-4">
         <div class="card-body">
             <h5 class="card-title">Modifica Informazioni</h5>
-            <form action="UpdateAccountControl" method="post">
+            <form id="updateForm" action="UpdateAccountControl" method="post">
                 <div class="mb-3">
                     <label for="Nome" class="form-label">Nome:</label>
-                    <input type="text" id="Nome" name="Nome" class="form-control" required value="<%= user != null ? nome : "" %>">
+                    <input type="text" id="Nome" name="Nome" class="form-control" required value="<%= user.getNome() %>">
                 </div>
                 <div class="mb-3">
                     <label for="Cognome" class="form-label">Cognome:</label>
-                    <input type="text" id="Cognome" name="Cognome" class="form-control" required value="<%= user != null ? user.getCognome() : "" %>">
+                    <input type="text" id="Cognome" name="Cognome" class="form-control" required value="<%= user.getCognome() %>">
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email:</label>
-                    <input type="email" id="email" name="email" class="form-control" value="<%= user != null ? user.getEmail() : "" %>">
+                    <input type="email" id="email" name="email" class="form-control" value="<%= user.getEmail() %>">
                 </div>
                 <div class="mb-3">
                     <label for="Indirizzo" class="form-label">Indirizzo:</label>
-                    <textarea id="Indirizzo" name="Indirizzo" class="form-control" rows="3"><%= user != null ? user.getIndirizzo() : "" %></textarea>
+                    <textarea id="Indirizzo" name="Indirizzo" class="form-control" rows="3"><%= user.getIndirizzo() %></textarea>
                 </div>
                 <div class="mb-3">
-                    <label for="N_civico" class="form-label">Numero civico:</label>
-                    <input type="text" id="ncivico" name="ncivico" class="form-control" required value="<%= user != null ? user.getncivico() : "" %>">
+                    <label for="ncivico" class="form-label">Numero civico:</label>
+                    <input type="text" id="ncivico" name="ncivico" class="form-control" required value="<%= user.getncivico() %>">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Seleziona il tuo sesso:</label>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="sesso" id="sessoNonSpec" value="non specificato" checked>
+                        <input class="form-check-input" type="radio" name="sesso" id="sessoNonSpec" value="non specificato" <%= user.getsesso().equalsIgnoreCase("non specificato") ? "checked" : "" %>>
                         <label class="form-check-label" for="sessoNonSpec">Non specificato</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="sesso" id="sessoUomo" value="uomo">
+                        <input class="form-check-input" type="radio" name="sesso" id="sessoUomo" value="uomo" <%= user.getsesso().equalsIgnoreCase("uomo") ? "checked" : "" %>>
                         <label class="form-check-label" for="sessoUomo">Uomo</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="sesso" id="sessoDonna" value="donna">
+                        <input class="form-check-input" type="radio" name="sesso" id="sessoDonna" value="donna" <%= user.getsesso().equalsIgnoreCase("donna") ? "checked" : "" %>>
                         <label class="form-check-label" for="sessoDonna">Donna</label>
                     </div>
                 </div>

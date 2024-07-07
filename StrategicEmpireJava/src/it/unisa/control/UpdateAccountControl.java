@@ -19,12 +19,11 @@ public class UpdateAccountControl extends HttpServlet {
         HttpSession session = request.getSession();
         User u = (User) session.getAttribute("user");
         String name = null;
-        
+
         if (u != null) {
             name = u.getUsername();
         }
-        
-        
+
         String nome = request.getParameter("Nome");
         String cognome = request.getParameter("Cognome");
         String email = request.getParameter("email");
@@ -41,23 +40,30 @@ public class UpdateAccountControl extends HttpServlet {
         }
         boolean updateSuccess = false;
 
-        if (nome != null && cognome!=null && email != null && indirizzo != null && Username !=null && sesso!=null) {
-        
+        if (nome != null && cognome != null && email != null && indirizzo != null && Username != null && sesso != null) {
+
             UserDAO userDAO = new UserDAO();
             try {
-                userDAO.UpdateUser(nome,cognome, email, indirizzo, ncivico,Username,sesso);
+                userDAO.UpdateUser(nome, cognome, email, indirizzo, ncivico, Username, sesso);
                 updateSuccess = true;
+
+                // Recupera l'utente aggiornato
+                User updatedUser = userDAO.ViewUser(Username);
+                // Imposta l'utente aggiornato nella sessione
+                session.setAttribute("user", updatedUser);
+                // Imposta l'oggetto User come attributo della richiesta
+                request.setAttribute("user", updatedUser);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("Errore: Uno o piï¿½ parametri sono nulli.");
+            System.out.println("Errore: Uno o più parametri sono nulli.");
         }
 
         // Imposta il risultato dell'operazione come attributo della richiesta
         request.setAttribute("updateSuccess", updateSuccess);
 
         // Reindirizza alla pagina JSP del risultato
-        request.getRequestDispatcher("/updateAccount.jsp").forward(request, response);
+        request.getRequestDispatcher("/AreaPersonale.jsp").forward(request, response);
     }
 }
