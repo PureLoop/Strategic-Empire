@@ -172,12 +172,14 @@
                         <h5><%= accessorio.getPrezzo() %> &euro;</h5>
                     </div>
                     <!-- Bottone "Aggiungi al Carrello" con tutti i dati -->
+                    <div class="sposta-destra">
                     <form action="AggiungiAlCarrello.jsp" method="post">
                         <input type="hidden" name="cod_gioco" value="<%= accessorio.getCod_Accessorio() %>">
                         <input type="hidden" name="nome_gioco" value="<%= accessorio.getNomeaccessorio() %>">
                         <input type="hidden" name="prezzo" value="<%= accessorio.getPrezzo() %>">
                         <a href="javascript:void(0);" class="custom-button" data-cod-acc="<%= accessorio.getCod_Accessorio() %>">Aggiungi al Carrello</a>
                     </form>
+                    </div>
                 </div>
             </div>          
         </div>
