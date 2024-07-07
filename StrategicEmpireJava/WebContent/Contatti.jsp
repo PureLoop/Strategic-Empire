@@ -51,7 +51,7 @@
     <script src="script.js"></script>
     <footer>
         <%@ include file="/footer/footer.jsp"%>
-        <p>&copy; 2024 Strategic Empire. Tutti i diritti riservati.</p>
+        
     </footer>
 
     <script>

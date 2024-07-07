@@ -163,22 +163,15 @@ body {
 @media (max-width: 480px) {
     .member-content {
         width: 100%; /* Un membro per riga su schermi molto piccoli */
+        padding: 10px; /* Riduci il padding per adattarsi meglio ai dispositivi mobili */
     }
-}
-/* Stili per i membri del team - colori pastello */
-#anna.member-content {
-    background-color: #ffb6c1; /* Rosa pastello */
-}
 
-#antonio.member-content {
-    background-color: #add8e6; /* Verde pastello */
-}
+    .group-image {
+        width: 80%; /* Rimpicciolisci ulteriormente l'immagine su schermi molto piccoli */
+    }
 
-#aldo.member-content {
-    background-color: #90EE90; /* Celeste pastello */
-}
-
-#luigi.member-content {
-    background-color: #ffff99; /* Giallo pastello */
+    .tagline {
+        font-size: 20px; /* Riduci la dimensione del sottotitolo su schermi molto piccoli */
+    }
 }
 
