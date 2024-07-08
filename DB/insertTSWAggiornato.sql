@@ -86,7 +86,7 @@ insert into img_acc(cod_img_acc,copertina,img_name,cod_acc) values
     ("acc05Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/scacchicolorati.png","acc05"),
     ("acc06Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/portacarte.png","acc06"),
     ("acc07Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/borsa.png","acc07"),
-    ("acc08Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/calcio.png","acc08"),
+    ("acc08Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/calcio1.png","acc08"),
     ("acc09Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/torrelanciadadi.png","acc09"),
     ("acc10Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/dadicromatici.png","acc10");
 INSERT INTO img_esp (cod_img_esp, copertina, img_name, cod_esp) VALUES
