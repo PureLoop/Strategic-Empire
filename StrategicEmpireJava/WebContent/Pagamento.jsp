@@ -255,8 +255,8 @@ List<OggettiCarrelloBean> carrellobean = (List<OggettiCarrelloBean>) request.get
 	String total = request.getParameter("total");
     u = (User) session.getAttribute("user");
     loggedIn = (u != null);
-    
-
+    String sconto = (String) session.getAttribute("nomeScontoApplicato");
+	System.out.println("perc: "+sconto);
 %>
 
 <div class="cont">
@@ -327,7 +327,7 @@ List<OggettiCarrelloBean> carrellobean = (List<OggettiCarrelloBean>) request.get
 
 
         <div>
-            <button type="submit" class="btn2">Invia</button>
+            <button type="submit" class="btn2" data-sconto="<%= sconto%>">Invia</button>
         </div>
         
         <!-- Aggiunta del pulsante "Vedi le tue carte" -->
@@ -489,14 +489,15 @@ List<OggettiCarrelloBean> carrellobean = (List<OggettiCarrelloBean>) request.get
     }
     function RemoveOggettiPagati() {
         const cardNumberValue = document.getElementById('cardNumber').value; // Ottieni il valore del campo cardNumber
-
+        const sconto = document.querySelector('.btn2').getAttribute('data-sconto');
         $.ajax({
             url: 'CarrelloControl',
             method: 'GET',
             data: {
                 action: 'removeOggettiPagati',
                 username: '<%= u.getUsername() %>',
-				Numerocarta: cardNumberValue
+				Numerocarta: cardNumberValue,
+				sconto: sconto
             },
             success: function(response) {
                 $('#cardList').html(response);

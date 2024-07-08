@@ -77,10 +77,9 @@ insert into img_acc(cod_img_acc,copertina,img_name,cod_acc) values
 insert into img_esp(cod_img_esp,copertina,img_name,cod_esp) values
     ("esp001Img1",true,"IMMAGINI/IMMAGINI_ESPANSIONI/Barrage_5Th-Giocatore_scatola.png","esp001"),
     ("esp012Img1",true,"IMMAGINI/IMMAGINI_ESPANSIONI/implodingkittens.png","esp012");
-insert into sconto(nome_sconto,cod_sconto,perc_sconto) values
-	("UNISA","sco001",25);
+insert into sconto(nome_sconto,perc_sconto) values
+	("UNISA",25);
 insert into utente(Username,nome,cognome, pw,saltPW, email, ruolo,indirizzo,ncivico,sesso) values
- ("Cherry","Antonio","Ceruso","1212",23,"antonio.ceruso9988@gmail.comutente","amministratore","Via facaldo",121,'uomo'),
  ("Scippo","Luigi","Nasta","1212",23,"luigi@gmail.com","amministratore","Via canneto est",3,'uomo');
  insert into carta(numero,scadenza,cvv,Username,nome) values
  ("0000111122223333",1024,999,"Scippo","Luigi");

@@ -246,7 +246,7 @@ public class UserDAO implements UserModel{
         return rowCount;
     }
 
-    public void CreateOrdine(String cod_sconto, String username, List<OggettiCarrelloBean> oggettiCarrello, String carta ) {
+    public void CreateOrdine(String cod_sconto, String username, List<OggettiCarrelloBean> oggettiCarrello, String carta) {
         Connection connection = null; // Assicurati di avere una connessione valida
         String sql = "INSERT INTO " + TABLE_NAME + " (data ,cod_sconto, cod_utente, carta) VALUES (?, ?, ? , ? )";
         int x;

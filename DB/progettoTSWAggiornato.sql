@@ -83,8 +83,7 @@ create table recap(
     prezzo		numeric(10,2) not null
 );
 create table sconto(
-	nome_sconto varchar(50) not null,
-    cod_sconto varchar(10) primary key,
+	nome_sconto varchar(50) primary key,
     perc_sconto numeric(3) not null
 );
 
@@ -100,7 +99,7 @@ create table pagamento(
 create table ordine(
 	cod_ordine int auto_increment primary key,
     data date not null,
-    cod_sconto varchar(10) default null references sconto(cod_sconto)
+    cod_sconto varchar(10) default null references sconto(nome_sconto)
 		on delete cascade
         on update cascade,
 	cod_utente varchar(20) not null references utente(Username)

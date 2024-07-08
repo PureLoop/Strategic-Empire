@@ -229,7 +229,7 @@ OrdineBean ordine =  (OrdineBean)session.getAttribute("ordine");
 				EUR
 			</p>
 			<p>
-				<strong>Di cui IVA: </strong>10 EUR
+				<strong>Di cui IVA: </strong><%= ((totalePrezzo+10)/100)*22%>
 			</p>
 
 		</div>
