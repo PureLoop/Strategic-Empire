@@ -1,9 +1,16 @@
 ALTER USER 'root'@'localhost' IDENTIFIED BY '1212';
 use progettoTSWAggiornato;
-insert into accessorio(cod_accessorio,nome_accessorio,tipologia,prezzo,descrizione) values 
-	("acc01","Dadi Rossi","altri brand",15,"Set di dadi rossi"),
-    ("acc02","Dadi Verdi","altri brand",20,"Set di dadi verdi"),
-    ("acc03","Dadi blu Drago","esclusivi",30,"Set di dadi blu con rifiniture ai bordi a forma di drago");
+INSERT INTO accessorio (cod_accessorio, nome_accessorio, tipologia, prezzo, descrizione) VALUES 
+    ('acc01', 'Dadi Rossi', 'altri brand', 15, 'Set di dadi rossi'),
+    ('acc02', 'Dadi Verdi', 'altri brand', 20, 'Set di dadi verdi'),
+    ('acc03', 'Dadi blu Drago', 'esclusivi', 30, 'Set di dadi blu con rifiniture ai bordi a forma di drago'),
+    ('acc04', 'scacchi', 'altri brand', 10, 'Set di Scacchi Intagliato a Mano King 8.9cm 32 di legno ponderato'),
+    ('acc05', 'scacchi colorati', 'altri brand', 7, '20 pz/set pezzi di scacchi in legno accessori per giochi da tavolo pedone da gioco in legno'),
+    ('acc06', 'porta carte', 'esclusivi', 14, 'Porta Carte per Giochi da Tavolo, in plexiglass a 2 scomparti.'),
+    ('acc07', 'borsa portagiochi', 'esclusivi', 30, 'Borsa a Tracolla per Giochi da Tavolo con Tracolla Imbottita e Tasche per Accessori per Dadi'),
+    ('acc08', 'calcio balilla', 'altri brand', 50, 'Calcio Balilla calcetto gioco da tavolo legno accessori 51x31x10cm'),
+    ('acc09', 'torre lancia dadi', 'esclusivi', 25, 'Progettato come addon per i giochi in cui si lanciano spesso i dadi.'),
+    ('acc10', 'dadi cromatici', 'altri brand', 10, 'Confezione da 10 dadi poliedrici D20 per giochi da tavolo');
 insert into gioco(cod_gioco,nome_gioco,edizione,tipologia,prezzo,descrizione,n_giocatori_min,n_giocatori_max) values
 	("g001","Barrage","1 edezione","tavolo",80,"Barrage vi permetterà di viaggiare indietro nel tempo in un 1930 alternativo in cui un estremo utilizzo delle risorse fossili ha portato al completo esaurimento del carbone utilizzato come fonte di energia. La società è ormai sull’orlo di una crisi globale quando un gruppo di lungimiranti imprenditori decide di investire un cospicuo ammontare di fondi per lo sviluppo di una nuova fonte energetica rinnovabile e pulita, l’energia idroelettrica.",1,4),
     ("g002","AutoBahn","1 edizione","tavolo",50,"Sviluppate l’autostrada tedesca (Autobahn), costruendo e potenziando la rete autostradale federale per migliorare la vostra posizione nella società della BundesAutobahn.
@@ -41,8 +48,15 @@ La semplicità delle regole di Taboo è uno dei suoi punti di forza. È facile d
 Lo scopo è rimanere l'ultimo vivo, dato che chi pesca un'Esplosione viene eliminato dalla partita, a meno di non usare un Defuse: nel qual caso reinserisce dove vuole l'Esplosione nel mazzo (in cima, in fondo, in mezzo... dove gli pare). ",2,5);
 insert into espansione(cod_espansione,nome_espansione,descrizione,prezzo,cod_gioco) values
 ("esp001","Barrage 5 giocatore","Arricchisci la tua copia di Barrage con una nuova mappa progettata specificamente per 5 giocatori e scopri le nuove connessioni, studiate per consentire nuove strategie di piazzamento senza alterare il flusso di gioco.",25.5,"g001"),
-("esp012","Imploding Kittens","Imploding Kittens è la prima espansione per il divertente gioco di gattini esplosivi più celebre di sempre. Grazie a queste nuove carte potrete aumentare il numero massimo di giocatori fino a 6, oltre ad includere una serie di spassosissime nuove azioni di gioco che cambieranno per sempre le vostre strategie, ma soprattutto il modo in cui farete detonare i vostri gattini!! Non che sia una bella cosa eh...",15,"g012");
-
+("esp012","Imploding Kittens","Imploding Kittens è la prima espansione per il divertente gioco di gattini esplosivi più celebre di sempre. Grazie a queste nuove carte potrete aumentare il numero massimo di giocatori fino a 6, oltre ad includere una serie di spassosissime nuove azioni di gioco che cambieranno per sempre le vostre strategie, ma soprattutto il modo in cui farete detonare i vostri gattini!! Non che sia una bella cosa eh...",15,"g012"),
+("esp002","recipes of disaster","xploding Kittens Party Pack Card Game by Exploding kittens - Fun Family Games for Adults, Teens & Kids, 2-10 Players, Age 7+",20,"g012"),
+("esp003","barking kittens","questo e’ un mazzo espansione che vuole potenziare, rinforzare e canificare le regole del gioco originale: questo vuole dire che avete bisogno di una copia di exploding kittens per poter giocare.contiene: 20 carte con potenti nuove azioni e particolarita spassose illustrazioni dal fumettista vincitore di numerosi premi, the oatmeal una corona gatto indossabile che vi difendera’ dai furti degli altri giocatori",12,"g012"),
+("esp004","partypack","Exploding Kittens: Recipes for Disaster, Gioco da Tavolo, Party Game, 2-5 Giocatori, 7+ Anni, Edizione in Italiano",17,"g012"),
+("esp005","Taboo 2","Altra versione del celebre gioco Taboo ancora piu' divertente!",16,"g011"),
+("esp006","Alchemista2","Dominion: Alchimia - Gioco di Carte, Espansione - Nuovo, Italiano",24,"g005"),
+("esp007","Amelia's Secret XL","I bambini meritano il meglio, per questo ti presentiamo Gioco da Tavolo Amelia's Secret: Escape in the Dark, ideale per coloro che cercano prodotti di qualità per i più piccoli! Scopri e altre marche e brevetti ai migliori prezzi!",22,"g007"),
+("esp008","Annumaki 2","ANUNNAKI DAWN OF THE GODS Kickstarter edition CON PACK ITALIANO with all expansion",45,"g006"),
+("esp009","Bone Wars espansione","Basato sulla saga originale questa serie aggiunge altri oggetti per arricchire il gioco",20,"g009");
 insert into img_gioco(cod_img_gioco,copertina,img_name,cod_gioco) values
     ("g001Img1",true,"IMMAGINI/IMMAGINI_GIOCHI/Barrage_BOX-3D.png","g001"),
 	("g001Img2",false,"IMMAGINI/IMMAGINI_GIOCHI/Barrage_ESPLOSO.png","g001"),
@@ -71,12 +85,28 @@ insert into img_gioco(cod_img_gioco,copertina,img_name,cod_gioco) values
 
     
 insert into img_acc(cod_img_acc,copertina,img_name,cod_acc) values
-     ("acc01Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/DADI_ROSSI1.png","acc01")
-	,("acc02Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/DADI_VERDI1.png","acc02"),
-    ("acc03Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/DADI_BLU_DRAGO.png","acc03");
-insert into img_esp(cod_img_esp,copertina,img_name,cod_esp) values
-    ("esp001Img1",true,"IMMAGINI/IMMAGINI_ESPANSIONI/Barrage_5Th-Giocatore_scatola.png","esp001"),
-    ("esp012Img1",true,"IMMAGINI/IMMAGINI_ESPANSIONI/implodingkittens.png","esp012");
+	("acc01Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/DADI_ROSSI1.png","acc01"),
+	("acc02Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/DADI_VERDI1.png","acc02"),
+    ("acc03Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/DADI_BLU_DRAGO.png","acc03"),
+    ("acc04Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/scacchi.png","acc04"),
+    ("acc05Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/scacchicolorati.png","acc05"),
+    ("acc06Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/portacarte.png","acc06"),
+    ("acc07Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/borsa.png","acc07"),
+    ("acc08Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/calcio.png","acc08"),
+    ("acc09Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/torrelanciadadi.png","acc09"),
+    ("acc10Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/dadicromatici.png","acc10");
+INSERT INTO img_esp (cod_img_esp, copertina, img_name, cod_esp) VALUES
+    ('esp001Img1', true, 'IMMAGINI/IMMAGINI_ESPANSIONI/Barrage_5Th-Giocatore_scatola.png', 'esp001'),
+    ('esp012Img1', true, 'IMMAGINI/IMMAGINI_ESPANSIONI/implodingkittens.png', 'esp012'),
+    ('esp002Img1', true, 'IMMAGINI/IMMAGINI_ESPANSIONI/recipesofdisaster.png', 'esp002'),
+    ('esp003Img1', true, 'IMMAGINI/IMMAGINI_ESPANSIONI/barkingkittens.png', 'esp003'),
+    ('esp004Img1', true, 'IMMAGINI/IMMAGINI_ESPANSIONI/partypack.png', 'esp004'),
+    ('esp005Img1', true, 'IMMAGINI/IMMAGINI_ESPANSIONI/taboo2.png', 'esp005'),
+    ('esp006Img1', true, 'IMMAGINI/IMMAGINI_ESPANSIONI/alchemista2.png', 'esp006'),
+    ('esp007Img1', true, 'IMMAGINI/IMMAGINI_ESPANSIONI/ameliaXL.png', 'esp007'),
+    ('esp008Img1', true, 'IMMAGINI/IMMAGINI_ESPANSIONI/anunnaki2.png', 'esp008'),
+    ('esp009Img1', true, 'IMMAGINI/IMMAGINI_ESPANSIONI/bonewars2.png', 'esp009');
+
 insert into sconto(nome_sconto,cod_sconto,perc_sconto) values
 	("UNISA","sco001",25);
 insert into utente(Username,nome,cognome, pw,saltPW, email, ruolo,indirizzo,ncivico,sesso) values

@@ -5,7 +5,7 @@ use progettoTSWAggiornato;
 create table espansione(
 	cod_espansione varchar(10) primary key,
     nome_espansione varchar(20) not null,
-    descrizione varchar(500) not null,
+    descrizione varchar(1500) not null,
     prezzo numeric(4,2) not null,
     cod_gioco varchar(10) references gioco_da_tavolo(cod_gioco)
 		on delete cascade
@@ -56,7 +56,7 @@ create table accessorio(
     nome_accessorio varchar(30) not null,
     tipologia varchar(15) not null check(tipologia in('esclusivi','altri brand')),
     prezzo numeric(4,2) not null,
-    descrizione varchar(100) not null
+    descrizione varchar(1500) not null
 );
 
 create table gioco(
