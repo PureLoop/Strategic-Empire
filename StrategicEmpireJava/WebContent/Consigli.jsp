@@ -70,7 +70,7 @@
                         <iframe src="https://www.youtube.com/embed/HC6UmG4ItVE" frameborder="0" allowfullscreen></iframe>
                     </div>
                     <div class="card-body">
-                        <h3 class="card-title">TOP 10 dei giochi più ATTESI del 2024</h3>
+                        <h3 class="card-title">TOP 10 dei giochi piï¿½ ATTESI del 2024</h3>
                         <p>Scopri la top 10 dei giochi da tavolo.</p>
                         <a href="https://www.youtube.com/watch?v=HC6UmG4ItVE" class="btn btn-primary read-more" target="_blank">Guarda il video</a>
                     </div>
@@ -83,16 +83,31 @@
                     </div>
                     <div class="card-body">
                         <h3 class="card-title">Giochi da Tavolo Tascabili e da Viaggio - 5 Consigli</h3>
-                        <p>Portare uno o più giochi di società in viaggio o nello zaino può salvarti la serata!</p>
+                        <p>Portare uno o piï¿½ giochi di societï¿½ in viaggio o nello zaino puï¿½ salvarti la serata!</p>
                         <a href="https://www.youtube.com/watch?v=dqPkE1qgIUE" class="btn btn-primary read-more" target="_blank">Guarda il video</a>
                     </div>
                 </div>
             </div>
         </div>
-
+        <center>
+            <div class="col-md-6">
+                <div class="video-card mb-4">
+                    <div class="embed-responsive embed-responsive-16by9">
+						<iframe src="https://www.youtube.com/embed/3iiLf4HOk5g" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Video introduttivo Strategic Empire.</h3>
+                        <p>Scopri il nostro video introduttivo creato appositamente per voi.</p>
+                        <a href="https://youtu.be/3iiLf4HOk5g" class="btn btn-primary read-more" target="_blank">Guarda il video</a>
+                    </div>
+                </div>
+            </div>
+            </center>
         <!-- Sezione YouTube aggiuntiva -->
         <div class="youtube-section text-center my-5">
-            <h2 class="text-primary mb-4" id="youtube" style="font-size: 2rem;">Scopri il Nostro Canale YouTube</h2>
+
+            <h2 class="text-primary mb-4" style="font-size: 2rem; color:white !important;">Scopri il Nostro Canale YouTube</h2>
+
             <p class="text-dark" style="font-size: 1.2rem;">Iscriviti al nostro canale per non perdere i nostri video sui giochi da tavolo!</p>
             <a href="https://www.youtube.com/channel/yourchannel" class="btn btn-primary btn-lg" style="font-size: 1.2rem;" target="_blank">Visita il Canale</a>
         </div>
