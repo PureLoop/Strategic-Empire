@@ -6,7 +6,7 @@
 <%
     Collection<AccessorioBean> accessori = null;
     session = request.getSession(false);
-    String username = null; // Default value if not logged in
+    String username = null; // Valore predefinito se non loggato
 
     // Verifica se la sessione esiste e se l'utente è loggato
     if (session != null && session.getAttribute("user") != null) {
@@ -25,6 +25,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 <style>
+a{
+	text-decoration: none !important;
+}
     .heart-icon {
         position: absolute;
         top: 10px;
@@ -44,15 +47,16 @@
     }
 </style>
 
-<div class="row" id="allAccessories" style="margin-left: 3%; margin-right:3%; margin-top:2%;">
+<div class="row" id="allAccessories" style="margin-left: 3%; margin-right: 3%; margin-top: 2%;">
     <% if (accessori != null && !accessori.isEmpty()) { 
         for (AccessorioBean bean : accessori) { %>
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
                 <div class="card">
                     <% if (request.getAttribute("pageType").equals("catalogo") && username != null) { %>
-                        <i class="far fa-heart heart-icon" id="heart-<%= bean.getCod_Accessorio() %>" 
-                           data-accessorio-id="<%= bean.getCod_Accessorio() %>" 
-                           data-username="<%= username %>" 
+                        <i class="far fa-heart heart-icon"
+                           id="heart-<%= bean.getCod_Accessorio() %>"
+                           data-accessorio-id="<%= bean.getCod_Accessorio() %>"
+                           data-username="<%= username %>"
                            onclick="toggleFavorite(this)">
                         </i>
                     <% } %>
@@ -62,8 +66,8 @@
                             <h5 class="card-title"><%= bean.getNomeaccessorio() %></h5>
                             <p class="card-text">Prezzo: <%= bean.getPrezzo() %></p>
                             <% if (request.getAttribute("pageType").equals("AreaPersonale")) { %>
-                                <button class="edit-Acc-button" data-acc-id="<%= bean.getCod_Accessorio() %>">Modifica</button>
-                                <button class="del-Acc-button" data-acc-id="<%= bean.getCod_Accessorio() %>">Elimina</button>
+                                <button class="edit-Acc-button btn btn-outline-success" data-acc-id="<%= bean.getCod_Accessorio() %>">Modifica</button>
+                                <button class="del-Acc-button btn btn-outline-success" data-acc-id="<%= bean.getCod_Accessorio() %>">Elimina</button>
                             <% } else if (request.getAttribute("pageType").equals("catalogo")) { %>
                                 <a href="javascript:void(0);" class="add-acc-to-cart" 
                                    data-cod-accessorio="<%= bean.getCod_Accessorio() %>" 
@@ -73,21 +77,20 @@
                                 <script src="js/addToCart.js"></script>
                             <% } %>
                         </div>
-                        <% if (request.getAttribute("pageType").equals("catalogo")) { %>
                     </a>
-                    <% } %>
                 </div>
             </div>
         <% } 
     } %>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 function toggleFavorite(heart) {
     var isFavorito = $(heart).hasClass('filled');
     var gameId = $(heart).data('accessorio-id');
     var username = $(heart).data('username');
-    var action = isFavorito ? 'addPreferito' : 'addPreferito';
+    var action = isFavorito ? 'removeFavorite' : 'addFavorite';
 
     $.ajax({
         url: 'CarrelloControl',
@@ -101,15 +104,15 @@ function toggleFavorite(heart) {
             console.log('AJAX success response:', response);
             if (response.success) {
                 $(heart).toggleClass('filled');
-                console.log(isFavorito ? 'Removed from favorites' : 'Added to favorites');
+                console.log(isFavorito ? 'Rimosso dai preferiti' : 'Aggiunto ai preferiti');
             } else {
-                console.error('Failed to update favorite status');
+                console.error('Impossibile aggiornare lo stato preferito');
                 // Se la risposta non è positiva, puoi ripristinare lo stato del cuore
                 $(heart).toggleClass('filled');
             }
         },
         error: function(xhr, status, error) {
-            console.error('Error during AJAX request');
+            console.error('Errore durante la richiesta AJAX');
             // Se c'è un errore, puoi ripristinare lo stato del cuore
             $(heart).toggleClass('filled');
         }
@@ -126,7 +129,7 @@ function controllaPreferiti() {
             url: 'CarrelloControl',
             method: 'GET',
             data: {
-                action: 'isPreferito',
+                action: 'isFavorite',
                 cod_articolo: gameId,
                 username: username
             },
@@ -139,7 +142,7 @@ function controllaPreferiti() {
                 }
             },
             error: function(xhr, status, error) {
-                console.error('Error during AJAX request');
+                console.error('Errore durante la richiesta AJAX');
             }
         });
     });

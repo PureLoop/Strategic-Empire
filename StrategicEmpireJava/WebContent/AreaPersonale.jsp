@@ -119,7 +119,7 @@
     }
 
     .btn-outline-success {
-      color: #007bff; /* Testo in blu primario */
+      color: #fff; /* Testo in blu primario */
       border-color: #007bff; /* Bordo in blu primario */
     }
 
