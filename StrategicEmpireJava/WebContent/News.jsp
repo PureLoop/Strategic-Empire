@@ -36,7 +36,7 @@
                 <img src="IMMAGINI/IMMAGINI_NEWS/SfondoNews2.jpg" class="d-block w-100" alt="Game Image 3">
                 <div class="carousel-caption d-none d-md-block text-center">
                     <h5 class="carousel-title">Combatti Battaglie Galattiche</h5>
-                    <p class="carousel-text">Vivi l'epicità del conflitto intergalattico. Acquista ora!</p>
+                    <p class="carousel-text">Vivi l'epicitÃ  del conflitto intergalattico. Acquista ora!</p>
                 </div>
             </div>
             <div class="carousel-item">
@@ -57,61 +57,64 @@
         </button>
     </div>
 
-    <!-- Card delle News -->
-    <div class="container">
-        <div class="row g-4 justify-content-center">
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
-                    <img src="IMMAGINI/IMMAGINI_NEWS/AvventureEpiche.jpg" alt="Avventure Epiche" class="card-img-top">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Avventure Epiche</h5>
-                        <p class="card-text">Un nuovo gioco di avventure epiche con componenti di alta qualità e storie coinvolgenti.</p>
-                        <a href="#" class="btn btn-primary w-100 mt-auto">Leggi di più</a>
-                    </div>
+<!-- Card delle News -->
+<div class="container">
+    <div class="row g-4 justify-content-center">
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <img src="IMMAGINI/IMMAGINI_GIOCHI/Escape-Room.png" alt="Escape Room" class="card-img-top">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Escape Room</h5>
+                    <p class="card-text">Se non avete mai provato una Escape Room, preparatevi a un esperienza di gioco incredibile, e credeteci: saranno i 60 minuti piu elettrizzanti della vostra vita!</p>
+                    <a href="http://localhost:7750/StrategicEmpire/DettagliControl?cod_gioco=g014&DES=1" class="btn btn-primary w-100 mt-auto">Leggi di piu</a>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
-                    <img src="IMMAGINI/IMMAGINI_NEWS/ReamiPerduti.jpg" alt="Reami Perduti" class="card-img-top">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Reami Perduti</h5>
-                        <p class="card-text">Esplora terre misteriose e scopri antichi segreti con questo gioco di strategia. Affronta pericoli nascosti in ogni angolo.</p>
-                        <a href="#" class="btn btn-primary w-100 mt-auto">Leggi di più</a>
-                    </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <img src="IMMAGINI/IMMAGINI_GIOCHI/cartedagioco.png" alt="Carte regionali" class="card-img-top">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Carte da Gioco Regionali</h5>
+                    <p class="card-text">Non perdetevi, in esclusiva solo per voi le carte da gioco regionali firmate Cranio Creation!</p>
+                    <a href="http://localhost:7750/StrategicEmpire/DettagliControl?cod_gioco=g017&DES=1" class="btn btn-primary w-100 mt-auto">Leggi di piu</a>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
-                    <img src="IMMAGINI/IMMAGINI_NEWS/BattaglieGalattiche.jpg" alt="Battaglie Galattiche" class="card-img-top">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Battaglie Galattiche</h5>
-                        <p class="card-text">Combatti epiche battaglie spaziali con flotte di astronavi personalizzabili. Vivi l'epicità del conflitto intergalattico.</p>
-                        <a href="#" class="btn btn-primary w-100 mt-auto">Leggi di più</a>
-                    </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <img src="IMMAGINI/IMMAGINI_GIOCHI/Concordia.png" alt="Concordia" class="card-img-top">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Concordia</h5>
+                    <p class="card-text">Vi aspettano migliaia di combinazioni possibili per un divertimento senza fine!</p>
+                    <a href="http://localhost:7750/StrategicEmpire/DettagliControl?cod_gioco=g015&DES=1" class="btn btn-primary w-100 mt-auto">Leggi di piu</a>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
-                    <img src="IMMAGINI/IMMAGINI_NEWS/SunriseLane.png" alt="Sunrise Lane" class="card-img-top">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Sunrise Lane</h5>
-                        <p class="card-text">Sunrise Lane, adatto a tutta la famiglia. Accaparratevi i terreni più prestigiosi e costruite splendide case per ottenere la vittoria!</p>
-                        <a href="#" class="btn btn-primary w-100 mt-auto">Leggi di più</a>
-                    </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <img src="IMMAGINI/IMMAGINI_GIOCHI/Sunrise-Lane.png" alt="Sunrise Lane" class="card-img-top">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Sunrise Lane</h5>
+                    <p class="card-text">Sunrise Lane, adatto a tutta la famiglia. Accaparratevi i terreni piu prestigiosi e costruite splendide case per ottenere la vittoria!</p>
+                    <a href="http://localhost:7750/StrategicEmpire/DettagliControl?cod_gioco=g013&DES=1" class="btn btn-primary w-100 mt-auto">Leggi di piu</a>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
-                    <img src="IMMAGINI/IMMAGINI_NEWS/TerreDiFantasia.png" alt="Terre di Fantasia" class="card-img-top">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Terre di Fantasia</h5>
-                        <p class="card-text">Costruisci il tuo impero in un mondo fantasy ricco di magia e creature mitiche. Esplora e conquista terre incantate.</p>
-                        <a href="#" class="btn btn-primary w-100 mt-auto">Leggi di più</a>
-                    </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <img src="IMMAGINI/IMMAGINI_GIOCHI/MyShelfiePuzzle.png" alt="MyShelfiePuzzle" class="card-img-top">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Boardgame Puzzle - My Shelfie</h5>
+                    <p class="card-text">Puzzle da 1000 pz. raffigurante la cover di My Shelfie.</p>
+                    <a href="http://localhost:7750/StrategicEmpire/DettagliControl?cod_gioco=g016&DES=1" class="btn btn-primary w-100 mt-auto">Leggi di piu</a>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+
+
 
     <!-- Newsletter -->
     <div class="newsletter-container text-center my-5">
