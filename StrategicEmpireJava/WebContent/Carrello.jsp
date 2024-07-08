@@ -484,6 +484,17 @@ a:hover {
                 <a href="#!" class="text-dark me-2"><i class="fab fa-cc-amex fa-2x"></i></a>
                 <a href="#!" class="text-dark"><i class="fab fa-cc-paypal fa-2x"></i></a>
             </div>
+            
+            <!-- Discount code form -->
+            <div class="mb-3">
+                <label for="discountCode" class="form-label">Codice Sconto</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="discountCode" placeholder="Inserisci codice">
+                    <button class="btn btn-outline-dark" type="button" id="applyDiscount">Applica</button>
+                </div>
+                <div id="discountMessage" class="mt-2"></div>
+            </div>
+            
             <% double subtotal = 0.0;
                 if (carrellobean != null) {
                     for (OggettiCarrelloBean oggetto : carrellobean) {
@@ -500,7 +511,8 @@ a:hover {
                 <p class="mb-0">Spedizione</p>
                 <p class="mb-0" id="shippingCost"><%= costoSpedizione %>€</p>
             </div>
-            <% double totale = subtotal + costoSpedizione; %>
+            <% double totale = (subtotal + costoSpedizione); 
+            %>
             <hr>
             <div class="d-flex justify-content-between mb-3">
                 <p class="fw-bold mb-0">Totale (incl. tasse)</p>
@@ -515,6 +527,7 @@ a:hover {
         </div>
     </div>
 </div>
+
 
 <div id="loginPopup" class="popup">
     <div class="popup-content">
@@ -540,6 +553,57 @@ a:hover {
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.12.3/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function() {
+    var applyDiscountBtn = document.getElementById('applyDiscount');
+    var discountMessageDiv = document.getElementById('discountMessage'); // Div per messaggi di sconto
+
+    applyDiscountBtn.addEventListener('click', function() {
+        var discountCode = document.getElementById('discountCode').value.trim();
+        
+        // Effettua una richiesta Ajax alla servlet per verificare lo sconto
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'ScontoControl?action=verificaSconto&codSconto=' + discountCode);
+        
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var percentuale = parseInt(xhr.responseText);
+                
+                // Reset del messaggio di sconto
+                discountMessageDiv.textContent = '';
+                discountMessageDiv.style.color = '';
+                
+                if (!isNaN(percentuale) && percentuale > 0 && percentuale <= 100) {
+                    // Calcola il nuovo totale applicando lo sconto
+                    var subtotal = parseFloat(document.getElementById('subtotal').textContent);
+                    var shippingCost = parseFloat(document.getElementById('shippingCost').textContent);
+                    
+                    var totaleSenzaSconto = subtotal + shippingCost;
+                    var scontoApplicato = totaleSenzaSconto * (percentuale / 100);
+                    var totaleConSconto = totaleSenzaSconto - scontoApplicato;
+                    
+                    // Aggiorna il totale visualizzato sulla pagina
+                    document.getElementById('totalAmount').textContent = totaleConSconto.toFixed(2) + '€';
+                    document.getElementById('checkoutAmount').textContent = totaleConSconto.toFixed(2) + '€';
+                    
+                    // Visualizza messaggio verde
+                    discountMessageDiv.textContent = 'Sconto valido: ' + percentuale + '%';
+                    discountMessageDiv.style.color = 'green';
+                } else {
+                    // Visualizza messaggio rosso
+                    discountMessageDiv.textContent = 'Codice sconto non valido o scaduto.';
+                    discountMessageDiv.style.color = 'red';
+                }
+            } else {
+                alert('Si è verificato un errore durante il recupero dello sconto.');
+            }
+        };
+        
+        xhr.send();
+    });
+});
+
+
+
     function increaseQuantity(codiceArticolo) {
         const xhr = new XMLHttpRequest();
         const username = '<%= username %>'; // Fetching username from JSP

@@ -12,6 +12,10 @@
 <link rel="stylesheet"
 	href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 <style>
+a{
+	text-decoration: none !important;
+}
+
 .heart-icon {
 	position: absolute;
 	top: 10px;
@@ -64,6 +68,13 @@
 					data-game-id="<%= bean.getCod_Gioco() %>"
 					data-username="<%= username %>"
 					onclick="toggleFavorite(this, '<%= bean.getCod_Gioco() %>', '<%= username %>')"></i>
+					<a href="javascript:void(0);" class="add-gioco-to-cart"
+							data-cod-gioco="<%= bean.getCod_Gioco() %>"
+							data-nomegioco="<%= bean.getNomegioco() %>"
+							data-prezzo="<%= bean.getPrezzo() %>"
+							data-username="<%= username %>"> <img
+							src="IMMAGINI/carrelloICON.png" class="icon-carrello">
+						</a>
 				<% } %>
 
 				<a class="no-underline card-link"
@@ -76,20 +87,14 @@
 							<%= bean.getPrezzo() %></p>
 
 						<% if ("AreaPersonale".equals(request.getAttribute("pageType"))) { %>
-						<button class="edit-Game-button"
+						<button class="edit-Game-button btn btn-outline-success"
 							data-game-id="<%= bean.getCod_Gioco() %>">Modifica</button>
-						<button class="del-Gioco-button"
+						<button class="del-Gioco-button btn btn-outline-success"
 							data-game-id="<%= bean.getCod_Gioco() %>">Elimina</button>
 						<% } %>
 
 						<!-- Link per aggiungere al carrello visibile per tutti gli utenti -->
-						<a href="javascript:void(0);" class="add-gioco-to-cart"
-							data-cod-gioco="<%= bean.getCod_Gioco() %>"
-							data-nomegioco="<%= bean.getNomegioco() %>"
-							data-prezzo="<%= bean.getPrezzo() %>"
-							data-username="<%= username %>"> <img
-							src="IMMAGINI/carrelloICON.png" class="icon-carrello">
-						</a>
+						
 						<script src="js/addToCart.js"></script>
 					</div>
 				</a>

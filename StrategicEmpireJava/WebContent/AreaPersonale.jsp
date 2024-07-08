@@ -47,6 +47,33 @@
 	  }
 </script> 
 	<style>
+	#discountForm {
+      display: none;
+      margin-top: 20px; /* Margine superiore per il modulo */
+      padding: 20px; /* Padding per il modulo */
+      border: 1px solid #ccc; /* Bordo per il modulo */
+      border-radius: 8px; /* Angoli arrotondati */
+      background-color: #f9f9f9; /* Colore di sfondo */
+      max-width: 400px; /* Larghezza massima del modulo */
+      width: 100%; /* Larghezza del modulo */
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 15px; /* Margine inferiore per ogni gruppo di input */
+    }
+	
+	
+	#discountSection {
+  display: flex;
+  justify-content: center; /* Centra orizzontalmente */
+  align-items: center; /* Centra verticalmente */
+  height: 100vh; /* Altezza dell'intera viewport per il centramento verticale (opzionale) */
+}
+
+.button-group button {
+  margin: 10px; /* Aggiungi spazio tra i pulsanti */
+}
 	.user-table {
     margin-top: 2%; /* Aggiungi un margine superiore alla tabella */
 }
@@ -92,7 +119,7 @@
     }
 
     .btn-outline-success {
-      color: #007bff; /* Testo in blu primario */
+      color: #fff; /* Testo in blu primario */
       border-color: #007bff; /* Bordo in blu primario */
     }
 
@@ -328,14 +355,32 @@
         <% if(user.getRole().equalsIgnoreCase("Amministratore")){%>
         <span class="rectangle-item"><a href="#" class="nav-link" data-target="none" id="addUpdateCatalog" onclick="handleCardDisplay(false)">Modifica catalogo</a></span>
         <span class="rectangle-item"><a href="#" class="nav-link" data-target="none" id="userList" onclick="handleCardDisplay(false)">Lista utenti</a></span>
+        <span class="rectangle-item"><a href="#" class="nav-link" data-target="none" id="sezSconti" onclick="displayDiscountSection()">Sezione sconti</a></span>
         <%} %>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Sezione per la gestione dei metodi di pagamento -->
+
 <div id="rectangleContainer"></div>
+<div id="discountSection" style="display: none;" class="button-group  justify-content-around">
+  <button onclick="insertDiscount()" class="btn btn-outline-success">Inserisci</button>
+  <button onclick="showDiscount()" class="btn btn-outline-success">Visualizza</button>
+<div id="discountForm">
+  <form>
+    <div class="form-group">
+      <label for="discountPercentage">Percentuale di sconto</label>
+      <input type="number" id="discountPercentage" class="form-control" min="0" max="100" placeholder="Inserisci percentuale">
+    </div>
+    <div class="form-group">
+      <label for="discountName">Nome sconto</label>
+      <input type="text" id="discountName" class="form-control" placeholder="Inserisci nome sconto">
+    </div>
+    <button type="button" id="saveDiscountButton" class="btn btn-primary">Salva</button>
+  </form>
+</div>
+</div>
 <div class="container mt-3" id="paymentSection">
   <div class="row justify-content-center">
     <div class="col-md-8">
@@ -347,6 +392,73 @@
   </div>
 </div>
 <script>
+function showDiscount() {
+    // Creazione dei dati da inviare con la richiesta AJAX
+    var formData = {
+        action: "showSconto"
+    };
+
+    // Configurazione della richiesta AJAX con jQuery
+    $.ajax({
+        type: "POST",
+        url: "ScontoControl", // Imposta la servlet ScontoControl come destinazione
+        data: formData,
+        success: function(response) {
+            // Gestisci la risposta dal server
+            console.log(response); // Mostra la risposta per verificare
+            $('#discountSection').html(response); // Aggiorna la sezione con il frammento JSP ricevuto
+        },
+        error: function(xhr, status, error) {
+            console.error("Errore durante l'invio della richiesta.");
+        }
+    });
+}
+
+
+document.getElementById('saveDiscountButton').addEventListener('click', function() {
+	  var discountPercentage = document.getElementById('discountPercentage').value;
+	  var discountName = document.getElementById('discountName').value;
+
+	  var xhr = new XMLHttpRequest();
+	  xhr.open('POST', 'ScontoControl', true);
+	  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+	  xhr.onreadystatechange = function() {
+	    if (xhr.readyState === XMLHttpRequest.DONE) {
+	      if (xhr.status === 200) {
+	        alert('Sconto salvato con successo!');
+	        // Puoi aggiungere qui il codice per gestire la risposta del server
+	      } else {
+	        alert('Errore nel salvataggio dello sconto.');
+	      }
+	    }
+	  };
+
+	  var data = 'action=salvaSconto' + 
+	             '&discountPercentage=' + encodeURIComponent(discountPercentage) + 
+	             '&discountName=' + encodeURIComponent(discountName);
+
+	  xhr.send(data);
+	});
+
+function displayDiscountSection() {
+	  // Hide the rectangleContainer (optional based on your requirement)
+	  document.getElementById('rectangleContainer').style.display = 'none';
+
+	  // Display the discount section
+	  document.getElementById('discountSection').style.display = 'block';
+	}
+
+function insertDiscount() {
+    document.getElementById('discountForm').style.display = 'block';
+  }
+
+	function viewDiscount() {
+	  // Functionality for the 'Visualizza' button
+	  console.log('Visualizza button clicked');
+	  // Add your code to handle viewing discounts
+	}
+
 // Funzione per nascondere la sezione degli ordini e dei metodi di pagamento
 function hideOrdiniSection() {
     $("#rectangleContainer").empty(); // Svuota il contenuto per nascondere completamente la sezione
@@ -357,7 +469,7 @@ $(document).ready(function() {
     // Gestisci il click sul link "Ordini"
     $("#ordini").click(function(event) {
         event.preventDefault(); // Previene il comportamento predefinito del link
-        
+        console.log("negro");
         var username = "<%= username %>"; // Ottieni l'username dalla pagina
         
         $.ajax({
@@ -368,7 +480,7 @@ $(document).ready(function() {
                 username: username
             },
             success: function(response) {
-                // Inserisci la risposta dalla servlet nel container
+            	// Inserisci la risposta dalla servlet nel container
                 $("#rectangleContainer").html(response);
                 $("#paymentSection").hide(); // Assicurati che #paymentSection sia nascosto dopo aver inserito gli ordini
             },
@@ -391,7 +503,6 @@ $(document).ready(function() {
     });
 });
 
-<script>
 $(document).ready(function() {
     // Funzione per caricare i dati dell'utente
     function loadUserData() {

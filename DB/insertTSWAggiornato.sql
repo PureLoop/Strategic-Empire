@@ -79,6 +79,7 @@ insert into img_gioco(cod_img_gioco,copertina,img_name,cod_gioco) values
 
     
 insert into img_acc(cod_img_acc,copertina,img_name,cod_acc) values
+
 	("acc01Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/DADI_ROSSI1.png","acc01"),
 	("acc02Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/DADI_VERDI1.png","acc02"),
     ("acc03Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/DADI_BLU_DRAGO.png","acc03"),
@@ -86,7 +87,7 @@ insert into img_acc(cod_img_acc,copertina,img_name,cod_acc) values
     ("acc05Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/scacchicolorati.png","acc05"),
     ("acc06Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/portacarte.png","acc06"),
     ("acc07Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/borsa.png","acc07"),
-    ("acc08Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/calcio.png","acc08"),
+    ("acc08Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/calcio1.png","acc08"),
     ("acc09Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/torrelanciadadi.png","acc09"),
     ("acc10Img1",true,"IMMAGINI/IMMAGINI_ACCESSORI/dadicromatici.png","acc10");
 INSERT INTO img_esp (cod_img_esp, copertina, img_name, cod_esp) VALUES
@@ -102,9 +103,8 @@ INSERT INTO img_esp (cod_img_esp, copertina, img_name, cod_esp) VALUES
     ('esp009Img1', true, 'IMMAGINI/IMMAGINI_ESPANSIONI/bonewars2.png', 'esp009');
 
 insert into sconto(nome_sconto,cod_sconto,perc_sconto) values
-	("UNISA","sco001",25);
+	("UNISA",25);
 insert into utente(Username,nome,cognome, pw,saltPW, email, ruolo,indirizzo,ncivico,sesso) values
- ("Cherry","Antonio","Ceruso","1212",23,"antonio.ceruso9988@gmail.comutente","amministratore","Via facaldo",121,'uomo'),
  ("Scippo","Luigi","Nasta","1212",23,"luigi@gmail.com","amministratore","Via canneto est",3,'uomo');
  insert into carta(numero,scadenza,cvv,Username,nome) values
  ("0000111122223333",1024,999,"Scippo","Luigi");

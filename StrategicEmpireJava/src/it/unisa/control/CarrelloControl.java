@@ -154,10 +154,10 @@ public class CarrelloControl extends HttpServlet {
 
             else if ("removeOggettiPagati".equals(action)) {
                 System.out.println("removeOggetti");
-
+                String sconto = request.getParameter("sconto");
                 // Creazione dell'ordine con i parametri necessari
                 System.out.println(cardNumber) ;             
-                model4.CreateOrdine(null, username, oggettiCarrello,cardNumber);
+                model4.CreateOrdine(sconto, username, oggettiCarrello,cardNumber);
 
                 Iterator<OggettiCarrelloBean> iterator = oggettiCarrello.iterator();
                 while (iterator.hasNext()) {

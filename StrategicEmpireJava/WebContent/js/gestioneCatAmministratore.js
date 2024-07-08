@@ -389,8 +389,8 @@ document.getElementById("Modifica").addEventListener('click', function(){
     });
     
     $(document).on('click','.del-Esp-button', function(){
-    	var espId = $(this).data('esp-id');
-    	$.ajax({
+        var espId = $(this).data('esp-id');
+        $.ajax({
             url: 'AreaPersonaleControl',
             method: 'GET',
             data: {
@@ -398,17 +398,19 @@ document.getElementById("Modifica").addEventListener('click', function(){
                 espId: espId
             },
             success: function(response) {
-            	alert('Prodotto eliminato con successo');
+                alert('Prodotto eliminato con successo');
+                // Rimuovi l'elemento dal DOM
+                $('tr[data-esp-id="' + espId + '"]').remove();
             },
             error: function(xhr, status, error) {
                 console.error('Errore: ' + error);
             }
         });
     });
-    
+
     $(document).on('click','.del-Gioco-button', function(){
-    	var giocoId = $(this).data('game-id');
-    	$.ajax({
+        var giocoId = $(this).data('game-id');
+        $.ajax({
             url: 'AreaPersonaleControl',
             method: 'GET',
             data: {
@@ -416,17 +418,19 @@ document.getElementById("Modifica").addEventListener('click', function(){
                 giocoId: giocoId
             },
             success: function(response) {
-            	alert('Prodotto eliminato con successo');
+                alert('Prodotto eliminato con successo');
+                // Rimuovi l'elemento dal DOM
+                $('tr[data-game-id="' + giocoId + '"]').remove();
             },
             error: function(xhr, status, error) {
                 console.error('Errore: ' + error);
             }
         });
     });
-    
+
     $(document).on('click','.del-Acc-button', function(){
-    	var accId = $(this).data('acc-id');
-    	$.ajax({
+        var accId = $(this).data('acc-id');
+        $.ajax({
             url: 'AreaPersonaleControl',
             method: 'GET',
             data: {
@@ -434,13 +438,16 @@ document.getElementById("Modifica").addEventListener('click', function(){
                 accId: accId
             },
             success: function(response) {
-            	alert('Prodotto eliminato con successo');
+                alert('Prodotto eliminato con successo');
+                // Rimuovi l'elemento dal DOM
+                $('tr[data-acc-id="' + accId + '"]').remove();
             },
             error: function(xhr, status, error) {
                 console.error('Errore: ' + error);
             }
         });
     });
+
     
     document.getElementById('insertForm').addEventListener('click', function(event) {
         var imgCopertina = document.getElementById('imgCopertina').files[0];
