@@ -92,7 +92,7 @@
 
         <!-- Sezione YouTube aggiuntiva -->
         <div class="youtube-section text-center my-5">
-            <h2 class="text-primary mb-4" style="font-size: 2rem;">Scopri il Nostro Canale YouTube</h2>
+            <h2 class="text-primary mb-4" id="youtube" style="font-size: 2rem;">Scopri il Nostro Canale YouTube</h2>
             <p class="text-dark" style="font-size: 1.2rem;">Iscriviti al nostro canale per non perdere i nostri video sui giochi da tavolo!</p>
             <a href="https://www.youtube.com/channel/yourchannel" class="btn btn-primary btn-lg" style="font-size: 1.2rem;" target="_blank">Visita il Canale</a>
         </div>

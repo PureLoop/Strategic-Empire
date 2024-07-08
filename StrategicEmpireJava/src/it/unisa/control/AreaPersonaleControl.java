@@ -593,7 +593,7 @@ public class AreaPersonaleControl extends HttpServlet {
 		}
 
 		if (action != null && action.equals("showOrdini")) {
-			System.out.println("negro");
+			
 			String username = request.getParameter("username");
 			try {
 				// Supponiamo che modelUser abbia un metodo per aggiornare il ruolo

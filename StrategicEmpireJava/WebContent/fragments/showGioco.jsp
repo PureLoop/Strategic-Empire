@@ -61,13 +61,14 @@ a{
     %>
 		<div class="col-sm-3 mb-3" style="width: 25%;">
 			<div class="card">
-				<% if ("catalogo".equals(request.getAttribute("pageType")) && username != null) { %>
+				<% if ("catalogo".equals(request.getAttribute("pageType"))) { %>
 				<!-- Icona del cuore visibile solo se in "catalogo" e utente loggato -->
+			<%	if(username != null){%>
 				<i class="far fa-heart heart-icon"
 					id="heart-<%= bean.getCod_Gioco() %>"
 					data-game-id="<%= bean.getCod_Gioco() %>"
 					data-username="<%= username %>"
-					onclick="toggleFavorite(this, '<%= bean.getCod_Gioco() %>', '<%= username %>')"></i>
+					onclick="toggleFavorite(this, '<%= bean.getCod_Gioco() %>', '<%= username %>')"></i><% }%>
 					<a href="javascript:void(0);" class="add-gioco-to-cart"
 							data-cod-gioco="<%= bean.getCod_Gioco() %>"
 							data-nomegioco="<%= bean.getNomegioco() %>"

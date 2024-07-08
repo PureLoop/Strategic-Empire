@@ -365,8 +365,8 @@
 
 <div id="rectangleContainer"></div>
 <div id="discountSection" style="display: none;" class="button-group  justify-content-around">
-  <button onclick="insertDiscount()" class="btn btn-outline-success">Inserisci</button>
-  <button onclick="showDiscount()" class="btn btn-outline-success">Visualizza</button>
+  <center><button onclick="insertDiscount()" class="btn btn-outline-success">Inserisci</button>
+  <button onclick="showDiscount()" class="btn btn-outline-success">Visualizza</button></center>
 <div id="discountForm">
   <form>
     <div class="form-group">
@@ -469,7 +469,6 @@ $(document).ready(function() {
     // Gestisci il click sul link "Ordini"
     $("#ordini").click(function(event) {
         event.preventDefault(); // Previene il comportamento predefinito del link
-        console.log("negro");
         var username = "<%= username %>"; // Ottieni l'username dalla pagina
         
         $.ajax({

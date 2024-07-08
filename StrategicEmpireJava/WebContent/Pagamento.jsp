@@ -256,7 +256,6 @@ List<OggettiCarrelloBean> carrellobean = (List<OggettiCarrelloBean>) request.get
     u = (User) session.getAttribute("user");
     loggedIn = (u != null);
     String sconto = (String) session.getAttribute("nomeScontoApplicato");
-	System.out.println("perc: "+sconto);
 %>
 
 <div class="cont">

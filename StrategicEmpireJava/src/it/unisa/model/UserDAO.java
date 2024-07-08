@@ -179,8 +179,7 @@ public class UserDAO implements UserModel{
                 user.setsesso(resultSet.getString("sesso"));
                 user.setncivico(resultSet.getInt("ncivico"));
                 user.setIndirizzo(resultSet.getString("indirizzo"));
-                System.out.println(user);
-                System.out.println(user.getIndirizzo());
+                user.setRole(resultSet.getString("ruolo"));
                 return user;
             }
         } catch (SQLException e) {

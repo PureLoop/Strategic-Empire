@@ -51,7 +51,6 @@
                     nomeSconto: nomeSconto
                 },
                 success: function(response) {
-                    alert("Sconto cancellato con successo.");
                     // Esegui una nuova chiamata per aggiornare la lista degli sconti
                     showDiscount();
                 },
