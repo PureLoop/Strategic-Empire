@@ -201,30 +201,30 @@ form .btn2:hover {
 }
 
 .checkmark-wrapper {
-    margin: 20px auto;
-    width: 100px;
-    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
 }
 
 .checkmark {
-    width: 100%;
-    height: 100%;
-    transform: rotate(45deg);
+    width: 100px; /* Dimensione del checkmark */
+    height: 100px;
 }
 
 .checkmark-circle {
-    stroke: #4CAF50;
+    stroke: #4CAF50; /* Colore del cerchio */
     stroke-width: 2;
-    fill: none;
+    animation: drawCircle 0.5s ease-in-out forwards;
 }
 
 .checkmark-check {
-    stroke: #4CAF50;
-    stroke-width: 4;
+    stroke: #4CAF50; /* Colore del segno di spunta */
+    stroke-width: 2;
     stroke-linecap: round;
     stroke-linejoin: round;
+    animation: drawCheck 0.5s ease-in-out 0.5s forwards;
 }
-
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -468,6 +468,7 @@ List<OggettiCarrelloBean> carrellobean = (List<OggettiCarrelloBean>) request.get
     // Funzione per chiudere il pop-up di completamento del pagamento
     function closePaymentCompletePopup() {
         document.getElementById('paymentCompletePopup').style.display = 'none';
+        window.location.href = 'HomePage.jsp'; // Reindirizza alla home page
     }
 
     // Funzione per prepopolare il modulo con i dati della carta selezionata
