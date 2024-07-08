@@ -78,6 +78,12 @@
     margin-top: 2%; /* Aggiungi un margine superiore alla tabella */
 }
 	
+	body {
+      background-color: #f0f8ff; /* Blu chiaro per lo sfondo */
+      color: #333; /* Colore del testo principale */
+      font-family: Arial, sans-serif; /* Font principale */
+    }
+	
 .rectangle {
     display: flex;
     justify-content: center;
@@ -87,6 +93,7 @@
     border: 1px solid #ccc; /* Bordo del rettangolo */
     border-radius: 8px; /* Angoli arrotondati */
     margin-top: 20px; /* Margine superiore */
+    background-color: #f0f8ff; /* Blu chiaro per lo sfondo */
 }
 
 .rectangle-item {
@@ -99,11 +106,36 @@
 }
 .rectangle-item a {
     text-decoration: none;
-    color: inherit;
+    color:#007bff;
 }
 .rectangle-item a:hover {
-    color: inherit;
+    color:#0056b3;
 }
+/* Stile per i pulsanti */
+    .btn {
+      background-color: #007bff; /* Blu primario */
+      color: #fff;
+      border: none;
+    }
+
+    .btn-outline-success {
+      color: #007bff; /* Testo in blu primario */
+      border-color: #007bff; /* Bordo in blu primario */
+    }
+
+    .btn-outline-success:hover {
+      background-color: #007bff; /* Blu primario al passaggio */
+      color: #fff; /* Testo bianco */
+    }
+/* Stile per i link del menu */
+    .nav-link {
+      color: #007bff; /* Blu primario */
+      text-decoration: none;
+    }
+
+    .nav-link:hover {
+      color: #0056b3; /* Tonalità più scura del blu al passaggio */
+    }
 
 #paymentSection {
     display: none;
@@ -114,7 +146,18 @@
     list-style: none;
     padding: 0;
 }
+/* Stile per i titoli delle card */
+    .card-title {
+        color: #007bff; /* Blu primario */
+    }
 
+    /* Stile per i titoli delle sezioni */
+    .section-title {
+        color: #007bff; /* Blu primario */
+        border-bottom: 2px solid #007bff; /* Sotto-linea blu */
+        padding-bottom: 5px; /* Spazio inferiore */
+        margin-bottom: 20px; /* Margine inferiore */
+    }
 .card-list li {
     margin-bottom: 10px;
     padding: 10px;
@@ -277,15 +320,21 @@
         margin-top: 10px; /* Margine superiore tra i bottoni */
     }
 
-    .card-list li {
-        flex-direction: column;
-        align-items: flex-start;
+    
+.card-list li {
+    margin-bottom: 20px; /* Aumenta lo spazio tra le carte */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+    .card-list li span {
+        margin-bottom: 20px;
     }
 
-    .card-list li span {
-        margin-bottom: 5px;
-    }
-}
+
 
   </style>
 </head>
